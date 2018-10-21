@@ -1,5 +1,6 @@
 #include <SFML/Window/Event.hpp>
 #include <chrono>
+#include <view_example.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -8,13 +9,15 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
 {
   // Load fonts and audio
   // Initialize game state, graphics, sound, and controllers here
+  state = new GameLogic();
+  views.push_back(std::make_shared<ExampleView>(state));
 
   time = std::chrono::steady_clock::now();
 };
 
 Engine::~Engine()
 {
-
+  delete state;
 }
 
 /**
@@ -27,7 +30,7 @@ void Engine::process_input()
   sf::Event event;
   while (App->pollEvent(event))
   {
-    for (auto c : controllers)
+    for (const auto &c : controllers)
     {
       c->handle_event(event);
     }
@@ -36,7 +39,7 @@ void Engine::process_input()
   }
 
   // Process input
-  for (auto c : controllers)
+  for (const auto &c : controllers)
   {
     c->process_input();
   }
