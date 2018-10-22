@@ -1,6 +1,7 @@
 #include <SFML/Window/Event.hpp>
 #include <chrono>
 #include <view_example.h>
+#include <view_player.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -10,7 +11,8 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   // Load fonts and audio
   // Initialize game state, graphics, sound, and controllers here
   state = new GameLogic();
-  views.push_back(std::make_shared<ExampleView>(state));
+  //views.push_back(std::make_shared<ExampleView>(state));
+  views.push_back(std::make_shared<PlayerView>(state));
 
   time = std::chrono::steady_clock::now();
 };
