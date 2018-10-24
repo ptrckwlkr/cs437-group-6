@@ -2,15 +2,17 @@
 #define CSCI437_LEVEL_H
 
 #include <vector>
+#include <memory>
+#include "map.h"
 
 class Level
 {
 public:
-    Level() {};
+    Level() : map(nullptr) {};
+    std::shared_ptr<Map> get_map() {return map;}
 
 protected:
-    int width;
-    int height;
+    std::shared_ptr<Map> map;
 };
 
 

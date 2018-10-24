@@ -4,13 +4,13 @@
 
 LevelFile::LevelFile() : Level()
 {
-  load("test.txt");
-  for (int i = 0; i < height; ++i)
+  load("../data/test.txt");
+  map = std::make_shared<Map>((int)grid[0].size(), (int)grid.size(), grid);
+  for (int i = 0; i < map->get_height(); ++i)
   {
-    for (int j = 0; j < width; ++j)
+    for (int j = 0; j < map->get_width(); ++j)
     {
-      char ch = grid[i][j];
-      std::cout << ch;
+      std::cout << grid[i][j];
     }
     std::cout << std::endl;
   };
@@ -37,7 +37,6 @@ char *LevelFile::load(std::string filename)
       temp.push_back(c);
     }
   }
-  width = (int)grid[0].size();
-  height = (int)grid.size();
+
   fin.close();
 }
