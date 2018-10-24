@@ -1,6 +1,7 @@
 #include <SFML/Window/Event.hpp>
 #include <chrono>
 #include <view_example.h>
+#include <level_factory.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -11,6 +12,9 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   // Initialize game state, graphics, sound, and controllers here
   state = new GameLogic();
   views.push_back(std::make_shared<ExampleView>(state));
+
+  // TODO test
+  Level l = level_factory::generate_level(level_factory::LEVEL_FILE);
 
   time = std::chrono::steady_clock::now();
 };
