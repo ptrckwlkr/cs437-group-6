@@ -13,4 +13,10 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   circle.setOrigin(sf::Vector2f(20, 20));
   circle.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
   target.draw(circle, states);
+
+  //
+  sf::RectangleShape rectangle(14, 15);
+  rectangle.setFillColor( Green);
+
+
 }

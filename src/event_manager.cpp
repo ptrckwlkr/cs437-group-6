@@ -3,7 +3,7 @@
 
 bool EventManager::AlreadyRegistered( EVENTID eventId, Listener* object){
     
-    //start of not registered
+    //start off not registered
     bool alreadyRegistered = false;
 
     //iterator
