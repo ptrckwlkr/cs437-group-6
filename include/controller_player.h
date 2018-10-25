@@ -9,14 +9,16 @@
 */
 class PlayerController : public Controller
 {
+public:
 	PlayerController(GameLogic *state) : Controller(state) {};
 	~PlayerController() = default;
 
 	void process_input();
 	void handle_event(sf::Event event);
+	void set_view_pointer(PlayerView* tmp) { view = tmp; };
 
-protected:
-	sf::
+private:
+	PlayerView* view;
 };
 
 #endif //CSCI437_PLAYER_CONTROLLER_H
