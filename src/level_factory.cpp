@@ -3,12 +3,12 @@
 
 namespace level_factory
 {
-    Level generate_level(Generator algorithm)
+    std::shared_ptr<Level> generate_level(Generator algorithm)
     {
       switch (algorithm)
       {
         case LEVEL_FILE:
-          return LevelFile();
+          return std::shared_ptr<LevelFile>();
       }
     }
 }

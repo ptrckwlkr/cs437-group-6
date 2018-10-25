@@ -11,7 +11,7 @@ namespace level_factory
         LEVEL_FILE,
     };
 
-    Level generate_level(Generator algorithm);
+    std::shared_ptr<Level> generate_level(Generator algorithm);
 
 }
 #endif //CSCI437_LEVEL_FACTORY_H

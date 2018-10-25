@@ -14,9 +14,10 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   views.push_back(std::make_shared<ExampleView>(state));
 
   // TODO test
-  Level l = level_factory::generate_level(level_factory::LEVEL_FILE);
+  curr_level = level_factory::generate_level(level_factory::LEVEL_FILE);
 
   time = std::chrono::steady_clock::now();
+  event_manager = std::shared_ptr<EventManager>();
 };
 
 Engine::~Engine()
