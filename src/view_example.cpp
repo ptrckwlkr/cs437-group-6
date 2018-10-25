@@ -9,7 +9,7 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   // Note that the View class has the Game State as an attribute, so it can query the game objects
 
   sf::CircleShape circle(20);
-  circle.setFillColor(sf::Color(0, 255, 0));
+  circle.setFillColor(sf::Color(255, 0, 0));
   circle.setOrigin(sf::Vector2f(20, 20));
   circle.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
   target.draw(circle, states);
