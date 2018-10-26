@@ -15,15 +15,13 @@ class PlayerView : public View
 public:
 	PlayerView(GameLogic *state) : View(state) { init(); };
 
-	sf::Vector2f get_coords() {return shape.getPosition();}
-	void set_coords(float x, float y) {shape.setPosition(x, y);}
-
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
+	void drawLevel(sf::RenderTarget &target, sf::RenderStates states) const;
 	void init();
+	void storeLevel();
 
-	sf::CircleShape shape;
+	std::vector<sf::RectangleShape> levelShapes;
 };
 
-#endif //CSCI437_VIEW_EXAMPLE_H
+#endif //CSCI437_VIEW_PLAYER_H

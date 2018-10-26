@@ -12,7 +12,7 @@ class Controller
 public:
     explicit Controller(GameLogic *state) : state(state) {};
     virtual ~Controller() = default;
-    virtual void process_input() = 0;
+    virtual void process_input(float delta) = 0;
     virtual void handle_event(sf::Event event) = 0;
 
 protected:

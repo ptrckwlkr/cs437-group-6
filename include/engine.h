@@ -19,10 +19,10 @@ class Engine
 public:
     explicit Engine(sf::RenderWindow *app);
     ~Engine();
-    void process_input();
+    void process_input(float delta);
     void update_state();
     void update_views();
-    void clock();
+    float clock();
 
 private:
     GameLogic *state;
@@ -31,7 +31,8 @@ private:
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
     sf::RenderWindow *App;
-    std::chrono::steady_clock::time_point time;
+	sf::View camera;
+    sf::Clock time;
 
 };
 

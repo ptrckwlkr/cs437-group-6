@@ -1,8 +1,10 @@
 #include <SFML/Window/Event.hpp>
 #include <chrono>
 #include <view_example.h>
+#include <view_player.h>
 #include <level_factory.h>
 #include <controller_example.h>
+#include <controller_player.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -14,10 +16,16 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   state = new GameLogic();
   // event_manager = new EventManager(); TODO
 
-  controllers.push_back(std::make_shared<ExampleController>(state));
-  views.push_back(std::make_shared<ExampleView>(state));
+  //controllers.push_back(std::make_shared<ExampleController>(state));
+  controllers.push_back(std::make_shared<PlayerController>(state));
+  //views.push_back(std::make_shared<ExampleView>(state));
+  views.push_back(std::make_shared<PlayerView>(state));
 
-  time = std::chrono::steady_clock::now();
+  // initiliazes the camera
+  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+
+  //starts clock
+  time.restart();
 };
 
 Engine::~Engine()
@@ -28,7 +36,7 @@ Engine::~Engine()
 /**
  * Process all events, automatic updates, and keyboard input for all controllers.
  */
-void Engine::process_input()
+void Engine::process_input(float delta)
 {
 
   // Process events
@@ -46,7 +54,7 @@ void Engine::process_input()
   // Process input
   for (const auto &c : controllers)
   {
-    c->process_input();
+    c->process_input(delta);
   }
 
   // Listen for shutdown signal
@@ -66,6 +74,10 @@ void Engine::update_state()
  */
 void Engine::update_views()
 {
+// centers view on player and clears window
+  Position playerPos = state->get_level()->get_entities()[0]->get_position();
+  camera.setCenter(playerPos.x * GRAPHICS_SCALER, playerPos.y * GRAPHICS_SCALER);
+  App->setView(camera);
   App->clear(sf::Color::Black);
 
   for (const auto &v : views)
@@ -79,12 +91,9 @@ void Engine::update_views()
 /**
  * Update elapsed time to regulate main game loop.
  */
-void Engine::clock()
+float Engine::clock()
 {
-  std::chrono::steady_clock::time_point temp = std::chrono::steady_clock::now();
-  double interval = std::chrono::duration_cast<std::chrono::milliseconds>(temp - time).count();
-  g_time_elapsed = interval / 1000 * GAME_CLOCK_SCALER;
-  time = std::chrono::steady_clock::now();
+	return time.restart().asSeconds() * GAME_CLOCK_SCALER;
 }
 
 

@@ -16,8 +16,8 @@ int main(int argc, char** argv)
   // start main loop
   while (App.isOpen())
   {
-    engine.clock();
-    engine.process_input();
+    float delta = engine.clock();
+    engine.process_input(delta);
     engine.update_state();
     engine.update_views();
   }

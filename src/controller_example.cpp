@@ -1,7 +1,7 @@
 #include "controller_example.h"
 #include <iostream>
 
-void ExampleController::process_input()
+void ExampleController::process_input(float delta)
 {
   // TODO
   // NOTE: Presumably, the actual implementation will not directly manipulate individual entities' states, but rather
