@@ -3,8 +3,8 @@
 
 struct Position
 {
-    float pos_x;
-    float pos_y;
+    float x;
+    float y;
 };
 
 class Entity
