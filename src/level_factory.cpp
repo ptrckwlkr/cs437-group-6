@@ -30,24 +30,19 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 std::shared_ptr<Map> LevelFactory::load(std::string filename)
 {
   std::ifstream fin;
-  fin.open(filename, std::ios::in);
   std::string linestr;
-
   std::vector<std::vector<char>> grid;
   std::vector<char> temp;
+  fin.open(filename, std::ios::in);
 
-  char c;
-  while (fin.get(c))
+  while (std::getline(fin, linestr))
   {
-    if (c == '\n')
-    {
-      grid.push_back(temp);
-      temp.clear();
-    }
-    else
+    for (auto c : linestr)
     {
       temp.push_back(c);
     }
+    grid.push_back(temp);
+    temp.clear();
   }
 
   fin.close();
