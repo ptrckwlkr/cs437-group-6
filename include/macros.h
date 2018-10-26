@@ -8,7 +8,7 @@
 
 #define PLAYER_SPEED				        15
 #define CELL_SIZE                   50
-#define COLLISION_BUFFER            5
+#define COLLISION_BUFFER            10
 
 
 extern double g_time_elapsed;

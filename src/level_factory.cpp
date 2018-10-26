@@ -12,6 +12,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
   // TODO Generate all the level's entities
   entities.push_back(std::make_shared<Entity>(150, 100, 10));
+  entities.push_back(std::make_shared<Entity>(450, 250, 10));
 
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
   switch (algorithm)

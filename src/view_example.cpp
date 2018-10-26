@@ -50,4 +50,15 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   circle.setOrigin(sf::Vector2f(s, s));
   circle.setPosition(x, y);
   target.draw(circle, states);
+
+  // TODO Draw an enemy
+  x = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().x);
+  y = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().y);
+  s = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_size());
+
+  // Draw the player entitiy to the screen
+  circle.setFillColor(sf::Color(255, 0, 0));
+  circle.setOrigin(sf::Vector2f(s, s));
+  circle.setPosition(x, y);
+  target.draw(circle, states);
 }
