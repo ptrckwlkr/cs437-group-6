@@ -8,12 +8,14 @@ class Cell
 {
 
 public:
-    Cell() = default;;
+    Cell(char ch) : data(ch) {}
     void insert_entity(Entity &entity);
     void check_collisions();
+    char get_data() {return data;}
 
 private:
     std::vector<Entity> entities;
+    char data;
 
 };
 

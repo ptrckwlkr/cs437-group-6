@@ -9,6 +9,7 @@
 #include "view.h"
 #include "EventManager.h"
 #include "level.h"
+#include "level_factory.h"
 
 /**
  * Topmost class for the entire game engine, which coordinates the game state with the audio, visuals, and controllers.
@@ -25,13 +26,16 @@ public:
 
 private:
     GameLogic *state;
+    LevelFactory *level_factory;
+    EventManager *event_manager;
+
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
     sf::RenderWindow *App;
     std::chrono::steady_clock::time_point time;
-    std::shared_ptr<EventManager> event_manager;
-
     std::shared_ptr<Level> curr_level;
+    // std::shared_ptr<Mode> curr_mode; TODO
+
 };
 
 
