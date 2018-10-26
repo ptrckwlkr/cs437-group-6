@@ -26,15 +26,12 @@ public:
 
 private:
     GameLogic *state;
-    LevelFactory *level_factory;
     EventManager *event_manager;
 
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
     sf::RenderWindow *App;
     std::chrono::steady_clock::time_point time;
-    std::shared_ptr<Level> curr_level;
-    // std::shared_ptr<Mode> curr_mode; TODO
 
 };
 

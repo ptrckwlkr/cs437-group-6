@@ -2,8 +2,20 @@
 
 GameLogic::GameLogic()
 {
+
+  // Create a level
+  level_factory = new LevelFactory();
+  level_factory->set_algorithm(LEVEL_FILE);
+  curr_level = level_factory->generate_level();
+  curr_level->get_map()->print_map();
+
   f_paused = false;
   f_shutdown = false;
+}
+
+GameLogic::~GameLogic()
+{
+  delete level_factory;
 }
 
 /**

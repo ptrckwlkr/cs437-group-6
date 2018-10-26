@@ -11,15 +11,9 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   // Load fonts and audio
   // Initialize game state, graphics, sound, and controllers here
   state = new GameLogic();
-  level_factory = new LevelFactory();
   // event_manager = new EventManager(); TODO
 
   views.push_back(std::make_shared<ExampleView>(state));
-
-  // Create a level
-  level_factory->set_algorithm(LEVEL_FILE);
-  curr_level = level_factory->generate_level();
-  curr_level->get_map()->print_map();
 
   time = std::chrono::steady_clock::now();
 };

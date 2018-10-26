@@ -5,12 +5,15 @@
 
 Map::Map(std::vector<std::vector<char>> &grid)
 {
+  height = (int)grid.size();
+  width = (int)grid[0].size();
+
   for (const auto &row : grid)
   {
     std::vector<Cell> temp;
     for (const auto &ch : row)
     {
-      temp.push_back(Cell(ch));
+      temp.emplace_back(ch);
     }
     cells.push_back(temp);
   }
