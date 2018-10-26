@@ -10,9 +10,10 @@ class Level
 {
 
 public:
-    Level(std::shared_ptr<Map> map) : map(std::move(map)) {};
+    Level(std::shared_ptr<Map> &map, std::vector<std::shared_ptr<Entity>> &entities) : map(std::move(map)), entities(std::move(entities)) {};
+    void update();
     std::shared_ptr<Map> get_map() {return map;}
-    std::vector<std::shared_ptr<Entity>> get_entities() {entities;}
+    std::vector<std::shared_ptr<Entity>> get_entities() {return entities;}
 
 protected:
     std::shared_ptr<Map> map;

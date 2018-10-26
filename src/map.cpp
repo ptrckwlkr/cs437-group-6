@@ -24,9 +24,21 @@ void Map::update_entities(std::vector<std::shared_ptr<Entity>> &entities)
   clear_cells();
   for (auto &ent : entities)
   {
+    Position p = ent->get_position();
+    float r = ent->get_size() / 2;
+
     float x = ent->get_position().x;
     float y = ent->get_position().y;
-    cells[y / CELL_SIZE][x / CELL_SIZE].insert_entity(ent);
+
+    float top     = p.y - r;
+    float bot     = p.y + r;
+    float left    = p.x - r;
+    float right   = p.x + r;
+
+    cells[top / CELL_SIZE][left / CELL_SIZE].insert_entity(ent);
+    cells[(int)(top / CELL_SIZE)][(int)(right / CELL_SIZE)].insert_entity(ent);
+    cells[bot / CELL_SIZE][left / CELL_SIZE].insert_entity(ent);
+    cells[bot / CELL_SIZE][right / CELL_SIZE].insert_entity(ent);
   }
 }
 

@@ -23,7 +23,7 @@ GameLogic::~GameLogic()
  */
 void GameLogic::update_state()
 {
-
+  curr_level->update();
 }
 
 /**

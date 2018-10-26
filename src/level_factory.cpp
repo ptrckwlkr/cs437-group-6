@@ -5,6 +5,10 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 {
   std::shared_ptr<Level> level;
   std::shared_ptr<Map> map;
+  std::vector<std::shared_ptr<Entity>> entities;
+
+  // TODO
+  entities.push_back(std::make_shared<Entity>(150, 100, 10));
 
   switch (algorithm)
   {
@@ -12,7 +16,8 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       map = load("../data/test.txt");
   }
 
-  level = std::make_shared<Level>(map);
+  level = std::make_shared<Level>(map, entities);
+
   return level;
 }
 

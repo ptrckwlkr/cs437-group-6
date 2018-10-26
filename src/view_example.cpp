@@ -11,26 +11,35 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   {
     for (j = 0; j < state->get_level()->get_map()->get_width(); ++j)
     {
-      sf::RectangleShape rect(sf::Vector2f(100, 100));
-      rect.setPosition(j * 100, i * 100);
+      sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
+      rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
 
       if (state->get_level()->get_map()->get_cells()[i][j].get_data() == '-')
       {
-        rect.setFillColor(sf::Color(128, 128, 128));
+        rect.setFillColor(sf::Color(64, 64, 64));
       }
       else if (state->get_level()->get_map()->get_cells()[i][j].get_data() == '0')
       {
-        rect.setFillColor(sf::Color(255, 255, 255));
+        if (state->get_level()->get_map()->get_cells()[i][j].is_occupied())
+        {
+          rect.setFillColor(sf::Color(255, 0, 0));
+        }
+        else
+        {
+          rect.setFillColor(sf::Color(128, 128, 128));
+        }
       }
       target.draw(rect, states);
     }
   }
 
-  // Note that the View class has the Game State as an attribute, so it can query the game objects
+  int x = GRAPHICS_SCALER * (int)state->get_level()->get_entities()[0]->get_position().x;
+  int y = GRAPHICS_SCALER * (int)state->get_level()->get_entities()[0]->get_position().y;
+  int s = GRAPHICS_SCALER * (int)state->get_level()->get_entities()[0]->get_size();
 
-  sf::CircleShape circle(20);
-  circle.setFillColor(sf::Color(255, 0, 0));
-  circle.setOrigin(sf::Vector2f(20, 20));
-  circle.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+  sf::CircleShape circle(s);
+  circle.setFillColor(sf::Color(0, 255, 0));
+  circle.setOrigin(sf::Vector2f(s, s));
+  circle.setPosition(x, y);
   target.draw(circle, states);
 }

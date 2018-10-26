@@ -11,11 +11,21 @@ class Entity
 {
 
 public:
+    Entity(float x, float y, float size) : size(size)
+    {
+      pos.x = x;
+      pos.y = y;
+    }
+    void set_position(float x, float y)
+    {
+      pos.x = x;
+      pos.y = y;
+    }
     Position get_position() {return pos;}
     float get_size() {return size;}
 
 protected:
-    Position pos;
+    Position pos{};
     float size;
 
 };

@@ -2,6 +2,7 @@
 #include <chrono>
 #include <view_example.h>
 #include <level_factory.h>
+#include <controller_example.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -13,6 +14,7 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   state = new GameLogic();
   // event_manager = new EventManager(); TODO
 
+  controllers.push_back(std::make_shared<ExampleController>(state));
   views.push_back(std::make_shared<ExampleView>(state));
 
   time = std::chrono::steady_clock::now();
