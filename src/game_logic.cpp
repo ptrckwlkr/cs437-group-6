@@ -3,7 +3,7 @@
 GameLogic::GameLogic()
 {
 
-  // Create a level
+  // TODO Create a level through some system
   level_factory = new LevelFactory();
   level_factory->set_algorithm(LEVEL_FILE);
   curr_level = level_factory->generate_level();

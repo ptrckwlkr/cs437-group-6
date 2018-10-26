@@ -11,16 +11,8 @@ class Entity
 {
 
 public:
-    Entity(float x, float y, float size) : size(size)
-    {
-      pos.x = x;
-      pos.y = y;
-    }
-    void set_position(float x, float y)
-    {
-      pos.x = x;
-      pos.y = y;
-    }
+    Entity(float x, float y, float size);
+    void set_position(float x, float y);
     Position get_position() {return pos;}
     float get_size() {return size;}
 
