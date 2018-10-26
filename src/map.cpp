@@ -13,7 +13,8 @@ Map::Map(std::vector<std::vector<char>> &grid)
     std::vector<Cell> temp;
     for (const auto &ch : row)
     {
-      temp.emplace_back(ch);
+      if (ch == '-') temp.emplace_back(WALL);
+      else if (ch == '0') temp.emplace_back(FLOOR);
     }
     cells.push_back(temp);
   }
@@ -74,7 +75,9 @@ void Map::print_map()
   {
     for (auto &cell : row)
     {
-      std::cout << cell.get_data() << " ";
+      if (cell.get_cell_type() == WALL) std::cout << "-";
+      else if (cell.get_cell_type() == FLOOR) std::cout << "0";
+      std::cout << " ";
     }
     std::cout << std::endl;
   }

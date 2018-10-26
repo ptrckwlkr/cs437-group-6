@@ -14,11 +14,11 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
       sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
       rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
 
-      if (state->get_level()->get_map()->get_cells()[i][j].get_data() == '-')
+      if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == WALL)
       {
         rect.setFillColor(sf::Color(64, 64, 64));
       }
-      else if (state->get_level()->get_map()->get_cells()[i][j].get_data() == '0')
+      else if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == FLOOR)
       {
         if (state->get_level()->get_map()->get_cells()[i][j].is_occupied())
         {

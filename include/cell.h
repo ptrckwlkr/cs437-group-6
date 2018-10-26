@@ -6,6 +6,12 @@
 #include <set>
 #include "entity.h"
 
+enum CellType
+{
+    WALL,
+    FLOOR,
+};
+
 /**
  * Represents a single cell of the game grid. Can specify type (Wall, Floor, etc) and also encapsulate a data structure
  * for game entities within the cell, which may be used for collision detection
@@ -14,16 +20,16 @@ class Cell
 {
 
 public:
-    Cell(char ch) : data(ch) {}
+    Cell(CellType cell_type) : cell_type(cell_type) {}
     void insert_entity(std::shared_ptr<Entity> &entity);
     void clear_entities();
     std::vector<std::shared_ptr<Entity>> get_entities();
-    char get_data() {return data;}
     bool is_occupied() {return !entities.empty();}
+    CellType get_cell_type() {return cell_type;}
 
 private:
     std::set<std::shared_ptr<Entity>> entities;
-    char data;
+    CellType cell_type;
 
 };
 
