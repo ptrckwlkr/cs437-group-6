@@ -82,3 +82,8 @@ void Map::print_map()
     std::cout << std::endl;
   }
 }
+
+Cell& Map::get_cell(int m, int n)
+{
+  return cells[m][n];
+}

@@ -1,6 +1,9 @@
 #include "view_example.h"
 #include "macros.h"
 
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * GRAPHICS_SCALER)) + 1)
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * GRAPHICS_SCALER)) + 1)
+
 /**
  * This is a simple example of how the game state can be drawn to the screen
  */
@@ -9,24 +12,33 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   // This must always be the first line of every draw method
   states.transform *= getTransform();
 
-  // Draw every cell onto the screen
+  sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
+  CellType cell_type;
+
+  // Calculate the index bounds, to only draw the cells within view of the player
+  int bound_top   = std::max((int)(state->get_level()->get_entities()[0]->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
+  int bound_bot   = std::min((int)(state->get_level()->get_entities()[0]->get_position().y / CELL_SIZE + IDX_BOUND_Y), state->get_level()->get_map()->get_height() - 1);
+  int bound_left  = std::max((int)(state->get_level()->get_entities()[0]->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
+  int bound_right = std::min((int)(state->get_level()->get_entities()[0]->get_position().x / CELL_SIZE + IDX_BOUND_X), state->get_level()->get_map()->get_width() - 1);
+
+  // Draw the map
   int i, j;
-  for (i = 0; i < state->get_level()->get_map()->get_height(); ++i)
+  for (i = bound_top; i < bound_bot; ++i)
   {
-    for (j = 0; j < state->get_level()->get_map()->get_width(); ++j)
+    for (j = bound_left; j < bound_right; ++j)
     {
-      sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
+      Cell cell = state->get_level()->get_map()->get_cell(i, j);
+      cell_type = cell.get_cell_type();
       rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
 
-      // Color the cells according to their type
-      if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == WALL)
+      if (cell_type == WALL)
       {
         rect.setFillColor(sf::Color(64, 64, 64));
       }
-      else if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == FLOOR)
+      else if (cell_type == FLOOR)
       {
         // TODO Occupied cells are colored differently to demonstrate the functionality of the Map data structure
-        if (state->get_level()->get_map()->get_cells()[i][j].is_occupied())
+        if (cell.is_occupied())
         {
           rect.setFillColor(sf::Color(128, 128, 255));
         }
@@ -35,6 +47,7 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
           rect.setFillColor(sf::Color(128, 128, 128));
         }
       }
+      rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
       target.draw(rect, states);
     }
   }

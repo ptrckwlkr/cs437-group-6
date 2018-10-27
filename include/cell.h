@@ -20,7 +20,7 @@ class Cell
 {
 
 public:
-    Cell(CellType cell_type) : cell_type(cell_type) {}
+    explicit Cell(CellType cell_type) : cell_type(cell_type) {}
     void insert_entity(std::shared_ptr<Entity> &entity);
     void clear_entities();
     std::vector<std::shared_ptr<Entity>> get_entities();

@@ -15,11 +15,12 @@ class Map
 
 public:
     explicit Map(std::vector<std::vector<char>> &grid);
-    std::vector<std::vector<Cell>> get_cells() {return cells;}
+    std::vector<std::vector<Cell>>& get_cells() {return cells;}
     void update_entities(std::vector<std::shared_ptr<Entity>> &entities);
     void print_map();
     int get_height() {return height;}
     int get_width() {return width;}
+    Cell& get_cell(int m, int n);
 
 private:
     void clear_cells();

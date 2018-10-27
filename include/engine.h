@@ -31,7 +31,7 @@ private:
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
     sf::RenderWindow *App;
-	sf::View camera;
+		sf::View camera;
     sf::Clock time;
 
 };

@@ -7,7 +7,7 @@ GameLogic::GameLogic()
   level_factory = new LevelFactory();
   level_factory->set_algorithm(LEVEL_FILE);
   curr_level = level_factory->generate_level();
-  curr_level->get_map()->print_map();
+  // curr_level->get_map()->print_map();
 
   f_paused = false;
   f_shutdown = false;

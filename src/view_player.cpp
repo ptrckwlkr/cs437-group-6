@@ -92,11 +92,11 @@ void PlayerView::storeLevel()
 			rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
 
 			// Color the cells according to their type
-			if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == WALL)
+			if (state->get_level()->get_map()->get_cell(i, j).get_cell_type() == WALL)
 			{
 				rect.setFillColor(sf::Color(64, 64, 64));
 			}
-			else if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == FLOOR)
+			else if (state->get_level()->get_map()->get_cell(i, j).get_cell_type() == FLOOR)
 			{
 				rect.setFillColor(sf::Color(128, 128, 128));
 			}

@@ -16,9 +16,9 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   state = new GameLogic();
   // event_manager = new EventManager(); TODO
 
-  //controllers.push_back(std::make_shared<ExampleController>(state));
+//  controllers.push_back(std::make_shared<ExampleController>(state));
   controllers.push_back(std::make_shared<PlayerController>(state));
-  //views.push_back(std::make_shared<ExampleView>(state));
+//  views.push_back(std::make_shared<ExampleView>(state));
   views.push_back(std::make_shared<PlayerView>(state));
 
   // initiliazes the camera
