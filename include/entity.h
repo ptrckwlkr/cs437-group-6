@@ -3,19 +3,21 @@
 
 struct Position
 {
-    float pos_x;
-    float pos_y;
+    float x;
+    float y;
 };
 
 class Entity
 {
 
 public:
+    Entity(float x, float y, float size);
+    void set_position(float x, float y);
     Position get_position() {return pos;}
     float get_size() {return size;}
 
 protected:
-    Position pos;
+    Position pos{};
     float size;
 
 };

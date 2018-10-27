@@ -1,20 +1,26 @@
 #ifndef CSCI437_LEVEL_H
 #define CSCI437_LEVEL_H
 
+#include <utility>
 #include <vector>
 #include <memory>
 #include "map.h"
+#include "collision_engine.h"
 
 class Level
 {
+
 public:
-    Level() : map(nullptr) {};
+    Level(std::shared_ptr<Map> &map, std::vector<std::shared_ptr<Entity>> &entities);
+    void update();
     std::shared_ptr<Map> get_map() {return map;}
-    std::vector<std::shared_ptr<Entity>> get_entities() {entities;}
+    std::vector<std::shared_ptr<Entity>> get_entities() {return entities;}
 
 protected:
     std::shared_ptr<Map> map;
+    std::shared_ptr<CollisionEngine> collision_engine;
     std::vector<std::shared_ptr<Entity>> entities;
+
 };
 
 

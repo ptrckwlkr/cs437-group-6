@@ -1,17 +1,65 @@
 #include "view_example.h"
 #include "macros.h"
 
+/**
+ * This is a simple example of how the game state can be drawn to the screen
+ */
 void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
   // This must always be the first line of every draw method
   states.transform *= getTransform();
 
-  // Note that the View class has the Game State as an attribute, so it can query the game objects
+  // Draw every cell onto the screen
+  int i, j;
+  for (i = 0; i < state->get_level()->get_map()->get_height(); ++i)
+  {
+    for (j = 0; j < state->get_level()->get_map()->get_width(); ++j)
+    {
+      sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
+      rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
 
-  sf::CircleShape circle(20);
+      // Color the cells according to their type
+      if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == WALL)
+      {
+        rect.setFillColor(sf::Color(64, 64, 64));
+      }
+      else if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == FLOOR)
+      {
+        // TODO Occupied cells are colored differently to demonstrate the functionality of the Map data structure
+        if (state->get_level()->get_map()->get_cells()[i][j].is_occupied())
+        {
+          rect.setFillColor(sf::Color(128, 128, 255));
+        }
+        else
+        {
+          rect.setFillColor(sf::Color(128, 128, 128));
+        }
+      }
+      target.draw(rect, states);
+    }
+  }
+
+  // TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
+  int x = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[0]->get_position().x);
+  int y = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[0]->get_position().y);
+  int s = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[0]->get_size());
+
+  // Draw the player entitiy to the screen
+  sf::CircleShape circle(s);
+  circle.setFillColor(sf::Color(0, 255, 0));
+  circle.setOrigin(sf::Vector2f(s, s));
+  circle.setPosition(x, y);
+  target.draw(circle, states);
+
+  // TODO Draw an enemy
+  x = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().x);
+  y = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().y);
+  s = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_size());
+
+  // Draw the player entitiy to the screen
   circle.setFillColor(sf::Color(255, 0, 0));
-  circle.setOrigin(sf::Vector2f(20, 20));
-  circle.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+  circle.setOrigin(sf::Vector2f(s, s));
+  circle.setPosition(x, y);
   target.draw(circle, states);
 
   //

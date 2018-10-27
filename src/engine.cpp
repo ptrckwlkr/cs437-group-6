@@ -2,6 +2,7 @@
 #include <chrono>
 #include <view_example.h>
 #include <level_factory.h>
+#include <controller_example.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -11,13 +12,12 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   // Load fonts and audio
   // Initialize game state, graphics, sound, and controllers here
   state = new GameLogic();
+  // event_manager = new EventManager(); TODO
+
+  controllers.push_back(std::make_shared<ExampleController>(state));
   views.push_back(std::make_shared<ExampleView>(state));
 
-  // TODO test
-  curr_level = level_factory::generate_level(level_factory::LEVEL_FILE);
-
   time = std::chrono::steady_clock::now();
-  event_manager = std::shared_ptr<EventManager>();
 };
 
 Engine::~Engine()
