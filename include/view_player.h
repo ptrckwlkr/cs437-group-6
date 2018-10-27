@@ -8,6 +8,8 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include "game_logic.h"
 #include "view.h"
+#include "../rapidxml/rapidxml.hpp"
+#include "fstream"
 
 class PlayerView : public View
 {
@@ -22,6 +24,12 @@ private:
 	void storeLevel();
 
 	std::vector<sf::RectangleShape> levelShapes;
+	sf::Font font;
+
+	//ensures the xml file text does not go out of scope
+	rapidxml::xml_document<> doc;
+	rapidxml::xml_node<> * root_node;
+	std::vector<char> buffer;
 };
 
 #endif //CSCI437_VIEW_PLAYER_H

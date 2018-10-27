@@ -1,5 +1,7 @@
 #include "view_player.h"
 #include "macros.h"
+#include "iostream"
+
 
 void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
@@ -20,6 +22,34 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	circle.setPosition(x, y);
 	target.draw(circle, states);
 
+	// updates hpBar and manaBar
+	sf::RectangleShape hpBar, manaBar;
+	hpBar.setFillColor(sf::Color::Red);
+	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
+	manaBar.setFillColor(sf::Color::Green);
+	manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
+	hpBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 10));
+	manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
+	target.draw(hpBar, states);
+	target.draw(manaBar, states);
+
+	// update and draw text for health and mana, must be drawn after the corresponding bars
+	sf::Text hpText, manaText;
+	hpText.setFont(font);
+	manaText.setFont(font);
+	hpText.setFillColor(sf::Color::White);
+	manaText.setFillColor(sf::Color::White);
+	hpText.setString(root_node->first_node("health")->value());
+	manaText.setString(root_node->first_node("mana")->value());
+	hpText.setCharacterSize(20);
+	manaText.setCharacterSize(20);
+	hpText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (hpText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 15));
+	manaText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (manaText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 55));
+	target.draw(hpText, states);
+	target.draw(manaText, states);
+
+
+
 	// TODO Draw an enemy
 	x = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().x);
 	y = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().y);
@@ -30,6 +60,8 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	circle.setOrigin(sf::Vector2f(s, s));
 	circle.setPosition(x, y);
 	target.draw(circle, states);
+
+
 }
 
 
@@ -66,15 +98,7 @@ void PlayerView::storeLevel()
 			}
 			else if (state->get_level()->get_map()->get_cells()[i][j].get_cell_type() == FLOOR)
 			{
-				// TODO Occupied cells are colored differently to demonstrate the functionality of the Map data structure
-				if (state->get_level()->get_map()->get_cells()[i][j].is_occupied())
-				{
-					rect.setFillColor(sf::Color(128, 128, 255));
-				}
-				else
-				{
-					rect.setFillColor(sf::Color(128, 128, 128));
-				}
+				rect.setFillColor(sf::Color(128, 128, 128));
 			}
 			levelShapes.push_back(rect);
 		}
@@ -82,9 +106,23 @@ void PlayerView::storeLevel()
 }
 
 /*
-	Actions to be performed when PlayerView is created: stores level, initializes sf::View
+	Actions to be performed when PlayerView is created: stores level, initializes xml text and UI
 */
 void PlayerView::init()
 {
 	storeLevel();
+
+	//load font 
+	if (!font.loadFromFile("../data/Old-School-Adventures.ttf"))
+		throw;
+
+	// Read the xml file into a vector
+	std::ifstream theFile("../data/game-text.xml");
+	buffer = std::vector<char>((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
+	// Parse the buffer using the xml file parsing library into doc 
+	doc.parse<0>(&buffer[0]);
+	// Find our root node
+	root_node = doc.first_node("UI");
+
 }
