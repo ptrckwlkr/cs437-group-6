@@ -9,6 +9,7 @@
 #define PLAYER_SPEED				        100
 #define CELL_SIZE                   50
 #define COLLISION_BUFFER            10
+#define SQUARE_ROOT_2               1.414
 
 
 extern double g_time_elapsed;

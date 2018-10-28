@@ -1,20 +1,48 @@
 #include "controller_player.h"
-#include "macros.h"
 
 void PlayerController::process_input(float delta)
 {
 	// TODO check that game has started (not in menu)
-	Position pos = state->get_level()->get_entities()[0]->get_position();
-	float delta_x = 0, delta_y = 0;
+	Direction dir;
 
-	//looks at keyboard state and updates coordinates appropriately
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	delta_y -= PLAYER_SPEED * delta;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))	delta_y += PLAYER_SPEED * delta;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	delta_x -= PLAYER_SPEED * delta;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	delta_x += PLAYER_SPEED * delta;
-	//only update when necessary
-	if (delta_x != 0 || delta_y != 0)
-		state->get_level()->get_entities()[0]->set_position(pos.x + delta_x, pos.y + delta_y);
+  //looks at keyboard state and updates coordinates appropriately
+	bool W_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+	bool S_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+	bool A_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+	bool D_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+
+	// This is super complicated (sorry) and can probably be greatly simplified
+	if (W_pressed && A_pressed && S_pressed && D_pressed) // Don't do anything if all the keys are pressed
+	{
+		dir = NONE;
+	}
+	else if (A_pressed && D_pressed) // A and D cancel each other out
+	{
+		if (W_pressed) dir = NORTH;
+		else if (S_pressed) dir = SOUTH;
+		else dir = NONE;
+	}
+	else if (W_pressed && S_pressed) // W and S cancel each other out
+	{
+		if (A_pressed) dir = WEST;
+		else if (D_pressed) dir = EAST;
+		else dir = NONE;
+	}
+	else // For everything else, just figure out what direction we should be going
+	{
+		if (W_pressed && D_pressed) dir = NORTHEAST;
+		else if (D_pressed && S_pressed) dir = SOUTHEAST;
+		else if (S_pressed && A_pressed) dir = SOUTHWEST;
+		else if (A_pressed && W_pressed) dir = NORTHWEST;
+		else if (W_pressed) dir = NORTH;
+		else if (D_pressed) dir = EAST;
+		else if (S_pressed) dir = SOUTH;
+		else if (A_pressed) dir = WEST;
+		else dir = NONE;
+	}
+
+	// TODO The call to move should probably eventually be handled through the EventManager
+	state->get_level()->get_entities()[0]->move(dir, delta);
 }
 
 void PlayerController::handle_event(sf::Event event)
