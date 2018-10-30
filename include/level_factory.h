@@ -2,6 +2,7 @@
 #define CSCI437_LEVEL_FACTORY_H
 
 #include <fstream>
+#include <string>
 #include "level.h"
 
 enum Generator

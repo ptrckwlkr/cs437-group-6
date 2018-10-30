@@ -8,6 +8,8 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include "game_logic.h"
 #include "view.h"
+#include "../rapidxml/rapidxml.hpp"
+#include "fstream"
 
 class PlayerView : public View
 {
@@ -15,15 +17,19 @@ class PlayerView : public View
 public:
 	PlayerView(GameLogic *state) : View(state) { init(); };
 
-	sf::Vector2f get_coords() {return shape.getPosition();}
-	void set_coords(float x, float y) {shape.setPosition(x, y);}
-
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
+	void drawLevel(sf::RenderTarget &target, sf::RenderStates states) const;
 	void init();
+	void storeLevel();
 
-	sf::CircleShape shape;
+	std::vector<sf::RectangleShape> levelShapes;
+	sf::Font font;
+
+	//ensures the xml file text does not go out of scope
+	rapidxml::xml_document<> doc;
+	rapidxml::xml_node<> * root_node;
+	std::vector<char> buffer;
 };
 
-#endif //CSCI437_VIEW_EXAMPLE_H
+#endif //CSCI437_VIEW_PLAYER_H

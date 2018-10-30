@@ -13,7 +13,7 @@ class ExampleView : public View
 {
 
 public:
-    ExampleView(GameLogic *state) : View(state) {};
+    ExampleView(GameLogic *state) : View(state) {}
 
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

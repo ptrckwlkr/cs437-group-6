@@ -22,6 +22,8 @@ bool EventManager::AlreadyRegistered( EVENTID eventId, Listener* object){
                 break;
             }
     }
+
+	return alreadyRegistered;
 }
 
 //iterate through list of objects to respond to a specific event

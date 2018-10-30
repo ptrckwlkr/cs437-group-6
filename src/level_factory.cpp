@@ -18,7 +18,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   switch (algorithm)
   {
     case LEVEL_FILE:
-      map = load("../data/test.txt");
+      map = load("../data/test2.txt");
   }
 
   // Create the actual level

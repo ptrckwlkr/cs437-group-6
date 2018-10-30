@@ -3,12 +3,13 @@
 
 #define WINDOW_HEIGHT               600
 #define WINDOW_WIDTH                800
-#define GAME_CLOCK_SCALER           25
-#define GRAPHICS_SCALER             1.3f
+#define GAME_CLOCK_SCALER           2.f
+#define GRAPHICS_SCALER             1.5f
 
-#define PLAYER_SPEED				        15
+#define PLAYER_SPEED				        100
 #define CELL_SIZE                   50
 #define COLLISION_BUFFER            10
+#define SQUARE_ROOT_2               1.414
 
 
 extern double g_time_elapsed;

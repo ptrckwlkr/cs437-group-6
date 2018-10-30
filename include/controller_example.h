@@ -9,7 +9,7 @@ class ExampleController : public Controller
 public:
     ExampleController(GameLogic *state) : Controller(state) {};
     ~ExampleController() = default;
-    void process_input();
+    void process_input(float delta);
     void handle_event(sf::Event event);
 
 private:
