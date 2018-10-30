@@ -13,6 +13,11 @@ void Entity::set_position(float x, float y)
   pos.y = y;
 }
 
+void Entity::set_position(Position new_pos)
+{
+  pos = new_pos;
+}
+
 void Entity::move(Direction dir, float delta) // TODO note this kind of movement is specific to the player and should be moved
 {
   pos_old = pos;

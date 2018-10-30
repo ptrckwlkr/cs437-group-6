@@ -8,5 +8,5 @@ Level::Level(std::shared_ptr<Map> &map, std::vector<std::shared_ptr<Entity>> &en
 void Level::update()
 {
   map->update_entities(entities);
-  collision_engine->check_collisions(map);
+  collision_engine->check_collisions(map, entities);
 }
