@@ -5,6 +5,7 @@
 #include <level_factory.h>
 #include <controller_example.h>
 #include <controller_player.h>
+#include <mode_play.h>
 #include "engine.h"
 #include "macros.h"
 
@@ -75,7 +76,8 @@ void Engine::update_state()
 void Engine::update_views()
 {
 // centers view on player and clears window
-  Position playerPos = state->get_level()->get_entities()[0]->get_position();
+  auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+  Position playerPos = mode->get_level()->get_entities()[0]->get_position();
   camera.setCenter(playerPos.x * GRAPHICS_SCALER, playerPos.y * GRAPHICS_SCALER);
   App->setView(camera);
   App->clear(sf::Color::Black);

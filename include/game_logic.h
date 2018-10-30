@@ -3,6 +3,15 @@
 
 #include "level.h"
 #include "level_factory.h"
+#include "mode.h"
+
+enum GameMode
+{
+    MODE_MENU,
+    MODE_SHOP,
+    MODE_MAP,
+    MODE_PLAY,
+};
 
 /**
  * Organize and coordinate the game state.
@@ -11,21 +20,18 @@ class GameLogic
 {
 public:
     GameLogic();
-    ~GameLogic();
+    ~GameLogic() = default;
 
     void update_state();
     void toggle_pause() {f_paused = !f_paused;}
     bool is_paused() {return f_paused;}
     bool shutdown() {return f_shutdown;}
     void exit();
-
-    LevelFactory *level_factory;
-    std::shared_ptr<Level> get_level() {return curr_level;}
+    void set_mode(GameMode mode);
+    std::shared_ptr<Mode> &get_mode() {return curr_mode;}
 
 private:
-    std::shared_ptr<Level> curr_level;
-    // std::shared_ptr<Mode> curr_mode; TODO
-
+    std::shared_ptr<Mode> curr_mode;
     bool f_paused;
     bool f_shutdown;
 };

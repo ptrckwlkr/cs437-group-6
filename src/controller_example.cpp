@@ -1,5 +1,6 @@
 #include "controller_example.h"
 #include <iostream>
+#include <mode_play.h>
 
 void ExampleController::process_input(float delta)
 {
@@ -41,7 +42,8 @@ void ExampleController::process_input(float delta)
     else dir = NONE;
   }
 
-  state->get_level()->get_entities()[0]->move(dir, delta);
+  auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+  mode->get_level()->get_entities()[0]->move(dir, delta);
 }
 
 void ExampleController::handle_event(sf::Event event)
