@@ -75,9 +75,5 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   circle.setPosition(x, y);
   target.draw(circle, states);
 
-  //
-  sf::RectangleShape rectangle(14, 15);
-  rectangle.setFillColor( Green);
-
 
 }

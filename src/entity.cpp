@@ -57,3 +57,7 @@ void Entity::move(Direction dir, float delta) // TODO note this kind of movement
       break;
   }
 }
+
+void Entity::takedamage(int damage){
+  damage = damage;
+};
