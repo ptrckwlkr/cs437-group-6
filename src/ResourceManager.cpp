@@ -1,30 +1,31 @@
-#ifndef CSCI437_RESOURCEMANAGER_H
-#define CSCI437_RESOURCEMANAGER_H
+#include "ResourceManager.h"
 
-#include <map> 
-#include <SFML/Graphics.hpp> 
+void ResourceManager::LoadTexture( std::string name, std:: string fileName ){
+    sf::Texture tex; 
 
-class ResourceManager{
-    public:  
-        ResourceManager(){}
-        ~ResourceManager(){}
+  if ( tex.loadFromFile (fileName))
+    {
+        this->_textures[name]= tex;
+    }
+}
 
-        void LoadTexture( std::string name, std::string fileName );
-        sf::Texture &GetTexture( std:: string name);
+void sf::Texture &ResourceManager::GetTexture( std::string name)
+{
+        return this->_textures.at(name);
+}
 
-        void LoadFont( std::string name, std::string fileName );
-        sf::Font &GetFont( std:: string name);
+    
+void ResourceManager::LoadFont( std::string name, std::string fileName)
+{
+    sf::Font font;
 
-        void LoadSprite( std::string name, std::string filename);
-        sf::Sprite &GetSprite( std:: string name);
+    if ( font.loadFromFile (fileName))
+    {
+        this->_fonts[name ]= font;
+    }
+}
 
-
-    private:
-        std::map<std::string, sf::Texture> _textures;
-        std::map<std::string, sf::Font> _fonts;
-        std::map<std::string, sf::Sprite> _sprites;
-
-};
-
-
-#endif //CSCI437_RESOURCEMANAGER_H
+void sf::Font &ResourceManager::GetFont( std::string name)
+{
+    return this->_fonts.at(name);
+}
