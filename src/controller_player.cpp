@@ -1,3 +1,4 @@
+#include <mode_play.h>
 #include "controller_player.h"
 
 void PlayerController::process_input(float delta)
@@ -42,7 +43,8 @@ void PlayerController::process_input(float delta)
 	}
 
 	// TODO The call to move should probably eventually be handled through the EventManager
-	state->get_level()->get_entities()[0]->move(dir, delta);
+	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+	mode->get_level()->get_entities()[0]->move(dir, delta);
 }
 
 void PlayerController::handle_event(sf::Event event)

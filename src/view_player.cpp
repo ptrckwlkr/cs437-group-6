@@ -1,3 +1,4 @@
+#include <mode_play.h>
 #include "view_player.h"
 #include "macros.h"
 #include "iostream"
@@ -10,10 +11,12 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	drawLevel(target, states);
 
+	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+
 	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-	float x = (GRAPHICS_SCALER * state->get_level()->get_entities()[0]->get_position().x);
-	float y = (GRAPHICS_SCALER * state->get_level()->get_entities()[0]->get_position().y);
-	float s = (GRAPHICS_SCALER * state->get_level()->get_entities()[0]->get_size());
+	float x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().x);
+	float y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().y);
+	float s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_size());
 
 	// draw player entity to screen
 	sf::CircleShape circle(s);
@@ -51,9 +54,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 
 	// TODO Draw an enemy
-	x = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().x);
-	y = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_position().y);
-	s = (int)(GRAPHICS_SCALER * state->get_level()->get_entities()[1]->get_size());
+	x = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
+	y = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
+	s = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
 
 	// Draw the player entitiy to the screen
 	circle.setFillColor(sf::Color(255, 0, 0));
@@ -84,19 +87,20 @@ void PlayerView::storeLevel()
 {
 	// Draw every cell onto the screen
 	int i, j;
-	for (i = 0; i < state->get_level()->get_map()->get_height(); ++i)
+	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+	for (i = 0; i < mode->get_level()->get_map()->get_height(); ++i)
 	{
-		for (j = 0; j < state->get_level()->get_map()->get_width(); ++j)
+		for (j = 0; j < mode->get_level()->get_map()->get_width(); ++j)
 		{
 			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
 			rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
 
 			// Color the cells according to their type
-			if (state->get_level()->get_map()->get_cell(i, j).get_cell_type() == WALL)
+			if (mode->get_level()->get_map()->get_cell(i, j).get_cell_type() == WALL)
 			{
 				rect.setFillColor(sf::Color(64, 64, 64));
 			}
-			else if (state->get_level()->get_map()->get_cell(i, j).get_cell_type() == FLOOR)
+			else if (mode->get_level()->get_map()->get_cell(i, j).get_cell_type() == FLOOR)
 			{
 				rect.setFillColor(sf::Color(128, 128, 128));
 			}

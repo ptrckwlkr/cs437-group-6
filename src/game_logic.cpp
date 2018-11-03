@@ -1,21 +1,11 @@
+#include "mode_play.h"
 #include "game_logic.h"
 
 GameLogic::GameLogic()
 {
-
-  // TODO Create a level through some system
-  level_factory = new LevelFactory();
-  level_factory->set_algorithm(LEVEL_FILE);
-  curr_level = level_factory->generate_level();
-  // curr_level->get_map()->print_map();
-
+  set_mode(MODE_PLAY);
   f_paused = false;
   f_shutdown = false;
-}
-
-GameLogic::~GameLogic()
-{
-  delete level_factory;
 }
 
 /**
@@ -23,7 +13,7 @@ GameLogic::~GameLogic()
  */
 void GameLogic::update_state()
 {
-  curr_level->update();
+  curr_mode->update();
 }
 
 /**
@@ -32,4 +22,20 @@ void GameLogic::update_state()
 void GameLogic::exit()
 {
   f_shutdown = true;
+}
+
+void GameLogic::set_mode(GameMode mode)
+{
+  switch (mode)
+  {
+    case MODE_MENU:
+      break;
+    case MODE_SHOP:
+      break;
+    case MODE_MAP:
+      break;
+    case MODE_PLAY:
+      curr_mode = std::make_shared<PlayMode>();
+      break;
+  }
 }
