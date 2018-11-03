@@ -25,20 +25,7 @@ void ResourceManager::LoadFont( std::string name, std::string fileName)
     }
 }
 
-void sf::Font &ResourceManager::GetFont( std::string name)
+sf::Font &ResourceManager::GetFont( std::string name)
 {
     return this->_fonts.at(name);
-}
-
-void ResourceManager::LoadSprite( std::string name, std::string filename){
-    sf::Sprite sprite;
-    
-    if ( sprite.loadFromFile (fileName))
-    {
-        this->_sprites[name ]= sprite;
-    } 
-}
-sf::Sprite &GetSprite( std:: string name){
-    
-    return this->_sprites.at(name);
 }

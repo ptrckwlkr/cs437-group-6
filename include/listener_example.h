@@ -1,8 +1,9 @@
-#include "listener.h"
+
 #ifndef CSCI437_LISTENEREXAMPLE_H
 #define CSCI437_LISTENEREXAMPLE_H
 
 #include "event.h"
+#include "listener.h"
 
 class ListenerExample : public Listener{
     private:
