@@ -77,4 +77,6 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   circle.setOrigin(sf::Vector2f(s, s));
   circle.setPosition(x, y);
   target.draw(circle, states);
+
+
 }
