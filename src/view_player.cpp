@@ -7,11 +7,11 @@ PlayerView::PlayerView(GameLogic *state) : View(state)
 {
 	storeLevel();
 
-	// get font from resource manager
+	// get all necessary resources from resource manager
 	font = resources.GetFont("old_school");
-	doc = resources.GetXMLDoc("text");
+	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
 	buffer = resources.GetXMLBuffer("text");
-	root_node = (*doc).first_node("UI");
+	root_node = (*doc).first_node("Root")->first_node("UI");
 }
 
 void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -69,15 +69,11 @@ void PlayerView::drawUI(sf::RenderTarget &target, sf::RenderStates states, float
 
 	// update and draw text for health and mana, must be drawn after the corresponding bars
 	sf::Text hpText, manaText;
+	hpText = prepareText("health");
 	hpText.setFont(font);
-	hpText.setFillColor(sf::Color::White);
-	hpText.setString(root_node->first_node("health")->value());
-	hpText.setCharacterSize(20);
 	hpText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (hpText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 15));
+	manaText = prepareText("mana");
 	manaText.setFont(font);
-	manaText.setFillColor(sf::Color::White);
-	manaText.setString(root_node->first_node("mana")->value());
-	manaText.setCharacterSize(20);
 	manaText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (manaText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 55));
 	target.draw(hpText, states);
 	target.draw(manaText, states);

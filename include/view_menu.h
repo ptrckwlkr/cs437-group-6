@@ -6,9 +6,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "game_logic.h"
 #include "view.h"
-#include "../rapidxml/rapidxml.hpp"
-#include "fstream"
-#include "ResourceManager.h"
+
 
 
 class MenuView : public View
@@ -25,12 +23,9 @@ private:
 	sf::Font font;
 
 	//ensures the xml file text does not go out of scope
-	rapidxml::xml_document<> doc;
 	rapidxml::xml_node<> * root_node;
-	std::vector<char> buffer;
+	std::shared_ptr <std::vector<char>> buffer;
 };
 
-//global access to resource manager
-extern ResourceManager resources;
 
 #endif //CSCI437_VIEW_MENU_H

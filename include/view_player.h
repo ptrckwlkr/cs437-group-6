@@ -4,9 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "game_logic.h"
 #include "view.h"
-#include "../rapidxml/rapidxml.hpp"
-#include "ResourceManager.h"
-#include <memory>
+
 
 class PlayerView : public View
 {
@@ -23,13 +21,7 @@ private:
 	std::vector<sf::RectangleShape> levelShapes;
 	sf::Font font;
 
-	//ensures the xml file text does not go out of scope
-	std::shared_ptr<rapidxml::xml_document<>> doc;
-	rapidxml::xml_node<> * root_node;
-	std::shared_ptr <std::vector<char>> buffer;
 };
 
-//global access to resource manager
-extern ResourceManager resources;
 
 #endif //CSCI437_VIEW_PLAYER_H
