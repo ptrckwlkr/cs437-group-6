@@ -10,6 +10,7 @@
 #include "EventManager.h"
 #include "level.h"
 #include "level_factory.h"
+#include "ResourceManager.h"
 
 /**
  * Topmost class for the entire game engine, which coordinates the game state with the audio, visuals, and controllers.
@@ -23,6 +24,7 @@ public:
     void update_state();
     void update_views();
     float clock();
+	
 
 private:
     GameLogic *state;
@@ -35,6 +37,9 @@ private:
     sf::Clock time;
 
 };
+
+//global access to resource manager
+extern ResourceManager resources;
 
 
 #endif //CSCI437_ENGINE_H

@@ -1,7 +1,6 @@
 #include <mode_play.h>
 #include "view_player.h"
 #include "macros.h"
-#include "iostream"
 
 
 void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -28,6 +27,7 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// updates hpBar and manaBar
 	sf::RectangleShape hpBar, manaBar;
 	hpBar.setFillColor(sf::Color::Red);
+	//TODO set size of bar to match player'sactual health/mana
 	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
 	manaBar.setFillColor(sf::Color::Green);
 	manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
@@ -54,9 +54,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 
 	// TODO Draw an enemy
-	x = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
-	y = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
-	s = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
+	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
+	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
+	s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
 
 	// Draw the player entitiy to the screen
 	circle.setFillColor(sf::Color(255, 0, 0));
@@ -116,9 +116,9 @@ void PlayerView::init()
 {
 	storeLevel();
 
-	//load font 
-	if (!font.loadFromFile("../data/Old-School-Adventures.ttf"))
-		throw;
+	// get font from resource manager
+	font = resources.GetFont("old_school");
+
 
 	// Read the xml file into a vector
 	std::ifstream theFile("../data/game-text.xml");

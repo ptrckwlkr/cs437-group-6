@@ -1,5 +1,8 @@
 #include "ResourceManager.h"
 
+// declare instance of ResourceManager to be used by other classes
+ResourceManager resources;
+
 void ResourceManager::LoadTexture( std::string name, std:: string fileName ){
     sf::Texture tex; 
 

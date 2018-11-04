@@ -1,8 +1,11 @@
 #include "Player.h"
 #include <macros.h>
+#include <iostream>
 
-Player::Player(){
+Player::Player(float x, float y, float size) : Entity(x, y, size)
+{
 }
+
 
 Player::~Player(){
 
@@ -13,7 +16,7 @@ void Player::HandleEvents( Event* event){
     
 }
 
-void Player::move(Direction dir, float delta) // TODO note this kind of movement is specific to the player and should be moved
+void Player::move(Direction dir, float delta) 
 {
   pos_old = pos;
   float delta_speed = PLAYER_SPEED * delta;

@@ -8,6 +8,7 @@
 #include <mode_play.h>
 #include "engine.h"
 #include "macros.h"
+#include "ResourceManager.h"
 
 
 Engine::Engine(sf::RenderWindow *app) : App(app)
@@ -17,9 +18,10 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   state = new GameLogic();
   // event_manager = new EventManager(); TODO
 
-//  controllers.push_back(std::make_shared<ExampleController>(state));
+  //loads font to the resource manager
+  resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
+
   controllers.push_back(std::make_shared<PlayerController>(state));
-//  views.push_back(std::make_shared<ExampleView>(state));
   views.push_back(std::make_shared<PlayerView>(state));
 
   // initiliazes the camera
