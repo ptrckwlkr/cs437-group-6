@@ -3,6 +3,9 @@
 
 #include <map> 
 #include <SFML/Graphics.hpp> 
+#include "../rapidxml/rapidxml.hpp"
+#include "fstream"
+#include <memory>
 
 class ResourceManager{
 
@@ -19,13 +22,15 @@ class ResourceManager{
         void LoadFont( std::string name, std::string fileName );
         sf::Font &GetFont( std:: string name);
 
-
+		void LoadXML(std::string name, std::string filename);
+		std::shared_ptr<rapidxml::xml_document<>> &GetXMLDoc(std::string name);
+		std::shared_ptr <std::vector<char>> &GetXMLBuffer(std::string name);
 
     private:
         std::map<std::string, sf::Texture> _textures;
         std::map<std::string, sf::Font> _fonts;
-
-
+		std::map<std::string, std::shared_ptr<rapidxml::xml_document<>>> _xmldocs;
+		std::map<std::string, std::shared_ptr<std::vector<char>>> _xmlbuffers;
 };
 
 

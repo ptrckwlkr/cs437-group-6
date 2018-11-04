@@ -3,6 +3,17 @@
 #include "macros.h"
 
 
+PlayerView::PlayerView(GameLogic *state) : View(state)
+{
+	storeLevel();
+
+	// get font from resource manager
+	font = resources.GetFont("old_school");
+	doc = resources.GetXMLDoc("text");
+	buffer = resources.GetXMLBuffer("text");
+	root_node = (*doc).first_node("UI");
+}
+
 void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// This must always be the first line of every draw method
@@ -12,61 +23,65 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
 
-	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-	float x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().x);
-	float y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().y);
-	float s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_size());
-
-	// draw player entity to screen
-	sf::CircleShape circle(s);
-	circle.setFillColor(sf::Color(0, 255, 0));
-	circle.setOrigin(sf::Vector2f(s, s));
-	circle.setPosition(x, y);
-	target.draw(circle, states);
-
-	// updates hpBar and manaBar
-	sf::RectangleShape hpBar, manaBar;
-	hpBar.setFillColor(sf::Color::Red);
-	//TODO set size of bar to match player'sactual health/mana
-	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
-	manaBar.setFillColor(sf::Color::Green);
-	manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
-	hpBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 10));
-	manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
-	target.draw(hpBar, states);
-	target.draw(manaBar, states);
-
-	// update and draw text for health and mana, must be drawn after the corresponding bars
-	sf::Text hpText, manaText;
-	hpText.setFont(font);
-	manaText.setFont(font);
-	hpText.setFillColor(sf::Color::White);
-	manaText.setFillColor(sf::Color::White);
-	hpText.setString(root_node->first_node("health")->value());
-	manaText.setString(root_node->first_node("mana")->value());
-	hpText.setCharacterSize(20);
-	manaText.setCharacterSize(20);
-	hpText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (hpText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 15));
-	manaText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (manaText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 55));
-	target.draw(hpText, states);
-	target.draw(manaText, states);
-
-
-
 	// TODO Draw an enemy
-	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
-	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
-	s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
+	float x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
+	float y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
+	float s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
 
-	// Draw the player entitiy to the screen
+	// Draw enemy entity to the screen
+	sf::CircleShape circle(s);
 	circle.setFillColor(sf::Color(255, 0, 0));
 	circle.setOrigin(sf::Vector2f(s, s));
 	circle.setPosition(x, y);
 	target.draw(circle, states);
 
 
+	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
+	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().x);
+	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().y);
+	s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_size());
+
+	// draw player entity to screen
+	circle.setFillColor(sf::Color(0, 255, 0));
+	circle.setOrigin(sf::Vector2f(s, s));
+	circle.setPosition(x, y);
+	target.draw(circle, states);
+
+	drawUI(target, states, x, y);
+	
 }
 
+
+void PlayerView::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const
+{
+	//TODO set size of bar to match player'sactual health/mana
+	// updates hpBar
+	sf::RectangleShape hpBar, manaBar;
+	hpBar.setFillColor(sf::Color::Red);
+	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
+	hpBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 10));
+	target.draw(hpBar, states);
+	//updates mana bar
+	manaBar.setFillColor(sf::Color::Green);
+	manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
+	manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
+	target.draw(manaBar, states);
+
+	// update and draw text for health and mana, must be drawn after the corresponding bars
+	sf::Text hpText, manaText;
+	hpText.setFont(font);
+	hpText.setFillColor(sf::Color::White);
+	hpText.setString(root_node->first_node("health")->value());
+	hpText.setCharacterSize(20);
+	hpText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (hpText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 15));
+	manaText.setFont(font);
+	manaText.setFillColor(sf::Color::White);
+	manaText.setString(root_node->first_node("mana")->value());
+	manaText.setCharacterSize(20);
+	manaText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (manaText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 55));
+	target.draw(hpText, states);
+	target.draw(manaText, states);
+}
 
 /*
 	Helper function to draw the background to the screen, called before entities are drawn
@@ -109,24 +124,3 @@ void PlayerView::storeLevel()
 	}
 }
 
-/*
-	Actions to be performed when PlayerView is created: stores level, initializes xml text and UI
-*/
-void PlayerView::init()
-{
-	storeLevel();
-
-	// get font from resource manager
-	font = resources.GetFont("old_school");
-
-
-	// Read the xml file into a vector
-	std::ifstream theFile("../data/game-text.xml");
-	buffer = std::vector<char>((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
-	buffer.push_back('\0');
-	// Parse the buffer using the xml file parsing library into doc 
-	doc.parse<0>(&buffer[0]);
-	// Find our root node
-	root_node = doc.first_node("UI");
-
-}

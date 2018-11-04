@@ -8,13 +8,14 @@
 #include "view.h"
 #include "../rapidxml/rapidxml.hpp"
 #include "fstream"
+#include "ResourceManager.h"
 
 
 class MenuView : public View
 {
 
 public:
-	MenuView(GameLogic *state) : View(state) {};
+	MenuView(GameLogic *state);
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -29,5 +30,7 @@ private:
 	std::vector<char> buffer;
 };
 
+//global access to resource manager
+extern ResourceManager resources;
 
 #endif //CSCI437_VIEW_MENU_H
