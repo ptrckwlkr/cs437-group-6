@@ -1,15 +1,12 @@
 #ifndef CSCI437_VIEW_PLAYER_H
 #define CSCI437_VIEW_PLAYER_H
 
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics.hpp>
 #include "game_logic.h"
 #include "view.h"
 #include "../rapidxml/rapidxml.hpp"
 #include "fstream"
+#include "ResourceManager.h"
 
 class PlayerView : public View
 {
@@ -31,5 +28,8 @@ private:
 	rapidxml::xml_node<> * root_node;
 	std::vector<char> buffer;
 };
+
+//global access to resource manager
+extern ResourceManager resources;
 
 #endif //CSCI437_VIEW_PLAYER_H
