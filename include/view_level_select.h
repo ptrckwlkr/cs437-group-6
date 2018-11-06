@@ -1,19 +1,20 @@
-#ifndef CSCI437_VIEW_MENU_H
-#define CSCI437_VIEW_MENU_H
+#ifndef CSCI437_VIEW_LEVELSELECT_H
+#define CSCI437_VIEW_LEVELSELECT_H
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "game_logic.h"
 #include "view.h"
+#include "../rapidxml/rapidxml.hpp"
+#include "fstream"
 
 
-
-class MenuView : public View
+class LevelSelectView : public View
 {
 
 public:
-	MenuView(GameLogic *state);
+	LevelSelectView(GameLogic *state) : View(state) {};
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -23,8 +24,9 @@ private:
 	sf::Font font;
 
 	//ensures the xml file text does not go out of scope
+	rapidxml::xml_document<> doc;
 	rapidxml::xml_node<> * root_node;
-	std::shared_ptr <std::vector<char>> buffer;
+	std::vector<char> buffer;
 };
 
 

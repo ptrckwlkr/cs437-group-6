@@ -18,8 +18,9 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   state = new GameLogic();
   // event_manager = new EventManager(); TODO
 
-  //loads font to the resource manager
+  //loads necessary resources to the resource manager
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
+  resources.LoadXML("text", "../data/game-text.xml");
 
   controllers.push_back(std::make_shared<PlayerController>(state));
   views.push_back(std::make_shared<PlayerView>(state));
