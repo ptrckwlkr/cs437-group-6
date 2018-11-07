@@ -11,6 +11,8 @@
 #include "level.h"
 #include "level_factory.h"
 #include "ResourceManager.h"
+#include "view_menu.h"
+#include "controller_menu.h"
 
 /**
  * Topmost class for the entire game engine, which coordinates the game state with the audio, visuals, and controllers.
@@ -32,6 +34,10 @@ private:
 
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
+	std::shared_ptr<MenuController> menuController;
+	std::shared_ptr<MenuView> menuView;
+
+
     sf::RenderWindow *App;
 		sf::View camera;
     sf::Clock time;

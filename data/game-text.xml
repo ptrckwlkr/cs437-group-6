@@ -17,6 +17,35 @@
     </mana>
   </UI>
   <Menu>
-    <title size="60" color="sf::Color::Green">POWER HOUR</title>
+    <title>
+      <text>POWER HOUR</text>
+      <size>60</size>
+      <r>0</r>
+      <g>255</g>
+      <b>0</b>
+    </title>
+    <buttons>
+      <title-first>
+        <text>Play</text>
+        <size>30</size>
+        <r>255</r>
+        <g>255</g>
+        <b>255</b>
+      </title-first>
+      <title-second>
+        <text>Controls</text>
+        <size>30</size>
+        <r>255</r>
+        <g>255</g>
+        <b>255</b>
+      </title-second>
+      <title-third>
+        <text>Quit</text>
+        <size>30</size>
+        <r>255</r>
+        <g>255</g>
+        <b>255</b>
+      </title-third>
+    </buttons>
   </Menu>
 </Root>

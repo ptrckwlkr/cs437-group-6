@@ -9,6 +9,7 @@
 #include "engine.h"
 #include "macros.h"
 #include "ResourceManager.h"
+#include <iostream>
 
 
 Engine::Engine(sf::RenderWindow *app) : App(app)
@@ -22,8 +23,15 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
 
-  controllers.push_back(std::make_shared<PlayerController>(state));
-  views.push_back(std::make_shared<PlayerView>(state));
+  //controllers.push_back(std::make_shared<PlayerController>(state));
+  //views.push_back(std::make_shared<PlayerView>(state));
+
+  //menuController = std::make_shared<MenuController>(state);
+  //menuView = std::make_shared<MenuView>(state);
+  controllers.push_back(std::make_shared<MenuController>(state));
+  views.push_back(std::make_shared<MenuView>(state));
+
+
 
   // initiliazes the camera
   camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -42,7 +50,6 @@ Engine::~Engine()
  */
 void Engine::process_input(float delta)
 {
-
   // Process events
   sf::Event event;
   while (App->pollEvent(event))
@@ -79,10 +86,10 @@ void Engine::update_state()
 void Engine::update_views()
 {
 // centers view on player and clears window
-  auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
-  Position playerPos = mode->get_level()->get_entities()[0]->get_position();
-  camera.setCenter(playerPos.x * GRAPHICS_SCALER, playerPos.y * GRAPHICS_SCALER);
-  App->setView(camera);
+  //auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+  //Position playerPos = mode->get_level()->get_entities()[0]->get_position();
+  //camera.setCenter(playerPos.x * GRAPHICS_SCALER, playerPos.y * GRAPHICS_SCALER);
+  //App->setView(camera);
   App->clear(sf::Color::Black);
 
   for (const auto &v : views)

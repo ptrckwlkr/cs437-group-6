@@ -1,9 +1,10 @@
 #include "mode_play.h"
+#include "mode_menu.h"
 #include "game_logic.h"
 
 GameLogic::GameLogic()
 {
-  set_mode(MODE_PLAY);
+  set_mode(MODE_MENU);
   f_paused = false;
   f_shutdown = false;
 }
@@ -29,6 +30,7 @@ void GameLogic::set_mode(GameMode mode)
   switch (mode)
   {
     case MODE_MENU:
+	  curr_mode = std::make_shared<MenuMode>();
       break;
     case MODE_SHOP:
       break;

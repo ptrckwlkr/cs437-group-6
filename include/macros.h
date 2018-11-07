@@ -12,6 +12,8 @@
 #define COLLISION_BUFFER            10
 #define SQUARE_ROOT_2               1.414
 
+#define NUM_MENU_BUTTONS			3
+
 
 extern double g_time_elapsed;
 

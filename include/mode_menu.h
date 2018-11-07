@@ -11,8 +11,10 @@ public:
 	~MenuMode() = default;
 	void update() override;
 
+	int selectionIndex;	//represents current highlighted option on screen
+	int screenIndex;	//represents current menu screen to display
+
 private:
-	int selectionIndex;
 
 };
 

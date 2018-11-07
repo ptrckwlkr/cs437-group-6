@@ -1,9 +1,7 @@
 #ifndef CSCI437_VIEW_MENU_H
 #define CSCI437_VIEW_MENU_H
 
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics.hpp>
 #include "game_logic.h"
 #include "view.h"
 
@@ -17,14 +15,14 @@ public:
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-	void init();
+	void storeStaticText();
+	void drawDynamicText(sf::RenderTarget &target, sf::RenderStates states) const;
 
-	std::vector<sf::Drawable> menuObjects;
+	void drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const;
+
 	sf::Font font;
+	sf::Text title;
 
-	//ensures the xml file text does not go out of scope
-	rapidxml::xml_node<> * root_node;
-	std::shared_ptr <std::vector<char>> buffer;
 };
 
 
