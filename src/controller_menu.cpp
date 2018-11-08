@@ -22,5 +22,17 @@ void MenuController::handle_event(sf::Event event)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		(*mode).selectionIndex = ((*mode).selectionIndex + 1) % NUM_MENU_BUTTONS;
 
-	printf("%d\n", (*mode).selectionIndex);
+
+	//KeyReleased so that the next screen doesn't immediately think enter has been hit
+	if (event.key.code == sf::Keyboard::E && event.type == sf::Event::KeyReleased)
+	{
+		//changes the game mode when player selects play
+		if (mode->makeSelection())
+			state->set_mode(GameMode(MODE_PLAY));	//TODO this should probably be changed to level select
+	}
+		
+
+	if (event.key.code == sf::Keyboard::Q && event.type == sf::Event::KeyReleased)
+		mode->goBack();
+
 }

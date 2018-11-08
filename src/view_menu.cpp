@@ -19,11 +19,26 @@ void MenuView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
-	
-	target.draw(title, states);
-	drawDynamicText(target, states);
 
+	//get information from mode
+	auto mode = std::dynamic_pointer_cast<MenuMode>(state->get_mode());
 
+	if (mode->screenIndex == 0)		//draw elements for title screen
+	{
+		drawTitleScreenDynamicText(target, states, mode->selectionIndex);
+		target.draw(title, states);
+	}
+	else if (mode->screenIndex == 1)  //draw elements for controls screen
+	{
+		for (int i = 0; i < controls.size(); i++)
+			target.draw(controls[i], states);
+	}
+	else if (mode->screenIndex == 2)	//draw elements for about screen
+		target.draw(aboutText, states);
+
+	//always draws the menu instructions so the player is not confused about how to operate the menu
+	for (int i = 0; i < menuInstructions.size(); i++)
+		target.draw(menuInstructions[i], states);
 }
 
 
@@ -32,68 +47,96 @@ void MenuView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 */
 void MenuView::storeStaticText()
 {
-	title = prepareText("title");
-	title.setFont(font);
+	//title text
+	title = prepareText("title", font);
 	//centers text
 	title.setOrigin(title.getLocalBounds().width / 2.0, title.getLocalBounds().height / 2.0);
 	title.setPosition(WINDOW_WIDTH / 2.0, 125);
+
+	//prepares the menu controls text
+	menuInstructions.push_back(prepareText("navigation", font));
+	menuInstructions.push_back(prepareText("accept", font));
+	menuInstructions.push_back(prepareText("back", font));
+	menuInstructions[0].setPosition(WINDOW_WIDTH / 2.0, 515);
+	menuInstructions[1].setPosition(WINDOW_WIDTH / 2.0, 540);
+	menuInstructions[2].setPosition(WINDOW_WIDTH / 2.0, 565);
+
+	//prepares the about page's text
+	aboutText = prepareText("about-page", font);
+	aboutText.setPosition(WINDOW_WIDTH / 2.0, (WINDOW_HEIGHT / 2.0) - 75);
+
+	storeControlText();
 
 	//prepares for when the dynamic buttons are created
 	root_node = root_node->first_node("buttons");
 
 }
 
-/*
-	draws dynamic text  (text that changes colors) for the current menu screen
-*/
-void MenuView::drawDynamicText(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	//if the mode's selection index and views are not equal, make necessary changes
-	auto mode = std::dynamic_pointer_cast<MenuMode>(state->get_mode());
-
-	if (mode->screenIndex == 0) //title screen
-		drawTitleScreenDynamicText(target, states, mode->selectionIndex);
-	
-}
 
 /*
 	helper function for drawDynamicText that draws text for the titleScreen
 */
 void MenuView::drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const
 {
+	sf::Text playButton = prepareText("play", font);
+	sf::Text controlsButton = prepareText("controls", font);
+	sf::Text aboutButton = prepareText("about", font);
 
-	sf::Text playButton = prepareText("title-first");
-	sf::Text controlsButton = prepareText("title-second");
-	sf::Text exitButton = prepareText("title-third");
-
-	//play button is updated properly
-	playButton.setFont(font);
-	playButton.setOrigin(playButton.getLocalBounds().width / 2.0, playButton.getLocalBounds().height / 2.0);
-	playButton.setPosition(WINDOW_WIDTH / 2.0, 350);
+	//play button's color is updated properly
+	playButton.setPosition(WINDOW_WIDTH / 2.0, 300);
 	if (index == 0)
 		playButton.setFillColor(sf::Color::Cyan);
 	else
 		playButton.setFillColor(sf::Color::White);
 
-	//controls button is updated properly
-	controlsButton.setFont(font);
-	controlsButton.setOrigin(controlsButton.getLocalBounds().width / 2.0, controlsButton.getLocalBounds().height / 2.0);
-	controlsButton.setPosition(WINDOW_WIDTH / 2.0, 400);
+	//controls button's color is updated properly
+	controlsButton.setPosition(WINDOW_WIDTH / 2.0, 350);
 	if (index == 1)
 		controlsButton.setFillColor(sf::Color::Cyan);
 	else
 		controlsButton.setFillColor(sf::Color::White);
 	
-	//exit button is updated properly
-	exitButton.setFont(font);
-	exitButton.setOrigin(exitButton.getLocalBounds().width / 2.0, exitButton.getLocalBounds().height / 2.0);
-	exitButton.setPosition(WINDOW_WIDTH / 2.0, 450);
+	//exit button's color is updated properly
+	aboutButton.setPosition(WINDOW_WIDTH / 2.0, 400);
 	if (index == 2)
-		exitButton.setFillColor(sf::Color::Cyan);
+		aboutButton.setFillColor(sf::Color::Cyan);
 	else
-		exitButton.setFillColor(sf::Color::White);
+		aboutButton.setFillColor(sf::Color::White);
 
 	target.draw(playButton, states);
 	target.draw(controlsButton, states);
-	target.draw(exitButton, states);
+	target.draw(aboutButton, states);
+}
+
+/*
+	Helper function for storeStaticText which prepares the control screen's text
+*/
+void MenuView::storeControlText()
+{
+	//used to iterate through game-text.xml 
+	std::vector<std::string> xmlStrings;
+	xmlStrings.push_back("movement");
+	xmlStrings.push_back("aim");
+	xmlStrings.push_back("lweapon");
+	xmlStrings.push_back("rweapon");
+	xmlStrings.push_back("inventory");
+	xmlStrings.push_back("interact");
+
+
+	//coordinates for each entry
+	int lhs_x = WINDOW_WIDTH / 2.0 - 50;
+	int rhs_x = WINDOW_WIDTH / 2.0 + 95;
+	int y_start = 125;
+	int offset = 50;
+
+	for (int i = 0; i < 6; i++)
+	{
+		//reads text from xml file and creates an sf::Text object with a good position position 
+		controls.push_back(prepareText("control-" + xmlStrings[i] + "-lhs", font));		//this 2.0 is to keep the same height from prepareText()
+		controls[2 * i].setOrigin(controls[2 * i].getLocalBounds().width, controls[2 * i].getLocalBounds().height / 2.0);
+		controls[2*i].setPosition(lhs_x, y_start + i * offset);
+
+		controls.push_back(prepareText("control-" + xmlStrings[i] + "-rhs", font));
+		controls[2*i+1].setPosition(rhs_x, y_start + i * offset);
+	}
 }

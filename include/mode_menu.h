@@ -11,6 +11,9 @@ public:
 	~MenuMode() = default;
 	void update() override;
 
+	bool makeSelection();
+	void goBack();
+
 	int selectionIndex;	//represents current highlighted option on screen
 	int screenIndex;	//represents current menu screen to display
 

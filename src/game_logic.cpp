@@ -15,6 +15,7 @@ GameLogic::GameLogic()
 void GameLogic::update_state()
 {
   curr_mode->update();
+  
 }
 
 /**
@@ -40,4 +41,15 @@ void GameLogic::set_mode(GameMode mode)
       curr_mode = std::make_shared<PlayMode>();
       break;
   }
+  curr_game_mode = mode;
+  changed_mode = true;
+}
+
+/*
+	Returns true if the mode has changed and false otherwise. Allows the vectors of
+	Controllers and Views to be updated in engine.cpp based on input read from the controller
+*/
+bool GameLogic::has_mode_changed()
+{
+	return changed_mode;
 }

@@ -29,13 +29,12 @@ public:
 	
 
 private:
+	void change_mode();
     GameLogic *state;
     EventManager *event_manager;
 
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
-	std::shared_ptr<MenuController> menuController;
-	std::shared_ptr<MenuView> menuView;
 
 
     sf::RenderWindow *App;
