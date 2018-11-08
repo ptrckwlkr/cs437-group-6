@@ -3,8 +3,9 @@
 
 #include "event.h"
 #include "entity.h"
+#include "listener.h"
 
-class Player: public Entity
+class Player: public Entity, public Listener
 {
 
 private:
@@ -17,12 +18,9 @@ public:
 		~Player();
 		void update(double deltaMs) {};
 
-		//handles events
-		void HandleEvents(Event* event);
-		///if eventid = "walk"
-
 		void move(Direction dir, float delta);
 		void animate() {};
+		void HandleEvent(Event* event);
 
 }; 
 

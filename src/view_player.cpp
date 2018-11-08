@@ -36,6 +36,17 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(circle, states);
 
 
+	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[2]->get_position().x);
+	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[2]->get_position().y);
+	s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[2]->get_size());
+
+	// draw player entity to screen
+	circle.setFillColor(sf::Color(255, 255, 0));
+	circle.setOrigin(sf::Vector2f(s, s));
+	circle.setPosition(x, y);
+	target.draw(circle, states);
+
+
 	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
 	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().x);
 	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().y);
@@ -46,6 +57,10 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	circle.setOrigin(sf::Vector2f(s, s));
 	circle.setPosition(x, y);
 	target.draw(circle, states);
+
+
+
+
 
 	drawUI(target, states, x, y);
 	

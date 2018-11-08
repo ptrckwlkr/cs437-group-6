@@ -40,7 +40,6 @@ public:
 
     virtual void move(Direction dir, float delta) = 0;
     virtual void animate() = 0;
-    virtual void HandleEvents(Event* event) = 0;
 
     void set_health(int h);
     int get_health(){

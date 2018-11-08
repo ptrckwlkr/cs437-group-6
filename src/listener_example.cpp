@@ -7,14 +7,6 @@ ListenerExample::ListenerExample(int x, int y ){
 }
 
 void ListenerExample::HandleEvent(Event* event){
-    if ( event->EventId() == "WALK DOWN"){
-        y -= 10.0f; 
-    }
-
-    else if ( event->EventId() == "JUMP"){
-        x += 10.0f; 
-
-    }
 
 }
 

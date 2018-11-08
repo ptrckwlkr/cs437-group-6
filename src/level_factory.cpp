@@ -1,3 +1,4 @@
+#include "EventManager.h"
 #include "level_factory.h"
 #include "Player.h"
 #include "gold.h"
@@ -13,9 +14,17 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   std::vector<std::shared_ptr<Entity>> entities;
 
   // TODO Generate all the level's entities
-  entities.push_back(std::make_shared<Player>(150, 100, 10));
-  entities.push_back(std::make_shared<Player>(450, 250, 10));
-  entities.push_back(std::make_shared<Gold>(350, 250));
+
+  std::shared_ptr<Player> player = std::make_shared<Player>(150, 100, 10);
+  std::shared_ptr<Player> enemy = std::make_shared<Player>(450, 250, 10);
+  std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
+
+  EventManager::Instance()->RegisterObject(COLLISION_EVENT, player.get());
+
+
+  entities.push_back(player);
+  entities.push_back(enemy);
+  entities.push_back(gold);
 
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
   switch (algorithm)

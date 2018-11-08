@@ -60,7 +60,7 @@ void EventManager::RegisterObject(EVENTID event, Listener *object){
     }
 
     //add the object to the database
-    db.insert( make_pair(event, object));
+    db.insert(std::make_pair(event, object));
 
 }
 

@@ -1,5 +1,6 @@
 #include <vector>
 #include <macros.h>
+#include <EventManager.h>
 #include "collision_engine.h"
 
 /**
@@ -32,7 +33,7 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
           {
             // TODO Handle collision
             // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
-            printf("Collision!\n");
+            EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
           }
         }
       }

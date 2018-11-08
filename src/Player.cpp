@@ -7,12 +7,13 @@ Player::Player(float x, float y, float size) : Entity(x, y, size)
 }
 
 
-Player::~Player(){
-
+Player::~Player()
+{
     //unsubscirbe from events 
 }
 
-void Player::HandleEvents( Event* event){
+void Player::HandleEvent( Event* event)
+{
     
 }
 
