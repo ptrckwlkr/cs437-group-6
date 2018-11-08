@@ -5,6 +5,7 @@
 GameLogic::GameLogic()
 {
   set_mode(MODE_MENU);
+  player_data = std::make_shared<PlayerData>();
   f_paused = false;
   f_shutdown = false;
 }

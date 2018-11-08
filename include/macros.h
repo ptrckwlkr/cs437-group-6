@@ -10,9 +10,9 @@
 #define PLAYER_SPEED				        100
 #define CELL_SIZE                   50
 #define COLLISION_BUFFER            10
-#define SQUARE_ROOT_2               1.414
+#define STARTING_GOLD               100
 
-#define NUM_MENU_BUTTONS			3
+#define NUM_MENU_BUTTONS			      3
 
 
 extern double g_time_elapsed;
