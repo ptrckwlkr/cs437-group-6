@@ -1,19 +1,32 @@
 #include "Player.h"
+#include "EventManager.h"
 #include <macros.h>
 
-Player::Player(){
-}
+Player::Player(){}
 
 Player::~Player(){
 
-    //unsubscirbe from events 
+  //unsubscibe from all events
+  EventManager::Instance()->UnregisterAll(this);
 }
 
+
 void Player::HandleEvents( Event* event){
+  if (event != nullptr){
+    if ( event->EventId()== "PLAYER_HIT"){
+      int x= 0; 
+      x++;
+    }
+  }
     
 }
 
-void Player::move(Direction dir, float delta) // TODO note this kind of movement is specific to the player and should be moved
+void update(double deltaMs){
+  //move(dir, delta
+
+}
+
+void Player::move(Direction dir, float delta) 
 {
   pos_old = pos;
   float delta_speed = PLAYER_SPEED * delta;

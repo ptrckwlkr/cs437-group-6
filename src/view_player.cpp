@@ -25,6 +25,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	circle.setPosition(x, y);
 	target.draw(circle, states);
 
+
+
+
 	// updates hpBar and manaBar
 	sf::RectangleShape hpBar, manaBar;
 	hpBar.setFillColor(sf::Color::Red);

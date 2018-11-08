@@ -58,6 +58,9 @@ void Engine::process_input(float delta)
     c->process_input(delta);
   }
 
+  //process events
+  EventManager::Instance()->ProcessEvents;
+
   // Listen for shutdown signal
   if (state->shutdown()) App->close();
 }

@@ -6,7 +6,8 @@
 #define GAME_CLOCK_SCALER           2.f
 #define GRAPHICS_SCALER             1.5f
 
-#define PLAYER_SPEED				        100
+#define PLAYER_SPEED				100
+#define ENEMY_SPEED				    80
 #define CELL_SIZE                   50
 #define COLLISION_BUFFER            10
 #define SQUARE_ROOT_2               1.414

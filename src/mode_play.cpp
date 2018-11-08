@@ -11,9 +11,23 @@ PlayMode::PlayMode()
 PlayMode::~PlayMode()
 {
   delete level_factory;
+
+  //listen for events
+  //EventManager::Instance()->RegristerObject("PLAYER_SHOOT" ,this);
+
+
 }
 
 void PlayMode::update()
 {
   level->update();
+
+}
+
+void PlayMode::HandleEvent( Event* event){
+  if (event != nullptr){
+    if ( event->EventID() == PLAYER_SHOOT)}
+    //player shoots something 
+    //create the proper reactions
+  }
 }
