@@ -18,7 +18,6 @@ class Weapon {
         Weapon();
 
         ~Weapon();
-        virtual void update(double deltaMs) = 0;
 
         void set_position(Position new_pos);
         //should be set in position of player

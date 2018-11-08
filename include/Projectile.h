@@ -13,18 +13,18 @@ class Projectile: public Entity{
 
 
     public: 
-        Projectile();
+        Projectile(float x, float y, float size);
 
         ~Projectile();
         virtual void update(double deltaMs) = 0;
-
-        void set_position(Position new_pos);
-        //should be set in position of player
 
         //handles events 
         void HandleEvents( Event* event);
         ///if eventid = "attack"
 
+        void set_maxDamage( int mD);
+        
+        void set_maxRandge(int mD);
         void attack(Direction dir, float delta);
 
 }; 

@@ -24,10 +24,10 @@ void PlayMode::update()
 
 }
 
-void PlayMode::HandleEvent( Event* event){
-  if (event != nullptr){
-    if ( event->EventID() == PLAYER_SHOOT)}
-    //player shoots something 
-    //create the proper reactions
-  }
-}
+// void PlayMode::HandleEvent( Event* event){
+//   // if (event != nullptr){
+//   //   if ( event->EventID() == PLAYER_SHOOT)}
+//     //player shoots something 
+//     //create the proper reactions
+//   }
+// }

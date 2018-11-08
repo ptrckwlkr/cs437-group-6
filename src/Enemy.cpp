@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include <macros.h>
 
-Enemy::Enemy(){
+Enemy::Enemy(float x, float y, float size) :  Entity(x, y, size){
 }
 
 Enemy::~Enemy(){

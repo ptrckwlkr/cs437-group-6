@@ -33,3 +33,7 @@ void Entity::set_mana(int m){
 void Entity::takedamage(int damage){
       health -= damage;
 }
+
+void Entity::HandleEvents( Event* event){
+  
+}

@@ -1,6 +1,8 @@
 #ifndef CSCI437_ENTITY_H
 #define CSCI437_ENTITY_H
 
+#include "event.h"
+
 struct Position
 {
     float x;
@@ -49,6 +51,8 @@ public:
     }
 
     void takedamage(int damage);
+
+    void HandleEvents( Event* event);
 
 protected:
     Position pos{};

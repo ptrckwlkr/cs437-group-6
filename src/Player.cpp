@@ -3,14 +3,10 @@
 #include <macros.h>
 #include <iostream>
 
-<<<<<<< HEAD
-Player::Player(){}
-=======
+
 Player::Player(float x, float y, float size) : Entity(x, y, size)
 {
 }
->>>>>>> 07c6bc613fdaab79371ac938b2a7193b17a5b6a1
-
 
 Player::~Player(){
 
@@ -29,14 +25,11 @@ void Player::HandleEvents( Event* event){
     
 }
 
-<<<<<<< HEAD
-void update(double deltaMs){
-  //move(dir, delta
+// void Player::update(double deltaMs){
+//   //move(dir, delta
 
-}
+// }
 
-=======
->>>>>>> 07c6bc613fdaab79371ac938b2a7193b17a5b6a1
 void Player::move(Direction dir, float delta) 
 {
   pos_old = pos;

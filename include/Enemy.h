@@ -11,7 +11,7 @@ class Enemy: public Entity{
         int mana;
 
     public: 
-        Enemy();
+        Enemy(float x, float y, float size);
 
         ~Enemy();
         virtual void update(double deltaMs) = 0;

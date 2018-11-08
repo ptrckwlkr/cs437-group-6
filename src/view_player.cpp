@@ -47,12 +47,8 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	circle.setPosition(x, y);
 	target.draw(circle, states);
 
-<<<<<<< HEAD
-
-
 
 	// updates hpBar and manaBar
-=======
 	drawUI(target, states, x, y);
 	
 }
@@ -62,7 +58,6 @@ void PlayerView::drawUI(sf::RenderTarget &target, sf::RenderStates states, float
 {
 	//TODO set size of bar to match player'sactual health/mana
 	// updates hpBar
->>>>>>> 07c6bc613fdaab79371ac938b2a7193b17a5b6a1
 	sf::RectangleShape hpBar, manaBar;
 	hpBar.setFillColor(sf::Color(255, 0, 0, 190));
 	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
