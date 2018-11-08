@@ -2,8 +2,8 @@
 #include "view_example.h"
 #include "macros.h"
 
-#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * GRAPHICS_SCALER)) + 1)
-#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * GRAPHICS_SCALER)) + 1)
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE)) + 1)
 
 /**
  * This is a simple example of how the game state can be drawn to the screen
@@ -13,7 +13,7 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   // This must always be the first line of every draw method
   states.transform *= getTransform();
 
-  sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
+  sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   CellType cell_type;
 
   auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
@@ -32,7 +32,7 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
     {
       Cell cell = mode->get_level()->get_map()->get_cell(i, j);
       cell_type = cell.get_cell_type();
-      rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
+      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
 
       if (cell_type == WALL)
       {
@@ -50,15 +50,15 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
           rect.setFillColor(sf::Color(128, 128, 128));
         }
       }
-      rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
+      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
       target.draw(rect, states);
     }
   }
 
   // TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-  int x = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().x);
-  int y = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().y);
-  int s = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_size());
+  int x = (int)(mode->get_level()->get_entities()[0]->get_position().x);
+  int y = (int)(mode->get_level()->get_entities()[0]->get_position().y);
+  int s = (int)(mode->get_level()->get_entities()[0]->get_size());
 
   // Draw the player entitiy to the screen
   sf::CircleShape circle(s);
@@ -68,9 +68,9 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   target.draw(circle, states);
 
   // TODO Draw an enemy
-  x = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
-  y = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
-  s = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
+  x = (int)(mode->get_level()->get_entities()[1]->get_position().x);
+  y = (int)(mode->get_level()->get_entities()[1]->get_position().y);
+  s = (int)(mode->get_level()->get_entities()[1]->get_size());
 
   // Draw the player entitiy to the screen
   circle.setFillColor(sf::Color(255, 0, 0));

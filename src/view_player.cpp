@@ -24,9 +24,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
 
 	// TODO Draw an enemy
-	float x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().x);
-	float y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
-	float s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
+	float x = (mode->get_level()->get_entities()[1]->get_position().x);
+	float y = (mode->get_level()->get_entities()[1]->get_position().y);
+	float s = (mode->get_level()->get_entities()[1]->get_size());
 
 	// Draw enemy entity to the screen
 	sf::CircleShape circle(s);
@@ -48,9 +48,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 
 	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().x);
-	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_position().y);
-	s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[0]->get_size());
+	x = (mode->get_level()->get_entities()[0]->get_position().x);
+	y = (mode->get_level()->get_entities()[0]->get_position().y);
+	s = (mode->get_level()->get_entities()[0]->get_size());
 
 	// draw player entity to screen
 	circle.setFillColor(sf::Color(0, 255, 0));
@@ -117,8 +117,8 @@ void PlayerView::storeLevel()
 	{
 		for (j = 0; j < mode->get_level()->get_map()->get_width(); ++j)
 		{
-			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE * GRAPHICS_SCALER, CELL_SIZE * GRAPHICS_SCALER));
-			rect.setPosition(j * CELL_SIZE * GRAPHICS_SCALER, i * CELL_SIZE * GRAPHICS_SCALER);
+			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+			rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
 
 			// Color the cells according to their type
 			if (mode->get_level()->get_map()->get_cell(i, j).get_cell_type() == WALL)
