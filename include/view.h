@@ -19,8 +19,14 @@ class View : public sf::Drawable, public sf::Transformable
 public:
     explicit View(GameLogic *state) : state(state) {};
 
-	// finds element in under root node in xml file and creates sf::Text object with parameters
-	sf::Text prepareText(std::string elementName) const
+	/* finds element in under root node in xml file and creates sf::Text object with given parameters
+	    Note that the text will have an origin at its center. Since params are in xml file they can be changed without recompiling.
+		XML format:
+		<elementname>
+		  <text>String for sf::Text</text>
+		  <size>character size for text (as int)</size>
+		  <r or g or b>int for red/green/blue color value</r or g or b>*/
+	sf::Text prepareText(std::string elementName, const sf::Font &font) const
 	{
 		sf::Text text;
 		rapidxml::xml_node<> *node = root_node->first_node(elementName.c_str());
@@ -30,10 +36,13 @@ public:
 		int g = std::stoi(node->first_node("g")->value());
 		int b = std::stoi(node->first_node("b")->value());
 		text.setFillColor(sf::Color(r, g, b));
+		text.setFont(font);
+		text.setOrigin(text.getLocalBounds().width / 2.0, text.getLocalBounds().height / 2.0);
 
 		return text;
-
 	};
+
+
 
 protected:
     GameLogic *state;

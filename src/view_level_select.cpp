@@ -8,7 +8,4 @@ void LevelSelectView::draw(sf::RenderTarget &target, sf::RenderStates states) co
 
 }
 
-void LevelSelectView::init()
-{
 
-}

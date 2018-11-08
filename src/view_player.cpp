@@ -57,24 +57,23 @@ void PlayerView::drawUI(sf::RenderTarget &target, sf::RenderStates states, float
 	//TODO set size of bar to match player'sactual health/mana
 	// updates hpBar
 	sf::RectangleShape hpBar, manaBar;
-	hpBar.setFillColor(sf::Color::Red);
+	hpBar.setFillColor(sf::Color(255, 0, 0, 190));
 	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
 	hpBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 10));
 	target.draw(hpBar, states);
 	//updates mana bar
-	manaBar.setFillColor(sf::Color::Green);
+	manaBar.setFillColor(sf::Color(0,255,0,190));
 	manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
 	manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
 	target.draw(manaBar, states);
 
 	// update and draw text for health and mana, must be drawn after the corresponding bars
 	sf::Text hpText, manaText;
-	hpText = prepareText("health");
-	hpText.setFont(font);
-	hpText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (hpText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 15));
-	manaText = prepareText("mana");
-	manaText.setFont(font);
-	manaText.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 135 - (manaText.getLocalBounds().width / 2.f), y - WINDOW_HEIGHT / 2.f + 55));
+	hpText = prepareText("health", font);
+	//note that y position of text is relative to bar size but x position is fixed so that bar can change width without moving text
+	hpText.setPosition(x - WINDOW_WIDTH / 2.f + 135,  hpBar.getPosition().y + hpBar.getLocalBounds().height / 2.f);
+	manaText = prepareText("mana", font);
+	manaText.setPosition(x - WINDOW_WIDTH / 2.f + 135, manaBar.getPosition().y + manaBar.getLocalBounds().height / 2.f);
 	target.draw(hpText, states);
 	target.draw(manaText, states);
 }

@@ -11,6 +11,8 @@
 #include "level.h"
 #include "level_factory.h"
 #include "ResourceManager.h"
+#include "view_menu.h"
+#include "controller_menu.h"
 
 /**
  * Topmost class for the entire game engine, which coordinates the game state with the audio, visuals, and controllers.
@@ -27,11 +29,14 @@ public:
 	
 
 private:
+	void change_mode();
     GameLogic *state;
     EventManager *event_manager;
 
     std::vector<std::shared_ptr<View>> views;
     std::vector<std::shared_ptr<Controller>> controllers;
+
+
     sf::RenderWindow *App;
 		sf::View camera;
     sf::Clock time;

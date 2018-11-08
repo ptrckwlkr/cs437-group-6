@@ -18,15 +18,9 @@ public:
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-	void init();
 
 	std::vector<sf::Drawable> menuObjects;
 	sf::Font font;
-
-	//ensures the xml file text does not go out of scope
-	rapidxml::xml_document<> doc;
-	rapidxml::xml_node<> * root_node;
-	std::vector<char> buffer;
 };
 
 
