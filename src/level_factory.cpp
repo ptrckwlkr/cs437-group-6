@@ -2,6 +2,7 @@
 #include "level_factory.h"
 #include "Player.h"
 #include "gold.h"
+#include "alg_agent_based.h"
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
@@ -26,11 +27,19 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   entities.push_back(enemy);
   entities.push_back(gold);
 
+  AgentBasedGenerator gen = AgentBasedGenerator(5, 5, 0);
+  gen.printLevelGrid();
+
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
   switch (algorithm)
   {
     case LEVEL_FILE:
       map = load("../data/test2.txt");
+	  break;
+	case AGENT_BASED:
+		//AgentBasedGenerator gen = AgentBasedGenerator(5, 5, 0);
+		//gen.printLevelGrid();
+		break;
   }
 
   // Create the actual level
