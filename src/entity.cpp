@@ -1,5 +1,6 @@
 #include <macros.h>
 #include "entity.h"
+#include <iostream>
 
 Entity::Entity(float x, float y, float size) : size(size)
 {
@@ -20,7 +21,7 @@ void Entity::set_position(Position new_pos)
 
 
 void Entity::move(Direction dir, float delta){
-
+	printf("in entity move\n");
 }
 
 void Entity::set_health(int h){

@@ -1,50 +1,37 @@
 #include <mode_play.h>
 #include "controller_player.h"
+#include "Player.h"
 
 void PlayerController::process_input(float delta)
 {
 	// TODO check that game has started (not in menu)
-	Direction dir;
+	Direction dir = NONE;
 
-  //looks at keyboard state and updates coordinates appropriately
-	bool W_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-	bool S_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-	bool A_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-	bool D_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+	int x_dir = 0, y_dir = 0;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	y_dir++;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))	y_dir--;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	x_dir--;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	x_dir++;
 
-	// This is super complicated (sorry) and can probably be greatly simplified
-	if (W_pressed && A_pressed && S_pressed && D_pressed) // Don't do anything if all the keys are pressed
-	{
-		dir = NONE;
-	}
-	else if (A_pressed && D_pressed) // A and D cancel each other out
-	{
-		if (W_pressed) dir = NORTH;
-		else if (S_pressed) dir = SOUTH;
-		else dir = NONE;
-	}
-	else if (W_pressed && S_pressed) // W and S cancel each other out
-	{
-		if (A_pressed) dir = WEST;
-		else if (D_pressed) dir = EAST;
-		else dir = NONE;
-	}
-	else // For everything else, just figure out what direction we should be going
-	{
-		if (W_pressed && D_pressed) dir = NORTHEAST;
-		else if (D_pressed && S_pressed) dir = SOUTHEAST;
-		else if (S_pressed && A_pressed) dir = SOUTHWEST;
-		else if (A_pressed && W_pressed) dir = NORTHWEST;
-		else if (W_pressed) dir = NORTH;
-		else if (D_pressed) dir = EAST;
-		else if (S_pressed) dir = SOUTH;
-		else if (A_pressed) dir = WEST;
-		else dir = NONE;
-	}
+	if (x_dir == 1 && y_dir == 1)			dir = NORTHEAST;
+	else if (x_dir == 1 && y_dir == 0)		dir = EAST;
+	else if (x_dir == 1 && y_dir == -1)		dir = SOUTHEAST;
+	else if (x_dir == 0 && y_dir == 1)		dir = NORTH;
+	else if (x_dir == 0 && y_dir == -1)		dir = SOUTH;
+	else if (x_dir == -1 && y_dir == 1)		dir = NORTHWEST;
+	else if (x_dir == -1 && y_dir == 0)		dir = WEST;
+	else if (x_dir == -1 && y_dir == -1)	dir = SOUTHWEST;
+
 
 	// TODO The call to move should probably eventually be handled through the EventManager
-	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
-	mode->get_level()->get_entities()[0]->move(dir, delta);
+	//only call move when necessary
+	if (dir != NONE)
+	{
+		auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
+		auto player = std::static_pointer_cast<Player>(mode->get_level()->get_entities()[0]);
+		player->move(dir, delta);
+	}
+		
 }
 
 void PlayerController::handle_event(sf::Event event)

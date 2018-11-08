@@ -27,7 +27,7 @@ class Entity
 
 public:
     Entity(float x, float y, float size);
-    ~Entity();
+    ~Entity() = default;
 
     void set_position(float x, float y);
     void set_position(Position new_pos);

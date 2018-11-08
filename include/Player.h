@@ -11,10 +11,10 @@ class Player: public Entity{
         int mana;
 
     public: 
-        Player();
+		Player(float x, float y, float size);
 
         ~Player();
-        virtual void update(double deltaMs) = 0;
+		void update(double deltaMs) {};
 
         //handles events 
         void HandleEvents( Event* event);

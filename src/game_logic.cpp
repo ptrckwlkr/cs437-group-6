@@ -1,9 +1,10 @@
 #include "mode_play.h"
+#include "mode_menu.h"
 #include "game_logic.h"
 
 GameLogic::GameLogic()
 {
-  set_mode(MODE_PLAY);
+  set_mode(MODE_MENU);
   f_paused = false;
   f_shutdown = false;
 }
@@ -14,6 +15,7 @@ GameLogic::GameLogic()
 void GameLogic::update_state()
 {
   curr_mode->update();
+  
 }
 
 /**
@@ -29,6 +31,7 @@ void GameLogic::set_mode(GameMode mode)
   switch (mode)
   {
     case MODE_MENU:
+	  curr_mode = std::make_shared<MenuMode>();
       break;
     case MODE_SHOP:
       break;
@@ -38,4 +41,15 @@ void GameLogic::set_mode(GameMode mode)
       curr_mode = std::make_shared<PlayMode>();
       break;
   }
+  curr_game_mode = mode;
+  changed_mode = true;
+}
+
+/*
+	Returns true if the mode has changed and false otherwise. Allows the vectors of
+	Controllers and Views to be updated in engine.cpp based on input read from the controller
+*/
+bool GameLogic::has_mode_changed()
+{
+	return changed_mode;
 }
