@@ -2,7 +2,7 @@
 #include <iostream>
 #include <mode_level_select.h>
 
-void LevelSelectController::process_input(float delta)
+void LevelSelectController::process_input(float delta, sf::Vector2f mouse_pos)
 {
 
 }
