@@ -9,7 +9,7 @@ class LevelSelectController : public Controller
 public:
     LevelSelectController(GameLogic *state) : Controller(state) {};
     ~LevelSelectController() = default;
-    void process_input(float delta);
+    void process_input(float delta, sf::Vector2f mouse_pos);
     void handle_event(sf::Event event);
 
 private:
