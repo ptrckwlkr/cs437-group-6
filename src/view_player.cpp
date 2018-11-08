@@ -36,9 +36,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(circle, states);
 
 
-	x = (GRAPHICS_SCALER * mode->get_level()->get_entities()[2]->get_position().x);
-	y = (GRAPHICS_SCALER * mode->get_level()->get_entities()[2]->get_position().y);
-	s = (GRAPHICS_SCALER * mode->get_level()->get_entities()[2]->get_size());
+	x = (mode->get_level()->get_entities()[2]->get_position().x);
+	y = (mode->get_level()->get_entities()[2]->get_position().y);
+	s = (mode->get_level()->get_entities()[2]->get_size());
 
 	// draw player entity to screen
 	circle.setFillColor(sf::Color(255, 255, 0));
