@@ -4,25 +4,25 @@
 #include "event.h"
 #include "entity.h"
 
-class Player: public Entity{
+class Player: public Entity
+{
 
-    private: 
-        int health;
-        int mana;
+private:
+		int health;
+		int mana;
 
-    public: 
+public:
 		Player(float x, float y, float size);
 
-        ~Player();
+		~Player();
 		void update(double deltaMs) {};
 
-        //handles events 
-        void HandleEvents( Event* event);
-        ///if eventid = "walk"
+		//handles events
+		void HandleEvents(Event* event);
+		///if eventid = "walk"
 
-        int get_health(){return health;}
-
-        void move(Direction dir, float delta);
+		void move(Direction dir, float delta);
+		void animate() {};
 
 }; 
 

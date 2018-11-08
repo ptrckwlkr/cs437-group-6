@@ -5,6 +5,7 @@
 #include "level_factory.h"
 #include "mode.h"
 #include "player_data.h"
+#include "EventManager.h"
 
 enum GameMode
 {
@@ -30,7 +31,9 @@ public:
 		bool has_mode_changed();
     void exit();
     void set_mode(GameMode mode);
+
     std::shared_ptr<Mode> &get_mode() {return curr_mode;}
+		std::shared_ptr<PlayerData> &get_player_data() {return player_data;}
 
 		GameMode get_gameMode() { return curr_game_mode; } //allows engine to see GameMode
 		/*engine is done making necessary initial updates for mode change so it updates changed_mode

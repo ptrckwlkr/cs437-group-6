@@ -1,6 +1,8 @@
 #ifndef CSCI437_ENTITY_H
 #define CSCI437_ENTITY_H
 
+#include "event.h"
+
 struct Position
 {
     float x;
@@ -35,8 +37,10 @@ public:
     Position get_old_position() {return pos_old;}
 
     float get_size() {return size;}
-    void move(Direction dir, float delta); // TODO maybe encapsulate into a "Moveable" component?
-    void correct_position(float delta);
+
+    virtual void move(Direction dir, float delta) = 0;
+    virtual void animate() = 0;
+    virtual void HandleEvents(Event* event) = 0;
 
     void set_health(int h);
     int get_health(){
