@@ -9,9 +9,7 @@ MenuGraphics::MenuGraphics(MenuView *view) : Graphics(), view(view)
 	font = resources.GetFont("old_school");
 	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
 	buffer = resources.GetXMLBuffer("text");
-
 	root_node = (*doc).first_node("Root")->first_node("Menu");
-
 	storeStaticText();
 }
 

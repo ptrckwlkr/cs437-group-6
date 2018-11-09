@@ -1,7 +1,6 @@
 #ifndef CSCI437_VIEW_GAME_H
 #define CSCI437_VIEW_GAME_H
 
-#include "graphics_game.h"
 #include "view.h"
 
 /**
@@ -11,15 +10,13 @@ class GameView : public PlayerView
 {
 
 public:
-    explicit GameView(GameLogic *state, sf::RenderWindow *App);
-    ~GameView() = default;
+    GameView(GameLogic *state, sf::RenderWindow *App);
     void update(float delta) override;
     void draw() override;
 
 private:
     void process_input(float delta) override;
     void handle_event(sf::Event event) override;
-    GameGraphics *graphics;
 
 };
 

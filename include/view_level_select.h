@@ -7,15 +7,14 @@ class LevelSelectView : public PlayerView
 {
 
 public:
-    LevelSelectView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App) {};
-    ~LevelSelectView() = default;
-    void update(float delta);
-    void draw();
+    LevelSelectView(GameLogic *state, sf::RenderWindow *App);
+    void update(float delta) override;
+    void draw() override;
 
 private:
-    void process_input(float delta);
-    void handle_event(sf::Event event);
-    Level getSelectedLevel();
+    void process_input(float delta) override;
+    void handle_event(sf::Event event) override;
+    int getSelectedLevel() {};
     int selectionIndex;
 
 };

@@ -1,15 +1,13 @@
 #ifndef CSCI437_VIEW_MENU_H
 #define CSCI437_VIEW_MENU_H
 
-#include "graphics_menu.h"
 #include "view.h"
 
 class MenuView : public PlayerView
 {
 
 public:
-    MenuView(GameLogic *state, sf::RenderWindow *App);;
-    ~MenuView() = default;
+    MenuView(GameLogic *state, sf::RenderWindow *App);
     void update(float delta) override;
     void draw() override;
     int selectionIndex;	//represents current highlighted option on screen
@@ -20,7 +18,6 @@ private:
     void handle_event(sf::Event event);
 		bool makeSelection();
 		void goBack();
-    MenuGraphics *graphics;
 
 };
 

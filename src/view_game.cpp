@@ -6,7 +6,7 @@
 
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
-  graphics = new GameGraphics(this);
+  graphics = std::make_shared<GameGraphics>(this);
 }
 
 void GameView::process_input(float delta)
@@ -43,13 +43,13 @@ void GameView::process_input(float delta)
 
 void GameView::handle_event(sf::Event event)
 {
-  if (event.type == sf::Event::Closed) App->close();
+  if (event.type == sf::Event::Closed) app->close();
 }
 
 void GameView::update(float delta)
 {
   sf::Event event;
-  while (App->pollEvent(event))
+  while (app->pollEvent(event))
   {
     handle_event(event);
   }
@@ -67,8 +67,8 @@ void GameView::draw()
   Position playerPos = state->get_level().get_entities()[0]->get_position();
   camera.setCenter(playerPos.x, playerPos.y);
 
-  App->setView(camera);
-  App->clear(sf::Color::Black);
-  App->draw(*graphics);
-  App->display();
+  app->setView(camera);
+  app->clear(sf::Color::Black);
+  app->draw(*graphics);
+  app->display();
 }

@@ -4,19 +4,14 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include "game_logic.h"
 #include "graphics.h"
-#include "../rapidxml/rapidxml.hpp"
-#include "fstream"
-#include "view.h"
-#include "view_level_select.h"
 
-
+class LevelSelectView;
 class LevelSelectGraphics : public Graphics
 {
 
 public:
-    explicit LevelSelectGraphics(LevelSelectView *view) : Graphics(), view(view) {};
+    explicit LevelSelectGraphics(LevelSelectView *view);
 	  LevelSelectView *view;
 
 private:

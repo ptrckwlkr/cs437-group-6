@@ -10,6 +10,7 @@
  */
 class View
 {
+
 public:
     explicit View(GameLogic *state) : state(state) {};
     virtual ~View() = default;
@@ -17,23 +18,21 @@ public:
     GameLogic *get_state() {return state;}
     GameLogic *state;
 
-protected:
-
-
 };
 
-
+class Graphics;
 class PlayerView : public View
 {
 
 public:
-    explicit PlayerView(GameLogic *state, sf::RenderWindow *App) : View(state), App(App) {}
+    explicit PlayerView(GameLogic *state, sf::RenderWindow *App) : View(state), app(App) {}
     virtual void draw() = 0;
 
 protected:
     virtual void process_input(float delta) = 0;
     virtual void handle_event(sf::Event event) = 0;
-    sf::RenderWindow *App;
+    sf::RenderWindow *app;
+    std::shared_ptr<Graphics> graphics;
 
 };
 

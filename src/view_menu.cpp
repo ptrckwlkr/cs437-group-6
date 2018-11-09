@@ -1,18 +1,21 @@
 #include "view_menu.h"
 #include <iostream>
-#include <engine.h>
+#include "graphics_menu.h"
+#include "engine.h"
 #include "macros.h"
 
 MenuView::MenuView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
-	graphics = new MenuGraphics(this);
+	screenIndex = 0;
+	selectionIndex = 0;
+  graphics = std::make_shared<MenuGraphics>(this);
   App->setView(App->getDefaultView());
 }
 
 void MenuView::process_input(float delta)
 {
 
-	sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
+	sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
 	//avoids crashes when state has changed
   //	if (state->has_mode_changed()) return;
 
@@ -34,7 +37,7 @@ void MenuView::process_input(float delta)
 void MenuView::handle_event(sf::Event event)
 {
 
-  if (event.type == sf::Event::Closed) App->close();
+  if (event.type == sf::Event::Closed) app->close();
 	//gets mode object
 	//ensures menu mode selection index is within proper range
 
@@ -49,7 +52,7 @@ void MenuView::handle_event(sf::Event event)
 
 	//KeyReleased so that the next screen doesn't immediately think confirm has been hit 
 	if ((event.key.code == sf::Keyboard::E && event.type == sf::Event::KeyReleased) ||
-		(event.key.code == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased))
+		(event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased))
 	{
 		//changes the game mode when player selects play
 		if (makeSelection())
@@ -58,7 +61,7 @@ void MenuView::handle_event(sf::Event event)
 		
 
 	if ((event.key.code == sf::Keyboard::Q && event.type == sf::Event::KeyReleased) || 
-		(event.key.code == sf::Mouse::Right && event.type == sf::Event::MouseButtonReleased))
+		(event.mouseButton.button == sf::Mouse::Right && event.type == sf::Event::MouseButtonReleased))
 		goBack();
 
 }
@@ -67,7 +70,7 @@ void MenuView::update(float delta)
 {
   // Process input
   sf::Event event;
-  while (App->pollEvent(event))
+  while (app->pollEvent(event))
   {
     handle_event(event);
   }
@@ -101,7 +104,7 @@ void MenuView::goBack()
 
 void MenuView::draw()
 {
-	App->clear(sf::Color::Black);
-	App->draw(*graphics);
-	App->display();
+	app->clear(sf::Color::Black);
+	app->draw(*graphics);
+	app->display();
 }

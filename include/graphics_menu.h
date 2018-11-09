@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-#include "game_logic.h"
 #include "graphics.h"
 
 class MenuView;
@@ -13,13 +12,13 @@ class MenuGraphics : public Graphics
 
 public:
     explicit MenuGraphics(MenuView *view);
-    MenuView *view;
 
 private:
+    MenuView *view;
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
     void storeStaticText();
     void storeControlText();
-
     void drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const;
 
     sf::Font font;
