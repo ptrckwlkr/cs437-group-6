@@ -1,27 +1,30 @@
 #include <SFML/Window/Event.hpp>
+#include <iostream>
 #include <chrono>
-#include <view_example.h>
-#include <view_player.h>
-#include <level_factory.h>
-#include <controller_example.h>
-#include <controller_player.h>
-#include <mode_play.h>
+#include "graphics_example.h"
+#include "graphics_game.h"
+#include "view_game.h"
 #include "engine.h"
 #include "macros.h"
 #include "ResourceManager.h"
-#include <iostream>
+
 
 
 Engine::Engine(sf::RenderWindow *app) : App(app)
 {
+  curr_game_mode = MODE_PLAY;
+
   // Load fonts and audio
   // Initialize game state, graphics, sound, and controllers here
   state = new GameLogic();
-  // event_manager = new EventManager(); TODO
 
   //loads necessary resources to the resource manager
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
+
+  curr_player_view = std::make_shared<GameView>(state, app);
+
+  views.push_back(curr_player_view);
 
   // initializes the camera
   camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -36,74 +39,35 @@ Engine::~Engine()
 }
 
 /**
- * Process all events, automatic updates, and keyboard input for all controllers.
- */
-void Engine::process_input(float delta)
-{
-
-  // Process events
-  sf::Event event;
-  while (App->pollEvent(event))
-  {
-    for (const auto &c : controllers)
-    {
-      c->handle_event(event);
-    }
-
-    if (event.type == sf::Event::Closed) App->close();
-  }
-
-  //get mouse position relative to window
-  sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
-  // Process input
-  for (const auto &c : controllers)
-  {
-	  c->process_input(delta, mouse_pos);
-  }
-  
-
-  // Listen for shutdown signal
-  if (state->shutdown()) App->close();
-}
-
-/**
  * Update the game state.
  */
-void Engine::update_state()
+void Engine::update_state(float delta)
 {
-  /*ensures that the vectors of controllers and views reflect current game mode
-
-  NOTE: this is placed in this method because if it is within a method that references controllers or 
-  views, after the vectors are changed and change_mode() returns, there will be copies of the original
-  vectors in the method that called change_mode().*/
-  if (state->has_mode_changed())
-	change_mode();
-
-  if (!state->is_paused()) state->update_state();
+  if (curr_game_mode == MODE_PLAY)
+  {
+    if (!state->is_paused()) state->update_state();
+  }
+  if (state->shutdown()) App->close();
 }
 
 /**
  * Update the sound and graphics.
  */
-void Engine::update_views()
+void Engine::update_views(float delta)
 {
 	// centers view on player while game is in play
-  if (state->get_gameMode() == GameMode::MODE_PLAY)
+  for (const auto &view : views)
   {
-	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
-	Position playerPos = mode->get_level()->get_entities()[0]->get_position();
-	camera.setCenter(playerPos.x, playerPos.y);
-	App->setView(camera);
+    view->update(delta);
   }
+}
 
-  App->clear(sf::Color::Black);
-
-  for (const auto &v : views)
-  {
-    App->draw(*v);
-  }
-
-  App->display();
+void Engine::update_graphics()
+{
+  Position playerPos = state->get_level()->get_entities()[0]->get_position();
+  camera.setCenter(playerPos.x, playerPos.y);
+  App->setView(camera);
+  curr_player_view->draw();
 }
 
 /**
@@ -119,28 +83,26 @@ float Engine::clock()
 	Maintains the vectors storing Views and Controllers, adds/removes mode specific views/controllers
 	when the game mode is changed.
 */
-void Engine::change_mode()
+void Engine::change_view()
 {
 	//vectors are emptied upon change of mode
-	controllers.clear();
 	views.clear();
 
 	//places the primary controller and view for the mode at the 0th index of each vector
-	switch (state->get_gameMode())
+	switch (curr_game_mode)
 	{
-	case GameMode::MODE_MENU:
-		controllers.push_back(std::make_shared<MenuController>(state));
-		views.push_back(std::make_shared<MenuView>(state));
+	case MODE_MENU:
+//		controllers.push_back(std::make_shared<MenuView>(state));
+//		views.push_back(std::make_shared<MenuGraphics>(state));
 		break;
-	case GameMode::MODE_PLAY:
-		controllers.push_back(std::make_shared<PlayerController>(state));
-		views.push_back(std::make_shared<PlayerView>(state));
+	case MODE_PLAY:
+//		controllers.push_back(std::make_shared<GameView>(state));
+//		views.push_back(std::make_shared<PlayerGraphics>(state));
 		break;
-	case GameMode::MODE_MAP:
+	case MODE_LEVEL_SELECT:
 		break;
-	case GameMode::MODE_SHOP:
+	case MODE_SHOP:
 		break;
 	}
-	
-	state->finished_mode_change();
 }
+

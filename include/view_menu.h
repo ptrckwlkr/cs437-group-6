@@ -1,33 +1,29 @@
-#ifndef CSCI437_VIEW_MENU_H
-#define CSCI437_VIEW_MENU_H
+#ifndef CSCI437_CONTROLLER_MENU_H
+#define CSCI437_CONTROLLER_MENU_H
 
-#include <SFML/Graphics.hpp>
-#include "game_logic.h"
 #include "view.h"
-#include <vector>
-#include <string>
 
-
-class MenuView : public View
+class MenuView : public PlayerView
 {
 
 public:
-	MenuView(GameLogic *state);
+	MenuView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App) {};
+	~MenuView() = default;
+	void process_input(float delta, sf::Vector2f mouse_pos);
+	void handle_event(sf::Event event);
+  void update(float delta);
+	void draw();
+
+	int selectionIndex;	//represents current highlighted option on screen
+	int screenIndex;	//represents current menu screen to display
+	bool makeSelection();
+	void goBack();
 
 private:
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-	void storeStaticText();
-	void storeControlText();
 
-	void drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const;
 
-	sf::Font font;
-	sf::Text title;
-	std::vector<sf::Text> menuInstructions;
-	std::vector<sf::Text> controls;
-	sf::Text aboutText;
 
 };
 
 
-#endif //CSCI437_VIEW_MENU_H
+#endif //CSCI437_CONTROLLER_MENU_H

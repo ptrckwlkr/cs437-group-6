@@ -3,14 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 #include "game_logic.h"
-#include "view.h"
+#include "graphics.h"
 
-
-class PlayerView : public View
+class GameView;
+class GameGraphics : public Graphics
 {
 
 public:
-	PlayerView(GameLogic *state);
+  explicit GameGraphics(GameView *view);
+	GameView *view;
 
 private:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

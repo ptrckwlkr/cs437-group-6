@@ -1,142 +1,84 @@
-#include <mode_menu.h>
 #include "view_menu.h"
-#include "macros.h"
 #include <iostream>
+#include "macros.h"
 
-MenuView::MenuView(GameLogic *state) : View(state)
+void MenuView::process_input(float delta, sf::Vector2f mouse_pos)
 {
-	// get all necessary resources from resource manager
-	font = resources.GetFont("old_school");
-	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
-	buffer = resources.GetXMLBuffer("text");
+	//avoids crashes when state has changed
+//	if (state->has_mode_changed()) return;
 
-	root_node = (*doc).first_node("Root")->first_node("Menu");
+	//gets mode object
+	//ensures menu mode selection index is within proper range
 
-	storeStaticText();
-}
-
-void MenuView::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	// This must always be the first line of every draw method
-	states.transform *= getTransform();
-
-	//get information from mode
-	auto mode = std::dynamic_pointer_cast<MenuMode>(state->get_mode());
-
-	if (mode->screenIndex == 0)		//draw elements for title screen
+	if (screenIndex == 0 && (WINDOW_WIDTH / 6.f) < mouse_pos.x  && mouse_pos.x < (5 * WINDOW_WIDTH / 6.f))
 	{
-		drawTitleScreenDynamicText(target, states, mode->selectionIndex);
-		target.draw(title, states);
+		if (275 < mouse_pos.y && mouse_pos.y <= 325)
+			selectionIndex = 0;
+		else if (325 < mouse_pos.y && mouse_pos.y <= 375)
+			selectionIndex = 1;
+		else if (375 < mouse_pos.y && mouse_pos.y <= 425)
+			selectionIndex = 2;
 	}
-	else if (mode->screenIndex == 1)  //draw elements for controls screen
+}
+
+
+void MenuView::handle_event(sf::Event event)
+{
+	//gets mode object
+	//ensures menu mode selection index is within proper range
+
+
+	/*since this function is called inside the poll event loop, there is an OS delay which produces the
+	desired cursor movement on the menu*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		selectionIndex = (selectionIndex + NUM_MENU_BUTTONS - 1) % NUM_MENU_BUTTONS;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		selectionIndex = (selectionIndex + 1) % NUM_MENU_BUTTONS;
+
+
+	//KeyReleased so that the next screen doesn't immediately think confirm has been hit 
+	if ((event.key.code == sf::Keyboard::E && event.type == sf::Event::KeyReleased) ||
+		(event.key.code == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased))
 	{
-		for (int i = 0; i < controls.size(); i++)
-			target.draw(controls[i], states);
+		//changes the game mode when player selects play
+		if (makeSelection())
+      printf("Selection made\n");
+//			state->set_mode(GameMode(MODE_PLAY));	//TODO this should probably be changed to level select
 	}
-	else if (mode->screenIndex == 2)	//draw elements for about screen
-		target.draw(aboutText, states);
+		
 
-	//always draws the menu instructions so the player is not confused about how to operate the menu
-	for (int i = 0; i < menuInstructions.size(); i++)
-		target.draw(menuInstructions[i], states);
-}
-
-
-/*
-	Helper method to prepare all text items that will not be changed in any way 
-*/
-void MenuView::storeStaticText()
-{
-	//title text
-	title = prepareText("title", font);
-	//centers text
-	title.setOrigin(title.getLocalBounds().width / 2.0, title.getLocalBounds().height / 2.0);
-	title.setPosition(WINDOW_WIDTH / 2.0, 125);
-
-	//prepares the menu controls text
-	menuInstructions.push_back(prepareText("navigation", font));
-	menuInstructions.push_back(prepareText("accept", font));
-	menuInstructions.push_back(prepareText("back", font));
-	menuInstructions[0].setPosition(WINDOW_WIDTH / 2.0, 515);
-	menuInstructions[1].setPosition(WINDOW_WIDTH / 2.0, 540);
-	menuInstructions[2].setPosition(WINDOW_WIDTH / 2.0, 565);
-
-	//prepares the about page's text
-	aboutText = prepareText("about-page", font);
-	aboutText.setPosition(WINDOW_WIDTH / 2.0, (WINDOW_HEIGHT / 2.0) - 75);
-
-	storeControlText();
-
-	//prepares for when the dynamic buttons are created
-	root_node = root_node->first_node("buttons");
+	if ((event.key.code == sf::Keyboard::Q && event.type == sf::Event::KeyReleased) || 
+		(event.key.code == sf::Mouse::Right && event.type == sf::Event::MouseButtonReleased))
+		goBack();
 
 }
 
-
-/*
-	helper function for drawDynamicText that draws text for the titleScreen
-*/
-void MenuView::drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const
+void MenuView::update(float delta)
 {
-	sf::Text playButton = prepareText("play", font);
-	sf::Text controlsButton = prepareText("controls", font);
-	sf::Text aboutButton = prepareText("about", font);
 
-	//play button's color is updated properly
-	playButton.setPosition(WINDOW_WIDTH / 2.0, 300);
-	if (index == 0)
-		playButton.setFillColor(sf::Color::Cyan);
-	else
-		playButton.setFillColor(sf::Color::White);
+}
 
-	//controls button's color is updated properly
-	controlsButton.setPosition(WINDOW_WIDTH / 2.0, 350);
-	if (index == 1)
-		controlsButton.setFillColor(sf::Color::Cyan);
-	else
-		controlsButton.setFillColor(sf::Color::White);
-	
-	//exit button's color is updated properly
-	aboutButton.setPosition(WINDOW_WIDTH / 2.0, 400);
-	if (index == 2)
-		aboutButton.setFillColor(sf::Color::Cyan);
-	else
-		aboutButton.setFillColor(sf::Color::White);
+bool MenuView::makeSelection()
+{
+	if (screenIndex == 0) //title screen
+	{
+		if (selectionIndex == 0) //play game has been selected
+			return true;
+		else if (selectionIndex == 1) //controls have been selected
+			screenIndex = 1;
+		else							//about game has been selected
+			screenIndex = 2;
+	}
 
-	target.draw(playButton, states);
-	target.draw(controlsButton, states);
-	target.draw(aboutButton, states);
+	return false;
 }
 
 /*
-	Helper function for storeStaticText which prepares the control screen's text
+	called by Menu Controller, allows player to go back to an earlier menu screen
 */
-void MenuView::storeControlText()
+void MenuView::goBack()
 {
-	//used to iterate through game-text.xml 
-	std::vector<std::string> xmlStrings;
-	xmlStrings.push_back("movement");
-	xmlStrings.push_back("aim");
-	xmlStrings.push_back("lweapon");
-	xmlStrings.push_back("rweapon");
-	xmlStrings.push_back("inventory");
-	xmlStrings.push_back("interact");
+	if (screenIndex != 0)
+		screenIndex = 0;
 
-
-	//coordinates for each entry
-	int lhs_x = WINDOW_WIDTH / 2.0 - 50;
-	int rhs_x = WINDOW_WIDTH / 2.0 + 95;
-	int y_start = 125;
-	int offset = 50;
-
-	for (int i = 0; i < 6; i++)
-	{
-		//reads text from xml file and creates an sf::Text object with a good position position 
-		controls.push_back(prepareText("control-" + xmlStrings[i] + "-lhs", font));		//this 2.0 is to keep the same height from prepareText()
-		controls[2 * i].setOrigin(controls[2 * i].getLocalBounds().width, controls[2 * i].getLocalBounds().height / 2.0);
-		controls[2*i].setPosition(lhs_x, y_start + i * offset);
-
-		controls.push_back(prepareText("control-" + xmlStrings[i] + "-rhs", font));
-		controls[2*i+1].setPosition(rhs_x, y_start + i * offset);
-	}
 }

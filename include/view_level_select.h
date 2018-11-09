@@ -1,27 +1,24 @@
-#ifndef CSCI437_VIEW_LEVELSELECT_H
-#define CSCI437_VIEW_LEVELSELECT_H
+#ifndef CSCI437_CONTROLLER_LEVELSELECT_H
+#define CSCI437_CONTROLLER_LEVELSELECT_H
 
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include "game_logic.h"
 #include "view.h"
-#include "../rapidxml/rapidxml.hpp"
-#include "fstream"
 
-
-class LevelSelectView : public View
+class LevelSelectView : public PlayerView
 {
 
 public:
-	LevelSelectView(GameLogic *state) : View(state) {};
+    LevelSelectView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App) {};
+    ~LevelSelectView() = default;
+    void update(float delta);
+    void draw();
 
 private:
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+    void process_input(float delta, sf::Vector2f mouse_pos);
+    void handle_event(sf::Event event);
+    Level getSelectedLevel();
+    int selectionIndex;
 
-	std::vector<sf::Drawable> menuObjects;
-	sf::Font font;
 };
 
 
-#endif //CSCI437_VIEW_MENU_H
+#endif //CSCI437_CONTROLLER_LEVELSELECT_H
