@@ -29,7 +29,7 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
           entity2 = cell.get_entities()[j];
 
           // Handle the collision
-          if (entity_collision(entity1, entity2))
+          if (entity_collision(*entity1, *entity2))
           {
             // TODO Handle collision
             // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
@@ -46,15 +46,15 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
 /**
  * Check for a collision between two individual entities. Returns true if the entities are colliding
  */
-bool CollisionEngine::entity_collision(std::shared_ptr<Entity> &entity1, std::shared_ptr<Entity> &entity2)
+bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 {
   float dx;
   float dy;
   float hypo;
 
-  dx = entity1->get_position().x - entity2->get_position().x;
-  dy = entity1->get_position().y - entity2->get_position().y;
-  hypo = entity1->get_size() + entity2->get_size();
+  dx = entity1.get_position().x - entity2.get_position().x;
+  dy = entity1.get_position().y - entity2.get_position().y;
+  hypo = entity1.get_size() + entity2.get_size();
 
   return (hypo * hypo > dx * dx + dy * dy);
 }
