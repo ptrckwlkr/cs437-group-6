@@ -2,6 +2,9 @@
 #include "view_game.h"
 #include "macros.h"
 
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE)) + 1)
+
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
 	storeLevel();
@@ -88,13 +91,52 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, flo
 
 /*
 	Helper function to draw the background to the screen, called before entities are drawn
-*/
+*//*
 void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	for (unsigned i = 0; i < levelShapes.size(); i++)
 	{
 		target.draw(levelShapes.at(i), states);
 	}
+}*/
+
+void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
+{
+  // This must always be the first line of every draw method
+  states.transform *= getTransform();
+
+  sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+  CellType cell_type;
+
+  // Calculate the index bounds, to only draw the cells within view of the player
+  int bound_top   = std::max((int)(view->get_state().get_level().get_entities()[0]->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
+  int bound_bot   = std::min((int)(view->get_state().get_level().get_entities()[0]->get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state().get_level().get_map().get_height() - 1);
+  int bound_left  = std::max((int)(view->get_state().get_level().get_entities()[0]->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
+  int bound_right = std::min((int)(view->get_state().get_level().get_entities()[0]->get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state().get_level().get_map().get_width() - 1);
+
+  // Draw the map
+  int i, j;
+  for (i = bound_top; i < bound_bot; ++i)
+  {
+    for (j = bound_left; j < bound_right; ++j)
+    {
+      Cell cell = view->get_state().get_level().get_map().get_cell(i, j);
+      cell_type = cell.get_cell_type();
+      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+
+      if (cell_type == WALL)
+      {
+        rect.setFillColor(sf::Color(64, 64, 64));
+      }
+      else if (cell_type == FLOOR)
+      {
+        rect.setFillColor(sf::Color(128, 128, 128));
+        // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
+      }
+      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+      target.draw(rect, states);
+    }
+  }
 }
 
 
