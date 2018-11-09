@@ -92,7 +92,7 @@ void Engine::switch_mode()
       case MODE_SHOP:
         break;
       case MODE_PLAY:
-        state.create_new_level(LEVEL_FILE);
+        state.create_new_level(AGENT_BASED);
         curr_player_view = std::make_shared<GameView>(&state, App);
         break;
     }

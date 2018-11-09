@@ -7,7 +7,7 @@
 
 enum Generator
 {
-    LEVEL_FILE, 
+	LEVEL_FILE,
 	AGENT_BASED
 };
 

@@ -33,12 +33,16 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   switch (algorithm)
   {
     case LEVEL_FILE:
+      player->set_position(150, 150);
       map = load("../data/test2.txt");
-	  break;
-	case AGENT_BASED:
-		map = std::make_shared<Map>(gen.createLevelGrid());
-		gen.printLevelGrid();
-		break;
+	    break;
+	  case AGENT_BASED:
+      player->set_position(3150, 900);
+      enemy->set_position(3150, 800);
+      gold->set_position(3050, 800);
+		  map = std::make_shared<Map>(gen.createLevelGrid());
+		  //gen.printLevelGrid();
+		  break;
   }
 
   // Create the actual level

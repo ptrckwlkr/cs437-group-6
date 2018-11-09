@@ -22,7 +22,7 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
 }
 
 
-std::vector<std::vector<char>> AgentBasedGenerator::createLevelGrid()
+std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid()
 {
 	int distance_traveled = 0;
 	//determine digger's initial coordinates and place first room
