@@ -73,7 +73,7 @@
       <r>255</r>
       <g>255</g>
       <b>255</b>
-    </control-movement-rhs>
+    </control-aim-rhs>
     <control-lweapon-lhs>
       <text>Use 1st Weapon:</text>
       <size>20</size>

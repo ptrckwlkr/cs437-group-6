@@ -17,7 +17,6 @@ void Enemy::HandleEvents( Event* event){
 
 void Enemy::move(Direction dir, float delta) 
 {
-  pos_old = pos;
   float delta_speed = ENEMY_SPEED * delta;
 
   switch (dir)

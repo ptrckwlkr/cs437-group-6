@@ -1,12 +1,10 @@
 #include "Player.h"
-#include "EventManager.h"
-#include <macros.h>
-#include <iostream>
-
+#include "macros.h"
 
 Player::Player(float x, float y, float size) : Entity(x, y, size)
 {
 }
+
 
 Player::~Player()
 {
@@ -20,7 +18,7 @@ void Player::HandleEvent( Event* event)
 
 void Player::move(Direction dir, float delta) 
 {
-  pos_old = pos;
+  fflush(stdout);
   float delta_speed = PLAYER_SPEED * delta;
 
   switch (dir)

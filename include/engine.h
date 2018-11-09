@@ -5,14 +5,17 @@
 #include <memory>
 #include <chrono>
 #include "game_logic.h"
-#include "controller.h"
 #include "view.h"
-#include "EventManager.h"
-#include "level.h"
-#include "level_factory.h"
 #include "ResourceManager.h"
-#include "view_menu.h"
-#include "controller_menu.h"
+
+
+enum GameMode
+{
+		MODE_MENU,
+		MODE_LEVEL_SELECT,
+		MODE_SHOP,
+		MODE_PLAY,
+};
 
 /**
  * Topmost class for the entire game engine, which coordinates the game state with the audio, visuals, and controllers.
@@ -20,27 +23,32 @@
 class Engine
 {
 public:
-    explicit Engine(sf::RenderWindow *app);
-    ~Engine();
-    void process_input(float delta);
-    void update_state();
-    void update_views();
+    static Engine &getInstance();
+    void init(sf::RenderWindow *app);
+		void update_views(float delta);
+    void update_state(float delta);
+		void update_graphics();
+    void set_mode(GameMode mode);
     float clock();
 	
 
 private:
-	void change_mode();
-    GameLogic *state;
-    EventManager *event_manager;
+    Engine() = default;
+    ~Engine() = default;
+    Engine(const Engine&) = delete;
+    Engine& operator=(const Engine&) = delete;
+    Engine(Engine&&) = delete;
+    Engine& operator=(Engine&&) = delete;
 
-    std::vector<std::shared_ptr<View>> views;
-    std::vector<std::shared_ptr<Controller>> controllers;
+    void switch_mode();
 
-
+    GameLogic state;
     sf::RenderWindow *App;
-		sf::View camera;
     sf::Clock time;
 
+    std::vector<std::shared_ptr<View>> views;
+    std::shared_ptr<PlayerView> curr_player_view;
+		GameMode curr_game_mode;
 };
 
 //global access to resource manager

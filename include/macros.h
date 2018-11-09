@@ -5,7 +5,7 @@
 #define WINDOW_HEIGHT               600
 #define WINDOW_WIDTH                800
 #define GAME_CLOCK_SCALER           2.f
-#define ZOOM_SCALAR					1.5f
+#define ZOOM_SCALAR					        1.5f
 
 #define PLAYER_SPEED				100
 #define ENEMY_SPEED				    80
@@ -16,7 +16,6 @@
 #define NUM_MENU_BUTTONS			      3
 
 
-extern double g_time_elapsed;
 
 
 

@@ -1,9 +1,8 @@
-#include <mode_play.h>
-#include "view_player.h"
+#include "graphics_game.h"
+#include "view_game.h"
 #include "macros.h"
 
-
-PlayerView::PlayerView(GameLogic *state) : View(state)
+GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
 	storeLevel();
 
@@ -14,19 +13,17 @@ PlayerView::PlayerView(GameLogic *state) : View(state)
 	root_node = (*doc).first_node("Root")->first_node("UI");
 }
 
-void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
 
 	drawLevel(target, states);
 
-	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
-
 	// TODO Draw an enemy
-	float x = (mode->get_level()->get_entities()[1]->get_position().x);
-	float y = (mode->get_level()->get_entities()[1]->get_position().y);
-	float s = (mode->get_level()->get_entities()[1]->get_size());
+	float x = (view->get_state().get_level().get_entities()[1]->get_position().x);
+	float y = (view->get_state().get_level().get_entities()[1]->get_position().y);
+	float s = (view->get_state().get_level().get_entities()[1]->get_size());
 
 	// Draw enemy entity to the screen
 	sf::CircleShape circle(s);
@@ -36,9 +33,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(circle, states);
 
 
-	x = (mode->get_level()->get_entities()[2]->get_position().x);
-	y = (mode->get_level()->get_entities()[2]->get_position().y);
-	s = (mode->get_level()->get_entities()[2]->get_size());
+	x = (view->get_state().get_level().get_entities()[2]->get_position().x);
+	y = (view->get_state().get_level().get_entities()[2]->get_position().y);
+	s = (view->get_state().get_level().get_entities()[2]->get_size());
 
 	// draw player entity to screen
 	circle.setFillColor(sf::Color(255, 255, 0));
@@ -48,9 +45,9 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 
 	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-	x = (mode->get_level()->get_entities()[0]->get_position().x);
-	y = (mode->get_level()->get_entities()[0]->get_position().y);
-	s = (mode->get_level()->get_entities()[0]->get_size());
+	x = (view->get_state().get_level().get_entities()[0]->get_position().x);
+	y = (view->get_state().get_level().get_entities()[0]->get_position().y);
+	s = (view->get_state().get_level().get_entities()[0]->get_size());
 
 	// draw player entity to screen
 	circle.setFillColor(sf::Color(0, 255, 0));
@@ -58,15 +55,12 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	circle.setPosition(x, y);
 	target.draw(circle, states);
 
-
-	// updates hpBar and manaBar
-
 	drawUI(target, states, x, y);
 	
 }
 
 
-void PlayerView::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const
+void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const
 {
 	//TODO set size of bar to match player'sactual health/mana
 	// updates hpBar
@@ -95,7 +89,7 @@ void PlayerView::drawUI(sf::RenderTarget &target, sf::RenderStates states, float
 /*
 	Helper function to draw the background to the screen, called before entities are drawn
 */
-void PlayerView::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
+void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	for (unsigned i = 0; i < levelShapes.size(); i++)
 	{
@@ -107,24 +101,23 @@ void PlayerView::drawLevel(sf::RenderTarget &target, sf::RenderStates states) co
 /*
 	Stores all rectangle shapes for the level in a vector so that they can be quickly drawn later
 */
-void PlayerView::storeLevel()
+void GameGraphics::storeLevel()
 {
 	// Draw every cell onto the screen
 	int i, j;
-	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
-	for (i = 0; i < mode->get_level()->get_map()->get_height(); ++i)
+	for (i = 0; i < view->get_state().get_level().get_map().get_height(); ++i)
 	{
-		for (j = 0; j < mode->get_level()->get_map()->get_width(); ++j)
+		for (j = 0; j < view->get_state().get_level().get_map().get_width(); ++j)
 		{
 			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 			rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
 
 			// Color the cells according to their type
-			if (mode->get_level()->get_map()->get_cell(i, j).get_cell_type() == WALL)
+			if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == WALL)
 			{
 				rect.setFillColor(sf::Color(64, 64, 64));
 			}
-			else if (mode->get_level()->get_map()->get_cell(i, j).get_cell_type() == FLOOR)
+			else if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == FLOOR)
 			{
 				rect.setFillColor(sf::Color(128, 128, 128));
 			}

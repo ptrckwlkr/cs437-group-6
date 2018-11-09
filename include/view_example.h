@@ -1,22 +1,24 @@
 #ifndef CSCI437_VIEW_EXAMPLE_H
 #define CSCI437_VIEW_EXAMPLE_H
 
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
-#include "game_logic.h"
 #include "view.h"
 
-class ExampleView : public View
+class ExampleView : public PlayerView
 {
 
 public:
-    ExampleView(GameLogic *state) : View(state) {}
+    explicit ExampleView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App) {};
+    void update(float delta) override;
+
+protected:
+    void process_input(float delta) override;
+    void handle_event(sf::Event event) override;
+    void draw() override;
 
 private:
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+
 };
+
 
 #endif //CSCI437_VIEW_EXAMPLE_H

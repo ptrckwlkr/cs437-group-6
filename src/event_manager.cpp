@@ -40,7 +40,7 @@ void EventManager::DispactchEvent( Event* event){
         i != range.second; i++){
 
             //for each object handle the event
-            (*i).second ->HandleEvents(event);
+            (*i).second ->HandleEvent(event);
         }
 
 }

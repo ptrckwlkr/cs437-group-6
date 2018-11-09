@@ -6,7 +6,7 @@
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
  */
-void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
 {
   int num_entities;
   int i;
@@ -15,7 +15,7 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
   std::shared_ptr<Entity> entity2;
 
   // Check every cell of the map
-  for (auto &row : level_map->get_cells())
+  for (auto &row : level_map.get_cells())
   {
     for (auto &cell : row)
     {
@@ -29,11 +29,12 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
           entity2 = cell.get_entities()[j];
 
           // Handle the collision
-          if (entity_collision(entity1, entity2))
+          if (entity_collision(*entity1, *entity2))
           {
             // TODO Handle collision
             // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
-            EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
+            // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
+            printf("Collision!\n");
           }
         }
       }
@@ -46,15 +47,15 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
 /**
  * Check for a collision between two individual entities. Returns true if the entities are colliding
  */
-bool CollisionEngine::entity_collision(std::shared_ptr<Entity> &entity1, std::shared_ptr<Entity> &entity2)
+bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 {
   float dx;
   float dy;
   float hypo;
 
-  dx = entity1->get_position().x - entity2->get_position().x;
-  dy = entity1->get_position().y - entity2->get_position().y;
-  hypo = entity1->get_size() + entity2->get_size();
+  dx = entity1.get_position().x - entity2.get_position().x;
+  dy = entity1.get_position().y - entity2.get_position().y;
+  hypo = entity1.get_size() + entity2.get_size();
 
   return (hypo * hypo > dx * dx + dy * dy);
 }
@@ -62,7 +63,7 @@ bool CollisionEngine::entity_collision(std::shared_ptr<Entity> &entity1, std::sh
 /**
  * For all entities, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collisions(std::shared_ptr<Map> &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
 {
   float x;      // Entity x-position
   float y;      // Entity y-position
@@ -91,10 +92,10 @@ void CollisionEngine::check_wall_collisions(std::shared_ptr<Map> &level_map, std
     dy = y;
 
     // Calculate adjustments based on how far into the block the entity is interpenetrating
-    if (level_map->get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
-    if (level_map->get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
-    if (level_map->get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
-    if (level_map->get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
+    if (level_map.get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
+    if (level_map.get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
+    if (level_map.get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
+    if (level_map.get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
 
     // Adjust the position
     entity->set_position(dx, dy);
