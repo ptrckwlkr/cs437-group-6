@@ -6,7 +6,7 @@
 
 #define GOLD_SIZE 10
 
-class Gold : public Entity, public Listener
+class Gold : public Entity
 {
 
 public:

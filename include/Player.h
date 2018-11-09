@@ -5,7 +5,7 @@
 #include "entity.h"
 #include "listener.h"
 
-class Player: public Entity, public Listener
+class Player: public Entity
 {
 
     private: 

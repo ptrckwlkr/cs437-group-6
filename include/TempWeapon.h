@@ -2,19 +2,18 @@
 #define CSCI437_WEAPON_H
 
 #include "entity.h"
-class Weapon
+
+class TempWeapon
 {
 
-    Weapon();
-    ~Weapon();
+    TempWeapon();
+    ~TempWeapon();
 
 private: 
     int maxRange;
     int maxDamage;
 
-public: 
-    void set_position(Position new_pos);
-
+public:
     void set_maxDamage( int maxD);
         
     void set_maxRange( int maxR);
