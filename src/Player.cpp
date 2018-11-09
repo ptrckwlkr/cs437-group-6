@@ -8,27 +8,15 @@ Player::Player(float x, float y, float size) : Entity(x, y, size)
 {
 }
 
-Player::~Player(){
-
-  //unsubscibe from all events
-  EventManager::Instance()->UnregisterAll(this);
+Player::~Player()
+{
+    //unsubscirbe from events 
 }
 
-
-void Player::HandleEvents( Event* event){
-  if (event != nullptr){
-    if ( event->EventId()== "PLAYER_HIT"){
-      int x= 0; 
-      x++;
-    }
-  }
+void Player::HandleEvent( Event* event)
+{
     
 }
-
-// void Player::update(double deltaMs){
-//   //move(dir, delta
-
-// }
 
 void Player::move(Direction dir, float delta) 
 {

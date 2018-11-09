@@ -5,15 +5,15 @@
 #define WINDOW_HEIGHT               600
 #define WINDOW_WIDTH                800
 #define GAME_CLOCK_SCALER           2.f
-#define GRAPHICS_SCALER             1.5f
+#define ZOOM_SCALAR					1.5f
 
 #define PLAYER_SPEED				100
 #define ENEMY_SPEED				    80
 #define CELL_SIZE                   50
 #define COLLISION_BUFFER            10
-#define SQUARE_ROOT_2               1.414
+#define STARTING_GOLD               100
 
-#define NUM_MENU_BUTTONS			3
+#define NUM_MENU_BUTTONS			      3
 
 
 extern double g_time_elapsed;

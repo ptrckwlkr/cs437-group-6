@@ -2,7 +2,7 @@
 #include <iostream>
 #include <mode_play.h>
 
-void ExampleController::process_input(float delta)
+void ExampleController::process_input(float delta, sf::Vector2f mouse_pos)
 {
   Direction dir;
 

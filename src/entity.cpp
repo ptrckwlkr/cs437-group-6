@@ -35,5 +35,5 @@ void Entity::takedamage(int damage){
 }
 
 void Entity::HandleEvents( Event* event){
-  
+
 }

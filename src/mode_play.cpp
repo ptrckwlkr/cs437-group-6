@@ -1,3 +1,4 @@
+#include <EventManager.h>
 #include "mode_play.h"
 
 PlayMode::PlayMode()
@@ -21,6 +22,8 @@ PlayMode::~PlayMode()
 void PlayMode::update()
 {
   level->update();
+
+  //EventManager::Instance()->ProcessEvents();
 
 }
 

@@ -3,8 +3,13 @@
 
 #include <string>
 using std::string;
-#define EVENTID string
+//#define EVENTID string
 
+enum EVENTID
+{
+    COLLISION_EVENT,
+
+};
 
 class Event {
 

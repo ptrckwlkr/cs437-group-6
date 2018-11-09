@@ -1,5 +1,6 @@
 #include <vector>
 #include <macros.h>
+#include <EventManager.h>
 #include "collision_engine.h"
 
 /**
@@ -12,8 +13,6 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
   int j;
   std::shared_ptr<Entity> entity1;
   std::shared_ptr<Entity> entity2;
-
-  check_wall_collisions(level_map, entities);
 
   // Check every cell of the map
   for (auto &row : level_map->get_cells())
@@ -34,12 +33,14 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
           {
             // TODO Handle collision
             // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
-            printf("Collision!\n");
+            EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
           }
         }
       }
     }
   }
+
+  check_wall_collisions(level_map, entities);
 }
 
 /**
@@ -50,16 +51,12 @@ bool CollisionEngine::entity_collision(std::shared_ptr<Entity> &entity1, std::sh
   float dx;
   float dy;
   float hypo;
-  float temp;
 
-  temp = entity1->get_position().x - entity2->get_position().x;
-  dx = temp * temp;
-  temp = entity1->get_position().y - entity2->get_position().y;
-  dy = temp * temp;
-  temp = entity1->get_size() + entity2->get_size();
-  hypo = temp * temp;
+  dx = entity1->get_position().x - entity2->get_position().x;
+  dy = entity1->get_position().y - entity2->get_position().y;
+  hypo = entity1->get_size() + entity2->get_size();
 
-  return (hypo > dx + dy);
+  return (hypo * hypo > dx * dx + dy * dy);
 }
 
 /**

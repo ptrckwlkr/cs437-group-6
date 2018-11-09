@@ -40,6 +40,7 @@ Engine::~Engine()
  */
 void Engine::process_input(float delta)
 {
+
   // Process events
   sf::Event event;
   while (App->pollEvent(event))
@@ -52,11 +53,14 @@ void Engine::process_input(float delta)
     if (event.type == sf::Event::Closed) App->close();
   }
 
+  //get mouse position relative to window
+  sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
   // Process input
   for (const auto &c : controllers)
   {
-    c->process_input(delta);
+	  c->process_input(delta, mouse_pos);
   }
+  
 
   //process events
   // EventManager::Instance()->ProcessEvents();
@@ -91,7 +95,7 @@ void Engine::update_views()
   {
 	auto mode = std::dynamic_pointer_cast<PlayMode>(state->get_mode());
 	Position playerPos = mode->get_level()->get_entities()[0]->get_position();
-	camera.setCenter(playerPos.x * GRAPHICS_SCALER, playerPos.y * GRAPHICS_SCALER);
+	camera.setCenter(playerPos.x, playerPos.y);
 	App->setView(camera);
   }
 

@@ -3,27 +3,24 @@
 
 #include "event.h"
 #include "entity.h"
+#include "listener.h"
 
-class Player: public Entity{
+class Player: public Entity, public Listener
+{
 
     private: 
         int health;
         int mana;
         //std::shared_ptr<PlayerData> PlayerData;
-
-    public: 
+public:
 		Player(float x, float y, float size);
 
-        ~Player();
+		~Player();
 		void update(double deltaMs) {};
 
-        //handles events 
-        void HandleEvents( Event* event);
-        ///if eventid = "walk"
-
-        int get_health(){return health;}
-
-        void move(Direction dir, float delta);
+		void move(Direction dir, float delta);
+		void animate() {};
+		void HandleEvent(Event* event);
 
 }; 
 

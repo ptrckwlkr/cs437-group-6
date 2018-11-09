@@ -2,7 +2,7 @@
 #include "controller_player.h"
 #include "Player.h"
 
-void PlayerController::process_input(float delta)
+void PlayerController::process_input(float delta, sf::Vector2f mouse_pos)
 {
 	// TODO check that game has started (not in menu)
 	Direction dir = NONE;
