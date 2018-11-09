@@ -72,7 +72,7 @@ void ExampleView::draw(sf::RenderTarget &target, sf::RenderStates states) const
   y = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_position().y);
   s = (int)(GRAPHICS_SCALER * mode->get_level()->get_entities()[1]->get_size());
 
-  // Draw the player entitiy to the screen
+  // Draw the player entity to the screen
   circle.setFillColor(sf::Color(255, 0, 0));
   circle.setOrigin(sf::Vector2f(s, s));
   circle.setPosition(x, y);

@@ -9,6 +9,7 @@ class Player: public Entity{
     private: 
         int health;
         int mana;
+        //std::shared_ptr<PlayerData> PlayerData;
 
     public: 
 		Player(float x, float y, float size);
