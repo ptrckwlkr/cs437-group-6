@@ -12,7 +12,7 @@ public:
     void update(float delta);
 
 protected:
-    void process_input(float delta, sf::Vector2f mouse_pos);
+    void process_input(float delta);
     void handle_event(sf::Event event);
     void draw();
 

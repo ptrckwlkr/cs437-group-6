@@ -2,8 +2,15 @@
 #include <iostream>
 #include "macros.h"
 
-void MenuView::process_input(float delta, sf::Vector2f mouse_pos)
+MenuView::MenuView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
+	graphics = new MenuGraphics(this);
+}
+
+void MenuView::process_input(float delta)
+{
+
+	sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
 	//avoids crashes when state has changed
 //	if (state->has_mode_changed()) return;
 
@@ -24,6 +31,8 @@ void MenuView::process_input(float delta, sf::Vector2f mouse_pos)
 
 void MenuView::handle_event(sf::Event event)
 {
+
+  if (event.type == sf::Event::Closed) App->close();
 	//gets mode object
 	//ensures menu mode selection index is within proper range
 
@@ -55,7 +64,19 @@ void MenuView::handle_event(sf::Event event)
 
 void MenuView::update(float delta)
 {
+  sf::Event event;
+  while (App->pollEvent(event))
+  {
+    handle_event(event);
+  }
 
+  // Get mouse position relative to window
+  sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
+  // Process input
+	process_input(delta);
+
+  // Listen for shutdown signal
+  if (state->shutdown()) App->close();
 }
 
 bool MenuView::makeSelection()
@@ -81,4 +102,11 @@ void MenuView::goBack()
 	if (screenIndex != 0)
 		screenIndex = 0;
 
+}
+
+void MenuView::draw()
+{
+	App->clear(sf::Color::Black);
+	App->draw(*graphics);
+	App->display();
 }

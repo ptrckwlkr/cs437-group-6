@@ -38,12 +38,11 @@ public:
 	
 
 private:
-		void change_view();
+		void switch_mode();
     GameLogic *state;
     EventManager *event_manager;
 
     sf::RenderWindow *App;
-		sf::View camera;
     sf::Clock time;
 
     std::vector<std::shared_ptr<View>> views;

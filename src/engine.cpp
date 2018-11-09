@@ -12,7 +12,7 @@
 
 Engine::Engine(sf::RenderWindow *app) : App(app)
 {
-  curr_game_mode = MODE_PLAY;
+  curr_game_mode = MODE_MENU;
 
   // Load fonts and audio
   // Initialize game state, graphics, sound, and controllers here
@@ -22,12 +22,9 @@ Engine::Engine(sf::RenderWindow *app) : App(app)
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
 
-  curr_player_view = std::make_shared<GameView>(state, app);
+  curr_player_view = std::make_shared<MenuView>(state, app);
 
   views.push_back(curr_player_view);
-
-  // initializes the camera
-  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
   //starts clock
   time.restart();
@@ -64,9 +61,6 @@ void Engine::update_views(float delta)
 
 void Engine::update_graphics()
 {
-  Position playerPos = state->get_level()->get_entities()[0]->get_position();
-  camera.setCenter(playerPos.x, playerPos.y);
-  App->setView(camera);
   curr_player_view->draw();
 }
 
@@ -83,7 +77,7 @@ float Engine::clock()
 	Maintains the vectors storing Views and Controllers, adds/removes mode specific views/controllers
 	when the game mode is changed.
 */
-void Engine::change_view()
+void Engine::switch_mode()
 {
 	//vectors are emptied upon change of mode
 	views.clear();

@@ -31,7 +31,7 @@ public:
     virtual void draw() = 0;
 
 protected:
-    virtual void process_input(float delta, sf::Vector2f mouse_pos) = 0;
+    virtual void process_input(float delta) = 0;
     virtual void handle_event(sf::Event event) = 0;
     sf::RenderWindow *App;
 

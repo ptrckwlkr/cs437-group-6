@@ -4,14 +4,6 @@
 #include <vector>
 #include "map.h"
 
-struct Line
-{
-    float x1;
-    float y1;
-    float x2;
-    float y2;
-};
-
 /**
  * Encapsulates collision detection and handling
  */

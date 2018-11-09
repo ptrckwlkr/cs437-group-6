@@ -1,7 +1,7 @@
 #include "view_example.h"
 #include <iostream>
 
-void ExampleView::process_input(float delta, sf::Vector2f mouse_pos)
+void ExampleView::process_input(float delta)
 {
   Direction dir;
 

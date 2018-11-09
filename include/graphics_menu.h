@@ -2,18 +2,17 @@
 #define CSCI437_VIEW_MENU_H
 
 #include <SFML/Graphics.hpp>
-#include "game_logic.h"
-#include "graphics.h"
-#include "view_menu.h"
 #include <vector>
 #include <string>
+#include "game_logic.h"
+#include "graphics.h"
 
-
+class MenuView;
 class MenuGraphics : public Graphics
 {
 
 public:
-    MenuGraphics(MenuView *view);
+    explicit MenuGraphics(MenuView *view);
     MenuView *view;
 
 private:
