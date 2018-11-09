@@ -1,5 +1,5 @@
-#ifndef CSCI437_VIEW_LEVELSELECT_H
-#define CSCI437_VIEW_LEVELSELECT_H
+#ifndef CSCI437_GRAPHICS_LEVELSELECT_H
+#define CSCI437_GRAPHICS_LEVELSELECT_H
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
@@ -27,4 +27,4 @@ private:
 };
 
 
-#endif //CSCI437_VIEW_MENU_H
+#endif //CSCI437_GRAPHICS_LEVELSELECT_H

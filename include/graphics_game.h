@@ -1,5 +1,5 @@
-#ifndef CSCI437_VIEW_PLAYER_H
-#define CSCI437_VIEW_PLAYER_H
+#ifndef CSCI437_GRAPHICS_GAME_H
+#define CSCI437_GRAPHICS_GAME_H
 
 #include <SFML/Graphics.hpp>
 #include "game_logic.h"
@@ -25,4 +25,4 @@ private:
 };
 
 
-#endif //CSCI437_VIEW_PLAYER_H
+#endif //CSCI437_GRAPHICS_GAME_H

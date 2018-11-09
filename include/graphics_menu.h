@@ -1,5 +1,5 @@
-#ifndef CSCI437_VIEW_MENU_H
-#define CSCI437_VIEW_MENU_H
+#ifndef CSCI437_GRAPHICS_MENU_H
+#define CSCI437_GRAPHICS_MENU_H
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -31,4 +31,4 @@ private:
 };
 
 
-#endif //CSCI437_VIEW_MENU_H
+#endif //CSCI437_GRAPHICS_MENU_H

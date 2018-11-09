@@ -1,5 +1,5 @@
-#ifndef CSCI437_CONTROLLER_H
-#define CSCI437_CONTROLLER_H
+#ifndef CSCI437_VIEW_H
+#define CSCI437_VIEW_H
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -37,4 +37,4 @@ protected:
 
 };
 
-#endif //CSCI437_CONTROLLER_H
+#endif //CSCI437_VIEW_H

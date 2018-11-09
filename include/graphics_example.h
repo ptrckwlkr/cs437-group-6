@@ -1,5 +1,5 @@
-#ifndef CSCI437_VIEW_EXAMPLE_H
-#define CSCI437_VIEW_EXAMPLE_H
+#ifndef CSCI437_GRAPHICS_EXAMPLE_H
+#define CSCI437_GRAPHICS_EXAMPLE_H
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif //CSCI437_VIEW_EXAMPLE_H
+#endif //CSCI437_GRAPHICS_EXAMPLE_H

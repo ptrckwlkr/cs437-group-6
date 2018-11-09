@@ -1,5 +1,5 @@
-#ifndef CSCI437_CONTROLLER_MENU_H
-#define CSCI437_CONTROLLER_MENU_H
+#ifndef CSCI437_VIEW_MENU_H
+#define CSCI437_VIEW_MENU_H
 
 #include "graphics_menu.h"
 #include "view.h"
@@ -25,4 +25,4 @@ private:
 };
 
 
-#endif //CSCI437_CONTROLLER_MENU_H
+#endif //CSCI437_VIEW_MENU_H

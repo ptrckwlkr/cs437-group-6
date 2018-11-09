@@ -1,5 +1,5 @@
-#ifndef CSCI437_PLAYER_CONTROLLER_H
-#define CSCI437_PLAYER_CONTROLLER_H
+#ifndef CSCI437_VIEW_GAME_H
+#define CSCI437_VIEW_GAME_H
 
 #include "graphics_game.h"
 #include "view.h"
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif //CSCI437_PLAYER_CONTROLLER_H
+#endif //CSCI437_VIEW_GAME_H

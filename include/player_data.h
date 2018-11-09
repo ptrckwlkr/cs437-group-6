@@ -18,13 +18,13 @@ public:
     int get_gold() {return gold;}
     std::shared_ptr<Weapon> &get_curr_weapon() {return curr_weapon;}
     std::shared_ptr<Ability> &get_curr_ability() {return curr_ability;}
-    std::shared_ptr<Inventory> &get_inventory() {return inventory;}
+    Inventory &get_inventory() {return inventory;}
 
 private:
     int gold;
     std::shared_ptr<Weapon> curr_weapon;
     std::shared_ptr<Ability> curr_ability;
-    std::shared_ptr<Inventory> inventory;
+    Inventory inventory;
 
 };
 

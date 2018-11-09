@@ -1,5 +1,5 @@
-#ifndef CSCI437_VIEW_H
-#define CSCI437_VIEW_H
+#ifndef CSCI437_GRAPHICS_H
+#define CSCI437_GRAPHICS_H
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
@@ -56,4 +56,4 @@ protected:
 //global access to resource manager
 extern ResourceManager resources;
 
-#endif //CSCI437_VIEW_H
+#endif //CSCI437_GRAPHICS_H
