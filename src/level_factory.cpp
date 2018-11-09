@@ -1,5 +1,5 @@
-#include "EventManager.h"
 #include "level_factory.h"
+#include "EventManager.h"
 #include "Player.h"
 #include "gold.h"
 

@@ -1,8 +1,6 @@
-#include <view.h>
-#include <view_game.h>
 #include "graphics_game.h"
+#include "view_game.h"
 #include "macros.h"
-
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {

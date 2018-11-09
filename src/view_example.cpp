@@ -1,5 +1,4 @@
 #include "view_example.h"
-#include <iostream>
 
 void ExampleView::process_input(float delta)
 {

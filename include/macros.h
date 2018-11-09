@@ -15,7 +15,6 @@
 #define NUM_MENU_BUTTONS			      3
 
 
-extern double g_time_elapsed;
 
 
 

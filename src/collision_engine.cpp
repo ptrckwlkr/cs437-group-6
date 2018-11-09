@@ -33,7 +33,8 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
           {
             // TODO Handle collision
             // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
-            EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
+            // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
+            printf("Collision!\n");
           }
         }
       }

@@ -1,6 +1,5 @@
 #include "Player.h"
-#include <macros.h>
-#include <iostream>
+#include "macros.h"
 
 Player::Player(float x, float y, float size) : Entity(x, y, size)
 {

@@ -1,5 +1,5 @@
 #include "graphics_level_select.h"
-#include "macros.h"
+#include "view_level_select.h"
 
 LevelSelectGraphics::LevelSelectGraphics(LevelSelectView *view) : Graphics(), view(view)
 {

@@ -1,6 +1,6 @@
 #include "view_menu.h"
-#include <iostream>
 #include "graphics_menu.h"
+#include <iostream>
 #include "engine.h"
 #include "macros.h"
 

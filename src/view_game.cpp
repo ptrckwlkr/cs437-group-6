@@ -1,7 +1,7 @@
-#include <macros.h>
-#include <engine.h>
-#include "graphics_game.h"
 #include "view_game.h"
+#include "graphics_game.h"
+#include "macros.h"
+#include "engine.h"
 #include "Player.h"
 
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
