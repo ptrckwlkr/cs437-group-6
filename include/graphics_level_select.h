@@ -12,9 +12,10 @@ class LevelSelectGraphics : public Graphics
 
 public:
     explicit LevelSelectGraphics(LevelSelectView *view);
-	  LevelSelectView *view;
 
 private:
+		LevelSelectView *view;
+
 	  void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	  std::vector<sf::Drawable> menuObjects;

@@ -13,6 +13,7 @@ GameLogic::GameLogic()
 void GameLogic::update_state()
 {
   level->update();
+  EventManager::Instance()->ProcessEvents();
 }
 
 /**

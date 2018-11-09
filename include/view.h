@@ -13,9 +13,11 @@ class View
 
 public:
     explicit View(GameLogic *state) : state(state) {};
-    virtual ~View() = default;
+    ~View() = default;
     virtual void update(float delta) = 0;
     GameLogic &get_state() {return *state;}
+
+protected:
     GameLogic *state;
 
 };

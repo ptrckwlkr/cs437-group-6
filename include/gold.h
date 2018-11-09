@@ -11,9 +11,9 @@ class Gold : public Entity, public Listener
 
 public:
     Gold(float x, float y);
-    void move(Direction dir, float delta) {} // Gold does not move
-    void animate() {} // Gold is not animated
-    void HandleEvent(Event* event);
+    void move(Direction dir, float delta) override {} // Gold does not move
+    void animate() override {} // Gold is not animated
+    void HandleEvent(Event* event) override;
 
 private:
 

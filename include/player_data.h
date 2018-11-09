@@ -16,8 +16,8 @@ public:
     PlayerData();
     void add_gold(int amount) {gold += amount;}
     int get_gold() {return gold;}
-    std::shared_ptr<Weapon> &get_curr_weapon() {return curr_weapon;}
-    std::shared_ptr<Ability> &get_curr_ability() {return curr_ability;}
+    Weapon &get_curr_weapon() {return *curr_weapon;}
+    Ability &get_curr_ability() {return *curr_ability;}
     Inventory &get_inventory() {return inventory;}
 
 private:
