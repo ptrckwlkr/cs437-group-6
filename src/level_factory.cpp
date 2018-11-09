@@ -27,7 +27,8 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   entities.push_back(enemy);
   entities.push_back(gold);
 
-  AgentBasedGenerator gen = AgentBasedGenerator(5, 5, 0);
+  AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 5, 5, 0);
+  gen.createLevelGrid();
   gen.printLevelGrid();
 
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)

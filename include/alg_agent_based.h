@@ -14,16 +14,22 @@
 class AgentBasedGenerator
 {
 public:
-	AgentBasedGenerator(int prob_room, int prob_turn, int room_size_modifier);
+	AgentBasedGenerator(int width, int height, int prob_room, int prob_turn, int room_size_modifier);
 	~AgentBasedGenerator() = default;
 
 	std::vector<std::vector<char>> createLevelGrid();
-	void placeRoom(int i, int j);
+	bool placeRoom(int i, int j);
 	void printLevelGrid();
+
+	int width;
+	int height;
 
 	std::vector<std::vector<char>> level_grid;
 
 private:
+	void chooseRandomDirection(bool first_time);
+	bool checkPointInBounds(int i, int j) { return (i < width - 1) && (j < height - 1); }
+
 
 	int max_room_size;
 	int min_room_size;
@@ -33,6 +39,8 @@ private:
 
 	int direction_x;
 	int direction_y;
+
+	int num_rooms;
 
 };
 

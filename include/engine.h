@@ -38,7 +38,7 @@ private:
 
 
     sf::RenderWindow *App;
-		sf::View camera;
+	sf::View camera;
     sf::Clock time;
 
 };
