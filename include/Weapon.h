@@ -2,7 +2,6 @@
 #define CSCI437_WEAPON_H
 
 #include "entity.h"
-
 class Weapon
 {
 
@@ -14,6 +13,7 @@ private:
     int maxDamage;
 
 public:
+
     void set_maxDamage( int maxD);
         
     void set_maxRange( int maxR);

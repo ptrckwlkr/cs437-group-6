@@ -2,7 +2,6 @@
 #define CSCI437_PLAYER_DATA_H
 
 #include <memory>
-#include "TempWeapon.h"
 #include "Weapon.h"
 #include "ability.h"
 #include "inventory.h"
@@ -23,7 +22,7 @@ public:
 
 private:
     int gold;
-    std::shared_ptr<TempWeapon> curr_weapon;
+    std::shared_ptr<Weapon> curr_weapon;
     std::shared_ptr<Ability> curr_ability;
     Inventory inventory;
 
