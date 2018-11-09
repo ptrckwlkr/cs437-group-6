@@ -41,7 +41,7 @@ void ExampleView::process_input(float delta)
     else dir = NONE;
   }
 
-  state->get_level()->get_entities()[0]->move(dir, delta);
+  state->get_level().get_entities()[0]->move(dir, delta);
 }
 
 void ExampleView::handle_event(sf::Event event)

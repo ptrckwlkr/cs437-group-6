@@ -23,7 +23,7 @@ enum GameMode
 class Engine
 {
 public:
-    static Engine* GameEngine();
+    static Engine &getInstance();
     void init(sf::RenderWindow *app);
 		void update_views(float delta);
     void update_state(float delta);
@@ -33,11 +33,16 @@ public:
 	
 
 private:
-    Engine();
-    ~Engine();
+    Engine() = default;
+    ~Engine() = default;
+    Engine(const Engine&) = delete;
+    Engine& operator=(const Engine&) = delete;
+    Engine(Engine&&) = delete;
+    Engine& operator=(Engine&&) = delete;
+
     void switch_mode();
 
-    GameLogic *state;
+    GameLogic state;
     sf::RenderWindow *App;
     sf::Clock time;
 

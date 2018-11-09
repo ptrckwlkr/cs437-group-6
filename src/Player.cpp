@@ -20,7 +20,6 @@ void Player::HandleEvent( Event* event)
 void Player::move(Direction dir, float delta) 
 {
   fflush(stdout);
-  pos_old = pos;
   float delta_speed = PLAYER_SPEED * delta;
 
   switch (dir)

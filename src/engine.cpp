@@ -9,37 +9,22 @@
 #include "macros.h"
 #include "ResourceManager.h"
 
-Engine::Engine()
-{
-
-};
-
-Engine *Engine::GameEngine()
+Engine &Engine::getInstance()
 {
   static Engine instance;
-  return &instance;
-}
-
-Engine::~Engine()
-{
-  delete state;
+  return instance;
 }
 
 void Engine::init(sf::RenderWindow *app)
 {
-  App = app;
-  curr_game_mode = MODE_MENU;
-
-  // Load fonts and audio
-  // Initialize game state, graphics, sound, and controllers here
-  state = new GameLogic();
-
   //loads necessary resources to the resource manager
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
 
-  curr_player_view = std::make_shared<MenuView>(state, App);
-
+  App = app;
+  curr_game_mode = MODE_MENU;
+  state = GameLogic();
+  curr_player_view = std::make_shared<MenuView>(&state, App);
   views.push_back(curr_player_view);
 
   //starts clock
@@ -65,9 +50,8 @@ void Engine::update_state(float delta)
   switch_mode();
   if (curr_game_mode == MODE_PLAY)
   {
-    if (!state->is_paused()) state->update_state();
+    if (!state.is_paused()) state.update_state();
   }
-  if (state->shutdown()) App->close();
 }
 
 void Engine::update_graphics()
@@ -104,14 +88,15 @@ void Engine::switch_mode()
     switch (curr_game_mode)
     {
       case MODE_MENU:
-        curr_player_view = std::make_shared<MenuView>(state, App);
+        curr_player_view = std::make_shared<MenuView>(&state, App);
         break;
       case MODE_LEVEL_SELECT:
         break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:
-        curr_player_view = std::make_shared<GameView>(state, App);
+        state.create_new_level(LEVEL_FILE);
+        curr_player_view = std::make_shared<GameView>(&state, App);
         break;
     }
     views[0] = curr_player_view;
