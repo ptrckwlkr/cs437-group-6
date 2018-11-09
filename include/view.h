@@ -15,7 +15,7 @@ public:
     explicit View(GameLogic *state) : state(state) {};
     virtual ~View() = default;
     virtual void update(float delta) = 0;
-    GameLogic *get_state() {return state;}
+    GameLogic &get_state() {return *state;}
     GameLogic *state;
 
 };

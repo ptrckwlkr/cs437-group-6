@@ -23,9 +23,9 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	drawLevel(target, states);
 
 	// TODO Draw an enemy
-	float x = (view->get_state()->get_level().get_entities()[1]->get_position().x);
-	float y = (view->get_state()->get_level().get_entities()[1]->get_position().y);
-	float s = (view->get_state()->get_level().get_entities()[1]->get_size());
+	float x = (view->get_state().get_level().get_entities()[1]->get_position().x);
+	float y = (view->get_state().get_level().get_entities()[1]->get_position().y);
+	float s = (view->get_state().get_level().get_entities()[1]->get_size());
 
 	// Draw enemy entity to the screen
 	sf::CircleShape circle(s);
@@ -35,9 +35,9 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(circle, states);
 
 
-	x = (view->get_state()->get_level().get_entities()[2]->get_position().x);
-	y = (view->get_state()->get_level().get_entities()[2]->get_position().y);
-	s = (view->get_state()->get_level().get_entities()[2]->get_size());
+	x = (view->get_state().get_level().get_entities()[2]->get_position().x);
+	y = (view->get_state().get_level().get_entities()[2]->get_position().y);
+	s = (view->get_state().get_level().get_entities()[2]->get_size());
 
 	// draw player entity to screen
 	circle.setFillColor(sf::Color(255, 255, 0));
@@ -47,9 +47,9 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 
 	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-	x = (view->get_state()->get_level().get_entities()[0]->get_position().x);
-	y = (view->get_state()->get_level().get_entities()[0]->get_position().y);
-	s = (view->get_state()->get_level().get_entities()[0]->get_size());
+	x = (view->get_state().get_level().get_entities()[0]->get_position().x);
+	y = (view->get_state().get_level().get_entities()[0]->get_position().y);
+	s = (view->get_state().get_level().get_entities()[0]->get_size());
 
 	// draw player entity to screen
 	circle.setFillColor(sf::Color(0, 255, 0));
@@ -107,19 +107,19 @@ void GameGraphics::storeLevel()
 {
 	// Draw every cell onto the screen
 	int i, j;
-	for (i = 0; i < view->get_state()->get_level().get_map()->get_height(); ++i)
+	for (i = 0; i < view->get_state().get_level().get_map()->get_height(); ++i)
 	{
-		for (j = 0; j < view->get_state()->get_level().get_map()->get_width(); ++j)
+		for (j = 0; j < view->get_state().get_level().get_map()->get_width(); ++j)
 		{
 			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 			rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
 
 			// Color the cells according to their type
-			if (view->get_state()->get_level().get_map()->get_cell(i, j).get_cell_type() == WALL)
+			if (view->get_state().get_level().get_map()->get_cell(i, j).get_cell_type() == WALL)
 			{
 				rect.setFillColor(sf::Color(64, 64, 64));
 			}
-			else if (view->get_state()->get_level().get_map()->get_cell(i, j).get_cell_type() == FLOOR)
+			else if (view->get_state().get_level().get_map()->get_cell(i, j).get_cell_type() == FLOOR)
 			{
 				rect.setFillColor(sf::Color(128, 128, 128));
 			}

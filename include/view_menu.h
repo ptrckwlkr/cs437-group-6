@@ -14,8 +14,8 @@ public:
     int screenIndex;	//represents current menu screen to display
 
 private:
-    void process_input(float delta);
-    void handle_event(sf::Event event);
+    void process_input(float delta) override;
+    void handle_event(sf::Event event) override;
 		bool makeSelection();
 		void goBack();
 

@@ -8,13 +8,12 @@ class ExampleView : public PlayerView
 
 public:
     explicit ExampleView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App) {};
-    ~ExampleView() = default;
-    void update(float delta);
+    void update(float delta) override;
 
 protected:
-    void process_input(float delta);
-    void handle_event(sf::Event event);
-    void draw();
+    void process_input(float delta) override;
+    void handle_event(sf::Event event) override;
+    void draw() override;
 
 private:
 

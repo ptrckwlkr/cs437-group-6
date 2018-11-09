@@ -16,10 +16,10 @@ void ExampleGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
   CellType cell_type;
 
   // Calculate the index bounds, to only draw the cells within view of the player
-  int bound_top   = std::max((int)(view->get_state()->get_level().get_entities()[0]->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
-  int bound_bot   = std::min((int)(view->get_state()->get_level().get_entities()[0]->get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state()->get_level().get_map()->get_height() - 1);
-  int bound_left  = std::max((int)(view->get_state()->get_level().get_entities()[0]->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
-  int bound_right = std::min((int)(view->get_state()->get_level().get_entities()[0]->get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state()->get_level().get_map()->get_width() - 1);
+  int bound_top   = std::max((int)(view->get_state().get_level().get_entities()[0]->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
+  int bound_bot   = std::min((int)(view->get_state().get_level().get_entities()[0]->get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state().get_level().get_map()->get_height() - 1);
+  int bound_left  = std::max((int)(view->get_state().get_level().get_entities()[0]->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
+  int bound_right = std::min((int)(view->get_state().get_level().get_entities()[0]->get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state().get_level().get_map()->get_width() - 1);
 
   // Draw the map
   int i, j;
@@ -27,7 +27,7 @@ void ExampleGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
   {
     for (j = bound_left; j < bound_right; ++j)
     {
-      Cell cell = view->get_state()->get_level().get_map()->get_cell(i, j);
+      Cell cell = view->get_state().get_level().get_map()->get_cell(i, j);
       cell_type = cell.get_cell_type();
       rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
 
@@ -53,9 +53,9 @@ void ExampleGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
   }
 
   // TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-  int x = (int)(view->get_state()->get_level().get_entities()[0]->get_position().x);
-  int y = (int)(view->get_state()->get_level().get_entities()[0]->get_position().y);
-  int s = (int)(view->get_state()->get_level().get_entities()[0]->get_size());
+  int x = (int)(view->get_state().get_level().get_entities()[0]->get_position().x);
+  int y = (int)(view->get_state().get_level().get_entities()[0]->get_position().y);
+  int s = (int)(view->get_state().get_level().get_entities()[0]->get_size());
 
   // Draw the player entitiy to the screen
   sf::CircleShape circle(s);
@@ -65,9 +65,9 @@ void ExampleGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
   target.draw(circle, states);
 
   // TODO Draw an enemy
-  x = (int)(view->get_state()->get_level().get_entities()[1]->get_position().x);
-  y = (int)(view->get_state()->get_level().get_entities()[1]->get_position().y);
-  s = (int)(view->get_state()->get_level().get_entities()[1]->get_size());
+  x = (int)(view->get_state().get_level().get_entities()[1]->get_position().x);
+  y = (int)(view->get_state().get_level().get_entities()[1]->get_position().y);
+  s = (int)(view->get_state().get_level().get_entities()[1]->get_size());
 
   // Draw the player entitiy to the screen
   circle.setFillColor(sf::Color(255, 0, 0));
