@@ -1,27 +1,24 @@
-#include "Player.h"
-#include "EventManager.h"
+#include "Enemy.h"
 #include <macros.h>
-#include <iostream>
 
-
-Player::Player(float x, float y, float size) : Entity(x, y, size)
-{
+Enemy::Enemy(float x, float y, float size) :  Entity(x, y, size){
 }
 
-Player::~Player()
-{
+Enemy::~Enemy(){
+
     //unsubscirbe from events 
 }
 
-void Player::HandleEvent( Event* event)
-{
+void Enemy::HandleEvents( Event* event){
+     ///if eventid = "walk"
+        //move
     
 }
 
-void Player::move(Direction dir, float delta) 
+void Enemy::move(Direction dir, float delta) 
 {
   pos_old = pos;
-  float delta_speed = PLAYER_SPEED * delta;
+  float delta_speed = ENEMY_SPEED * delta;
 
   switch (dir)
   {
@@ -57,4 +54,3 @@ void Player::move(Direction dir, float delta)
       break;
   }
 }
-

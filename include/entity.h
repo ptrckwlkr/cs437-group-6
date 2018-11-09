@@ -53,6 +53,8 @@ public:
 
     void takedamage(int damage);
 
+    void HandleEvents( Event* event);
+
 protected:
     Position pos{};
     float size;

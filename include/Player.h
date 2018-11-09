@@ -8,10 +8,10 @@
 class Player: public Entity, public Listener
 {
 
-private:
-		int health;
-		int mana;
-
+    private: 
+        int health;
+        int mana;
+        //std::shared_ptr<PlayerData> PlayerData;
 public:
 		Player(float x, float y, float size);
 

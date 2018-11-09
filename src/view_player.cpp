@@ -59,8 +59,7 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(circle, states);
 
 
-
-
+	// updates hpBar and manaBar
 
 	drawUI(target, states, x, y);
 	
