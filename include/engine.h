@@ -6,13 +6,7 @@
 #include <chrono>
 #include "game_logic.h"
 #include "view.h"
-#include "graphics.h"
-#include "EventManager.h"
-#include "level.h"
-#include "level_factory.h"
 #include "ResourceManager.h"
-#include "graphics_menu.h"
-#include "view_menu.h"
 
 
 enum GameMode
@@ -29,26 +23,27 @@ enum GameMode
 class Engine
 {
 public:
-    explicit Engine(sf::RenderWindow *app);
-    ~Engine();
+    static Engine* GameEngine();
+    void init(sf::RenderWindow *app);
 		void update_views(float delta);
     void update_state(float delta);
 		void update_graphics();
+    void set_mode(GameMode mode);
     float clock();
 	
 
 private:
-		void switch_mode();
-    GameLogic *state;
-    EventManager *event_manager;
+    Engine();
+    ~Engine();
+    void switch_mode();
 
+    GameLogic *state;
     sf::RenderWindow *App;
     sf::Clock time;
 
     std::vector<std::shared_ptr<View>> views;
     std::shared_ptr<PlayerView> curr_player_view;
 		GameMode curr_game_mode;
-
 };
 
 //global access to resource manager

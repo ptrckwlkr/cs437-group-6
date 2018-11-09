@@ -1,4 +1,5 @@
 #include <macros.h>
+#include <engine.h>
 #include "graphics_game.h"
 #include "view_game.h"
 #include "Player.h"
@@ -10,6 +11,8 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
 
 void GameView::process_input(float delta)
 {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::GameEngine()->set_mode(MODE_MENU);
+
 	// TODO check that game has started (not in menu)
 	Direction dir = NONE;
 
@@ -51,8 +54,6 @@ void GameView::update(float delta)
     handle_event(event);
   }
 
-  // Get mouse position relative to window
-  sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
   // Process input
   process_input(delta);
 
@@ -63,10 +64,12 @@ void GameView::update(float delta)
 void GameView::draw()
 {
   // initializes the camera
+  // TODO send some of this to the constructor?
   sf::View camera;
   camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
   Position playerPos = state->get_level()->get_entities()[0]->get_position();
   camera.setCenter(playerPos.x, playerPos.y);
+
   App->setView(camera);
   App->clear(sf::Color::Black);
   App->draw(*graphics);

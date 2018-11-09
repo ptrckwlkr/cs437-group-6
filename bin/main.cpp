@@ -11,15 +11,16 @@ int main(int argc, char** argv)
   App.setVerticalSyncEnabled(true);
 
   // Initialize the game engine
-  Engine engine(&App);
+//  Engine engine(&App);
+  Engine::GameEngine()->init(&App);
 
   // start main loop
   while (App.isOpen())
   {
-    float delta = engine.clock();
-    engine.update_views(delta);
-    engine.update_state(delta);
-    engine.update_graphics();
+    float delta = Engine::GameEngine()->clock();
+    Engine::GameEngine()->update_views(delta);
+    Engine::GameEngine()->update_state(delta);
+    Engine::GameEngine()->update_graphics();
   }
 
   // Done.

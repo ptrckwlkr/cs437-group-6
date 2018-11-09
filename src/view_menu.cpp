@@ -1,10 +1,12 @@
 #include "view_menu.h"
 #include <iostream>
+#include <engine.h>
 #include "macros.h"
 
 MenuView::MenuView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
 	graphics = new MenuGraphics(this);
+  App->setView(App->getDefaultView());
 }
 
 void MenuView::process_input(float delta)
@@ -12,7 +14,7 @@ void MenuView::process_input(float delta)
 
 	sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
 	//avoids crashes when state has changed
-//	if (state->has_mode_changed()) return;
+  //	if (state->has_mode_changed()) return;
 
 	//gets mode object
 	//ensures menu mode selection index is within proper range
@@ -51,8 +53,7 @@ void MenuView::handle_event(sf::Event event)
 	{
 		//changes the game mode when player selects play
 		if (makeSelection())
-      printf("Selection made\n");
-//			state->set_mode(GameMode(MODE_PLAY));	//TODO this should probably be changed to level select
+      Engine::GameEngine()->set_mode(MODE_PLAY);
 	}
 		
 
@@ -64,19 +65,13 @@ void MenuView::handle_event(sf::Event event)
 
 void MenuView::update(float delta)
 {
+  // Process input
   sf::Event event;
   while (App->pollEvent(event))
   {
     handle_event(event);
   }
-
-  // Get mouse position relative to window
-  sf::Vector2f mouse_pos = (*App).mapPixelToCoords(sf::Mouse::getPosition(*App));
-  // Process input
 	process_input(delta);
-
-  // Listen for shutdown signal
-  if (state->shutdown()) App->close();
 }
 
 bool MenuView::makeSelection()
