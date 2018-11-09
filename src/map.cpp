@@ -14,7 +14,8 @@ Map::Map(std::vector<std::vector<char>> &grid)
     for (const auto &ch : row)
     {
       if (ch == '-') temp.emplace_back(WALL);
-      else if (ch == '0') temp.emplace_back(FLOOR);
+      else if (ch == '0' || ch == '1') temp.emplace_back(FLOOR);
+
     }
     cells.push_back(temp);
   }

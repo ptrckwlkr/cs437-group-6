@@ -16,7 +16,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
   // TODO Generate all the level's entities
 
-  std::shared_ptr<Player> player = std::make_shared<Player>(150, 100, 10);
+  std::shared_ptr<Player> player = std::make_shared<Player>(3150, 1000, 10);
   std::shared_ptr<Player> enemy = std::make_shared<Player>(450, 250, 10);
   std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
 
@@ -27,9 +27,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   entities.push_back(enemy);
   entities.push_back(gold);
 
-  AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 5, 5, 0);
-  gen.createLevelGrid();
-  gen.printLevelGrid();
+  AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
   switch (algorithm)
@@ -38,8 +36,8 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       map = load("../data/test2.txt");
 	  break;
 	case AGENT_BASED:
-		//AgentBasedGenerator gen = AgentBasedGenerator(5, 5, 0);
-		//gen.printLevelGrid();
+		map = std::make_shared<Map>(gen.createLevelGrid());
+		gen.printLevelGrid();
 		break;
   }
 

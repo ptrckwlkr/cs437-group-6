@@ -5,7 +5,7 @@ PlayMode::PlayMode()
 {
   // TODO initialize other level building data
   level_factory = new LevelFactory();
-  level_factory->set_algorithm(LEVEL_FILE);
+  level_factory->set_algorithm(AGENT_BASED);
   level = level_factory->generate_level();
 }
 
