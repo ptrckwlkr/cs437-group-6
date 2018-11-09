@@ -5,13 +5,13 @@
 #include <list>
 #include <map>
 #include "event.h"
-#include "listener.h"
+#include "entity.h"
 
 class EventManager
 {
     private: 
         //stores objects and their events
-        std::multimap<EVENTID, Listener*> db;
+        std::multimap<EVENTID, Entity*> db;
 
         //list of events that need to be processed 
         std::list<Event> currentEvents;
@@ -24,7 +24,7 @@ class EventManager
         EventManager& operator = ( const EventManager& rhs){};
 
         //helper
-        bool AlreadyRegistered( EVENTID event, Listener* object);
+        bool AlreadyRegistered( EVENTID event, Entity* object);
 
         //will dispatch events 
         void DispactchEvent( Event* event);
@@ -35,13 +35,13 @@ class EventManager
         static EventManager* Instance();
 
         //register object to listen to for an event 
-        void RegisterObject(EVENTID event, Listener* object);
+        void RegisterObject(EVENTID event, Entity* object);
 
         //unregister object from an event
-        void UnregisterObject( EVENTID event , Listener* object);
+        void UnregisterObject( EVENTID event , Entity* object);
 
         //unregister object from all event
-        void UnregisterAll(Listener* object );
+        void UnregisterAll(Entity* object );
 
         //send event 
         void SendEvent(EVENTID event, void* data = 0);

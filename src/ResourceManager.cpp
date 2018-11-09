@@ -33,6 +33,17 @@ sf::Font &ResourceManager::GetFont( std::string name)
     return this->_fonts.at(name);
 }
 
+void ResourceManager::LoadSprite( std::string name, std::string fileName){
+    sf::Texture texture;
+    if (texture.loadFromFile(fileName) ){
+        this->_sprites[name] = sf::Sprite(texture);
+    }
+}
+
+sf::Sprite &ResourceManager::GetSprite( std::string name){
+    return this->_sprites.at(name);
+
+}
 
 void ResourceManager::LoadXML(std::string name, std::string filename)
 {
