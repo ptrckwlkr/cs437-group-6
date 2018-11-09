@@ -4,6 +4,7 @@ GameLogic::GameLogic()
 {
   level_factory = LevelFactory();
   player_data = PlayerData();
+  collision_engine = CollisionEngine();
   f_paused = false;
 }
 
@@ -13,6 +14,7 @@ GameLogic::GameLogic()
 void GameLogic::update_state()
 {
   level->update();
+  collision_engine.check_collisions(level->get_map(), level->get_entities());
   EventManager::Instance()->ProcessEvents();
 }
 

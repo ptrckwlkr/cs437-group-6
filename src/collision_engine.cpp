@@ -6,7 +6,7 @@
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
  */
-void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
 {
   int num_entities;
   int i;
@@ -15,7 +15,7 @@ void CollisionEngine::check_collisions(std::shared_ptr<Map> &level_map, std::vec
   std::shared_ptr<Entity> entity2;
 
   // Check every cell of the map
-  for (auto &row : level_map->get_cells())
+  for (auto &row : level_map.get_cells())
   {
     for (auto &cell : row)
     {
@@ -62,7 +62,7 @@ bool CollisionEngine::entity_collision(std::shared_ptr<Entity> &entity1, std::sh
 /**
  * For all entities, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collisions(std::shared_ptr<Map> &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
 {
   float x;      // Entity x-position
   float y;      // Entity y-position
@@ -91,10 +91,10 @@ void CollisionEngine::check_wall_collisions(std::shared_ptr<Map> &level_map, std
     dy = y;
 
     // Calculate adjustments based on how far into the block the entity is interpenetrating
-    if (level_map->get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
-    if (level_map->get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
-    if (level_map->get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
-    if (level_map->get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
+    if (level_map.get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
+    if (level_map.get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
+    if (level_map.get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
+    if (level_map.get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
 
     // Adjust the position
     entity->set_position(dx, dy);

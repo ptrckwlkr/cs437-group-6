@@ -25,6 +25,7 @@ public:
 private:
 		LevelFactory level_factory;
     PlayerData player_data;
+		CollisionEngine collision_engine;
 		std::shared_ptr<Level> level;
     bool f_paused;
 };

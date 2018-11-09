@@ -12,11 +12,11 @@ class CollisionEngine
 
 public:
     CollisionEngine() = default;
-    void check_collisions(std::shared_ptr<Map> &level_map, std::vector<std::shared_ptr<Entity>> &entities);
+    void check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities);
 
 private:
     bool entity_collision(std::shared_ptr<Entity> &entity1, std::shared_ptr<Entity> &entity2);
-    void check_wall_collisions(std::shared_ptr<Map> &level_map, std::vector<std::shared_ptr<Entity>> &entities);
+    void check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities);
 
 };
 

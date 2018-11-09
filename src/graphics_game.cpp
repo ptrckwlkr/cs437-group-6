@@ -107,19 +107,19 @@ void GameGraphics::storeLevel()
 {
 	// Draw every cell onto the screen
 	int i, j;
-	for (i = 0; i < view->get_state().get_level().get_map()->get_height(); ++i)
+	for (i = 0; i < view->get_state().get_level().get_map().get_height(); ++i)
 	{
-		for (j = 0; j < view->get_state().get_level().get_map()->get_width(); ++j)
+		for (j = 0; j < view->get_state().get_level().get_map().get_width(); ++j)
 		{
 			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 			rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
 
 			// Color the cells according to their type
-			if (view->get_state().get_level().get_map()->get_cell(i, j).get_cell_type() == WALL)
+			if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == WALL)
 			{
 				rect.setFillColor(sf::Color(64, 64, 64));
 			}
-			else if (view->get_state().get_level().get_map()->get_cell(i, j).get_cell_type() == FLOOR)
+			else if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == FLOOR)
 			{
 				rect.setFillColor(sf::Color(128, 128, 128));
 			}
