@@ -4,27 +4,15 @@
 #include "event.h"
 #include "entity.h"
 
-class Enemy: public Entity{
+class Enemy: public Entity
+{
 
-    private: 
-        int health;
-        int mana;
-
-    public: 
-        Enemy(float x, float y, float size);
-
-        ~Enemy();
-        virtual void update(double deltaMs) = 0;
-        void set_position(Position new_pos);
-
-        //handles events 
-        void HandleEvents( Event* event);
-        ///if eventid = "walk"
-        //move
-
-        int get_health(){return health;}
-
-        void move(Direction dir, float delta);
+public:
+    Enemy(float x, float y, float size);
+    ~Enemy();
+    virtual void update(double deltaMs) = 0;
+    void move(Direction dir, float delta) override;
+    void HandleEvent(Event* event) override;
 
 }; 
 
