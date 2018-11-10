@@ -16,6 +16,7 @@ public:
 
 private:
     bool entity_collision(Entity &entity1, Entity &entity2);
+    bool types(Entity &entity1, Entity &entity2, EntityType type1, EntityType type2);
     void check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities);
 
 };

@@ -42,7 +42,6 @@ void EventManager::DispactchEvent( Event* event){
             //for each object handle the event
             (*i).second ->HandleEvent(event);
         }
-
 }
 
     //returns an instance of event manager

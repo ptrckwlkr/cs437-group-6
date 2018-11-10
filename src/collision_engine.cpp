@@ -35,13 +35,8 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
             // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
             // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
 
-            if (entity1->get_type() == TYPE_GOLD || entity2->get_type() == TYPE_GOLD)
-            {
-
-            }
-
-
-            printf("Collision!\n");
+            if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD))
+              EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
           }
         }
       }
@@ -107,4 +102,13 @@ void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::sha
     // Adjust the position
     entity->set_position(dx, dy);
   }
+}
+
+/**
+ * Returns true if entities 1 and 2 are of types 1 and 2, in any order
+ */
+bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, EntityType type2)
+{
+   return (entity1.get_type() == type1 && entity2.get_type() == type2) ||
+           (entity1.get_type() == type2 && entity2.get_type() == type1);
 }

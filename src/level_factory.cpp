@@ -20,9 +20,6 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   std::shared_ptr<Player> enemy = std::make_shared<Player>(450, 250, 10);
   std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
 
-  EventManager::Instance()->RegisterObject(COLLISION_EVENT, player.get());
-
-
   entities.push_back(player);
   entities.push_back(enemy);
   entities.push_back(gold);
