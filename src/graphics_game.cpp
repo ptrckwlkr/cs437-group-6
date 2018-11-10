@@ -109,10 +109,10 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
   CellType cell_type;
 
   // Calculate the index bounds, to only draw the cells within view of the player
-  int bound_top   = std::max((int)(view->get_state().get_level().get_entities()[0]->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
-  int bound_bot   = std::min((int)(view->get_state().get_level().get_entities()[0]->get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state().get_level().get_map().get_height() - 1);
-  int bound_left  = std::max((int)(view->get_state().get_level().get_entities()[0]->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
-  int bound_right = std::min((int)(view->get_state().get_level().get_entities()[0]->get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state().get_level().get_map().get_width() - 1);
+  int bound_top   = std::max((int)(view->get_state().get_level().get_player().get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
+  int bound_bot   = std::min((int)(view->get_state().get_level().get_player().get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state().get_level().get_map().get_height() - 1);
+  int bound_left  = std::max((int)(view->get_state().get_level().get_player().get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
+  int bound_right = std::min((int)(view->get_state().get_level().get_player().get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state().get_level().get_map().get_width() - 1);
 
   // Draw the map
   int i, j;

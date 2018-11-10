@@ -4,7 +4,8 @@
 #include "entity.h"
 #include "event.h"
 
-#define SKELETON_SIZE 10
+#define SKELETON_SIZE  10
+#define SKELETON_SPEED 50
 
 class Skeleton : public Entity
 {

@@ -13,17 +13,12 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 {
   std::shared_ptr<Level> level;
   std::shared_ptr<Map> map;
-  std::vector<std::shared_ptr<Entity>> entities;
 
   // TODO Generate all the level's entities
 
   std::shared_ptr<Player> player = std::make_shared<Player>(3150, 1000, 10);
   std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(450, 250);
   std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
-
-  entities.push_back(player);
-  entities.push_back(enemy);
-  entities.push_back(gold);
 
   AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 
@@ -44,7 +39,12 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   }
 
   // Create the actual level
-  level = std::make_shared<Level>(map, entities);
+  level = std::make_shared<Level>(map);
+
+  level->set_player(player);
+  level->get_entities().push_back(player);
+  level->get_entities().push_back(enemy);
+  level->get_entities().push_back(gold);
 
   return level;
 }
