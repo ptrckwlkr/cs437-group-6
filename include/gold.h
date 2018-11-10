@@ -12,7 +12,6 @@ class Gold : public Entity
 public:
     Gold(float x, float y);
     void move(Direction dir, float delta) override {} // Gold does not move
-    void animate() override {} // Gold is not animated
     void HandleEvent(Event* event) override;
 
 private:

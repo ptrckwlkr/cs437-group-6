@@ -1,6 +1,7 @@
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 #include <chrono>
+#include "view_skeleton.h"
 #include "player_view_menu.h"
 #include "player_view_game.h"
 #include "engine.h"
@@ -80,12 +81,14 @@ void Engine::switch_mode()
   if (curr_game_mode != old_mode)
   {
     old_mode = curr_game_mode;
+    views.clear();
 
     //places the primary controller and view for the mode at the 0th index of each vector
     switch (curr_game_mode)
     {
       case MODE_MENU:
         curr_player_view = std::make_shared<MenuView>(&state, App);
+        views.push_back(curr_player_view);
         break;
       case MODE_LEVEL_SELECT:
         break;
@@ -94,8 +97,22 @@ void Engine::switch_mode()
       case MODE_PLAY:
         state.create_new_level(AGENT_BASED);
         curr_player_view = std::make_shared<GameView>(&state, App);
+        views.push_back(curr_player_view);
+        generate_views();
         break;
     }
-    views[0] = curr_player_view;
+  }
+}
+
+void Engine::generate_views()
+{
+  for (const auto &entity : state.get_level().get_entities())
+  {
+    std::shared_ptr<View> view;
+    if (entity->get_type() == TYPE_SKELETON)
+    {
+      view = std::make_shared<SkeletonView>(&state, *entity);
+      views.push_back(view);
+    }
   }
 }

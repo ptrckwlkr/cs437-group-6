@@ -1,3 +1,4 @@
+#include "skeleton.h"
 #include "level_factory.h"
 #include "EventManager.h"
 #include "Player.h"
@@ -17,7 +18,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   // TODO Generate all the level's entities
 
   std::shared_ptr<Player> player = std::make_shared<Player>(3150, 1000, 10);
-  std::shared_ptr<Player> enemy = std::make_shared<Player>(450, 250, 10);
+  std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(450, 250);
   std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
 
   entities.push_back(player);

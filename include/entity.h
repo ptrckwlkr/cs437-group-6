@@ -66,7 +66,6 @@ public:
     EntityType get_type() {return type;}
 
     virtual void move(Direction dir, float delta) = 0;
-    virtual void animate() = 0;
     virtual void HandleEvent(Event* event) = 0;
 
 protected:

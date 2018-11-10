@@ -42,6 +42,7 @@ private:
     Engine& operator=(Engine&&) = delete;
 
     void switch_mode();
+		void generate_views();
 
     GameLogic state;
     sf::RenderWindow *App;
