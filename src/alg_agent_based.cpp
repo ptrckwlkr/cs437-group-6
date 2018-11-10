@@ -1,6 +1,15 @@
 #include "alg_agent_based.h"
 #include <iostream>
 
+
+/*
+	params:
+	int width : width of map;
+	int height : height of map
+	float prob_room : how much the probability that the digger will try to place a room increases
+	float prob_turn : how much the probability that the digger will turn increases
+	int room_size_modifier : increases min and max room size by this value
+*/
 AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room, float prob_turn, int room_size_modifier)
 {
 	this->width = width;
@@ -8,23 +17,32 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
 	this->prob_room = prob_room;
 	this->prob_turn = prob_turn;
 
-	num_rooms = 0;
-
 	max_room_size = 9 + room_size_modifier;
 	min_room_size = 3 + room_size_modifier;
 
 	//seeds random generator for testing purposes
 	srand(123456789);
-	//srand(420);
-
-	std::vector<std::vector<char>> level_grid(height, std::vector<char>(width, '-'));
-	this->level_grid = level_grid;
 }
 
 
-std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid()
+/*
+	Returns a 2D vector of chars representing the map of the level. Uses the Agent Based Algorithm
+	discussed in class to create this level. Additionally chooses a cell for the player to start in
+	and updates the member variable's player_x and player_y.
+
+	max_rooms allows number of rooms to change
+
+	param int fraction_total_size is essentially how much of the total map should the level cover,
+	since it is a denominator, larger values == smaller size level
+*/
+std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_rooms, float fraction_total_size)
 {
+	std::vector<std::vector<char>> grid(height, std::vector<char>(width, '-'));
+	this->level_grid = grid;
+
+	num_rooms = 0;
 	int distance_traveled = 0;
+
 	//determine digger's initial coordinates and place first room
 	int digger_x, digger_y;
 	do {
@@ -32,10 +50,14 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid()
 		digger_y = rand() % height;
 	} while (!placeRoom(digger_x, digger_y));
 
+	//player's initial coordinates are set to the diggers initial coordinates
+	player_x = digger_x * CELL_SIZE;
+	player_y = digger_y * CELL_SIZE;
+
 	int cur_dir = chooseRandomDirection(-1, false);
 
 	
-	while (num_rooms < 15 || distance_traveled < (width * height)/32.0)
+	while (num_rooms < max_rooms || distance_traveled < (width * height)/fraction_total_size)
 	{
 		//move digger by 1 unit in random direction until the end of the room is reached
 		while (level_grid[digger_y][digger_x] == '0')
@@ -82,8 +104,6 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid()
 
 	}
 	
-
-
 
 	return level_grid;
 }

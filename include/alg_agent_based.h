@@ -17,12 +17,16 @@ public:
 	AgentBasedGenerator(int width, int height, float prob_room, float prob_turn, int room_size_modifier);
 	~AgentBasedGenerator() = default;
 
-	std::vector<std::vector<char>> &createLevelGrid();
+	std::vector<std::vector<char>> &createLevelGrid(int max_rooms, float fraction_total_size);
 	bool placeRoom(int i, int j);
 	void printLevelGrid();
 
 	int width;
 	int height;
+
+	//player's initial coordinates
+	int player_x;
+	int player_y;
 
 	std::vector<std::vector<char>> level_grid;
 
