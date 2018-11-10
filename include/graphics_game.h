@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "graphics.h"
+#include "player_view.h"
 
 class GameView;
 class GameGraphics : public Graphics

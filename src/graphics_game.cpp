@@ -1,5 +1,5 @@
 #include "graphics_game.h"
-#include "view_game.h"
+#include "player_view_game.h"
 #include "macros.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)

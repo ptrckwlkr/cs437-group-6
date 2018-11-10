@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "graphics.h"
+#include "player_view.h"
 
 class MenuView;
 class MenuGraphics : public Graphics

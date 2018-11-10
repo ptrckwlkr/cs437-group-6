@@ -1,4 +1,4 @@
-#include "view_game.h"
+#include "player_view_game.h"
 #include "graphics_game.h"
 #include "macros.h"
 #include "engine.h"

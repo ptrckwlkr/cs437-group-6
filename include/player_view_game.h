@@ -2,6 +2,7 @@
 #define CSCI437_VIEW_GAME_H
 
 #include "view.h"
+#include "player_view.h"
 
 /**
 * Controller class for Stu Dent

@@ -1,8 +1,8 @@
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 #include <chrono>
-#include "view_menu.h"
-#include "view_game.h"
+#include "player_view_menu.h"
+#include "player_view_game.h"
 #include "engine.h"
 #include "macros.h"
 

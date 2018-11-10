@@ -2,6 +2,7 @@
 #define CSCI437_VIEW_MENU_H
 
 #include "view.h"
+#include "player_view.h"
 
 class MenuView : public PlayerView
 {
