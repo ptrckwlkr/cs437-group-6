@@ -14,12 +14,9 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
   std::shared_ptr<Entity> entity1;
   std::shared_ptr<Entity> entity2;
 
-  int temp = 0;
-
   // Check every cell of the map
   for (auto cell : occupied_cells)
   {
-    temp++;
     // Compare every entity in each individual cell to each other
     num_entities = (int)cell->get_entities().size();
     for (i = 0; i < num_entities; ++i)
