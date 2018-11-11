@@ -25,21 +25,21 @@
       <b>0</b>
     </title>
     <navigation>
-      <text>Navigation: [W] and [S]</text>
+      <text>Navigation: [W] and [S] or Mouse</text>
       <size>15</size>
       <r>180</r>
       <g>180</g>
       <b>180</b>
     </navigation>
     <accept>
-      <text>Accept: [E]</text>
+      <text>Accept: [E] or L-Click</text>
       <size>15</size>
       <r>180</r>
       <g>180</g>
       <b>180</b>
     </accept>
     <back>
-      <text>Back: [Q]</text>
+      <text>Back: [Q] or R-Click</text>
       <size>15</size>
       <r>180</r>
       <g>180</g>
@@ -73,7 +73,7 @@
       <r>255</r>
       <g>255</g>
       <b>255</b>
-    </control-movement-rhs>
+    </control-aim-rhs>
     <control-lweapon-lhs>
       <text>Use 1st Weapon:</text>
       <size>20</size>

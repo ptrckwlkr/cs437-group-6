@@ -1,25 +1,13 @@
-#include "Enemy.h"
-#include <macros.h>
+#include "skeleton.h"
 
-Enemy::Enemy(float x, float y, float size) :  Entity(x, y, size)
+Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)
 {
+  type = TYPE_SKELETON;
 }
 
-Enemy::~Enemy()
+void Skeleton::move(Direction dir, float delta)
 {
-    //unsubscirbe from events 
-}
-
-void Enemy::HandleEvent(Event* event)
-{
-     ///if eventid = "walk"
-        //move
-    
-}
-
-void Enemy::move(Direction dir, float delta) 
-{
-  float delta_speed = ENEMY_SPEED * delta;
+  float delta_speed = SKELETON_SPEED * delta;
 
   switch (dir)
   {
@@ -54,4 +42,9 @@ void Enemy::move(Direction dir, float delta)
     case NONE:
       break;
   }
+}
+
+void Skeleton::HandleEvent(Event *event)
+{
+
 }

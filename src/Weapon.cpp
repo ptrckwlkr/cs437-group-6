@@ -4,11 +4,6 @@ Weapon::Weapon(){};
 
 Weapon::~Weapon(){}
 
-void Weapon::set_position(Position new_pos){
-    //should be set in same position of player
-    Position = new_pos;
-}
-
 void Weapon::set_maxDamage( int maxD){
     maxDamage = maxD;
 }

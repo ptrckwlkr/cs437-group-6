@@ -1,26 +1,26 @@
-#include "Player.h"
 #include "EventManager.h"
-#include <macros.h>
-#include <iostream>
-
+#include "Player.h"
+#include "macros.h"
 
 Player::Player(float x, float y, float size) : Entity(x, y, size)
 {
+  type = TYPE_PLAYER;
+  EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
 }
+
 
 Player::~Player()
 {
     //unsubscirbe from events 
 }
 
-void Player::HandleEvent( Event* event)
+void Player::HandleEvent(Event* event)
 {
-    
+  // if (event->EventId() == EVENT_GOLD_COLLECTION) printf("PLAYER: I have collected gold!\n"); // TODO
 }
 
 void Player::move(Direction dir, float delta) 
 {
-  pos_old = pos;
   float delta_speed = PLAYER_SPEED * delta;
 
   switch (dir)

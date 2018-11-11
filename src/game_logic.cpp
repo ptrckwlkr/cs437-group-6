@@ -1,13 +1,11 @@
-#include "mode_play.h"
-#include "mode_menu.h"
 #include "game_logic.h"
 
 GameLogic::GameLogic()
 {
-  set_mode(MODE_MENU);
-  player_data = std::make_shared<PlayerData>();
+  level_factory = LevelFactory();
+  player_data = PlayerData();
+  collision_engine = CollisionEngine();
   f_paused = false;
-  f_shutdown = false;
 }
 
 /**
@@ -15,42 +13,17 @@ GameLogic::GameLogic()
  */
 void GameLogic::update_state()
 {
-  curr_mode->update();
-  
+  level->update();
+  collision_engine.check_collisions(level->get_map(), level->get_entities());
+  EventManager::Instance()->ProcessEvents();
 }
 
 /**
- * Sends a signal that the application should shutdown.
+ * Start a new level.
  */
-void GameLogic::exit()
+void GameLogic::create_new_level(Generator g)
 {
-  f_shutdown = true;
-}
-
-void GameLogic::set_mode(GameMode mode)
-{
-  switch (mode)
-  {
-    case MODE_MENU:
-	  curr_mode = std::make_shared<MenuMode>();
-      break;
-    case MODE_SHOP:
-      break;
-    case MODE_MAP:
-      break;
-    case MODE_PLAY:
-      curr_mode = std::make_shared<PlayMode>();
-      break;
-  }
-  curr_game_mode = mode;
-  changed_mode = true;
-}
-
-/*
-	Returns true if the mode has changed and false otherwise. Allows the vectors of
-	Controllers and Views to be updated in engine.cpp based on input read from the controller
-*/
-bool GameLogic::has_mode_changed()
-{
-	return changed_mode;
+  // TODO Should probably load level parameters from an XML file and set the Level Factory accordingly
+  level_factory.set_algorithm(g);
+  level = level_factory.generate_level();
 }

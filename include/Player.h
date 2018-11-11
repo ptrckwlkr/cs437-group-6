@@ -5,7 +5,7 @@
 #include "entity.h"
 #include "listener.h"
 
-class Player: public Entity, public Listener
+class Player: public Entity
 {
 
     private: 
@@ -16,7 +16,7 @@ public:
 		Player(float x, float y, float size);
 
 		~Player();
-		void update(double deltaMs) {};
+		void update(double delta) {};
 
 		void move(Direction dir, float delta);
 		void animate() {};

@@ -1,39 +1,34 @@
-#include <mode_menu.h>
-#include "view_menu.h"
+#include "graphics_menu.h"
+#include "player_view_menu.h"
 #include "macros.h"
 #include <iostream>
 
-MenuView::MenuView(GameLogic *state) : View(state)
+MenuGraphics::MenuGraphics(MenuView *view) : Graphics(), view(view)
 {
 	// get all necessary resources from resource manager
 	font = resources.GetFont("old_school");
 	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
 	buffer = resources.GetXMLBuffer("text");
-
 	root_node = (*doc).first_node("Root")->first_node("Menu");
-
 	storeStaticText();
 }
 
-void MenuView::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void MenuGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
 
-	//get information from mode
-	auto mode = std::dynamic_pointer_cast<MenuMode>(state->get_mode());
-
-	if (mode->screenIndex == 0)		//draw elements for title screen
+	if (view->screenIndex == 0)		//draw elements for title screen
 	{
-		drawTitleScreenDynamicText(target, states, mode->selectionIndex);
+		drawTitleScreenDynamicText(target, states, view->selectionIndex);
 		target.draw(title, states);
 	}
-	else if (mode->screenIndex == 1)  //draw elements for controls screen
+	else if (view->screenIndex == 1)  //draw elements for controls screen
 	{
 		for (int i = 0; i < controls.size(); i++)
 			target.draw(controls[i], states);
 	}
-	else if (mode->screenIndex == 2)	//draw elements for about screen
+	else if (view->screenIndex == 2)	//draw elements for about screen
 		target.draw(aboutText, states);
 
 	//always draws the menu instructions so the player is not confused about how to operate the menu
@@ -45,7 +40,7 @@ void MenuView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 /*
 	Helper method to prepare all text items that will not be changed in any way 
 */
-void MenuView::storeStaticText()
+void MenuGraphics::storeStaticText()
 {
 	//title text
 	title = prepareText("title", font);
@@ -76,7 +71,7 @@ void MenuView::storeStaticText()
 /*
 	helper function for drawDynamicText that draws text for the titleScreen
 */
-void MenuView::drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const
+void MenuGraphics::drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const
 {
 	sf::Text playButton = prepareText("play", font);
 	sf::Text controlsButton = prepareText("controls", font);
@@ -111,7 +106,7 @@ void MenuView::drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderSt
 /*
 	Helper function for storeStaticText which prepares the control screen's text
 */
-void MenuView::storeControlText()
+void MenuGraphics::storeControlText()
 {
 	//used to iterate through game-text.xml 
 	std::vector<std::string> xmlStrings;

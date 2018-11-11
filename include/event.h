@@ -7,8 +7,8 @@ using std::string;
 
 enum EVENTID
 {
-    COLLISION_EVENT,
-
+    EVENT_COLLISION,
+    EVENT_GOLD_COLLECTION,
 };
 
 class Event {
