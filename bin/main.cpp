@@ -2,8 +2,6 @@
 #include "engine.h"
 #include "macros.h"
 
-double g_time_elapsed;
-
 int main(int argc, char** argv)
 {
   // create main window
@@ -11,15 +9,16 @@ int main(int argc, char** argv)
   App.setVerticalSyncEnabled(true);
 
   // Initialize the game engine
-  Engine engine(&App);
+//  Engine engine(&App);
+  Engine::getInstance().init(&App);
 
   // start main loop
   while (App.isOpen())
   {
-    float delta = engine.clock();
-    engine.process_input(delta);
-    engine.update_state();
-    engine.update_views();
+    float delta = Engine::getInstance().clock();
+    Engine::getInstance().update_views(delta);
+    Engine::getInstance().update_state(delta);
+    Engine::getInstance().update_graphics();
   }
 
   // Done.

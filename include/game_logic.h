@@ -3,15 +3,8 @@
 
 #include "level.h"
 #include "level_factory.h"
-#include "mode.h"
-
-enum GameMode
-{
-    MODE_MENU,
-    MODE_SHOP,
-    MODE_MAP,
-    MODE_PLAY,
-};
+#include "player_data.h"
+#include "EventManager.h"
 
 /**
  * Organize and coordinate the game state.
@@ -23,17 +16,18 @@ public:
     ~GameLogic() = default;
 
     void update_state();
+    void create_new_level(Generator g);
     void toggle_pause() {f_paused = !f_paused;}
     bool is_paused() {return f_paused;}
-    bool shutdown() {return f_shutdown;}
-    void exit();
-    void set_mode(GameMode mode);
-    std::shared_ptr<Mode> &get_mode() {return curr_mode;}
+		Level &get_level() {return *level;}
+		PlayerData &get_player_data() {return player_data;}
 
 private:
-    std::shared_ptr<Mode> curr_mode;
+		LevelFactory level_factory;
+    PlayerData player_data;
+		CollisionEngine collision_engine;
+		std::shared_ptr<Level> level;
     bool f_paused;
-    bool f_shutdown;
 };
 
 #endif //CSCI437_LOGIC_H

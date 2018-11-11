@@ -1,27 +1,25 @@
+#include "Enemy.h"
 #include <macros.h>
-#include "entity.h"
 
-Entity::Entity(float x, float y, float size) : size(size)
+Enemy::Enemy(float x, float y, float size) :  Entity(x, y, size)
 {
-  pos.x = x;
-  pos.y = y;
 }
 
-void Entity::set_position(float x, float y)
+Enemy::~Enemy()
 {
-  pos.x = x;
-  pos.y = y;
+    //unsubscirbe from events 
 }
 
-void Entity::set_position(Position new_pos)
+void Enemy::HandleEvent(Event* event)
 {
-  pos = new_pos;
+     ///if eventid = "walk"
+        //move
+    
 }
 
-void Entity::move(Direction dir, float delta) // TODO note this kind of movement is specific to the player and should be moved
+void Enemy::move(Direction dir, float delta) 
 {
-  pos_old = pos;
-  float delta_speed = PLAYER_SPEED * delta;
+  float delta_speed = ENEMY_SPEED * delta;
 
   switch (dir)
   {

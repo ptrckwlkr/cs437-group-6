@@ -6,19 +6,22 @@
 #include <memory>
 #include "map.h"
 #include "collision_engine.h"
+#include "Player.h"
 
 class Level
 {
 
 public:
-    Level(std::shared_ptr<Map> &map, std::vector<std::shared_ptr<Entity>> &entities);
+    Level(std::shared_ptr<Map> &map);
     void update();
-    std::shared_ptr<Map> get_map() {return map;}
+    void set_player(std::shared_ptr<Player> &p) {player = p;}
+    Map &get_map() {return *map;}
+    Player &get_player() {return *player;}
     std::vector<std::shared_ptr<Entity>> &get_entities() {return entities;}
 
 protected:
     std::shared_ptr<Map> map;
-    std::shared_ptr<CollisionEngine> collision_engine;
+    std::shared_ptr<Player> player;
     std::vector<std::shared_ptr<Entity>> entities;
 
 };

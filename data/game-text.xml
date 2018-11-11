@@ -1,5 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UI>
-  <health>Health </health>
-  <mana>Mana </mana>
-</UI>
+<Root>
+  <UI>
+    <health>
+      <text>Health</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </health>
+    <mana>
+      <text>Mana</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </mana>
+  </UI>
+  <Menu>
+    <title>
+      <text>POWER HOUR</text>
+      <size>60</size>
+      <r>0</r>
+      <g>255</g>
+      <b>0</b>
+    </title>
+    <navigation>
+      <text>Navigation: [W] and [S] or Mouse</text>
+      <size>15</size>
+      <r>180</r>
+      <g>180</g>
+      <b>180</b>
+    </navigation>
+    <accept>
+      <text>Accept: [E] or L-Click</text>
+      <size>15</size>
+      <r>180</r>
+      <g>180</g>
+      <b>180</b>
+    </accept>
+    <back>
+      <text>Back: [Q] or R-Click</text>
+      <size>15</size>
+      <r>180</r>
+      <g>180</g>
+      <b>180</b>
+    </back>
+
+    <control-movement-lhs>
+      <text>Movement:</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-movement-lhs>
+    <control-movement-rhs>
+      <text>[W] [A] [S] [D]</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-movement-rhs>
+    <control-aim-lhs>
+      <text>Aiming:</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-aim-lhs>
+    <control-aim-rhs>
+      <text>Mouse</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-aim-rhs>
+    <control-lweapon-lhs>
+      <text>Use 1st Weapon:</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-lweapon-lhs>
+    <control-lweapon-rhs>
+      <text>Left Click</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-lweapon-rhs>
+    <control-rweapon-lhs>
+      <text>Use 2nd Weapon:</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-rweapon-lhs>
+    <control-rweapon-rhs>
+      <text>Right Click</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-rweapon-rhs>
+    <control-inventory-lhs>
+      <text>Inventory:</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-inventory-lhs>
+    <control-inventory-rhs>
+      <text>[TAB]</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-inventory-rhs>
+    <control-interact-lhs>
+      <text>Interact:</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-interact-lhs>
+    <control-interact-rhs>
+      <text>[E]</text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </control-interact-rhs>
+    
+    <about-page>
+      <text>
+        This game was made using SFML for CSCI-437
+      Game Design at the College of William and Mary.
+      
+         The members of our team are Olivia Leon, 
+       Rane Squire, Patrick Walker, and Ian Wright.
+      
+       We hope that you enjoy playing Power Hour!
+      </text>
+      <size>20</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </about-page>
+    
+    <buttons>
+      <play>
+        <text>Play</text>
+        <size>30</size>
+        <r>255</r>
+        <g>255</g>
+        <b>255</b>
+      </play>
+      <controls>
+        <text>Controls</text>
+        <size>30</size>
+        <r>255</r>
+        <g>255</g>
+        <b>255</b>
+      </controls>
+      <about>
+        <text>About</text>
+        <size>30</size>
+        <r>255</r>
+        <g>255</g>
+        <b>255</b>
+      </about>
+    </buttons>
+    
+  </Menu>
+</Root>

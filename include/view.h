@@ -1,22 +1,23 @@
 #ifndef CSCI437_VIEW_H
 #define CSCI437_VIEW_H
 
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/Font.hpp>
 #include "game_logic.h"
 
 /**
- * Base class for all the graphical views.
+ * Abstract base class for all controllers.
  */
-class View : public sf::Drawable, public sf::Transformable
+class View
 {
 
 public:
     explicit View(GameLogic *state) : state(state) {};
+    ~View() = default;
+    virtual void update(float delta) = 0;
+    GameLogic &get_state() {return *state;}
 
 protected:
     GameLogic *state;
+
 };
 
 #endif //CSCI437_VIEW_H

@@ -24,4 +24,8 @@ public:
 
 };
 
+<<<<<<< HEAD
 #endif //CSCI437_WEAPON_H
+=======
+#endif //CSCI437_WEAPON_H
+>>>>>>> f402a584308959d6ac9733c1babc346fb6368d56

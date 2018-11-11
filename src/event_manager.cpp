@@ -1,19 +1,19 @@
 #include "EventManager.h"
 
 
-bool EventManager::AlreadyRegistered( EVENTID eventId, Listener* object){
+bool EventManager::AlreadyRegistered( EVENTID eventId, Entity* object){
     
-    //start of not registered
+    //start off not registered
     bool alreadyRegistered = false;
 
     //iterator
-    std::pair<std::multimap<EVENTID, Listener*>::iterator,
-    std::multimap<EVENTID, Listener*>::iterator> range;
+    std::pair<std::multimap<EVENTID, Entity*>::iterator,
+    std::multimap<EVENTID, Entity*>::iterator> range;
 
     //all objects that recieve this event
     range = db.equal_range(eventId);
 
-    for (std::multimap<EVENTID, Listener*>::iterator i = range.first; 
+    for (std::multimap<EVENTID, Entity*>::iterator i = range.first; 
         i != range.second; i++){
             
             //if object already subscribed 
@@ -30,19 +30,18 @@ bool EventManager::AlreadyRegistered( EVENTID eventId, Listener* object){
 void EventManager::DispactchEvent( Event* event){
 
   //iterator 
-    std::pair<std::multimap<EVENTID, Listener*>::iterator,
-    std::multimap<EVENTID, Listener*>::iterator> range;
+    std::pair<std::multimap<EVENTID, Entity*>::iterator,
+    std::multimap<EVENTID, Entity*>::iterator> range;
 
     //find all objects who react to this event
     range = db.equal_range( event->EventId() );
 
-    for ( std::multimap<EVENTID, Listener*>::iterator i = range.first;
+    for ( std::multimap<EVENTID, Entity*>::iterator i = range.first;
         i != range.second; i++){
 
             //for each object handle the event
             (*i).second ->HandleEvent(event);
         }
-
 }
 
     //returns an instance of event manager
@@ -52,7 +51,7 @@ EventManager* EventManager::Instance(){
 }
 
 //register object to listen for an event
-void EventManager::RegisterObject(EVENTID event, Listener *object){
+void EventManager::RegisterObject(EVENTID event, Entity *object){
 
     //if object is null or it already reigstered, do nothing
     if (!object || AlreadyRegistered(event, object)){
@@ -60,20 +59,20 @@ void EventManager::RegisterObject(EVENTID event, Listener *object){
     }
 
     //add the object to the database
-    db.insert( make_pair(event, object));
+    db.insert(std::make_pair(event, object));
 
 }
 
 //unregister an object from an event
-void EventManager::UnregisterObject(EVENTID event, Listener *object){
+void EventManager::UnregisterObject(EVENTID event, Entity *object){
 
-    std::pair<std::multimap<EVENTID, Listener*>::iterator,
-    std::multimap<EVENTID, Listener*>::iterator> range;
+    std::pair<std::multimap<EVENTID, Entity*>::iterator,
+    std::multimap<EVENTID, Entity*>::iterator> range;
 
     range = db.equal_range( event );
 
     //for each object that can react to the event 
-    for ( std::multimap<EVENTID, Listener*>::iterator i = range.first;
+    for ( std::multimap<EVENTID, Entity*>::iterator i = range.first;
         i != range.second; i++){
         //find the object and remove 
         if ( (*i).second == object){
@@ -85,9 +84,9 @@ void EventManager::UnregisterObject(EVENTID event, Listener *object){
 }
 
 //unregister an object from all event
-void EventManager::UnregisterAll(Listener *object){
+void EventManager::UnregisterAll(Entity *object){
     //iterator
-    std::multimap<EVENTID, Listener*>::iterator i = db.begin();
+    std::multimap<EVENTID, Entity*>::iterator i = db.begin();
 
     while (i != db.end()){
 
