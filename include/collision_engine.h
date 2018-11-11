@@ -13,6 +13,7 @@ class CollisionEngine
 
 public:
     CollisionEngine() = default;
+    void reset() {occupied_cells.clear();};
     void check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities);
     void hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities);
 
