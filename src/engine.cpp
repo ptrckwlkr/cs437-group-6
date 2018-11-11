@@ -93,9 +93,8 @@ void Engine::switch_mode()
         break;
       case MODE_LEVEL_SELECT:
         curr_player_view = std::make_shared<LevelSelectView>(&state, App);
-	views.push_back(curr_player_view);
-	generate_views();
-	break;
+	      views.push_back(curr_player_view);
+	      break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:
