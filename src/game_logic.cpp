@@ -1,9 +1,10 @@
 #include "mode_play.h"
+#include "mode_level_select.h"
 #include "game_logic.h"
 
 GameLogic::GameLogic()
 {
-  set_mode(MODE_PLAY);
+  set_mode(MODE_LEVEL_SELECT);
   f_paused = false;
   f_shutdown = false;
 }
@@ -36,6 +37,9 @@ void GameLogic::set_mode(GameMode mode)
       break;
     case MODE_PLAY:
       curr_mode = std::make_shared<PlayMode>();
+      break;
+    case MODE_LEVEL_SELECT:
+      curr_mode = std::make_shared<LevelSelectMode>();
       break;
   }
 }

@@ -27,7 +27,7 @@ void PlayerView::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// updates hpBar and manaBar
 	sf::RectangleShape hpBar, manaBar;
 	hpBar.setFillColor(sf::Color::Red);
-	//TODO set size of bar to match player'sactual health/mana
+	//TODO set size of bar to match player's actual health/mana
 	hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
 	manaBar.setFillColor(sf::Color::Green);
 	manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
