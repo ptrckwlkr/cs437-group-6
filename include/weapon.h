@@ -2,27 +2,45 @@
 #define CSCI437_WEAPON_H
 
 #include "entity.h"
-class Weapon
-{
+#include "event.h"
 
-    Weapon();
-    ~Weapon();
+class Weapon {
 
-private: 
-    int maxRange;
+    private: 
     int maxDamage;
+    int curDamage;
+    int maxRange;
+    Position pos;
+    int dir;
 
-public: 
-    void set_position(Position new_pos);
 
-    void set_maxDamage( int maxD);
+    public: 
+        Weapon();
+
+        ~Weapon();
+
+        void set_position(Position new_pos);
+        //should be set in position of player
+
+        void set_maxDamage( int maxD);
         
-    void set_maxRange( int maxR);
+        void set_maxRange( int maxR);
 
-    void HandleEvents( Event* event);
+        int get_curDamage( int curD){ return this->curDamage;}
 
-    void attack(Direction dir, float delta);
+        //handles events 
+        void HandleEvents( Event* event);
+        ///if eventid = "attack"
 
-};
+        void attack(Direction dir, float delta);
+
+        enum WeaponType{
+            Range, 
+            Melee
+        };
+
+}; 
+
+
 
 #endif //CSCI437_WEAPON_H
