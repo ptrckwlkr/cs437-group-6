@@ -4,6 +4,7 @@
 #include "view_skeleton.h"
 #include "player_view_menu.h"
 #include "player_view_game.h"
+#include "player_view_level_select.h"
 #include "engine.h"
 #include "macros.h"
 
@@ -91,7 +92,10 @@ void Engine::switch_mode()
         views.push_back(curr_player_view);
         break;
       case MODE_LEVEL_SELECT:
-        break;
+        curr_player_view = std::make_shared<LevelSelectView>(&state, App);
+	views.push_back(curr_player_view);
+	generate_views();
+	break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:
