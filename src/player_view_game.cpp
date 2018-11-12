@@ -11,7 +11,15 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
 
 void GameView::process_input(float delta)
 {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		EventManager::Instance()->ClearEvents();
+		for (const auto &e : state->get_level().get_entities())
+		{
+			EventManager::Instance()->UnregisterAll(e.get());
+		}
+		Engine::getInstance().set_mode(MODE_MENU);
+	}
 
 	// TODO check that game has started (not in menu)
 	Direction dir = NONE;
