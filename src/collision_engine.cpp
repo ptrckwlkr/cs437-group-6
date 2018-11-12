@@ -15,29 +15,26 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
   std::shared_ptr<Entity> entity2;
 
   // Check every cell of the map
-  for (auto &row : level_map.get_cells())
+  for (auto cell : occupied_cells)
   {
-    for (auto &cell : row)
+    // Compare every entity in each individual cell to each other
+    num_entities = (int)cell->get_entities().size();
+    for (i = 0; i < num_entities; ++i)
     {
-      // Compare every entity in each individual cell to each other
-      num_entities = (int)cell.get_entities().size();
-      for (i = 0; i < num_entities; ++i)
+      entity1 = cell->get_entities()[i];
+      for (j = i + 1; j < num_entities; ++j)
       {
-        entity1 = cell.get_entities()[i];
-        for (j = i + 1; j < num_entities; ++j)
+        entity2 = cell->get_entities()[j];
+
+        // Handle the collision
+        if (entity_collision(*entity1, *entity2))
         {
-          entity2 = cell.get_entities()[j];
+          // TODO Handle collision
+          // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
+          // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
 
-          // Handle the collision
-          if (entity_collision(*entity1, *entity2))
-          {
-            // TODO Handle collision
-            // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
-            // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
-
-            if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD))
-              EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
-          }
+          if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD))
+            EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
         }
       }
     }
@@ -111,4 +108,57 @@ bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, 
 {
    return (entity1.get_type() == type1 && entity2.get_type() == type2) ||
            (entity1.get_type() == type2 && entity2.get_type() == type1);
+}
+
+/**
+ * Sort a list of pointers to game entities into the map's cells, according to the entities' positions
+ */
+void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+{
+  // TODO will probably ultimately accept the EntityManager& as a parameter, instead of a raw vector of pointers
+  Position pos{};
+  float radius;
+  float top;
+  float bot;
+  float left;
+  float right;
+  Cell *cell;
+
+  // Sort every entity into one or more of the game grid's cells
+  clear_cells(level_map);
+  for (auto &ent : entities)
+  {
+    pos     = ent->get_position();
+    radius  = ent->get_size() / 2;
+    top     = pos.y - radius - COLLISION_BUFFER;
+    bot     = pos.y + radius + COLLISION_BUFFER;
+    left    = pos.x - radius - COLLISION_BUFFER;
+    right   = pos.x + radius + COLLISION_BUFFER;
+
+    // Consider the 4 "corners" of the entity, and insert into every cell that contains a corner
+    cell = &level_map.get_cell((int)top / CELL_SIZE, (int)left / CELL_SIZE);
+    cell->insert_entity(ent);
+    occupied_cells.insert(cell);
+    cell = &level_map.get_cell((int)top / CELL_SIZE, (int)right / CELL_SIZE);
+    cell->insert_entity(ent);
+    occupied_cells.insert(cell);
+    cell = &level_map.get_cell((int)bot / CELL_SIZE, (int)left / CELL_SIZE);
+    cell->insert_entity(ent);
+    occupied_cells.insert(cell);
+    cell = &level_map.get_cell((int)bot / CELL_SIZE, (int)right / CELL_SIZE);
+    cell->insert_entity(ent);
+    occupied_cells.insert(cell);
+  }
+}
+
+/**
+ * Clear every cell of its registered entities
+ */
+void CollisionEngine::clear_cells(Map &level_map)
+{
+  for (auto cell : occupied_cells)
+  {
+    cell->clear_entities();
+  }
+  occupied_cells.clear();
 }
