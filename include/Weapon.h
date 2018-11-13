@@ -20,7 +20,7 @@ public:
 
     void HandleEvents( Event* event);
 
-    void attack(Direction dir, float delta);
+    void attack(Vector2D &dir, float delta);
 
 };
 

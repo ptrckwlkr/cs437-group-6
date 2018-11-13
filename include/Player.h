@@ -18,7 +18,7 @@ public:
 		~Player();
 		void update(double delta) {};
 
-		void move(Direction dir, float delta);
+		void move(Vector2D &dir, float delta);
 		void animate() {};
 		void HandleEvent(Event* event);
 

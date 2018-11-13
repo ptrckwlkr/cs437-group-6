@@ -19,6 +19,6 @@ void Projectile::set_maxRandge(int mR){
     maxRange = mR;
 
 }
-void Projectile::attack(Direction dir, float delta){
+void Projectile::attack(Vector2D &dir, float delta){
 
 }

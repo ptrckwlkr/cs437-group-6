@@ -11,7 +11,7 @@ class Gold : public Entity
 
 public:
     Gold(float x, float y);
-    void move(Direction dir, float delta) override {} // Gold does not move
+    void move(Vector2D &dir, float delta) override {} // Gold does not move
     void HandleEvent(Event* event) override;
 
 private:
