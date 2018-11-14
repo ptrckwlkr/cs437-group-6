@@ -31,5 +31,6 @@ class EntityManager{
         std::shared_ptr<Entity> getEntity(enum EntityType type);
         std::vector<std::shared_ptr<Entity> > getEntites(){ return entities;}
         void Shutdown();
+};
 
 #endif //CSCI437_ENTITYMANAGER_
