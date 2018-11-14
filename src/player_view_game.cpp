@@ -48,18 +48,19 @@ void GameView::process_input(float delta)
 
 	// TODO The call to move should probably eventually be handled through the EventManager
 	//only call move when necessary
-	if (dir != NONE)
-	{
-		state->get_level().get_player()->move(dir, delta);
-	}
+	//if (dir != NONE)
+	//{
+	state->get_level().get_player()->move(dir, delta);
+	//}
 
 	if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		//TODO: getProjectile and set the mouse position
 		//set projectile to be center of player if not alreadys set
 		//set projectile current velocity = aimDirection * maxSpeed
 		//then call move position of projectile and pass the velocity
-		sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
-		sf::Vector2f player_pos(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
+		sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app) );
+		Vector2D  mouse_pos = Vector2D(mpos.x, mpos.y);
+		Vector2D  player_pos(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
 
 		state->get_level().get_player()->get_projectile()->set_mousePos(mouse_pos);
 		std::cout << " mouse pos set " ;
@@ -68,9 +69,9 @@ void GameView::process_input(float delta)
 		state->get_level().get_player()->get_projectile()->set_playerCenter(player_pos);
 		std::cout << " set play" ;
 		state->get_level().get_player()->get_projectile()->set_aimDirection();
-		sf::Vector2f aimDir = state->get_level().get_player()->get_projectile()->set_aimDirectionNormal();
-		sf::Vector2f v(aimDir.x * 10, aimDir.y *10);
-		state->get_level().get_player()->get_projectile()->move2(v, delta);
+		std::cout << " aim dir set" ;
+		Vector2D  v = state->get_level().get_player()->get_projectile()->get_aimDireciton();
+		state->get_level().get_player()->get_projectile()->attack(v, delta);
 
 	}
 

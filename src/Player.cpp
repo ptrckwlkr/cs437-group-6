@@ -6,6 +6,7 @@ Player::Player(float x, float y, float size) : Entity(x, y, size)
 {
   type = TYPE_PLAYER;
   EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
+  //EventManager::Instance()->RegisterObject(EVENT_PLAYER_PROJECTILE_COLLISION, this);
 }
 
 
@@ -17,6 +18,10 @@ Player::~Player()
 void Player::HandleEvent(Event* event)
 {
   // if (event->EventId() == EVENT_GOLD_COLLECTION) printf("PLAYER: I have collected gold!\n"); // TODO
+  // if (event->EventId()==EVENT_PLAYER_PROJECTILE_COLLISION){
+  //   health -= (int)(event->Arg1());
+  //   printf("PLAYER: I have been shoot at \n");
+  // }
 }
 
 void Player::set_projectile(std::shared_ptr<Projectile> p){

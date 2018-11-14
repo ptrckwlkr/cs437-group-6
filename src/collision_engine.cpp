@@ -33,8 +33,19 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
           // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
           // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
 
-          if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD))
+          if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD)){
             EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
+          }
+
+          if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_SKELETON )){
+            int d = 10;
+            EventManager::Instance()->SendEvent( EVENT_ENEMY_SHOT_AT, &d);
+          }
+
+          if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_PLAYER )){
+            int d = 10;
+            EventManager::Instance()->SendEvent( EVENT_PLAYER_SHOOT_AT, &d);
+          }
         }
       }
     }

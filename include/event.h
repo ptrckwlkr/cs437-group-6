@@ -8,6 +8,8 @@ enum EVENTID
 {
     EVENT_COLLISION,
     EVENT_GOLD_COLLECTION,
+    EVENT_PLAYER_SHOOT_AT,
+    EVENT_ENEMY_SHOT_AT,
 };
 
 class Event {
@@ -19,7 +21,7 @@ private:
 
 
 public: 
-    Event(EVENTID eventId, void* arg1 = 0){
+    Event(EVENTID eventId, void* arg1 = 0 ){
         this->eventId = eventId;
         this->arg1 = arg1;
 

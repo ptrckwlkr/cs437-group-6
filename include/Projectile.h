@@ -5,6 +5,7 @@
 #include "event.h"
 #include "math.h"
 #include "SFML/System.hpp"
+#include "vector2d.h"
 
 class Projectile: public Entity
 {
@@ -16,11 +17,11 @@ class Projectile: public Entity
     int speed;
 
     protected:
-    sf::Vector2f velocity;
-    sf::Vector2f playerCenter;
-    sf::Vector2f mousePos;
-    sf::Vector2f aimDirection;
-    sf::Vector2f aimDirectionNormal;
+    Vector2D velocity = VEC_NONE;
+    Vector2D playerCenter= VEC_NONE;
+    Vector2D  mousePos = VEC_NONE;
+    Vector2D aimDirection = VEC_NONE;
+
 
 
     public: 
@@ -39,15 +40,17 @@ class Projectile: public Entity
 
         void set_speed ( int speed);
 
-        void set_velocity( const sf::Vector2f velocity);
+        void set_velocity(  Vector2D &vel);
 
-        void set_mousePos( sf::Vector2f &mPos);
+        void set_mousePos(  Vector2D  &mPos);
 
-        void set_playerCenter( sf::Vector2f &pCenter);
+        void set_playerCenter(  Vector2D  &pCenter);
 
         void set_aimDirection ();
 
-        sf::Vector2f set_aimDirectionNormal();
+        Vector2D  get_aimDireciton(){ return aimDirection;}
+
+        //sf::Vector2f set_aimDirectionNormal();
 
         void move(Vector2D &dir, float delta);
 

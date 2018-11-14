@@ -1,20 +1,23 @@
 #include "Projectile.h"
+#include "EventManager.h"
 #include "macros.h"
 #include <iostream>
         
 Projectile::Projectile(float x, float y, float size) : Entity(x, y, size){
-    type = TYPE_PROJECTILE;
-    velocity.x = 0.0f;
-    velocity.y = 0.0f;
-    mousePos.x = 0.0f;
-    mousePos.y = 0.0f;
+
+    EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
 }
 
 Projectile::~Projectile(){}
 
 //handles events 
 void Projectile::HandleEvent( Event* event){
-    ///if eventid = "attack"
+//     if (event->EventId() == PROJECTILE_SHOOT)
+//   {
+//     printf("PROJECTILE: shooting!\n");
+//     //attack(Vector2D &dir, float delta);
+//     EventManager::Instance()->UnregisterObject(PROJECTILE_SHOOT, this);
+//   }
 }
 
 void Projectile::set_maxDamage( int mD){
@@ -27,12 +30,12 @@ void Projectile::set_maxRange(int mR){
 void Projectile::set_speed ( int s){
     speed = s;
 }
-void Projectile::set_mousePos( sf::Vector2f &mPos){
+void Projectile::set_mousePos(  Vector2D  &mPos){
     mousePos.x = mPos.x;
     mousePos.y = mPos.y;
 }
 
-void Projectile::set_playerCenter( sf::Vector2f &pCenter){
+void Projectile::set_playerCenter(  Vector2D  &pCenter){
     playerCenter.x = pCenter.x;
     playerCenter.y = pCenter.y;
 }
@@ -47,7 +50,7 @@ void Projectile::set_aimDirection(){
 //      std::cout << aimDirectionNormal.x << " " << aimDirection.y;
 //  }
 
-void Projectile::set_velocity( const sf::Vector2f vel){
+void Projectile::set_velocity(  Vector2D  &vel){
     velocity.x = vel.x;
     velocity.y = vel.y;
 }

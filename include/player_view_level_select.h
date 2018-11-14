@@ -14,7 +14,7 @@ public:
 private:
     void process_input(float delta) override;
     void handle_event(sf::Event event) override;
-    int getSelectedLevel() {};
+    int getSelectedLevel();
     int selectionIndex;
 
 };

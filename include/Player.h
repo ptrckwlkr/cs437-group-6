@@ -10,7 +10,7 @@ class Player: public Entity
 {
 
     private: 
-        int health;
+        int health = 20;
         int mana;
         //std::shared_ptr<PlayerData> PlayerData;
 		std::shared_ptr<Projectile> projectile;

@@ -44,7 +44,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 		  gold->set_position(3050, 800);
 
     ///testing projectile shooting
-      projectile->set_position(gen.player_x, gen.player_y);
+      projectile->set_position(gen.player_x+5, gen.player_y+5);
       projectile->set_maxDamage(4);
       player->set_projectile(projectile);
 
