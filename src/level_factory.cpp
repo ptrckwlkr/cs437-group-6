@@ -1,8 +1,10 @@
 #include "skeleton.h"
 #include "level_factory.h"
 #include "EventManager.h"
+#include "EntityManager.h"
 #include "Player.h"
 #include "gold.h"
+#include "Projectile.h"
 #include "alg_agent_based.h"
 
 /**
@@ -14,11 +16,12 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   std::shared_ptr<Level> level;
   std::shared_ptr<Map> map;
 
-  // TODO Generate all the level's entities
 
+  // TODO Generate all the level's entities
   std::shared_ptr<Player> player = std::make_shared<Player>(3150, 1000, 10);
   std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(450, 250);
   std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
+  std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(3155, 1010, 5);
 
   AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 
@@ -27,15 +30,24 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   {
     case LEVEL_FILE:
       player->set_position(150, 150);
+
       map = load("../data/test2.txt");
 	    break;
 	  case AGENT_BASED:
      
 		  map = std::make_shared<Map>(gen.createLevelGrid(15, 32.0));
 		 // gen.printLevelGrid();
-		  player->set_position(gen.player_x, gen.player_y);
-		  enemy->set_position(3150, 800);
+		  //player_>set_position(gen.player_x, gen.player_y);
+      player->set_position(gen.player_x, gen.player_y );
+      enemy->set_position(gen.player_x + 10, gen.player_y+ 10 );
+		  //enemy->set_position(3150, 800);
 		  gold->set_position(3050, 800);
+
+    ///testing projectile shooting
+      projectile->set_position(gen.player_x, gen.player_y);
+      projectile->set_maxDamage(4);
+      player->set_projectile(projectile);
+
 		  break;
   }
 
@@ -43,9 +55,18 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   level = std::make_shared<Level>(map);
 
   level->set_player(player);
-  level->get_entities().push_back(player);
-  level->get_entities().push_back(enemy);
-  level->get_entities().push_back(gold);
+
+
+  EntityManager::Instance()->addEntity(player);
+  EntityManager::Instance()->addEntity(enemy);
+  EntityManager::Instance()->addEntity(gold);
+  EntityManager::Instance()->addEntity(projectile);
+  
+  // level->get_entities().push_back(player);
+  // level->get_entities().push_back(enemy);
+  // level->get_entities().push_back(gold);
+
+  // level->get_entities().push_back(projectile);
 
   return level;
 }

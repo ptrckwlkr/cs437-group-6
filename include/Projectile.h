@@ -3,6 +3,8 @@
 
 #include "entity.h"
 #include "event.h"
+#include "math.h"
+#include "SFML/System.hpp"
 
 class Projectile: public Entity{
 
@@ -10,22 +12,45 @@ class Projectile: public Entity{
     int maxDamage;
     int curDamage;
     int maxRange;
+    int speed;
+
+    protected:
+    sf::Vector2f velocity;
+    sf::Vector2f playerCenter;
+    sf::Vector2f mousePos;
+    sf::Vector2f aimDirection;
+    sf::Vector2f aimDirectionNormal;
 
 
     public: 
         Projectile(float x, float y, float size);
 
         ~Projectile();
-        virtual void update(double deltaMs) = 0;
+        virtual void update(double deltaMs) {};
 
         //handles events 
-        void HandleEvents( Event* event);
+        virtual void HandleEvent( Event* event);
         ///if eventid = "attack"
 
         void set_maxDamage( int mD);
         
-        void set_maxRandge(int mD);
-        void attack(Direction dir, float delta);
+        void set_maxRange(int mD);
+
+        void set_speed ( int speed);
+
+        void set_velocity( const sf::Vector2f velocity);
+
+        void set_mousePos( sf::Vector2f &mPos);
+
+        void set_playerCenter( sf::Vector2f &pCenter);
+
+        void set_aimDirection ();
+
+        sf::Vector2f set_aimDirectionNormal();
+
+        void move( Direction direction, float delta);
+
+        void move2(sf::Vector2f currVelocity, float delta);
 
 }; 
 

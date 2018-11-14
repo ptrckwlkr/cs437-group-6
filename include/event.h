@@ -3,7 +3,6 @@
 
 #include <string>
 using std::string;
-//#define EVENTID string
 
 enum EVENTID
 {

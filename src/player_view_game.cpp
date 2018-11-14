@@ -3,6 +3,10 @@
 #include "macros.h"
 #include "engine.h"
 #include "Player.h"
+#include "Projectile.h"
+#include "math.h"
+#include <algorithm>
+#include <iostream>
 
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
@@ -35,8 +39,30 @@ void GameView::process_input(float delta)
 	//only call move when necessary
 	if (dir != NONE)
 	{
-		state->get_level().get_player().move(dir, delta);
+		state->get_level().get_player()->move(dir, delta);
 	}
+
+	if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		//TODO: getProjectile and set the mouse position
+		//set projectile to be center of player if not alreadys set
+		//set projectile current velocity = aimDirection * maxSpeed
+		//then call move position of projectile and pass the velocity
+		sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
+		sf::Vector2f player_pos(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
+
+		state->get_level().get_player()->get_projectile()->set_mousePos(mouse_pos);
+		std::cout << " mouse pos set " ;
+		state->get_level().get_player()->get_projectile()->set_position(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
+		std::cout << " set pos " ;
+		state->get_level().get_player()->get_projectile()->set_playerCenter(player_pos);
+		std::cout << " set play" ;
+		state->get_level().get_player()->get_projectile()->set_aimDirection();
+		sf::Vector2f aimDir = state->get_level().get_player()->get_projectile()->set_aimDirectionNormal();
+		sf::Vector2f v(aimDir.x * 10, aimDir.y *10);
+		state->get_level().get_player()->get_projectile()->move2(v, delta);
+
+	}
+
 }
 
 void GameView::handle_event(sf::Event event)
@@ -62,7 +88,7 @@ void GameView::draw()
   // TODO send some of this to the constructor?
   sf::View camera;
   camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  Position playerPos = state->get_level().get_player().get_position();
+  Position playerPos = state->get_level().get_player()->get_position();
   camera.setCenter(playerPos.x, playerPos.y);
 
   app->setView(camera);

@@ -7,12 +7,12 @@ SkeletonView::SkeletonView(GameLogic *state, Entity &entity) : View(state)
 
 void SkeletonView::update(float delta)
 {
-  Position posP = state->get_level().get_player().get_position();
+  Position posP = state->get_level().get_player()->get_position();
   Position posS = skeleton->get_position();
 
   float dx = posP.x - posS.x;
   float dy = posP.y - posS.y;
-  float hypo = state->get_level().get_player().get_size() + skeleton->get_size();
+  float hypo = state->get_level().get_player()->get_size() + skeleton->get_size();
 
   Direction dir = NONE;
   if (hypo * hypo < dx * dx + dy * dy)

@@ -19,6 +19,10 @@ void Player::HandleEvent(Event* event)
   // if (event->EventId() == EVENT_GOLD_COLLECTION) printf("PLAYER: I have collected gold!\n"); // TODO
 }
 
+void Player::set_projectile(std::shared_ptr<Projectile> p){
+  projectile = p;
+}
+
 void Player::move(Direction dir, float delta) 
 {
   float delta_speed = PLAYER_SPEED * delta;
@@ -57,4 +61,3 @@ void Player::move(Direction dir, float delta)
       break;
   }
 }
-

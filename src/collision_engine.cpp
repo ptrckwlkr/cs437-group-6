@@ -6,7 +6,7 @@
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
  */
-void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
 {
   int num_entities;
   int i;
@@ -62,7 +62,7 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 /**
  * For all entities, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
 {
   float x;      // Entity x-position
   float y;      // Entity y-position
@@ -113,7 +113,7 @@ bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, 
 /**
  * Sort a list of pointers to game entities into the map's cells, according to the entities' positions
  */
-void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
+void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
 {
   // TODO will probably ultimately accept the EntityManager& as a parameter, instead of a raw vector of pointers
   Position pos{};
