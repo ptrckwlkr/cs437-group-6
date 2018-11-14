@@ -15,10 +15,18 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
 
 void GameView::process_input(float delta)
 {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		EventManager::Instance()->ClearEvents();
+		for (const auto &e : state->get_level().get_entities())
+		{
+			EventManager::Instance()->UnregisterAll(e.get());
+		}
+		Engine::getInstance().set_mode(MODE_MENU);
+	}
 
 	// TODO check that game has started (not in menu)
-	Direction dir = NONE;
+
 
 	int x_dir = 0, y_dir = 0;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	y_dir++;
@@ -26,14 +34,17 @@ void GameView::process_input(float delta)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	x_dir--;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	x_dir++;
 
-	if (x_dir == 1 && y_dir == 1)			dir = NORTHEAST;
-	else if (x_dir == 1 && y_dir == 0)		dir = EAST;
-	else if (x_dir == 1 && y_dir == -1)		dir = SOUTHEAST;
-	else if (x_dir == 0 && y_dir == 1)		dir = NORTH;
-	else if (x_dir == 0 && y_dir == -1)		dir = SOUTH;
-	else if (x_dir == -1 && y_dir == 1)		dir = NORTHWEST;
-	else if (x_dir == -1 && y_dir == 0)		dir = WEST;
-	else if (x_dir == -1 && y_dir == -1)	dir = SOUTHWEST;
+  if (x_dir != 0 || y_dir != 0)
+  {
+    auto dir = VEC_NONE;
+    if (x_dir == 1 && y_dir == 1) dir = VEC_NORTHEAST;
+    else if (x_dir == 1 && y_dir == 0) dir = VEC_EAST;
+    else if (x_dir == 1 && y_dir == -1) dir = VEC_SOUTHEAST;
+    else if (x_dir == 0 && y_dir == 1) dir = VEC_NORTH;
+    else if (x_dir == 0 && y_dir == -1) dir = VEC_SOUTH;
+    else if (x_dir == -1 && y_dir == 1) dir = VEC_NORTHWEST;
+    else if (x_dir == -1 && y_dir == 0) dir = VEC_WEST;
+    else if (x_dir == -1 && y_dir == -1) dir = VEC_SOUTHWEST;
 
 	// TODO The call to move should probably eventually be handled through the EventManager
 	//only call move when necessary
@@ -63,6 +74,7 @@ void GameView::process_input(float delta)
 
 	}
 
+  }
 }
 
 void GameView::handle_event(sf::Event event)

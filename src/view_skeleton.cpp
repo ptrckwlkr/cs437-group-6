@@ -14,24 +14,9 @@ void SkeletonView::update(float delta)
   float dy = posP.y - posS.y;
   float hypo = state->get_level().get_player()->get_size() + skeleton->get_size();
 
-  Direction dir = NONE;
   if (hypo * hypo < dx * dx + dy * dy)
   {
-    int x_dir = 0, y_dir = 0;
-
-    if (dx > 0) x_dir++;
-    if (dx < 0) x_dir--;
-    if (dy > 0) y_dir--;
-    if (dy < 0) y_dir++;
-
-    if (x_dir == 1 && y_dir == 1)			    dir = NORTHEAST;
-    else if (x_dir == 1 && y_dir == 0)		dir = EAST;
-    else if (x_dir == 1 && y_dir == -1)		dir = SOUTHEAST;
-    else if (x_dir == 0 && y_dir == 1)		dir = NORTH;
-    else if (x_dir == 0 && y_dir == -1)		dir = SOUTH;
-    else if (x_dir == -1 && y_dir == 1)		dir = NORTHWEST;
-    else if (x_dir == -1 && y_dir == 0)		dir = WEST;
-    else if (x_dir == -1 && y_dir == -1)	dir = SOUTHWEST;
+    auto dir = Vector2D(dx, dy);
+    skeleton->move(dir, delta);
   }
-  skeleton->move(dir, delta);
 }

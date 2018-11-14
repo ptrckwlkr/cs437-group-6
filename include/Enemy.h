@@ -11,7 +11,7 @@ public:
     Enemy(float x, float y, float size);
     ~Enemy();
     virtual void update(double deltaMs) = 0;
-    void move(Direction dir, float delta) override;
+    void move(Vector2D &dir, float delta) override;
     void HandleEvent(Event* event) override;
 
 }; 

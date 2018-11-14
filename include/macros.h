@@ -9,6 +9,7 @@
 
 #define PLAYER_SPEED				        100
 #define ENEMY_SPEED				          80
+#define PROJECTILE_SPEED            40
 #define CELL_SIZE                   50
 #define COLLISION_BUFFER            10
 #define STARTING_GOLD               100

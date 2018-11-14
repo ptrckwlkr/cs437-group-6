@@ -6,7 +6,8 @@
 #include "math.h"
 #include "SFML/System.hpp"
 
-class Projectile: public Entity{
+class Projectile: public Entity
+{
 
     private: 
     int maxDamage;
@@ -48,9 +49,9 @@ class Projectile: public Entity{
 
         sf::Vector2f set_aimDirectionNormal();
 
-        void move( Direction direction, float delta);
+        void move(Vector2D &dir, float delta);
 
-        void move2(sf::Vector2f currVelocity, float delta);
+        void attack(Vector2D &dir, float delta);
 
 }; 
 

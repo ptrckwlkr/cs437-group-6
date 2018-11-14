@@ -15,6 +15,6 @@ void Weapon::set_maxRange( int maxR){
 void Weapon::HandleEvents( Event* event){
     ///if eventid = "attack"
 }
-void Weapon::attack(Direction dir, float delta){
+void Weapon::attack(Vector2D &dir, float delta){
 
 };

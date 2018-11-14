@@ -2,6 +2,7 @@
 #define CSCI437_WEAPON_H
 
 #include "entity.h"
+#include "vector2d.h"
 class Weapon
 {
 
@@ -20,7 +21,7 @@ public:
 
     void HandleEvents( Event* event);
 
-    void attack(Direction dir, float delta);
+    void attack(Vector2D &dir, float delta);
 
 };
 

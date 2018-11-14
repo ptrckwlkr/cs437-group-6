@@ -22,8 +22,7 @@ public:
 
 		void set_projectile(std::shared_ptr<Projectile>  p);
 		std::shared_ptr<Projectile> get_projectile(){return projectile;}
-
-		void move(Direction dir, float delta);
+		void move(Vector2D &dir, float delta);
 		void animate() {};
 		void HandleEvent(Event* event);
 

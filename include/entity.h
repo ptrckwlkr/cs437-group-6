@@ -2,6 +2,7 @@
 #define CSCI437_ENTITY_H
 
 #include "event.h"
+#include "vector2d.h"
 
 struct Position
 {
@@ -9,19 +10,15 @@ struct Position
     float y;
 };
 
-
-enum Direction
-{
-    NONE,
-    NORTH,
-    NORTHEAST,
-    EAST,
-    SOUTHEAST,
-    SOUTH,
-    SOUTHWEST,
-    WEST,
-    NORTHWEST,
-};
+#define VEC_NONE         Vector2D(0, 0)
+#define VEC_NORTH        Vector2D(0, -1)
+#define VEC_NORTHEAST    Vector2D(1, -1)
+#define VEC_EAST         Vector2D(1, 0)
+#define VEC_SOUTHEAST    Vector2D(1, 1)
+#define VEC_SOUTH        Vector2D(0, 1)
+#define VEC_SOUTHWEST    Vector2D(-1, 1)
+#define VEC_WEST         Vector2D(-1, 0)
+#define VEC_NORTHWEST    Vector2D(-1, -1)
 
 enum EntityType
 {
@@ -35,7 +32,6 @@ enum EntityType
 
 class Entity
 {
-
 
 public:
     Entity(float x, float y, float s)
@@ -65,7 +61,7 @@ public:
     long long get_id() {return id;}
     EntityType get_type() {return type;}
 
-    virtual void move(Direction dir, float delta) = 0;
+    virtual void move(Vector2D &dir, float delta) = 0;
     virtual void HandleEvent(Event* event) = 0;
 
 protected:
