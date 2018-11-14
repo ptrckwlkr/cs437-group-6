@@ -32,12 +32,4 @@ class EntityManager{
         std::vector<std::shared_ptr<Entity> > getEntites(){ return entities;}
         void Shutdown();
 
-        //std::vector<std::shared_ptr<Entity> >
-        // void addEntity ( enum EntityType, Entity entity);
-        // Entity* getEntity(enum EntityType type);
-        // void removeEntity ( Entity entity);
-        // std::multimap< enum EntityType, Entity> get_Entities(){ return allEntities;}
-
-
-};
-#endif //CSCI437_ENTITYMANAGER_H
+#endif //CSCI437_ENTITYMANAGER_
