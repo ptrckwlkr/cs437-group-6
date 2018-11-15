@@ -24,15 +24,11 @@ public:
     Map &get_map() {return *map;}
     std::shared_ptr<Player>  &get_player() {return player;}
 
-    //std::vector<std::shared_ptr<Entity>> &get_entities() {return entities;}
-
     std::vector<std::shared_ptr<Entity> > get_entities(){ return EntityManager::Instance()->getEntites(); }
 
 protected:
     std::shared_ptr<Map> map;
     std::shared_ptr<Player> player;
-    //std::vector<std::shared_ptr<Entity>> entities;
-    //Player player;
 
 
 };

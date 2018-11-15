@@ -54,10 +54,9 @@ void GameView::process_input(float delta)
 	//}
 
 	if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		//TODO: getProjectile and set the mouse position
-		//set projectile to be center of player if not alreadys set
-		//set projectile current velocity = aimDirection * maxSpeed
-		//then call move position of projectile and pass the velocity
+		//when mouse is pressed create a new projectile, which adds it to entity vector and projectile list 
+		EntityManager::Instance()->createEntity(TYPE_PROJECTILE, 3155, 1010, 5);
+
 		sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app) );
 		Vector2D  mouse_pos = Vector2D(mpos.x, mpos.y);
 		Vector2D  player_pos(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
@@ -70,10 +69,14 @@ void GameView::process_input(float delta)
 		std::cout << " set play" ;
 		state->get_level().get_player()->get_projectile()->set_aimDirection();
 		std::cout << " aim dir set" ;
+
+		//for each projectile created move it 
 		Vector2D  v = state->get_level().get_player()->get_projectile()->get_aimDireciton();
 		state->get_level().get_player()->get_projectile()->attack(v, delta);
 
 	}
+	//for each projectile in the list, move it 
+		for( std::list< std::shared_ptr<Projectile>>::iterator iter= EntityManager::Instance()->getProjectiles().begin(); iter != EntityManager::Instance()->getProjectiles().end(); iter++ ){
 
   }
 }
