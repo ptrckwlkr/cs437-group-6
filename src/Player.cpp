@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "macros.h"
 
-Player::Player(float x, float y, float size) : Entity(x, y, size)
+Player::Player(float x, float y) : Entity(x, y, 10)
 {
   type = TYPE_PLAYER;
   EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);

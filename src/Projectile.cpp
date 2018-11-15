@@ -3,7 +3,7 @@
 #include "macros.h"
 #include <iostream>
         
-Projectile::Projectile(float x, float y, float size) : Entity(x, y, size){
+Projectile::Projectile(float x, float y) : Entity(x, y, 5){
 
     EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
 }

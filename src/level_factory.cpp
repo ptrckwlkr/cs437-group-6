@@ -17,19 +17,6 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   std::shared_ptr<Map> map;
 
 
-  // TODO Generate all the level's entities
-  // std::shared_ptr<Player> player = std::make_shared<Player>(3150, 1000, 10);
-  // std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(450, 250);
-  // std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
-  // std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(3155, 1010, 5);
-
-  EntityManager::Instance()->createEntity(TYPE_PLAYER, 3150, 1000, 10 );
-  EntityManager::Instance()->createEntity(TYPE_GOLD, 350, 250, 0);
-  EntityManager::Instance()->createEntity(TYPE_PROJECTILE, 3155, 1010, 5);
-
-  //NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
-  AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
-
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
   switch (algorithm)
   {
@@ -40,25 +27,25 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
       map = load("../data/test2.txt");
 	    break;
-	  case AGENT_BASED:
-		  map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
+	case AGENT_BASED:
+		//NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
+		AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
+		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
 		 // gen.printLevelGrid();
-		  //player_>set_position(gen.player_x, gen.player_y);
 
-      EntityManager::Instance()->getPlayer()->set_position(gen.player_x, gen.player_y);
-      //maybe list is not the best way to store them, hard time to access them
+		EntityManager::Instance()->createEntity(TYPE_PLAYER, gen.player_x, gen.player_y);
+		EntityManager::Instance()->createEntity(TYPE_GOLD, 3750, 2750);
+		//TEMP method to place enemies
+		for (int i = 0; i < gen.enemy_coords.size(); i++)
+		{
+			EntityManager::Instance()->createEntity(TYPE_SKELETON, gen.enemy_coords[i][0], gen.enemy_coords[i][1]);
+		}
 
-		  break;
+		break;
   }
 
   // Create the actual level
   level = std::make_shared<Level>(map);
-
-  //TEMP method to place enemies
-  for (int i = 0; i < gen.enemy_coords.size(); i++)
-  {
-	  EntityManager::Instance()->createEntity(TYPE_SKELETON, gen.enemy_coords[i][0], gen.enemy_coords[i][1], 0);
-  }
 
   //level->set_player(player);
   level->set_player(EntityManager::Instance()->getPlayer());

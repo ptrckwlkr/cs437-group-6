@@ -55,7 +55,7 @@ void GameView::process_input(float delta)
 
 	if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		//when mouse is pressed create a new projectile, which adds it to entity vector and projectile list 
-		EntityManager::Instance()->createEntity(TYPE_PROJECTILE, 3155, 1010, 5);
+		EntityManager::Instance()->createEntity(TYPE_PROJECTILE, 3155, 1010);
 
 		//get the last projectile that was created
 		std::shared_ptr<Projectile> proj = EntityManager::Instance()->getProjectiles().back();

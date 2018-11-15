@@ -37,8 +37,8 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		sf::CircleShape circle(size);
 
 		if (type == TYPE_SKELETON) circle.setFillColor(sf::Color(255, 0, 0));
-		if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(255, 255, 0));
-		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(0, 255, 0));
+		if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
+		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
 		if (type == TYPE_PROJECTILE) circle.setFillColor(sf::Color(230, 255, 0));
 
 		circle.setOrigin(sf::Vector2f(size, size));
