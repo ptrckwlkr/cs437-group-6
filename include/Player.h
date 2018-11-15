@@ -16,7 +16,7 @@ class Player: public Entity
         //std::shared_ptr<PlayerData> PlayerData;
 		std::shared_ptr<Projectile> projectile;
 public:
-		Player(float x, float y, float size);
+		Player(float x, float y);
 
 		~Player();
 		void update(double delta) {};

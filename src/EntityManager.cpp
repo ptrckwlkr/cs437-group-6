@@ -7,13 +7,13 @@ EntityManager* EntityManager::Instance(){
     return &instance;
 }
 
-void EntityManager::createEntity(EntityType type, int x, int y, int s)
+void EntityManager::createEntity(EntityType type, int x, int y)
 {
     switch (type)
     {
         case TYPE_PROJECTILE:
         {
-            std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(x, y, s);
+            std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(x, y);
             projectiles.push_back(projectile);
             entities.push_back(projectile);
         }
@@ -34,7 +34,7 @@ void EntityManager::createEntity(EntityType type, int x, int y, int s)
             break;
 
         case TYPE_PLAYER:
-            player = std::make_shared<Player>(x, y, s);
+            player = std::make_shared<Player>(x, y);
             entities.push_back(player);
             break;
     }  

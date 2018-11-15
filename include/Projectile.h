@@ -25,7 +25,7 @@ class Projectile: public Entity
 
 
     public: 
-        Projectile(float x, float y, float size);
+        Projectile(float x, float y);
 
         ~Projectile();
         virtual void update(double deltaMs) {};

@@ -26,7 +26,7 @@ class EntityManager{
     public:
         static EntityManager* Instance();
 
-        void createEntity(enum EntityType, int x, int y, int s);
+        void createEntity(enum EntityType, int x, int y);
         void removeEntity(std::shared_ptr<Entity> e );
         std::list<std::shared_ptr<Projectile>> &getProjectiles(){return projectiles;}
         std::list<std::shared_ptr<Gold>> &getGolds(){return golds;}
