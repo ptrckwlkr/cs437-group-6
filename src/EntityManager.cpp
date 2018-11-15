@@ -7,7 +7,7 @@ EntityManager* EntityManager::Instance(){
     return &instance;
 }
 
-void EntityManager::createEntity(EntityType type, int x, int y)
+void EntityManager::createEntity(EntityType type, float x, float y)
 {
     switch (type)
     {

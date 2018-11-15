@@ -83,6 +83,7 @@ void Engine::switch_mode()
   {
     old_mode = curr_game_mode;
     views.clear();
+    EntityManager::Instance()->ClearAll();
 
     //places the primary controller and view for the mode at the 0th index of each vector
     switch (curr_game_mode)

@@ -14,17 +14,14 @@ class Player: public Entity
         int health = 20;
         int mana;
         //std::shared_ptr<PlayerData> PlayerData;
-		std::shared_ptr<Projectile> projectile;
+
 public:
 		Player(float x, float y);
 
 		~Player();
 		void update(double delta) {};
-
-		void set_projectile(std::shared_ptr<Projectile>  p);
-		std::shared_ptr<Projectile> get_projectile(){return projectile;}
-		void move(Vector2D &dir, float delta);
-		void animate() {};
+		void move(Vector2D &dir, float delta) override;
+		void attack(Vector2D &dir);
 		void HandleEvent(Event* event);
 
 }; 
