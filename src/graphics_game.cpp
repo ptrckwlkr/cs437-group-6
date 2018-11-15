@@ -28,6 +28,8 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// float y = (view->get_state().get_level().get_entities()[1]->get_position().y);
 	// float s = (view->get_state().get_level().get_entities()[1]->get_size());
 
+	//EntityManager could eventually take a number of entities you can to create
+	//then this would iterate through the list and place each in right place
 	float x = EntityManager::Instance()->getEntity(TYPE_SKELETON)->get_position().x;
 	float y = EntityManager::Instance()->getEntity(TYPE_SKELETON)->get_position().y;
 	float s = EntityManager::Instance()->getEntity(TYPE_SKELETON)->get_size();

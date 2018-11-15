@@ -7,29 +7,39 @@ EntityManager* EntityManager::Instance(){
     return &instance;
 }
 
-void EntityManager::createEntity( enum EntityType, int x, int y, int s){
-    switch (EntityType)
+void EntityManager::createEntity( EntityType type, int x, int y, int s){
+    switch (type)
     {
-        case TYPE_PROJECTILE: 
+        case TYPE_PROJECTILE : 
+        {
             std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(x, y, s);
             projectiles.push_back(projectile);
             entities.push_back(projectile);
             break;
+        }
 
-        case TYPE_GOLD:
-            std::shared_ptr<Gold> gold = std::make_shared<Gold>(x, y, s);
+        case TYPE_GOLD :
+        {
+            std::shared_ptr<Gold> gold = std::make_shared<Gold>(x, y);
             golds.push_back(gold);
             entities.push_back(gold);
             break;
-        case TYPE_SKELETON:
-            std::shared_ptr<Skeleton> skel = std::make_shared<Skeleton>(x, y,s);
+        }
+        case TYPE_SKELETON :
+        {
+            std::shared_ptr<Skeleton> skel = std::make_shared<Skeleton>(x, y);
             skeletons.push_back(skel);
             entities.push_back(skel);
             break;
+        }
 
-        case TYPE_PLAYER:
+        case TYPE_PLAYER :
+        {
             player = std::make_shared<Player>(x, y, s);
             entities.push_back(player);
+            break;
+        }
+        default:
             break;
     }  
 }
@@ -84,7 +94,7 @@ std::shared_ptr<Entity> EntityManager::getEntity(long long id){
     while (iter != entities.end()){
 
         //find the correct entity with specific type
-        if ( (*iter)->get_id == id){
+        if ( (*iter)->get_id() == id){
             //return entity 
             return (*iter);
         }

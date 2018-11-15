@@ -48,18 +48,18 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
       EntityManager::Instance()->getPlayer()->set_position(gen.player_x, gen.player_y);
       //maybe list is not the best way to store them, hard time to access them
-      EntityManager::Instance()->getSkeletions().front->set_position(gen.player_x + 10, gen.player_y+ 10);
+      EntityManager::Instance()->getSkeletions().front()->set_position(gen.player_x + 10, gen.player_y+ 10);
       //enemy->set_position(gen.player_x + 10, gen.player_y+ 10 );
 		  //enemy->set_position(3150, 800);
-      EntityManager::Instance()->getGolds().front->set_position(3050, 800 );
+      EntityManager::Instance()->getGolds().front()->set_position(3050, 800 );
 		  //gold->set_position(3050, 800);
 
     ///testing projectile shooting
-      EntityManager::Instance()->getProjectiles().front->set_position(gen.player_x+5, gen.player_y+5);
-      EntityManager::Instance()->getProjectiles().front->set_MaxDamage(5);
+      EntityManager::Instance()->getProjectiles().front()->set_position(gen.player_x+5, gen.player_y+5);
+      EntityManager::Instance()->getProjectiles().front()->set_maxDamage(10);
       //projectile->set_position(gen.player_x+5, gen.player_y+5);
       //projectile->set_maxDamage(4);
-      EntityManager::Instance()->getPlayer()->set_projectile(EntityManager::Instance()->getProjectiles().front);
+      EntityManager::Instance()->getPlayer()->set_projectile(EntityManager::Instance()->getProjectiles().front());
       //player->set_projectile(projectile);
 		  break;
   }
