@@ -30,6 +30,10 @@ public:
 	int player_x;
 	int player_y;
 
+	//exit's coordinates
+	int exit_x;
+	int exit_y;
+
 	//vector of enemy initial coordinates
 	std::vector<std::vector<int>> enemy_coords;
 
@@ -49,6 +53,7 @@ private:
 	std::vector<std::vector<int>> rooms;
 	std::vector<int> dungeon_corners;
 	int player_room_index;
+	int exit_room_index;
 
 	int max_room_size;
 	int min_room_size;

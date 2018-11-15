@@ -56,13 +56,7 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 		digger_y = rand() % height;
 	} while (!placeRoom(digger_x, digger_y));
 
-	//player's initial coordinates are set to the diggers initial coordinates
-	player_x = digger_x * CELL_SIZE;
-	player_y = digger_y * CELL_SIZE;
-	
-
 	int cur_dir = chooseRandomDirection(-1, false);
-
 	
 	while (num_rooms < max_rooms || distance_traveled < (width * height)/fraction_total_size)
 	{
@@ -147,37 +141,50 @@ bool AgentBasedGenerator::placeRoom(int i, int j)
 		avg_j += j;
 
 		//stores info about room in the member vector
-		rooms.emplace_back(std::vector<int>{ i + room_width/2, j+ room_height/2, room_width, room_height });
+		rooms.emplace_back(std::vector<int>{ i, j, room_width, room_height });
 		return true;
 	}
 
 	return false;
 }
 
-
+//NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
 void AgentBasedGenerator::placeEntities(int num_enemies)
 {
 	int player_room = createStartAndExit();
-	
+
+	//iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
+	for (int n = 0; n < num_rooms; n++)
+	{
+		if (n == player_room) continue;
+
+		std::vector<int> enemy_pos;
+		for (int t = 0; t < num_enemies / (num_rooms - 1); t++)
+		{
+
+			enemy_pos = std::vector<int>{ (rooms[n][0] + rand() % rooms[n][2]) * CELL_SIZE, (rooms[n][1] + rand() % rooms[n][3])* CELL_SIZE };
+			enemy_coords.emplace_back(enemy_pos);
+		}
+	}
+
 }
 
 
+/*
+	Determines the player's starting location and the exit's location using logic with the rooms
+	returns the index of the player's starting room within the rooms vector for use in placeEntities
+*/
 int AgentBasedGenerator::createStartAndExit()
 {
 	//finds the average room coordinates for the starting values
-	avg_i = avg_i / num_rooms;
-	avg_j = avg_j / num_rooms;
+	avg_i = avg_i / num_rooms, avg_j = avg_j / num_rooms;
 
 	/* used to determine relative room placement for spawning player
 	index 0 and 1 are x,y coordinates index 2 is the index of the room in rooms vector*/
-	int top_room[3] = { avg_i, avg_j, -1 };
-	int bot_room[3] = { avg_i, avg_j, -1 };
-	int left_room[3] = { avg_i, avg_j, -1 };
-	int right_room[3] = { avg_i, avg_j, -1 };
-	int top_right_room[3] = { avg_i, avg_j, -1 };
-	int top_left_room[3] = { avg_i, avg_j, -1 };
-	int bot_right_room[3] = { avg_i, avg_j, -1 };
-	int bot_left_room[3] = { avg_i, avg_j, -1 };
+	int top_room[3] = { avg_i, avg_j, -1 },			bot_room[3] = { avg_i, avg_j, -1 };
+	int left_room[3] = { avg_i, avg_j, -1 },		right_room[3] = { avg_i, avg_j, -1 };
+	int top_right_room[3] = { avg_i, avg_j, -1 },	top_left_room[3] = { avg_i, avg_j, -1 };
+	int bot_right_room[3] = { avg_i, avg_j, -1 },	bot_left_room[3] = { avg_i, avg_j, -1 };
 
 	//iterate through the rooms and determine each extreme
 	for (int n = 0; n < num_rooms; n++)
@@ -233,17 +240,25 @@ int AgentBasedGenerator::createStartAndExit()
 	if (rooms[furthest_rooms[0]][2] * rooms[furthest_rooms[0]][3] <= rooms[furthest_rooms[1]][2] * rooms[furthest_rooms[1]][3])
 	{
 		player_room_index = furthest_rooms[0];
-		level_grid[rooms[player_room_index][1]][rooms[player_room_index][0]] = 'A';
-		level_grid[rooms[furthest_rooms[1]][1]][rooms[furthest_rooms[1]][0]] = 'E';
+		exit_room_index = furthest_rooms[1];
+
+		//level_grid[rooms[player_room_index][1]][rooms[player_room_index][0]] = 'A';
+		//level_grid[rooms[furthest_rooms[1]][1]][rooms[furthest_rooms[1]][0]] = 'E';
 	}
 	else
 	{
 		player_room_index = furthest_rooms[1];
-		level_grid[rooms[player_room_index][1]][rooms[player_room_index][0]] = 'A';
-		level_grid[rooms[furthest_rooms[0]][1]][rooms[furthest_rooms[0]][0]] = 'E';
+		exit_room_index = furthest_rooms[0];
+		//level_grid[rooms[player_room_index][1]][rooms[player_room_index][0]] = 'A';
+		//level_grid[rooms[furthest_rooms[0]][1]][rooms[furthest_rooms[0]][0]] = 'E';
 	}
+	//player's initial coordinates and exit coordinates are set to middle of respective rooms
+	player_x = (rooms[player_room_index][0] + rooms[player_room_index][2] / 2) * CELL_SIZE;
+	player_y = (rooms[player_room_index][1] + rooms[player_room_index][3] / 2) * CELL_SIZE;
+	exit_x = (rooms[exit_room_index][0] + rooms[exit_room_index][2] / 2) * CELL_SIZE;
+	exit_y = (rooms[exit_room_index][1] + rooms[exit_room_index][3] / 2) * CELL_SIZE;
 
-	return 1;
+	return player_room_index;
 }
 
 

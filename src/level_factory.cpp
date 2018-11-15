@@ -17,9 +17,10 @@ std::shared_ptr<Level> LevelFactory::generate_level()
   // TODO Generate all the level's entities
 
   std::shared_ptr<Player> player = std::make_shared<Player>(3150, 1000, 10);
-  std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(450, 250);
-  std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
+  //std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(450, 250);
+  //std::shared_ptr<Gold> gold = std::make_shared<Gold>(350, 250);
 
+  //NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
   AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 
   // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
@@ -31,11 +32,11 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 	    break;
 	  case AGENT_BASED:
      
-		  map = std::make_shared<Map>(gen.createLevelGrid(15, 12, 32.0));
-		  gen.printLevelGrid();
+		  map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
+		  //gen.printLevelGrid();
 		  player->set_position(gen.player_x, gen.player_y);
-		  enemy->set_position(3150, 800);
-		  gold->set_position(3050, 800);
+		  //enemy->set_position(3150, 800);
+		  //gold->set_position(3050, 800);
 		  break;
   }
 
@@ -44,8 +45,14 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
   level->set_player(player);
   level->get_entities().push_back(player);
-  level->get_entities().push_back(enemy);
-  level->get_entities().push_back(gold);
+  //TEMP method to place enemies
+  for (int i = 0; i < gen.enemy_coords.size(); i++)
+  {
+	  std::shared_ptr<Skeleton> enemy = std::make_shared<Skeleton>(gen.enemy_coords[i][0], gen.enemy_coords[i][1]);
+	  level->get_entities().push_back(enemy);
+  }
+  //level->get_entities().push_back(enemy);
+  //level->get_entities().push_back(gold);
 
   return level;
 }
