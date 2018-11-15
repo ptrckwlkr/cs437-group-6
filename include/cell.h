@@ -10,6 +10,7 @@ enum CellType
 {
     WALL,
     FLOOR,
+	EXIT
 };
 
 /**

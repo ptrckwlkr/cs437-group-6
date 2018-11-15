@@ -122,6 +122,10 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
         rect.setFillColor(sf::Color(128, 128, 128));
         // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
       }
+	  else if (cell_type == EXIT)
+	  {
+		rect.setFillColor(sf::Color(255, 230, 0));
+	  }
       rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
       target.draw(rect, states);
     }
