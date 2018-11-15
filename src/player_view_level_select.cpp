@@ -4,9 +4,17 @@
 
 LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
-  selectionIndex = 0;
+  selected_level = 0;
   graphics = std::make_shared<LevelSelectGraphics>(this);
   App->setView(App->getDefaultView());
+
+	nodes[0] = {298, 403, 1, 10};
+	nodes[1] = {47, 321, 2, 10};
+	nodes[2] = {718, 442, 3, 10};
+	nodes[3] = {526, 320, 4, 10};
+	nodes[4] = {358, 223, 5, 10};
+	nodes[5] = {317, 84, 6, 10};
+	nodes[6] = {622, 103, 7, 10};
 }
 
 void LevelSelectView::process_input(float delta)
@@ -16,33 +24,18 @@ void LevelSelectView::process_input(float delta)
 
 void LevelSelectView::handle_event(sf::Event event)
 {
-	if (event.type == sf::Event::EventType::MouseButtonPressed) {
-		int x = event.mouseButton.x;
-		int y = event.mouseButton.y;
-		printf("Click Event Processed\n");
-		if (x >= 10 && x <= 275 && y >= 10 && y <= 275) {
-			if (x >= 10 && x <= 50 && y >= 10 && y <= 50) {
-				printf("Level One Selected\n");
-				Engine::getInstance().set_mode(MODE_PLAY);
-			}
-			if (x >= 55 && x <= 95 && y >= 55 && y <= 95) {
-				printf("Level Two Selected\n");
-			}
-			if (x >= 100 && x <= 140 && y >= 100 && y <= 140) {
-				printf("Level Three Selected\n");
-			}
-			if (x >= 145 && x <= 185 && y >= 145 && y <=185) {
-				printf("Level Four Selected\n");
-			}
-			if (x >= 190 && x <= 230 && y >= 190 && y <= 230) {
-				printf("Level Five Selected\n");
-			}
-			if (x >= 235 && x <=275 && y >= 235 && y <= 275) {
-				printf("Level Six Selected\n");
-			}
-	   }
-	 fflush(stdout);
+	if (event.type == sf::Event::EventType::MouseButtonPressed)
+  {
+		selected_level = clicked_node(event.mouseButton.x, event.mouseButton.y);
 	}
+  else if (event.type == sf::Event::EventType::MouseButtonReleased)
+  {
+    if (selected_level == clicked_node(event.mouseButton.x, event.mouseButton.y))
+    {
+      printf("Level %d selected\n", selected_level);
+      Engine::getInstance().set_mode(MODE_PLAY);
+    }
+  }
 }
 
 void LevelSelectView::update(float delta)
@@ -61,4 +54,21 @@ void LevelSelectView::draw()
   app->clear(sf::Color::Black);
   app->draw(*graphics);
   app->display();
+}
+
+int LevelSelectView::clicked_node(int mouseX, int mouseY)
+{
+	int i;
+	int dx;
+	int dy;
+	int hypo;
+	for (i = 0; i < NUMBER_OF_LEVELS; ++i)
+	{
+		Node node = get_node(i);
+		hypo = node.size;
+		dx = mouseX - node.x;
+		dy = mouseY - node.y;
+		if (hypo * hypo > dx * dx + dy * dy) return i + 1;
+	}
+	return 0;
 }

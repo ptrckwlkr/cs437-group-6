@@ -12,14 +12,18 @@ void LevelSelectGraphics::draw(sf::RenderTarget &target, sf::RenderStates states
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
 
-	for (int i=0;i<6;i++) {
-		sf::RectangleShape shape;
+  sf::Sprite sprite;
+  sprite.setTexture(resources.GetTexture("map"));
+  target.draw(sprite, states);
+
+	for (int i = 0; i < NUMBER_OF_LEVELS; ++i) {
+		sf::CircleShape shape;
     shape.setFillColor(sf::Color::Red);
-    shape.setSize(sf::Vector2f(40,40));
-    shape.setPosition(sf::Vector2f((5*(i+2))+(40*i),(5*(i+2))+(40*i)));
+    shape.setRadius(view->get_node(i).size);
+    shape.setOrigin(view->get_node(i).size, view->get_node(i).size);
+    shape.setPosition(view->get_node(i).x, view->get_node(i).y);
 		target.draw(shape, states);
 	}
-
 }
 
 

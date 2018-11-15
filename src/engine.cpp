@@ -19,6 +19,7 @@ void Engine::init(sf::RenderWindow *app)
   //loads necessary resources to the resource manager
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
+  resources.LoadTexture("map", "../data/map.png");
 
   App = app;
   curr_game_mode = MODE_MENU;
