@@ -21,9 +21,9 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
 	max_room_size = 9 + room_size_modifier;
 	min_room_size = 3 + room_size_modifier;
 
-	//seeds random generator for testing purposes
+	//seeds random generator for testing purposes, using time(NULL) makes the level random every time
 	//srand(123456789);
-	srand(time(NULL));
+	srand((unsigned int) time(NULL));
 }
 
 
@@ -46,7 +46,7 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 	this->rooms.shrink_to_fit();
 
 	num_rooms = 0;
-	avg_i = 0.0, avg_j = 0.0;
+	avg_i = 0, avg_j = 0;
 	int distance_traveled = 0;
 
 	//determine digger's initial coordinates and place first room
@@ -72,7 +72,7 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 		}
 
 		//we are now outside the room and still in bounds,
-		int cur_prob_turn = 0, cur_prob_room = 0 - prob_room; // ensures room isn't generated immediately
+		float cur_prob_turn = 0, cur_prob_room = 0 - prob_room; // ensures room isn't generated immediately
 		int rand_turn, rand_room;
 		do {
 			level_grid[digger_y][digger_x] = '1';
@@ -148,25 +148,44 @@ bool AgentBasedGenerator::placeRoom(int i, int j)
 	return false;
 }
 
-//NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
+
+/*
+	Places specified number of enemies randomly within a random room that is not where the player starts.
+	Additionally converts all coordinates to pixel space so that everything is drawn to the screen correctly later
+*/
 void AgentBasedGenerator::placeEntities(int num_enemies)
 {
 	int player_room = createStartAndExit();
 
+	//mark exit cell
+	level_grid[exit_y][exit_x] = 'E';
+
 	//iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
-	for (int n = 0; n < num_rooms; n++)
+	for (int e = 0; e < num_enemies; e++)
 	{
-		if (n == player_room) continue;
+		//randomly choose a room that isn't the player's starting point
+		int room;
+		do {
+			room = rand() % num_rooms;
+		} while (room == player_room || euclideanDistance(player_x, player_y, rooms[room][0] + rooms[room][2] / 2, rooms[room][1] + rooms[room][3] / 2) < 12);
 
 		std::vector<int> enemy_pos;
-		for (int t = 0; t < num_enemies / (num_rooms - 1); t++)
-		{
 
-			enemy_pos = std::vector<int>{ (rooms[n][0] + rand() % rooms[n][2]) * CELL_SIZE, (rooms[n][1] + rand() % rooms[n][3])* CELL_SIZE };
-			enemy_coords.emplace_back(enemy_pos);
-		}
+		do {
+			enemy_pos = std::vector<int>{ (rooms[room][0] + rand() % rooms[room][2]), (rooms[room][1] + rand() % rooms[room][3]) };
+		} //ensure that enemy position is not in a wall, far enough away from the player, and is unique 
+		while (level_grid[enemy_pos[1]][enemy_pos[0]] != '0' || euclideanDistance(player_x, player_y, enemy_pos[0], enemy_pos[1]) <= 10
+			|| (std::find(enemy_coords.begin(), enemy_coords.end(), enemy_pos) != enemy_coords.end()));
+		
+		//multiply by cell size and add small offset to center enemy before pushing to vector
+		enemy_pos[0] = enemy_pos[0] * CELL_SIZE + CELL_SIZE / 2;
+		enemy_pos[1] = enemy_pos[1] * CELL_SIZE + CELL_SIZE / 2;
+		enemy_coords.emplace_back(enemy_pos);
+
 	}
-
+	// multiply coordinates by cell size before leaving function so that everything works properly in the graphics
+	player_x *= CELL_SIZE, player_y *= CELL_SIZE;
+	exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
 }
 
 
@@ -223,8 +242,7 @@ int AgentBasedGenerator::createStartAndExit()
 	{
 		for (int b = a + 1; b < 8; b++)
 		{
-			if (extreme_rooms[a] == -1 || extreme_rooms[b] == -1)
-				continue;
+			if (extreme_rooms[a] == -1 || extreme_rooms[b] == -1)	continue;
 
 			float dist = euclideanDistance(rooms[extreme_rooms[a]][0], rooms[extreme_rooms[a]][1], rooms[extreme_rooms[b]][0], rooms[extreme_rooms[b]][1]);
 
@@ -241,22 +259,17 @@ int AgentBasedGenerator::createStartAndExit()
 	{
 		player_room_index = furthest_rooms[0];
 		exit_room_index = furthest_rooms[1];
-
-		//level_grid[rooms[player_room_index][1]][rooms[player_room_index][0]] = 'A';
-		//level_grid[rooms[furthest_rooms[1]][1]][rooms[furthest_rooms[1]][0]] = 'E';
 	}
 	else
 	{
 		player_room_index = furthest_rooms[1];
 		exit_room_index = furthest_rooms[0];
-		//level_grid[rooms[player_room_index][1]][rooms[player_room_index][0]] = 'A';
-		//level_grid[rooms[furthest_rooms[0]][1]][rooms[furthest_rooms[0]][0]] = 'E';
 	}
 	//player's initial coordinates and exit coordinates are set to middle of respective rooms
-	player_x = (rooms[player_room_index][0] + rooms[player_room_index][2] / 2) * CELL_SIZE;
-	player_y = (rooms[player_room_index][1] + rooms[player_room_index][3] / 2) * CELL_SIZE;
-	exit_x = (rooms[exit_room_index][0] + rooms[exit_room_index][2] / 2) * CELL_SIZE;
-	exit_y = (rooms[exit_room_index][1] + rooms[exit_room_index][3] / 2) * CELL_SIZE;
+	player_x = (rooms[player_room_index][0] + rooms[player_room_index][2] / 2);
+	player_y = (rooms[player_room_index][1] + rooms[player_room_index][3] / 2);
+	exit_x = (rooms[exit_room_index][0] + rooms[exit_room_index][2] / 2);
+	exit_y = (rooms[exit_room_index][1] + rooms[exit_room_index][3] / 2);
 
 	return player_room_index;
 }

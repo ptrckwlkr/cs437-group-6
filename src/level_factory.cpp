@@ -31,14 +31,14 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 		//NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
 		AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
-		 // gen.printLevelGrid();
+		//gen.printLevelGrid();
 
 		EntityManager::Instance()->createEntity(TYPE_PLAYER, gen.player_x, gen.player_y);
 		EntityManager::Instance()->createEntity(TYPE_GOLD, 3750, 2750);
 		//TEMP method to place enemies
 		for (int i = 0; i < gen.enemy_coords.size(); i++)
 		{
-			EntityManager::Instance()->createEntity(TYPE_SKELETON, gen.enemy_coords[i][0], gen.enemy_coords[i][1]);
+			EntityManager::Instance()->createEntity(TYPE_SKELETON, (float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
 		}
 
 		break;
