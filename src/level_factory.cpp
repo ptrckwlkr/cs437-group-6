@@ -50,15 +50,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
   // Create the actual level
   level = std::make_shared<Level>(map);
-
-  //level->set_player(player);
   level->set_player(EntityManager::Instance()->getPlayer());
-  
-  // level->get_entities().push_back(player);
-  // level->get_entities().push_back(enemy);
-  // level->get_entities().push_back(gold);
-
-  // level->get_entities().push_back(projectile);
 
   return level;
 }

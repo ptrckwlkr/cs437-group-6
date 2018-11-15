@@ -1,3 +1,4 @@
+#include <EntityManager.h>
 #include "EventManager.h"
 #include "Player.h"
 #include "macros.h"
@@ -24,14 +25,15 @@ void Player::HandleEvent(Event* event)
   // }
 }
 
-void Player::set_projectile(std::shared_ptr<Projectile> p){
-  projectile = p;
-}
-
 void Player::move(Vector2D &dir, float delta)
 {
   float delta_speed = PLAYER_SPEED * delta;
   Vector2D vec = dir.normal() * delta_speed;
   pos.x = pos.x + vec.x;
   pos.y = pos.y + vec.y;
+}
+
+void Player::attack(Vector2D &dir)
+{
+  EntityManager::Instance()->createEntity(TYPE_PROJECTILE, EntityManager::Instance()->getPlayer()->get_position().x, EntityManager::Instance()->getPlayer()->get_position().y);
 }
