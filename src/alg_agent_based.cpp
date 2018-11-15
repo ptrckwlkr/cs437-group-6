@@ -1,6 +1,7 @@
 #include "alg_agent_based.h"
 #include <iostream>
 #include <time.h>
+#include <algorithm>
 
 
 /*
