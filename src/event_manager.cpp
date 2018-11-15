@@ -122,12 +122,11 @@ void EventManager::ProcessEvents(){
 }
 
 void EventManager::ClearEvents(){
-    //clear the events
+    //clear the vector and lists 
     currentEvents.clear();
 
 }
 
 //shuts down the event manager
 void EventManager::Shutdown(){
-
 }

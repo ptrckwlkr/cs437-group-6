@@ -23,7 +23,7 @@ void LevelSelectView::handle_event(sf::Event event)
 		if (x >= 10 && x <= 275 && y >= 10 && y <= 275) {
 			if (x >= 10 && x <= 50 && y >= 10 && y <= 50) {
 				printf("Level One Selected\n");
-        Engine::getInstance().set_mode(MODE_PLAY);
+				Engine::getInstance().set_mode(MODE_PLAY);
 			}
 			if (x >= 55 && x <= 95 && y >= 55 && y <= 95) {
 				printf("Level Two Selected\n");
@@ -40,14 +40,14 @@ void LevelSelectView::handle_event(sf::Event event)
 			if (x >= 235 && x <=275 && y >= 235 && y <= 275) {
 				printf("Level Six Selected\n");
 			}
-		}
-		fflush(stdout);
+	   }
+	 fflush(stdout);
 	}
 }
 
 void LevelSelectView::update(float delta)
 {
-  // Process input
+  //Process input
   sf::Event event;
   while (app->pollEvent(event))
   {

@@ -12,7 +12,7 @@ class Skeleton : public Entity
 
 public:
     Skeleton(float x, float y);
-    void move(Direction dir, float delta) override;
+    void move(Vector2D &dir, float delta) override;
     void HandleEvent(Event *event) override;
 
 private:

@@ -3,6 +3,10 @@
 #include "macros.h"
 #include "engine.h"
 #include "Player.h"
+#include "Projectile.h"
+#include "math.h"
+#include <algorithm>
+#include <iostream>
 
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
@@ -22,7 +26,7 @@ void GameView::process_input(float delta)
 	}
 
 	// TODO check that game has started (not in menu)
-	Direction dir = NONE;
+
 
 	int x_dir = 0, y_dir = 0;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	y_dir++;
@@ -30,21 +34,65 @@ void GameView::process_input(float delta)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	x_dir--;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	x_dir++;
 
-	if (x_dir == 1 && y_dir == 1)			dir = NORTHEAST;
-	else if (x_dir == 1 && y_dir == 0)		dir = EAST;
-	else if (x_dir == 1 && y_dir == -1)		dir = SOUTHEAST;
-	else if (x_dir == 0 && y_dir == 1)		dir = NORTH;
-	else if (x_dir == 0 && y_dir == -1)		dir = SOUTH;
-	else if (x_dir == -1 && y_dir == 1)		dir = NORTHWEST;
-	else if (x_dir == -1 && y_dir == 0)		dir = WEST;
-	else if (x_dir == -1 && y_dir == -1)	dir = SOUTHWEST;
+  if (x_dir != 0 || y_dir != 0)
+  {
+    auto dir = VEC_NONE;
+    if (x_dir == 1 && y_dir == 1) dir = VEC_NORTHEAST;
+    else if (x_dir == 1 && y_dir == 0) dir = VEC_EAST;
+    else if (x_dir == 1 && y_dir == -1) dir = VEC_SOUTHEAST;
+    else if (x_dir == 0 && y_dir == 1) dir = VEC_NORTH;
+    else if (x_dir == 0 && y_dir == -1) dir = VEC_SOUTH;
+    else if (x_dir == -1 && y_dir == 1) dir = VEC_NORTHWEST;
+    else if (x_dir == -1 && y_dir == 0) dir = VEC_WEST;
+    else if (x_dir == -1 && y_dir == -1) dir = VEC_SOUTHWEST;
 
 	// TODO The call to move should probably eventually be handled through the EventManager
 	//only call move when necessary
-	if (dir != NONE)
-	{
-		state->get_level().get_player().move(dir, delta);
+	//if (dir != NONE)
+	//{
+	state->get_level().get_player()->move(dir, delta);
 	}
+
+	if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		//when mouse is pressed create a new projectile, which adds it to entity vector and projectile list 
+		EntityManager::Instance()->createEntity(TYPE_PROJECTILE, 3155, 1010, 5);
+
+		//get the last projectile that was created
+		std::shared_ptr<Projectile> proj = EntityManager::Instance()->getProjectiles().back();
+
+		sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app) );
+		Vector2D  mouse_pos = Vector2D(mpos.x, mpos.y);
+		Vector2D  player_pos(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
+
+		// state->get_level().get_player()->get_projectile()->set_mousePos(mouse_pos);
+		// std::cout << " mouse pos set " ;
+		// state->get_level().get_player()->get_projectile()->set_position(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
+		// std::cout << " set pos " ;
+		// state->get_level().get_player()->get_projectile()->set_playerCenter(player_pos);
+		// std::cout << " set play" ;
+		// state->get_level().get_player()->get_projectile()->set_aimDirection();
+		// std::cout << " aim dir set" ;
+
+		proj->set_mousePos(mouse_pos);
+		std::cout << " mouse pos set " ;
+		proj->set_position(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
+		std::cout << " set pos " ;
+		proj->set_playerCenter(player_pos);
+		std::cout << " set play" ;
+		proj->set_aimDirection();
+		std::cout << " aim dir set" ;
+
+		Vector2D v = proj->get_aimDireciton();
+		proj->attack(v, delta);
+
+	}
+			//for each projectile in the list, move in the aimDirection PROBLEM: how to access the proj outside of the if statmenet 
+			//and how to iterate through each list to call it's attack ( may need to change to vector )
+	// 	Vector2D  v = proj->get_aimDirection()
+	// 	state->get_level().get_player()->get_projectile()->attack(v, delta);
+	// 	for( std::list< std::shared_ptr<Projectile>>::iterator iter= EntityManager::Instance()->getProjectiles().begin(); iter != EntityManager::Instance()->getProjectiles().end(); iter++ ){
+
+  // }
 }
 
 void GameView::handle_event(sf::Event event)
@@ -70,7 +118,7 @@ void GameView::draw()
   // TODO send some of this to the constructor?
   sf::View camera;
   camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  Position playerPos = state->get_level().get_player().get_position();
+  Position playerPos = state->get_level().get_player()->get_position();
   camera.setCenter(playerPos.x, playerPos.y);
 
   app->setView(camera);

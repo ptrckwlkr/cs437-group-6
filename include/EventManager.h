@@ -20,8 +20,8 @@ class EventManager
         ~EventManager() { this->Shutdown(); }
 
         //copies constructor
-        EventManager( const EventManager& rhs){};
-        EventManager& operator = ( const EventManager& rhs){};
+        // EventManager( const EventManager& rhs){};
+        // EventManager& operator = ( const EventManager& rhs){};
 
         //helper
         bool AlreadyRegistered( EVENTID event, Entity* object);

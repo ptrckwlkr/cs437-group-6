@@ -6,6 +6,7 @@ Player::Player(float x, float y, float size) : Entity(x, y, size)
 {
   type = TYPE_PLAYER;
   EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
+  //EventManager::Instance()->RegisterObject(EVENT_PLAYER_PROJECTILE_COLLISION, this);
 }
 
 
@@ -17,44 +18,20 @@ Player::~Player()
 void Player::HandleEvent(Event* event)
 {
   // if (event->EventId() == EVENT_GOLD_COLLECTION) printf("PLAYER: I have collected gold!\n"); // TODO
+  // if (event->EventId()==EVENT_PLAYER_PROJECTILE_COLLISION){
+  //   health -= (int)(event->Arg1());
+  //   printf("PLAYER: I have been shoot at \n");
+  // }
 }
 
-void Player::move(Direction dir, float delta) 
+void Player::set_projectile(std::shared_ptr<Projectile> p){
+  projectile = p;
+}
+
+void Player::move(Vector2D &dir, float delta)
 {
   float delta_speed = PLAYER_SPEED * delta;
-
-  switch (dir)
-  {
-    case NORTH:
-      pos.y -= delta_speed;
-      break;
-    case NORTHEAST:
-      pos.x += delta_speed;
-      pos.y -= delta_speed;
-      break;
-    case EAST:
-      pos.x += delta_speed;
-      break;
-    case SOUTHEAST:
-      pos.x += delta_speed;
-      pos.y += delta_speed;
-      break;
-    case SOUTH:
-      pos.y += delta_speed;
-      break;
-    case SOUTHWEST:
-      pos.x -= delta_speed;
-      pos.y += delta_speed;
-      break;
-    case WEST:
-      pos.x -= delta_speed;
-      break;
-    case NORTHWEST:
-      pos.x -= delta_speed;
-      pos.y -= delta_speed;
-      break;
-    case NONE:
-      break;
-  }
+  Vector2D vec = dir.normal() * delta_speed;
+  pos.x = pos.x + vec.x;
+  pos.y = pos.y + vec.y;
 }
-
