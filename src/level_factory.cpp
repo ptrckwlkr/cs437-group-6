@@ -31,8 +31,8 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 	    break;
 	  case AGENT_BASED:
      
-		  map = std::make_shared<Map>(gen.createLevelGrid(15, 32.0));
-		 // gen.printLevelGrid();
+		  map = std::make_shared<Map>(gen.createLevelGrid(15, 12, 32.0));
+		  gen.printLevelGrid();
 		  player->set_position(gen.player_x, gen.player_y);
 		  enemy->set_position(3150, 800);
 		  gold->set_position(3050, 800);
