@@ -17,11 +17,7 @@ void GameView::process_input(float delta)
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		EventManager::Instance()->ClearEvents();
-		for (const auto &e : state->get_level().get_entities())
-		{
-			EventManager::Instance()->UnregisterAll(e.get());
-		}
+		state->reset();
 		Engine::getInstance().set_mode(MODE_MENU);
 	}
 
