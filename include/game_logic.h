@@ -19,6 +19,7 @@ public:
     void create_new_level(Generator g);
     void toggle_pause() {f_paused = !f_paused;}
     bool is_paused() {return f_paused;}
+		void reset();
 		Level &get_level() {return *level;}
 		PlayerData &get_player_data() {return player_data;}
 
