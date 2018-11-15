@@ -1,6 +1,7 @@
 #ifndef CSCI437_PLAYER_H
 #define CSCI437_PLAYER_H
 
+#include <memory>
 #include "event.h"
 #include "entity.h"
 #include "Projectile.h"
