@@ -8,13 +8,13 @@ LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : Play
   graphics = std::make_shared<LevelSelectGraphics>(this);
   App->setView(App->getDefaultView());
 
-	nodes[0] = {298, 403, 1, 10};
-	nodes[1] = {47, 321, 2, 10};
-	nodes[2] = {718, 442, 3, 10};
-	nodes[3] = {526, 320, 4, 10};
-	nodes[4] = {358, 223, 5, 10};
-	nodes[5] = {317, 84, 6, 10};
-	nodes[6] = {622, 103, 7, 10};
+	nodes[0] = {298, 403, 10};
+	nodes[1] = {47, 321, 10};
+	nodes[2] = {718, 442, 10};
+	nodes[3] = {526, 320, 10};
+	nodes[4] = {358, 223, 10};
+	nodes[5] = {317, 84, 10};
+	nodes[6] = {622, 103, 10};
 }
 
 void LevelSelectView::process_input(float delta)
@@ -30,7 +30,7 @@ void LevelSelectView::handle_event(sf::Event event)
 	}
   else if (event.type == sf::Event::EventType::MouseButtonReleased)
   {
-    if (selected_level == clicked_node(event.mouseButton.x, event.mouseButton.y))
+    if (selected_level && selected_level == clicked_node(event.mouseButton.x, event.mouseButton.y))
     {
       printf("Level %d selected\n", selected_level);
       Engine::getInstance().set_mode(MODE_PLAY);

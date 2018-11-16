@@ -13,7 +13,6 @@ private:
     struct Node {
         int x;
         int y;
-        int level;
         int size;
     };
     Node nodes[NUMBER_OF_LEVELS];
