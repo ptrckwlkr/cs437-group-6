@@ -1,5 +1,7 @@
-#include <EntityManager.h>
+#include <view_manager.h>
+#include <projectile_view.h>
 #include "EventManager.h"
+#include "EntityManager.h"
 #include "Player.h"
 #include "macros.h"
 
@@ -35,6 +37,7 @@ void Player::attack(Vector2D &dir)
 {
   float x = EntityManager::Instance()->getPlayer()->get_position().x;
   float y = EntityManager::Instance()->getPlayer()->get_position().y;
-  std::shared_ptr<Projectile> projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
+  auto projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
   projectile->set_direction(dir);
+  ViewManager::Instance()->add_view<Projectile, ProjectileView>(projectile);
 }

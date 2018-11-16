@@ -53,7 +53,8 @@ void GameView::process_input(float delta)
 	{
 		sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
 		Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
-		state->get_level().get_player()->attack(mouse_pos);
+    Vector2D direction = mouse_pos - state->get_level().get_player()->get_position();
+		state->get_level().get_player()->attack(direction);
 	}
 }
 

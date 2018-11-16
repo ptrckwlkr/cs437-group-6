@@ -8,7 +8,7 @@ class SkeletonView : public View
 {
 
 public:
-    SkeletonView(GameLogic *state, Entity &entity);
+    SkeletonView(GameLogic *state, Skeleton &entity);
     void update(float delta) override;
 
 private:

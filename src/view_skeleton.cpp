@@ -1,8 +1,8 @@
 #include "view_skeleton.h"
 
-SkeletonView::SkeletonView(GameLogic *state, Entity &entity) : View(state)
+SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state)
 {
-  skeleton = (Skeleton*)&entity;
+  skeleton = &s;
 }
 
 void SkeletonView::update(float delta)

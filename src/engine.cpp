@@ -7,6 +7,7 @@
 #include "player_view_level_select.h"
 #include "engine.h"
 #include "macros.h"
+#include "view_manager.h"
 
 Engine &Engine::getInstance()
 {
@@ -24,6 +25,7 @@ void Engine::init(sf::RenderWindow *app)
   App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();
+  ViewManager::Instance()->init(&state);
   curr_player_view = std::make_shared<MenuView>(&state, App);
   views.push_back(curr_player_view);
 
@@ -37,6 +39,10 @@ void Engine::init(sf::RenderWindow *app)
 void Engine::update_views(float delta)
 {
   for (const auto &view : views)
+  {
+    view->update(delta);
+  }
+  for (auto &view : ViewManager::Instance()->get_views())
   {
     view->update(delta);
   }
@@ -108,8 +114,10 @@ void Engine::switch_mode()
   }
 }
 
+
 void Engine::generate_views()
 {
+  /*
   for (const auto &entity : state.get_level().get_entities())
   {
     std::shared_ptr<View> view;
@@ -118,5 +126,5 @@ void Engine::generate_views()
       view = std::make_shared<SkeletonView>(&state, *entity);
       views.push_back(view);
     }
-  }
+  }*/
 }

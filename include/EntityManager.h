@@ -7,9 +7,7 @@
 #include <list>
 #include "entity.h"
 #include "Player.h"
-#include "gold.h"
-#include "Projectile.h"
-#include "skeleton.h"
+//#include "view_manager.h"
 
 
 class EntityManager{
@@ -37,6 +35,7 @@ class EntityManager{
         {
             std::shared_ptr<T> entity = std::make_shared<T>(x, y);
             entities.push_back(entity);
+//            ViewManager::Instance()->add_view(entity);
             return entity;
         }
 

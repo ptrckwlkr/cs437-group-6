@@ -1,3 +1,4 @@
+#include <view_skeleton.h>
 #include "skeleton.h"
 #include "level_factory.h"
 #include "EventManager.h"
@@ -6,6 +7,7 @@
 #include "gold.h"
 #include "Projectile.h"
 #include "alg_agent_based.h"
+#include "view_manager.h"
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
@@ -39,7 +41,8 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 		//TEMP method to place enemies
 		for (int i = 0; i < gen.enemy_coords.size(); i++)
 		{
-      EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
+      auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
+      ViewManager::Instance()->add_view<Skeleton, SkeletonView>(ent);
 		}
 
 		break;
