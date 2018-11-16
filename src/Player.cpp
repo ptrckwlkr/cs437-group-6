@@ -35,5 +35,7 @@ void Player::move(Vector2D &dir, float delta)
 
 void Player::attack(Vector2D &dir)
 {
-  EntityManager::Instance()->createEntity(TYPE_PROJECTILE, EntityManager::Instance()->getPlayer()->get_position().x, EntityManager::Instance()->getPlayer()->get_position().y);
+  float x = EntityManager::Instance()->getPlayer()->get_position().x;
+  float y = EntityManager::Instance()->getPlayer()->get_position().y;
+  std::shared_ptr<Projectile> projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
 }

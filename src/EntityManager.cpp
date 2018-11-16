@@ -7,38 +7,6 @@ EntityManager* EntityManager::Instance(){
     return &instance;
 }
 
-void EntityManager::createEntity(EntityType type, float x, float y)
-{
-    switch (type)
-    {
-        case TYPE_PROJECTILE:
-        {
-            std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(x, y);
-            projectiles.push_back(projectile);
-            entities.push_back(projectile);
-        }
-            break;
-        case TYPE_GOLD:
-        {
-            std::shared_ptr<Gold> gold = std::make_shared<Gold>(x, y);
-            golds.push_back(gold);
-            entities.push_back(gold);
-        }
-            break;
-        case TYPE_SKELETON:
-        {
-            std::shared_ptr<Skeleton> skel = std::make_shared<Skeleton>(x, y);
-            skeletons.push_back(skel);
-            entities.push_back(skel);
-        }
-            break;
-
-        case TYPE_PLAYER:
-            player = std::make_shared<Player>(x, y);
-            entities.push_back(player);
-            break;
-    }  
-}
 void EntityManager::removeEntity(std::shared_ptr<Entity> e){
 
     //iterator 
@@ -122,10 +90,6 @@ std::shared_ptr<Entity> &EntityManager::getEntity(enum EntityType type){
 
 
 void EntityManager::ClearAll(){
-    entities.clear();
-    projectiles.clear();
-    golds.clear();
-    skeletons.clear();
     entities.clear();
 }
 
