@@ -32,6 +32,10 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
           // TODO Handle collision
           // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
           // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
+          if (types(*entity1, *entity2, TYPE_SKELETON, TYPE_SKELETON))
+          {
+
+          }
 
           if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD)){
             EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
@@ -46,6 +50,11 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
             int d = 10;
             EventManager::Instance()->SendEvent( EVENT_PLAYER_SHOOT_AT, &d);
           }
+
+          if( types (*entity1, *entity2, TYPE_PLAYER, TYPE_SKELETON )){
+
+          }
+          adjust_positions(*entity1, *entity2);
         }
       }
     }
@@ -73,7 +82,7 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 /**
  * For all entities, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
+void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
 {
   float x;      // Entity x-position
   float y;      // Entity y-position
@@ -172,4 +181,53 @@ void CollisionEngine::clear_cells(Map &level_map)
     cell->clear_entities();
   }
   occupied_cells.clear();
+}
+
+void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
+{
+  float x;      // Entity x-position
+  float y;      // Entity y-position
+  float dx;     // Change in entity's correctional x-position
+  float dy;     // Change in entity's correctional y-position
+  float size;   // Entity's size
+  int m;        // m-index of tile entity is currently standing on
+  int n;        // n-index of tile entity is currently standing on
+  float top;    // Top boundary of current cell
+  float right;  // Right boundary of current cell
+  float bot;    // Bottom boundary of current cell
+  float left;   // Left boundary of current cell
+  x     = entity.get_position().x;
+  y     = entity.get_position().y;
+  size  = entity.get_size();
+  m     = (int)(y / CELL_SIZE);
+  n     = (int)(x / CELL_SIZE);
+  top   = m * CELL_SIZE;
+  left  = n * CELL_SIZE;
+  bot   = top + CELL_SIZE;
+  right = left + CELL_SIZE;
+  dx = x;
+  dy = y;
+
+  // Calculate adjustments based on how far into the block the entity is interpenetrating
+  if (level_map.get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
+  if (level_map.get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
+  if (level_map.get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
+  if (level_map.get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
+
+  // Adjust the position
+  entity.set_position(dx, dy);
+}
+
+void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
+{
+  Position p1 = entity1.get_position();
+  Position p2 = entity2.get_position();
+  Vector2D actual = Vector2D(p1.x, p1.y) - Vector2D(p2.x, p2.y);
+  Vector2D theo = actual.normal() * (entity1.get_size() + entity2.get_size());
+  Vector2D correction = theo - actual;
+  float dx = correction.x / 2;
+  float dy = correction.y / 2;
+  entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
+  entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
+
 }
