@@ -3,7 +3,7 @@
 
 ViewManager::ViewManager()
 {
-  mapping.insert(std::pair<std::shared_ptr<Skeleton>, std::shared_ptr<SkeletonView>>());
+
 }
 
 ViewManager *ViewManager::Instance()
@@ -12,7 +12,15 @@ ViewManager *ViewManager::Instance()
   return &instance;
 }
 
-void ViewManager::remove_view(std::shared_ptr<View> view)
+void ViewManager::remove_view(long long view_id)
 {
-
+  auto iter = views.begin();
+  while (iter != views.end()){
+    if ((*iter)->get_id() == view_id){
+      iter = views.erase(iter);
+    }
+    else {
+      iter++;
+    }
+  }
 }

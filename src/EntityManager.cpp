@@ -7,7 +7,7 @@ EntityManager* EntityManager::Instance(){
     return &instance;
 }
 
-void EntityManager::removeEntity(std::shared_ptr<Entity> e){
+void EntityManager::removeEntity(long long entity_id){
 
     //iterator 
     std::vector<std::shared_ptr<Entity> >::iterator iter = entities.begin();
@@ -15,7 +15,7 @@ void EntityManager::removeEntity(std::shared_ptr<Entity> e){
     while (iter != entities.end()){
 
         //find the correct entity
-        if ( (*iter) == e){
+        if ( (*iter)->get_id() == entity_id){
 
             //delete the entity from vector 
             iter = entities.erase(iter);

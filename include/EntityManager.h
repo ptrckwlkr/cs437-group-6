@@ -22,7 +22,7 @@ class EntityManager{
     public:
         static EntityManager* Instance();
         void set_player(std::shared_ptr<Player> p) {player = p;}
-        void removeEntity(std::shared_ptr<Entity> e );
+        void removeEntity(long long entity_id);
         std::shared_ptr<Player> &getPlayer(){return player;}
         std::shared_ptr<Entity> &getEntity(enum EntityType type);
         std::shared_ptr<Entity> &getEntity(long long id);

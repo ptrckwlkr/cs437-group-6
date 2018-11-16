@@ -7,7 +7,7 @@
 #include "SFML/System.hpp"
 #include "vector2d.h"
 
-#define PROJECTILE_SPEED_DEFAULT        50
+#define PROJECTILE_SPEED_DEFAULT        75
 #define PROJECTILE_SIZE_DEFAULT         5
 
 class Projectile: public Entity
@@ -17,6 +17,7 @@ class Projectile: public Entity
     int damage;
     int maxRange;
     int speed;
+    float traveled;
 
     protected:
     Vector2D direction = VEC_NONE;
@@ -39,6 +40,10 @@ class Projectile: public Entity
         void set_speed (int s) {speed = s;}
 
         void set_direction(Vector2D vec) {direction = vec;}
+
+        float get_travaled() {return traveled;}
+
+        int get_maxRange() {return maxRange;}
 
         Vector2D  get_direciton(){ return direction;}
 

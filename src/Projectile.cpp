@@ -5,8 +5,10 @@
         
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT){
     speed = PROJECTILE_SPEED_DEFAULT;
-    maxRange = 0;
+    maxRange = 500;
+    traveled = 0;
     damage = 0;
+    type = TYPE_PROJECTILE;
     EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
 }
 
@@ -22,5 +24,7 @@ void Projectile::HandleEvent( Event* event){
 
 void Projectile::move(Vector2D &dir, float delta){
   float delta_speed = speed * delta;
-  pos = pos + dir.normal() * delta_speed;
+  Vector2D change = dir.normal() * delta_speed;
+  traveled += change.length;
+  pos = pos + change;
 }

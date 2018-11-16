@@ -46,15 +46,18 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
             EventManager::Instance()->SendEvent( EVENT_ENEMY_SHOT_AT, &d);
           }
 
+          if( types (*entity1, *entity2, TYPE_PLAYER, TYPE_SKELETON )){
+
+          }
+
           if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_PLAYER )){
             int d = 10;
             EventManager::Instance()->SendEvent( EVENT_PLAYER_SHOOT_AT, &d);
           }
-
-          if( types (*entity1, *entity2, TYPE_PLAYER, TYPE_SKELETON )){
-
+          else
+          {
+            adjust_positions(*entity1, *entity2);
           }
-          adjust_positions(*entity1, *entity2);
         }
       }
     }
