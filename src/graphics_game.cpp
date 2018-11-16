@@ -54,6 +54,12 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const
 {
+
+  sf::Sprite sprite;
+  sprite.setTexture(resources.GetTexture("fog"));
+  sprite.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f, y - WINDOW_HEIGHT / 2.f));
+  //target.draw(sprite, states); // Uncomment me to see a nice effect
+
 	//TODO set size of bar to match player'sactual health/mana
 	// updates hpBar
 	sf::RectangleShape hpBar, manaBar;
@@ -77,17 +83,6 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, flo
 	target.draw(hpText, states);
 	target.draw(manaText, states);
 }
-
-/*
-	Helper function to draw the background to the screen, called before entities are drawn
-*//*
-void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	for (unsigned i = 0; i < levelShapes.size(); i++)
-	{
-		target.draw(levelShapes.at(i), states);
-	}
-}*/
 
 void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
 {
@@ -122,10 +117,10 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
         rect.setFillColor(sf::Color(128, 128, 128));
         // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
       }
-	  else if (cell_type == EXIT)
-	  {
-		rect.setFillColor(sf::Color(255, 230, 0));
-	  }
+			else if (cell_type == EXIT)
+			{
+				rect.setFillColor(sf::Color(255, 230, 0));
+			}
       rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
       target.draw(rect, states);
     }

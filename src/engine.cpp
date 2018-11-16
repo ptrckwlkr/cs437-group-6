@@ -21,13 +21,13 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
   resources.LoadTexture("map", "../data/map.png");
+  resources.LoadTexture("fog", "../data/vignette.png");
 
   App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();
   ViewManager::Instance()->init(&state);
-  curr_player_view = std::make_shared<MenuView>(&state, App);
-  views.push_back(curr_player_view);
+  ViewManager::Instance()->set_player_view<MenuView>(&state, App);
 
   //starts clock
   time.restart();
@@ -38,10 +38,6 @@ void Engine::init(sf::RenderWindow *app)
  */
 void Engine::update_views(float delta)
 {
-  for (const auto &view : views)
-  {
-    view->update(delta);
-  }
   for (auto &view : ViewManager::Instance()->get_views())
   {
     view->update(delta);
@@ -62,7 +58,7 @@ void Engine::update_state(float delta)
 
 void Engine::update_graphics()
 {
-  curr_player_view->draw();
+  ViewManager::Instance()->get_player_view()->draw();
 }
 
 /**
@@ -89,25 +85,22 @@ void Engine::switch_mode()
   if (curr_game_mode != old_mode)
   {
     old_mode = curr_game_mode;
-    views.clear();
+    ViewManager::Instance()->clear();
 
     //places the primary controller and view for the mode at the 0th index of each vector
     switch (curr_game_mode)
     {
       case MODE_MENU:
-        curr_player_view = std::make_shared<MenuView>(&state, App);
-        views.push_back(curr_player_view);
+        ViewManager::Instance()->set_player_view<MenuView>(&state, App);
         break;
       case MODE_LEVEL_SELECT:
-        curr_player_view = std::make_shared<LevelSelectView>(&state, App);
-	      views.push_back(curr_player_view);
+        ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
 	      break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:
         state.create_new_level(AGENT_BASED);
-        curr_player_view = std::make_shared<GameView>(&state, App);
-        views.push_back(curr_player_view);
+        ViewManager::Instance()->set_player_view<GameView>(&state, App);
         break;
     }
   }

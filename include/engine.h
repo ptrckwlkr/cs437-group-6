@@ -40,15 +40,11 @@ private:
     Engine& operator=(const Engine&) = delete;
     Engine(Engine&&) = delete;
     Engine& operator=(Engine&&) = delete;
-
     void switch_mode();
 
     GameLogic state;
     sf::RenderWindow *App;
     sf::Clock time;
-
-    std::vector<std::shared_ptr<View>> views;
-    std::shared_ptr<PlayerView> curr_player_view;
 		GameMode curr_game_mode;
 };
 
