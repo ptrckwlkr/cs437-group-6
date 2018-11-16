@@ -28,9 +28,7 @@ void Player::HandleEvent(Event* event)
 void Player::move(Vector2D &dir, float delta)
 {
   float delta_speed = PLAYER_SPEED * delta;
-  Vector2D vec = dir.normal() * delta_speed;
-  pos.x = pos.x + vec.x;
-  pos.y = pos.y + vec.y;
+  pos = pos + dir.normal() * delta_speed;
 }
 
 void Player::attack(Vector2D &dir)
@@ -38,4 +36,5 @@ void Player::attack(Vector2D &dir)
   float x = EntityManager::Instance()->getPlayer()->get_position().x;
   float y = EntityManager::Instance()->getPlayer()->get_position().y;
   std::shared_ptr<Projectile> projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
+  projectile->set_direction(dir);
 }
