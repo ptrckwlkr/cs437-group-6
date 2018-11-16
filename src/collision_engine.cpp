@@ -68,15 +68,9 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
  */
 bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 {
-  float dx;
-  float dy;
-  float hypo;
-
-  dx = entity1.get_position().x - entity2.get_position().x;
-  dy = entity1.get_position().y - entity2.get_position().y;
-  hypo = entity1.get_size() + entity2.get_size();
-
-  return (hypo * hypo > dx * dx + dy * dy);
+  float hypo = entity1.get_size() + entity2.get_size();
+  Vector2D vec = entity1.get_position() - entity2.get_position();
+  return (hypo * hypo > vec.x * vec.x + vec.y * vec.y);
 }
 
 /**
@@ -136,7 +130,6 @@ bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, 
 void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
 {
   // TODO will probably ultimately accept the EntityManager& as a parameter, instead of a raw vector of pointers
-  Position pos{};
   float radius;
   float top;
   float bot;
@@ -148,7 +141,7 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
   clear_cells(level_map);
   for (auto &ent : entities)
   {
-    pos     = ent->get_position();
+    Vector2D pos = ent->get_position();
     radius  = ent->get_size() / 2;
     top     = pos.y - radius - COLLISION_BUFFER;
     bot     = pos.y + radius + COLLISION_BUFFER;
@@ -220,9 +213,7 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
 
 void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
 {
-  Position p1 = entity1.get_position();
-  Position p2 = entity2.get_position();
-  Vector2D actual = Vector2D(p1.x, p1.y) - Vector2D(p2.x, p2.y);
+  Vector2D actual = entity1.get_position() - entity2.get_position();
   Vector2D theo = actual.normal() * (entity1.get_size() + entity2.get_size());
   Vector2D correction = theo - actual;
   float dx = correction.x / 2;
