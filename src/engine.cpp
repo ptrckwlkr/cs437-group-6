@@ -108,23 +108,7 @@ void Engine::switch_mode()
         state.create_new_level(AGENT_BASED);
         curr_player_view = std::make_shared<GameView>(&state, App);
         views.push_back(curr_player_view);
-        generate_views();
         break;
     }
   }
-}
-
-
-void Engine::generate_views()
-{
-  /*
-  for (const auto &entity : state.get_level().get_entities())
-  {
-    std::shared_ptr<View> view;
-    if (entity->get_type() == TYPE_SKELETON)
-    {
-      view = std::make_shared<SkeletonView>(&state, *entity);
-      views.push_back(view);
-    }
-  }*/
 }

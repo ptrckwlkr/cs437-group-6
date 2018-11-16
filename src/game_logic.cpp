@@ -1,3 +1,4 @@
+#include <view_manager.h>
 #include "game_logic.h"
 
 GameLogic::GameLogic()
@@ -38,4 +39,5 @@ void GameLogic::reset()
   }
   collision_engine.reset();
   EntityManager::Instance()->ClearAll();
+  ViewManager::Instance()->clear();
 }
