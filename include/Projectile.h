@@ -16,7 +16,6 @@ class Projectile: public Entity
     private:
     int damage;
     int maxRange;
-    int speed;
     float traveled;
 
     protected:

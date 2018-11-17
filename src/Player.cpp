@@ -7,6 +7,7 @@
 
 Player::Player(float x, float y) : Entity(x, y, 10)
 {
+  speed = PLAYER_SPEED;
   type = TYPE_PLAYER;
   EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
   //EventManager::Instance()->RegisterObject(EVENT_PLAYER_PROJECTILE_COLLISION, this);
@@ -25,12 +26,6 @@ void Player::HandleEvent(Event* event)
   //   health -= (int)(event->Arg1());
   //   printf("PLAYER: I have been shoot at \n");
   // }
-}
-
-void Player::move(Vector2D &dir, float delta)
-{
-  float delta_speed = PLAYER_SPEED * delta;
-  pos = pos + dir.normal() * delta_speed;
 }
 
 void Player::attack(Vector2D &dir)

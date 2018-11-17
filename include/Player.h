@@ -20,9 +20,8 @@ public:
 
 		~Player();
 		void update(double delta) {};
-		void move(Vector2D &dir, float delta) override;
 		void attack(Vector2D &dir);
-		void HandleEvent(Event* event);
+		void HandleEvent(Event* event) override;
 
 }; 
 

@@ -36,6 +36,7 @@ public:
       size = s;
       health = 0; //TODO
       mana = 0;   //TODO
+      speed = 0;
       type = TYPE_NONE;
     }
     ~Entity() = default;
@@ -53,12 +54,17 @@ public:
     long long get_id() {return id;}
     EntityType get_type() {return type;}
 
-    virtual void move(Vector2D &dir, float delta) = 0;
+    virtual void move(Vector2D &dir, float delta)
+    {
+      float delta_speed = speed * delta;
+      pos = pos + dir.normal() * delta_speed;
+    }
     virtual void HandleEvent(Event* event) = 0;
 
 protected:
     Vector2D pos;
     float size;
+    float speed;
     int health;
     int mana;
     long long id;
