@@ -38,9 +38,11 @@ void Engine::init(sf::RenderWindow *app)
  */
 void Engine::update_views(float delta)
 {
-  for (auto &view : ViewManager::Instance()->get_views())
-  {
-    view->update(delta);
+  auto views = ViewManager::Instance()->get_views();
+  auto iter = views.begin();
+  while (iter != views.end()){
+    (*iter)->update(delta);
+    iter++;
   }
 }
 
