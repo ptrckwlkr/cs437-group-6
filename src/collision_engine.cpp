@@ -78,48 +78,6 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 }
 
 /**
- * For all entities, check for and correct all collisions with obstructed tiles.
- */
-void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities)
-{
-  float x;      // Entity x-position
-  float y;      // Entity y-position
-  float dx;     // Change in entity's correctional x-position
-  float dy;     // Change in entity's correctional y-position
-  float size;   // Entity's size
-  int m;        // m-index of tile entity is currently standing on
-  int n;        // n-index of tile entity is currently standing on
-  float top;    // Top boundary of current cell
-  float right;  // Right boundary of current cell
-  float bot;    // Bottom boundary of current cell
-  float left;   // Left boundary of current cell
-
-  for (auto &entity : entities)
-  {
-    x     = entity->get_position().x;
-    y     = entity->get_position().y;
-    size  = entity->get_size();
-    m     = (int)(y / CELL_SIZE);
-    n     = (int)(x / CELL_SIZE);
-    top   = m * CELL_SIZE;
-    left  = n * CELL_SIZE;
-    bot   = top + CELL_SIZE;
-    right = left + CELL_SIZE;
-    dx = x;
-    dy = y;
-
-    // Calculate adjustments based on how far into the block the entity is interpenetrating
-    if (level_map.get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
-    if (level_map.get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
-    if (level_map.get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
-    if (level_map.get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
-
-    // Adjust the position
-    entity->set_position(dx, dy);
-  }
-}
-
-/**
  * Returns true if entities 1 and 2 are of types 1 and 2, in any order
  */
 bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, EntityType type2)
@@ -146,7 +104,7 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
   for (auto &ent : entities)
   {
     Vector2D pos = ent->get_position();
-    radius  = ent->get_size() / 2;
+    radius  = ent->get_size();
     top     = pos.y - radius - COLLISION_BUFFER;
     bot     = pos.y + radius + COLLISION_BUFFER;
     left    = pos.x - radius - COLLISION_BUFFER;
@@ -180,11 +138,11 @@ void CollisionEngine::clear_cells(Map &level_map)
   occupied_cells.clear();
 }
 
+/**
+ * For a given entity, check for and correct all collisions with obstructed tiles.
+ */
 void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
 {
-  int m;
-  int n;
-
   float size = entity.get_size();
   Vector2D curr = entity.get_position();
   float x = curr.x;
@@ -195,79 +153,35 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
   float right = x + size;
   float bot = y + size;
 
-  /*
-  m = (int)(y / CELL_SIZE);
-  n = (int)(left / CELL_SIZE);
-  if (level_map.get_cell(m, n).get_cell_type() == WALL)
+  bool left_blocked   = level_map.get_cell((int)(y / CELL_SIZE), (int)((x - size) / CELL_SIZE)).get_cell_type() == WALL;
+  bool top_blocked    = level_map.get_cell((int)((y - size) / CELL_SIZE), (int)(x / CELL_SIZE)).get_cell_type() == WALL;
+  bool right_blocked  = level_map.get_cell((int)(y / CELL_SIZE), (int)((x + size) / CELL_SIZE)).get_cell_type() == WALL;
+  bool bot_blocked    = level_map.get_cell((int)((y + size) / CELL_SIZE), (int)(x / CELL_SIZE)).get_cell_type() == WALL;
+
+  if (top_blocked + left_blocked + bot_blocked + right_blocked > 2)
   {
-    float penetration = (n * CELL_SIZE + CELL_SIZE) - left;
-    float ratio = (displacement.x + penetration) / displacement.x;
-    Vector2D temp = displacement * ratio;
-    if (temp.length < displacement.length)
-    {
-      displacement = temp;
-      entity.set_position(entity.get_old_position() + displacement);
-    }
+    entity.set_position(entity.get_old_position());
+    return;
   }
 
-  n = (int)(right / CELL_SIZE);
-  if (level_map.get_cell(m, n).get_cell_type() == WALL)
+  if (left_blocked)
   {
-    float penetration = (n * CELL_SIZE) - right;
-    float ratio = (displacement.x + penetration) / displacement.x;
-    Vector2D temp = displacement * ratio;
-    if (temp.length < displacement.length)
-    {
-      displacement = temp;
-      entity.set_position(entity.get_old_position() + displacement);
-    }
-  }
-
-  m = (int)(top / CELL_SIZE);
-  n = (int)(x / CELL_SIZE);
-  if (level_map.get_cell(m, n).get_cell_type() == WALL)
-  {
-    float penetration = (m * CELL_SIZE + CELL_SIZE) - top;
-    float ratio = (displacement.y + penetration) / displacement.y;
-    Vector2D temp = displacement * ratio;
-    if (temp.length < displacement.length)
-    {
-      displacement = temp;
-      entity.set_position(entity.get_old_position() + displacement);
-    }
-  }
-
-  m = (int)(bot / CELL_SIZE);
-  n = (int)(x / CELL_SIZE);
-  if (level_map.get_cell(m, n).get_cell_type() == WALL)
-  {
-    float penetration = (m * CELL_SIZE) - bot;
-    float ratio = (displacement.y + penetration) / displacement.y;
-    Vector2D temp = displacement * ratio;
-    if (temp.length < displacement.length)
-    {
-      displacement = temp;
-      entity.set_position(entity.get_old_position() + displacement);
-    }
-  }*/
-  if (level_map.get_cell(m = (int)(y / CELL_SIZE), n = (int)(left / CELL_SIZE)).get_cell_type() == WALL)
-  {
-    Vector2D penetration = Vector2D(n * CELL_SIZE + CELL_SIZE - left, 0);
+    Vector2D penetration = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE - left, 0);
     entity.set_position(entity.get_position() + penetration);
   }
-  if (level_map.get_cell(m = (int)(y / CELL_SIZE), n = (int)(right / CELL_SIZE)).get_cell_type() == WALL)
+  if (right_blocked)
   {
-    Vector2D penetration = Vector2D(n * CELL_SIZE - right, 0);
+    Vector2D penetration = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE - right, 0);
     entity.set_position(entity.get_position() + penetration);
   }
-  if (level_map.get_cell(m = (int)(top / CELL_SIZE), n = (int)(x / CELL_SIZE)).get_cell_type() == WALL)
+  if (top_blocked)
   {
-    Vector2D penetration = Vector2D(0, m * CELL_SIZE + CELL_SIZE - top);
+    Vector2D penetration = Vector2D(0, (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE - top);
     entity.set_position(entity.get_position() + penetration);
   }
-  if (level_map.get_cell(m = (int)(bot / CELL_SIZE), n = (int)(x / CELL_SIZE)).get_cell_type() == WALL)
+  if (bot_blocked)
   {
-    Vector2D penetration = Vector2D(0, m * CELL_SIZE - bot);
+    Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
     entity.set_position(entity.get_position() + penetration);
   }
 }
@@ -281,5 +195,4 @@ void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
   float dy = correction.y / 2;
   entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
   entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
-
 }

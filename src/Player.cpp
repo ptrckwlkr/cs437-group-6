@@ -1,5 +1,5 @@
 #include <view_manager.h>
-#include <projectile_view.h>
+#include <view_projectile.h>
 #include "EventManager.h"
 #include "EntityManager.h"
 #include "Player.h"

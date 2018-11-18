@@ -1,6 +1,6 @@
 #include <game_logic.h>
 #include <view_manager.h>
-#include "projectile_view.h"
+#include "view_projectile.h"
 
 ProjectileView::ProjectileView(GameLogic *state, Projectile &entity) : View(state)
 {

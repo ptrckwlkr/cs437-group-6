@@ -28,7 +28,7 @@ class Entity
 {
 
 public:
-    Entity(float x, float y, float s) : pos(Vector2D(x, y))
+    Entity(float x, float y, float s) : pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
     {
       static long long entity_id = 0;
 
@@ -47,15 +47,17 @@ public:
     void set_mana(int m) {mana = m;}
     void takedamage(int damage) {health -= damage;}
 
-    Vector2D get_position() {return pos;}
-    float get_size() {return size;}
-    int get_health() {return health;}
-    int get_mana() {return mana;}
-    long long get_id() {return id;}
-    EntityType get_type() {return type;}
+    const Vector2D &get_position() {return pos;}
+    const Vector2D &get_old_position() {return old_pos;}
+    const float get_size() {return size;}
+    const int get_health() {return health;}
+    const int get_mana() {return mana;}
+    const long long get_id() {return id;}
+    const EntityType get_type() {return type;}
 
     virtual void move(Vector2D &dir, float delta)
     {
+      old_pos = pos;
       float delta_speed = speed * delta;
       pos = pos + dir.normal() * delta_speed;
     }
@@ -63,6 +65,7 @@ public:
 
 protected:
     Vector2D pos;
+    Vector2D old_pos;
     float size;
     float speed;
     int health;

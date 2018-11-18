@@ -21,7 +21,6 @@ private:
     bool entity_collision(Entity &entity1, Entity &entity2);
     bool types(Entity &entity1, Entity &entity2, EntityType type1, EntityType type2);
     void check_wall_collision(Map &level_map, Entity &entity);
-    void check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> &entities);
     void clear_cells(Map &level_map);
     void adjust_positions(Entity &entity1, Entity &entity2);
 

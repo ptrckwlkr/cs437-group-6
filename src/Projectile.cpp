@@ -23,6 +23,7 @@ void Projectile::HandleEvent( Event* event){
 }
 
 void Projectile::move(Vector2D &dir, float delta){
+  old_pos = pos;
   float delta_speed = speed * delta;
   Vector2D change = dir.normal() * delta_speed;
   traveled += change.length;
