@@ -7,54 +7,46 @@
 #include "SFML/System.hpp"
 #include "vector2d.h"
 
+#define PROJECTILE_SPEED_DEFAULT        75
+#define PROJECTILE_SIZE_DEFAULT         5
+
 class Projectile: public Entity
 {
 
-    private: 
-    int maxDamage;
-    int curDamage;
+    private:
+    int damage;
     int maxRange;
-    int speed;
+    float traveled;
 
     protected:
-    Vector2D velocity = VEC_NONE;
-    Vector2D playerCenter= VEC_NONE;
-    Vector2D  mousePos = VEC_NONE;
-    Vector2D aimDirection = VEC_NONE;
+    Vector2D direction = VEC_NONE;
 
 
 
     public: 
-        Projectile(float x, float y, float size);
+        Projectile(float x, float y);
 
-        ~Projectile();
         virtual void update(double deltaMs) {};
 
         //handles events 
-        virtual void HandleEvent( Event* event);
+        void HandleEvent( Event* event) override;
         ///if eventid = "attack"
 
-        void set_maxDamage( int mD);
+        void set_damage(int mD) {damage = mD;}
         
-        void set_maxRange(int mD);
+        void set_maxRange(int mD) {maxRange = mD;}
 
-        void set_speed ( int speed);
+        void set_speed (int s) {speed = s;}
 
-        void set_velocity(  Vector2D &vel);
+        void set_direction(Vector2D vec) {direction = vec;}
 
-        void set_mousePos(  Vector2D  &mPos);
+        float get_travaled() {return traveled;}
 
-        void set_playerCenter(  Vector2D  &pCenter);
+        int get_maxRange() {return maxRange;}
 
-        void set_aimDirection ();
+        Vector2D  get_direciton(){ return direction;}
 
-        Vector2D  get_aimDireciton(){ return aimDirection;}
-
-        //sf::Vector2f set_aimDirectionNormal();
-
-        void move(Vector2D &dir, float delta);
-
-        void attack(Vector2D &dir, float delta);
+        void move(Vector2D &dir, float delta) override;
 
 }; 
 

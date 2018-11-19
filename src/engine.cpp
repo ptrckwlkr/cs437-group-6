@@ -7,6 +7,7 @@
 #include "player_view_level_select.h"
 #include "engine.h"
 #include "macros.h"
+#include "view_manager.h"
 
 Engine &Engine::getInstance()
 {
@@ -19,12 +20,14 @@ void Engine::init(sf::RenderWindow *app)
   //loads necessary resources to the resource manager
   resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
   resources.LoadXML("text", "../data/game-text.xml");
+  resources.LoadTexture("map", "../data/map.png");
+  resources.LoadTexture("fog", "../data/vignette.png");
 
   App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();
-  curr_player_view = std::make_shared<MenuView>(&state, App);
-  views.push_back(curr_player_view);
+  ViewManager::Instance()->init(&state);
+  ViewManager::Instance()->set_player_view<MenuView>(&state, App);
 
   //starts clock
   time.restart();
@@ -35,9 +38,11 @@ void Engine::init(sf::RenderWindow *app)
  */
 void Engine::update_views(float delta)
 {
-  for (const auto &view : views)
-  {
-    view->update(delta);
+  auto views = ViewManager::Instance()->get_views();
+  auto iter = views.begin();
+  while (iter != views.end()){
+    (*iter)->update(delta);
+    iter++;
   }
 }
 
@@ -55,7 +60,7 @@ void Engine::update_state(float delta)
 
 void Engine::update_graphics()
 {
-  curr_player_view->draw();
+  ViewManager::Instance()->get_player_view()->draw();
 }
 
 /**
@@ -82,40 +87,23 @@ void Engine::switch_mode()
   if (curr_game_mode != old_mode)
   {
     old_mode = curr_game_mode;
-    views.clear();
+    ViewManager::Instance()->clear();
 
     //places the primary controller and view for the mode at the 0th index of each vector
     switch (curr_game_mode)
     {
       case MODE_MENU:
-        curr_player_view = std::make_shared<MenuView>(&state, App);
-        views.push_back(curr_player_view);
+        ViewManager::Instance()->set_player_view<MenuView>(&state, App);
         break;
       case MODE_LEVEL_SELECT:
-        curr_player_view = std::make_shared<LevelSelectView>(&state, App);
-	      views.push_back(curr_player_view);
+        ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
 	      break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:
         state.create_new_level(AGENT_BASED);
-        curr_player_view = std::make_shared<GameView>(&state, App);
-        views.push_back(curr_player_view);
-        generate_views();
+        ViewManager::Instance()->set_player_view<GameView>(&state, App);
         break;
-    }
-  }
-}
-
-void Engine::generate_views()
-{
-  for (const auto &entity : state.get_level().get_entities())
-  {
-    std::shared_ptr<View> view;
-    if (entity->get_type() == TYPE_SKELETON)
-    {
-      view = std::make_shared<SkeletonView>(&state, *entity);
-      views.push_back(view);
     }
   }
 }

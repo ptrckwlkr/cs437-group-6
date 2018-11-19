@@ -17,11 +17,7 @@ void GameView::process_input(float delta)
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		EventManager::Instance()->ClearEvents();
-		for (const auto &e : state->get_level().get_entities())
-		{
-			EventManager::Instance()->UnregisterAll(e.get());
-		}
+		state->reset();
 		Engine::getInstance().set_mode(MODE_MENU);
 	}
 
@@ -53,46 +49,13 @@ void GameView::process_input(float delta)
 	state->get_level().get_player()->move(dir, delta);
 	}
 
-	if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		//when mouse is pressed create a new projectile, which adds it to entity vector and projectile list 
-		EntityManager::Instance()->createEntity(TYPE_PROJECTILE, 3155, 1010, 5);
-
-		//get the last projectile that was created
-		std::shared_ptr<Projectile> proj = EntityManager::Instance()->getProjectiles().back();
-
-		sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app) );
-		Vector2D  mouse_pos = Vector2D(mpos.x, mpos.y);
-		Vector2D  player_pos(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
-
-		// state->get_level().get_player()->get_projectile()->set_mousePos(mouse_pos);
-		// std::cout << " mouse pos set " ;
-		// state->get_level().get_player()->get_projectile()->set_position(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
-		// std::cout << " set pos " ;
-		// state->get_level().get_player()->get_projectile()->set_playerCenter(player_pos);
-		// std::cout << " set play" ;
-		// state->get_level().get_player()->get_projectile()->set_aimDirection();
-		// std::cout << " aim dir set" ;
-
-		proj->set_mousePos(mouse_pos);
-		std::cout << " mouse pos set " ;
-		proj->set_position(state->get_level().get_player()->get_position().x, state->get_level().get_player()->get_position().y);
-		std::cout << " set pos " ;
-		proj->set_playerCenter(player_pos);
-		std::cout << " set play" ;
-		proj->set_aimDirection();
-		std::cout << " aim dir set" ;
-
-		Vector2D v = proj->get_aimDireciton();
-		proj->attack(v, delta);
-
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
+		Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
+    Vector2D direction = mouse_pos - state->get_level().get_player()->get_position();
+		state->get_level().get_player()->attack(direction);
 	}
-			//for each projectile in the list, move in the aimDirection PROBLEM: how to access the proj outside of the if statmenet 
-			//and how to iterate through each list to call it's attack ( may need to change to vector )
-	// 	Vector2D  v = proj->get_aimDirection()
-	// 	state->get_level().get_player()->get_projectile()->attack(v, delta);
-	// 	for( std::list< std::shared_ptr<Projectile>>::iterator iter= EntityManager::Instance()->getProjectiles().begin(); iter != EntityManager::Instance()->getProjectiles().end(); iter++ ){
-
-  // }
 }
 
 void GameView::handle_event(sf::Event event)
@@ -118,7 +81,8 @@ void GameView::draw()
   // TODO send some of this to the constructor?
   sf::View camera;
   camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  Position playerPos = state->get_level().get_player()->get_position();
+  Vector2D playerPos = state->get_level().get_player()->get_position();
+  camera.zoom(1 / ZOOM_SCALAR);
   camera.setCenter(playerPos.x, playerPos.y);
 
   app->setView(camera);

@@ -4,12 +4,6 @@
 #include "event.h"
 #include "vector2d.h"
 
-struct Position
-{
-    float x;
-    float y;
-};
-
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
 #define VEC_NORTHEAST    Vector2D(1, -1)
@@ -34,39 +28,46 @@ class Entity
 {
 
 public:
-    Entity(float x, float y, float s)
+    Entity(float x, float y, float s) : pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
     {
       static long long entity_id = 0;
 
       id = entity_id++;
-      pos.x = x;
-      pos.y = y;
       size = s;
       health = 0; //TODO
       mana = 0;   //TODO
+      speed = 0;
       type = TYPE_NONE;
     }
     ~Entity() = default;
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
-    void set_position(Position new_pos) {pos = new_pos;}
+    void set_position(Vector2D new_pos) {pos = new_pos;}
     void set_health(int h) {health = h;}
     void set_mana(int m) {mana = m;}
     void takedamage(int damage) {health -= damage;}
 
-    Position get_position() {return pos;}
-    float get_size() {return size;}
-    int get_health() {return health;}
-    int get_mana() {return mana;}
-    long long get_id() {return id;}
-    EntityType get_type() {return type;}
+    const Vector2D &get_position() {return pos;}
+    const Vector2D &get_old_position() {return old_pos;}
+    const float get_size() {return size;}
+    const int get_health() {return health;}
+    const int get_mana() {return mana;}
+    const long long get_id() {return id;}
+    const EntityType get_type() {return type;}
 
-    virtual void move(Vector2D &dir, float delta) = 0;
+    virtual void move(Vector2D &dir, float delta)
+    {
+      old_pos = pos;
+      float delta_speed = speed * delta;
+      pos = pos + dir.normal() * delta_speed;
+    }
     virtual void HandleEvent(Event* event) = 0;
 
 protected:
-    Position pos{};
+    Vector2D pos;
+    Vector2D old_pos;
     float size;
+    float speed;
     int health;
     int mana;
     long long id;

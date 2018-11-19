@@ -32,6 +32,10 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
           // TODO Handle collision
           // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
           // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
+          if (types(*entity1, *entity2, TYPE_SKELETON, TYPE_SKELETON))
+          {
+
+          }
 
           if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD)){
             EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
@@ -42,16 +46,25 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
             EventManager::Instance()->SendEvent( EVENT_ENEMY_SHOT_AT, &d);
           }
 
+          if( types (*entity1, *entity2, TYPE_PLAYER, TYPE_SKELETON )){
+
+          }
+
           if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_PLAYER )){
             int d = 10;
             EventManager::Instance()->SendEvent( EVENT_PLAYER_SHOOT_AT, &d);
           }
+          else
+          {
+            adjust_positions(*entity1, *entity2);
+          }
         }
       }
+      check_wall_collision(level_map, *entity1);
     }
   }
 
-  check_wall_collisions(level_map, entities);
+//  check_wall_collisions(level_map, entities);
 }
 
 /**
@@ -59,57 +72,9 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
  */
 bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 {
-  float dx;
-  float dy;
-  float hypo;
-
-  dx = entity1.get_position().x - entity2.get_position().x;
-  dy = entity1.get_position().y - entity2.get_position().y;
-  hypo = entity1.get_size() + entity2.get_size();
-
-  return (hypo * hypo > dx * dx + dy * dy);
-}
-
-/**
- * For all entities, check for and correct all collisions with obstructed tiles.
- */
-void CollisionEngine::check_wall_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
-{
-  float x;      // Entity x-position
-  float y;      // Entity y-position
-  float dx;     // Change in entity's correctional x-position
-  float dy;     // Change in entity's correctional y-position
-  float size;   // Entity's size
-  int m;        // m-index of tile entity is currently standing on
-  int n;        // n-index of tile entity is currently standing on
-  float top;    // Top boundary of current cell
-  float right;  // Right boundary of current cell
-  float bot;    // Bottom boundary of current cell
-  float left;   // Left boundary of current cell
-
-  for (auto &entity : entities)
-  {
-    x     = entity->get_position().x;
-    y     = entity->get_position().y;
-    size  = entity->get_size();
-    m     = (int)(y / CELL_SIZE);
-    n     = (int)(x / CELL_SIZE);
-    top   = m * CELL_SIZE;
-    left  = n * CELL_SIZE;
-    bot   = top + CELL_SIZE;
-    right = left + CELL_SIZE;
-    dx = x;
-    dy = y;
-
-    // Calculate adjustments based on how far into the block the entity is interpenetrating
-    if (level_map.get_cell(m - 1, n).get_cell_type() == WALL && y - size < top)    dy = top + size;    // Top bound
-    if (level_map.get_cell(m, n + 1).get_cell_type() == WALL && x + size > right)  dx = right - size;  // Right bound
-    if (level_map.get_cell(m + 1, n).get_cell_type() == WALL && y + size > bot)    dy = bot - size;    // Bottom bound
-    if (level_map.get_cell(m, n - 1).get_cell_type() == WALL && x - size < left)   dx = left + size;   // Left bound
-
-    // Adjust the position
-    entity->set_position(dx, dy);
-  }
+  float hypo = entity1.get_size() + entity2.get_size();
+  Vector2D vec = entity1.get_position() - entity2.get_position();
+  return (hypo * hypo > vec.x * vec.x + vec.y * vec.y);
 }
 
 /**
@@ -127,7 +92,6 @@ bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, 
 void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
 {
   // TODO will probably ultimately accept the EntityManager& as a parameter, instead of a raw vector of pointers
-  Position pos{};
   float radius;
   float top;
   float bot;
@@ -139,8 +103,8 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
   clear_cells(level_map);
   for (auto &ent : entities)
   {
-    pos     = ent->get_position();
-    radius  = ent->get_size() / 2;
+    Vector2D pos = ent->get_position();
+    radius  = ent->get_size();
     top     = pos.y - radius - COLLISION_BUFFER;
     bot     = pos.y + radius + COLLISION_BUFFER;
     left    = pos.x - radius - COLLISION_BUFFER;
@@ -172,4 +136,63 @@ void CollisionEngine::clear_cells(Map &level_map)
     cell->clear_entities();
   }
   occupied_cells.clear();
+}
+
+/**
+ * For a given entity, check for and correct all collisions with obstructed tiles.
+ */
+void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
+{
+  float size = entity.get_size();
+  Vector2D curr = entity.get_position();
+  float x = curr.x;
+  float y = curr.y;
+
+  float left = x - size;
+  float top = y - size;
+  float right = x + size;
+  float bot = y + size;
+
+  bool left_blocked   = level_map.get_cell((int)(y / CELL_SIZE), (int)((x - size) / CELL_SIZE)).get_cell_type() == WALL;
+  bool top_blocked    = level_map.get_cell((int)((y - size) / CELL_SIZE), (int)(x / CELL_SIZE)).get_cell_type() == WALL;
+  bool right_blocked  = level_map.get_cell((int)(y / CELL_SIZE), (int)((x + size) / CELL_SIZE)).get_cell_type() == WALL;
+  bool bot_blocked    = level_map.get_cell((int)((y + size) / CELL_SIZE), (int)(x / CELL_SIZE)).get_cell_type() == WALL;
+
+  if (top_blocked + left_blocked + bot_blocked + right_blocked > 2)
+  {
+    entity.set_position(entity.get_old_position());
+    return;
+  }
+
+  if (left_blocked)
+  {
+    Vector2D penetration = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE - left, 0);
+    entity.set_position(entity.get_position() + penetration);
+  }
+  if (right_blocked)
+  {
+    Vector2D penetration = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE - right, 0);
+    entity.set_position(entity.get_position() + penetration);
+  }
+  if (top_blocked)
+  {
+    Vector2D penetration = Vector2D(0, (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE - top);
+    entity.set_position(entity.get_position() + penetration);
+  }
+  if (bot_blocked)
+  {
+    Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
+    entity.set_position(entity.get_position() + penetration);
+  }
+}
+
+void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
+{
+  Vector2D actual = entity1.get_position() - entity2.get_position();
+  Vector2D theo = actual.normal() * (entity1.get_size() + entity2.get_size());
+  Vector2D correction = theo - actual;
+  float dx = correction.x / 2;
+  float dy = correction.y / 2;
+  entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
+  entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
 }

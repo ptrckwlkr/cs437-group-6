@@ -20,8 +20,7 @@ void Enemy::HandleEvent(Event* event)
 
 void Enemy::move(Vector2D &dir, float delta)
 {
+  old_pos = pos;
   float delta_speed = ENEMY_SPEED * delta;
-  Vector2D vec = dir.normal() * delta_speed;
-  pos.x = pos.x + vec.x;
-  pos.y = pos.y + vec.y;
+  pos = pos + dir.normal() * delta_speed;
 }

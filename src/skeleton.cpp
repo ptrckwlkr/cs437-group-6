@@ -4,16 +4,9 @@
 
 Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)
 {
+  speed = SKELETON_SPEED;
   type = TYPE_SKELETON;
   EventManager::Instance()->RegisterObject(EVENT_ENEMY_SHOT_AT, this);
-}
-
-void Skeleton::move(Vector2D &dir, float delta)
-{
-  float delta_speed = SKELETON_SPEED * delta;
-  Vector2D vec = dir.normal() * delta_speed;
-  pos.x = pos.x + vec.x;
-  pos.y = pos.y + vec.y;
 }
 
 void Skeleton::HandleEvent(Event *event)

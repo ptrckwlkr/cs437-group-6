@@ -23,72 +23,43 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	drawLevel(target, states);
 
-	// TODO Draw an enemy
-	// float x = (view->get_state().get_level().get_entities()[1]->get_position().x);
-	// float y = (view->get_state().get_level().get_entities()[1]->get_position().y);
-	// float s = (view->get_state().get_level().get_entities()[1]->get_size());
+	float x;
+	float y;
+	float size;
+	EntityType type;
+	for (auto &ent : EntityManager::Instance()->getEntites())
+	{
+		x = ent->get_position().x;
+		y = ent->get_position().y;
+		size = ent->get_size();
+		type = ent->get_type();
 
-	//EntityManager could eventually take a number of entities you can to create
-	//then this would iterate through the list and place each in right place
-	float x = EntityManager::Instance()->getEntity(TYPE_SKELETON)->get_position().x;
-	float y = EntityManager::Instance()->getEntity(TYPE_SKELETON)->get_position().y;
-	float s = EntityManager::Instance()->getEntity(TYPE_SKELETON)->get_size();
+		sf::CircleShape circle(size);
 
-	// Draw enemy entity to the screen
-	sf::CircleShape circle(s);
-	circle.setFillColor(sf::Color(255, 0, 0));
-	circle.setOrigin(sf::Vector2f(s, s));
-	circle.setPosition(x, y);
-	target.draw(circle, states);
+		if (type == TYPE_SKELETON) circle.setFillColor(sf::Color(255, 0, 0));
+		if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
+		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
+		if (type == TYPE_PROJECTILE) circle.setFillColor(sf::Color(255, 255, 255));
 
+		circle.setOrigin(sf::Vector2f(size, size));
+		circle.setPosition(x, y);
+		target.draw(circle, states);
+	}
 
-	// x = (view->get_state().get_level().get_entities()[2]->get_position().x);
-	// y = (view->get_state().get_level().get_entities()[2]->get_position().y);
-	// s = (view->get_state().get_level().get_entities()[2]->get_size());
-
-	float x2 = EntityManager::Instance()->getEntity(TYPE_PLAYER)->get_position().x;
-	float y2 = EntityManager::Instance()->getEntity(TYPE_PLAYER)->get_position().y;
-	float s2 = EntityManager::Instance()->getEntity(TYPE_PLAYER)->get_size();
-
-	// draw player entity to screen
-	circle.setFillColor(sf::Color(255, 255, 0));
-	circle.setOrigin(sf::Vector2f(s2, s2));
-	circle.setPosition(x2, y2);
-	target.draw(circle, states);
-
-
-	// TODO In reality, it should probably end up accessing entities through an EntityManager, rather than directly like this
-	// x = (view->get_state().get_level().get_entities()[0]->get_position().x);
-	// y = (view->get_state().get_level().get_entities()[0]->get_position().y);
-	// s = (view->get_state().get_level().get_entities()[0]->get_size());
-
-	float x1 = EntityManager::Instance()->getEntity(TYPE_GOLD)->get_position().x;
-	float y1 = EntityManager::Instance()->getEntity(TYPE_GOLD)->get_position().y;
-	float s1 =EntityManager::Instance()->getEntity(TYPE_GOLD)->get_size();
-
-	// draw player entity to screen
-	circle.setFillColor(sf::Color(0, 255, 0));
-	circle.setOrigin(sf::Vector2f(s1, s1));
-	circle.setPosition(x1, y1);
-	target.draw(circle, states);
-
-	float x3 = EntityManager::Instance()->getEntity(TYPE_PROJECTILE)->get_position().x;
-	float y3 = EntityManager::Instance()->getEntity(TYPE_PROJECTILE)->get_position().x;
-	float s3 = EntityManager::Instance()->getEntity(TYPE_PROJECTILE)->get_position().x;
-
-	// draw projectile  to screen
-	circle.setFillColor(sf::Color(230, 255, 0));
-	circle.setOrigin(sf::Vector2f(s3, s3));
-	circle.setPosition(x3, y3);
-	target.draw(circle, states);
-
+  x = EntityManager::Instance()->getPlayer()->get_position().x;
+  y = EntityManager::Instance()->getPlayer()->get_position().y;
 	drawUI(target, states, x, y);
-	
 }
 
 
 void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const
 {
+
+  sf::Sprite sprite;
+  sprite.setTexture(resources.GetTexture("fog"));
+  sprite.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f, y - WINDOW_HEIGHT / 2.f));
+  //target.draw(sprite, states); // Uncomment me to see a nice effect
+
 	//TODO set size of bar to match player'sactual health/mana
 	// updates hpBar
 	sf::RectangleShape hpBar, manaBar;
@@ -112,17 +83,6 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, flo
 	target.draw(hpText, states);
 	target.draw(manaText, states);
 }
-
-/*
-	Helper function to draw the background to the screen, called before entities are drawn
-*//*
-void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	for (unsigned i = 0; i < levelShapes.size(); i++)
-	{
-		target.draw(levelShapes.at(i), states);
-	}
-}*/
 
 void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const
 {
@@ -155,8 +115,12 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
       else if (cell_type == FLOOR)
       {
         rect.setFillColor(sf::Color(128, 128, 128));
-        // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
+         // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
       }
+			else if (cell_type == EXIT)
+			{
+				rect.setFillColor(sf::Color(255, 230, 0));
+			}
       rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
       target.draw(rect, states);
     }

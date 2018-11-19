@@ -1,9 +1,13 @@
+#include <view_manager.h>
+#include <view_projectile.h>
 #include "EventManager.h"
+#include "EntityManager.h"
 #include "Player.h"
 #include "macros.h"
 
-Player::Player(float x, float y, float size) : Entity(x, y, size)
+Player::Player(float x, float y) : Entity(x, y, 10)
 {
+  speed = PLAYER_SPEED;
   type = TYPE_PLAYER;
   EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
   //EventManager::Instance()->RegisterObject(EVENT_PLAYER_PROJECTILE_COLLISION, this);
@@ -24,14 +28,11 @@ void Player::HandleEvent(Event* event)
   // }
 }
 
-void Player::set_projectile(std::shared_ptr<Projectile> p){
-  projectile = p;
-}
-
-void Player::move(Vector2D &dir, float delta)
+void Player::attack(Vector2D &dir)
 {
-  float delta_speed = PLAYER_SPEED * delta;
-  Vector2D vec = dir.normal() * delta_speed;
-  pos.x = pos.x + vec.x;
-  pos.y = pos.y + vec.y;
+  float x = EntityManager::Instance()->getPlayer()->get_position().x;
+  float y = EntityManager::Instance()->getPlayer()->get_position().y;
+  auto projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
+  projectile->set_direction(dir);
+  ViewManager::Instance()->add_view<Projectile, ProjectileView>(projectile);
 }

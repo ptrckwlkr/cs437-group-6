@@ -10,13 +10,19 @@ class View
 {
 
 public:
-    explicit View(GameLogic *state) : state(state) {};
+    explicit View(GameLogic *state) : state(state)
+    {
+      static long long view_id = 0;
+      id = view_id++;
+    };
     ~View() = default;
     virtual void update(float delta) = 0;
     GameLogic &get_state() {return *state;}
+    long long get_id() {return id;}
 
 protected:
     GameLogic *state;
+    long long id;
 
 };
 
