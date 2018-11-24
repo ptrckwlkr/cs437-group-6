@@ -1,12 +1,9 @@
 #include <SFML/Window/Event.hpp>
-#include <iostream>
-#include <chrono>
 #include "view_skeleton.h"
 #include "player_view_menu.h"
 #include "player_view_game.h"
 #include "player_view_level_select.h"
 #include "engine.h"
-#include "macros.h"
 #include "view_manager.h"
 
 Engine &Engine::getInstance()

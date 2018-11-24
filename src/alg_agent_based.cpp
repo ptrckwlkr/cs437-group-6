@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include <time.h>
-#include <algorithm>
 
 
 /*
