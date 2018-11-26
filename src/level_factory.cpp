@@ -1,11 +1,4 @@
 #include <view_skeleton.h>
-#include "skeleton.h"
-#include "level_factory.h"
-#include "EventManager.h"
-#include "EntityManager.h"
-#include "Player.h"
-#include "gold.h"
-#include "Projectile.h"
 #include "alg_agent_based.h"
 #include "view_manager.h"
 

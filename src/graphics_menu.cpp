@@ -1,7 +1,6 @@
 #include "graphics_menu.h"
 #include "player_view_menu.h"
 #include "macros.h"
-#include <iostream>
 
 MenuGraphics::MenuGraphics(MenuView *view) : Graphics(), view(view)
 {
