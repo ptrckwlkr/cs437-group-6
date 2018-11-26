@@ -17,3 +17,8 @@ void ProjectileView::update(float delta)
     ViewManager::Instance()->remove_view(get_id());
   }
 }
+
+void ProjectileView::destroy() {
+    EntityManager::Instance()->removeEntity(projectile->get_id());
+    ViewManager::Instance()->remove_view(get_id());
+}

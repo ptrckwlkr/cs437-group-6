@@ -28,4 +28,12 @@ void Projectile::move(Vector2D &dir, float delta){
   Vector2D change = dir.normal() * delta_speed;
   traveled += change.length;
   pos = pos + change;
+}i
+
+void Projectile::setMyView(View* view) {
+	myView = view;
+}
+
+void Projectile::destroy() {
+	myView->destroy();
 }

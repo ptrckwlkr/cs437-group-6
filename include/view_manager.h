@@ -26,10 +26,11 @@ public:
     void clear() {views.clear();}
 
     template <class E, class V>
-    void add_view(std::shared_ptr<E> &ent)
+    View* add_view(std::shared_ptr<E> &ent)
     {
       auto view = std::make_shared<V>(state, *ent);
       views.insert(view);
+      return view;
     }
 
     template <class T>

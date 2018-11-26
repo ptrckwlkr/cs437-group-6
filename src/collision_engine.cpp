@@ -43,7 +43,7 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
 
           if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_SKELETON )){
             int d = 10;
-            EventManager::Instance()->SendEvent( EVENT_ENEMY_SHOT_AT, &d);
+            EventManager::Instance()->SendEvent( EVENT_ENEMY_SHOT_AT, entity1, &d, entity2);
           }
 
           if( types (*entity1, *entity2, TYPE_PLAYER, TYPE_SKELETON )){
