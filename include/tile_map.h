@@ -13,7 +13,7 @@ public:
     ~TileMap() = default;
 
     void PopulateVertexArray(Map &map, int level_num);
-    sf::VertexArray GetVertices() { return m_vertices; };
+    sf::VertexArray &GetVertices() { return m_vertices; };
     void SetTexture();
 
 

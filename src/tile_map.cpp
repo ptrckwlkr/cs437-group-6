@@ -1,6 +1,7 @@
 #include "tile_map.h"
 #include <cstdlib>
 #include <time.h>
+#include "macros.h"
 
 void TileMap::PopulateVertexArray(Map &map, int level_num)
 {
@@ -12,6 +13,7 @@ void TileMap::PopulateVertexArray(Map &map, int level_num)
     srand((unsigned int) time(NULL));
 
     // resize the vertex array to fit the level size
+    m_vertices.clear();
     m_vertices.setPrimitiveType(sf::Quads);
     m_vertices.resize(width * height * 4);
 
@@ -23,6 +25,8 @@ void TileMap::PopulateVertexArray(Map &map, int level_num)
     CellType left_cell_type;
     CellType right_cell_type;
 
+    //so that ornaments are consistent within a room
+    int ornament_index = -1;
 
     // populate the vertex array, with one quad per tile
     for (unsigned int i = 0; i < height; ++i)
@@ -33,13 +37,13 @@ void TileMap::PopulateVertexArray(Map &map, int level_num)
 
             //determine upper and lower cell types
             if (i == 0) above_cell_type = WALL, below_cell_type = map.get_cell(i+1, j).get_cell_type();
-            else if (i == width - 1) below_cell_type = WALL, above_cell_type = map.get_cell(i-1, j).get_cell_type();
+            else if (i == height - 1) below_cell_type = WALL, above_cell_type = map.get_cell(i-1, j).get_cell_type();
             else above_cell_type = map.get_cell(i-1, j).get_cell_type(), below_cell_type = map.get_cell(i+1, j).get_cell_type();
 
             int tile_sheet_index;
 
             //determine location of appropriate tile in tileset based on cell type and adjacent cell types
-            if (cell_type == FLOOR || (cell_type == ORNAMENT && above_cell_type != WALL))
+            if (cell_type == FLOOR || (cell_type == ORNAMENT && (above_cell_type != WALL || map.get_cell(i-2,j).get_cell_type() != WALL)))
             {
                 //randomly sets tile for variation in texture, 8 possible floor textures starting at index 14 in tile set
                tile_sheet_index = (rand() % 8) + 14;
@@ -47,11 +51,20 @@ void TileMap::PopulateVertexArray(Map &map, int level_num)
             else if (cell_type == ORNAMENT)
             {
                 // second half of first if statement ensures that a room wasn't created directly above the ornament
-                //necessary to have both the wall and floor ornament textures
-                int ornament_index = (rand() % 4)*2 + 23;
+                //necessary to have both the wall and floor ornament textures and consistent ornaments  within a room
+                int temp;
+                if (ornament_index == -1)
+                {
+                    ornament_index = (rand() % 4)*2 + 23;
+                    temp = ornament_index;
+                }
+                else
+                    temp = -1;
+
                 //updates adjacent wall's texture
                 UpdateQuads(i-1, j, ornament_index, false);
                 tile_sheet_index = ornament_index + 1;
+                ornament_index = temp;
             }
             else if (cell_type == EXIT)
             {
@@ -85,16 +98,20 @@ void TileMap::UpdateQuads(int i, int j, int tile_index, bool empty) {
 
     // find its position in the tileset texture
     int tu = tile_index % (m_tileset.getSize().x / tileSize.x);
-    int tv = tile_index / (m_tileset.getSize().x / tileSize.x) + tileSize.y * level;
+    int tv = tile_index / (m_tileset.getSize().x / tileSize.x); //+ tileSize.y * level;
 
     // get a pointer to the current tile's quad
     sf::Vertex* quad = &m_vertices[(j + i * width) * 4];
 
     // define its 4 corners
-    quad[0].position = sf::Vector2f(j * tileSize.x, i * tileSize.y);
-    quad[1].position = sf::Vector2f((j + 1) * tileSize.x, i * tileSize.y);
-    quad[2].position = sf::Vector2f((j + 1) * tileSize.x, (i + 1) * tileSize.y);
-    quad[3].position = sf::Vector2f(j * tileSize.x, (i + 1) * tileSize.y);
+//    quad[0].position = sf::Vector2f(j * tileSize.x, i * tileSize.y);
+//    quad[1].position = sf::Vector2f((j + 1) * tileSize.x, i * tileSize.y);
+//    quad[2].position = sf::Vector2f((j + 1) * tileSize.x, (i + 1) * tileSize.y);
+//    quad[3].position = sf::Vector2f(j * tileSize.x, (i + 1) * tileSize.y);
+    quad[0].position = sf::Vector2f(j * CELL_SIZE, i * CELL_SIZE);
+    quad[1].position = sf::Vector2f((j + 1) * CELL_SIZE, i * CELL_SIZE);
+    quad[2].position = sf::Vector2f((j + 1) * CELL_SIZE, (i + 1) * CELL_SIZE);
+    quad[3].position = sf::Vector2f(j * CELL_SIZE, (i + 1) * CELL_SIZE);
 
     if (!empty)
     {
@@ -146,16 +163,15 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
     {
         up_left = WALL;
         up_right = WALL;
-        if (j == 0)  down_left = WALL;
-        else  down_left = map.get_cell(i+1, j-1).get_cell_type();
-        down_right = map.get_cell(i+1, j+1).get_cell_type();
+        down_left = (j == 0) ? WALL : map.get_cell(i+1, j-1).get_cell_type();
+        down_right = (j == width - 1 ) ? WALL : map.get_cell(i+1, j+1).get_cell_type();
     }
     else if (j == 0)
     {
         up_left = WALL;
         down_left = WALL;
         up_right = map.get_cell(i-1, j+1).get_cell_type();
-        down_right = map.get_cell(i+1, j+1).get_cell_type();
+        down_right = (i == height - 1) ? WALL : map.get_cell(i+1, j+1).get_cell_type();
     }
     else
     {
@@ -195,11 +211,11 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
             else if (down_right == WALL && down_left == WALL && up_left != WALL && up_right != WALL)
                 tile_sheet_index = 34;
             else if (down_right == WALL && down_left != WALL && up_left == WALL && up_right == WALL)
-                tile_sheet_index = 8;
+                tile_sheet_index = 11;
             else if (down_right == WALL && down_left != WALL && up_left != WALL && up_right != WALL)
                 tile_sheet_index = 8;
             else if (down_right != WALL && down_left == WALL && up_left == WALL && up_right == WALL)
-                tile_sheet_index = 9;
+                tile_sheet_index = 12;
             else if (down_right != WALL && down_left == WALL && up_left != WALL && up_right != WALL)
                 tile_sheet_index = 9;
             else// if (down_right != WALL && down_left != WALL && up_left == WALL && up_right == WALL)
@@ -222,8 +238,10 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
         //WALL ON LEFT SIDE
     else if (left_cell_type != WALL && right_cell_type == WALL)
     {
-        if (above_cell_type == WALL && below_cell_type == WALL)
+        if (above_cell_type == WALL && below_cell_type == WALL && down_right == WALL)
             tile_sheet_index = 11;
+        else if (above_cell_type == WALL && below_cell_type == WALL && down_right != WALL)
+            tile_sheet_index = 13;
         else if (above_cell_type == WALL && below_cell_type != WALL)
             tile_sheet_index = 5;
         else if (above_cell_type != WALL && below_cell_type == WALL)
@@ -237,8 +255,10 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
         // WALL ON RIGHT EDGE
     else if (left_cell_type == WALL && right_cell_type != WALL)
     {
-        if (above_cell_type == WALL && below_cell_type == WALL)
+        if (above_cell_type == WALL && below_cell_type == WALL && down_left == WALL)
             tile_sheet_index = 12;
+        else if (above_cell_type == WALL && below_cell_type == WALL && down_left != WALL)
+            tile_sheet_index = 13;
         else if (above_cell_type == WALL && below_cell_type != WALL)
             tile_sheet_index = 6;
         else if (above_cell_type != WALL && below_cell_type == WALL)
@@ -261,5 +281,6 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
             tile_sheet_index = 31;
     }
 
+    UpdateQuads(i, j, tile_sheet_index, empty);
     return tile_sheet_index;
 }
