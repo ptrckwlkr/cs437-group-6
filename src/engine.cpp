@@ -22,7 +22,7 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadXML("text", "../data/game-text.xml");
   resources.LoadTexture("map", "../data/map.png");
   resources.LoadTexture("fog", "../data/vignette.png");
-  resources.LoadTexture("tileset", "../data/16x16tileset.png");
+  resources.LoadTexture("tileset", "../data/tilesheet.png");
 
   App = app;
   curr_game_mode = MODE_MENU;

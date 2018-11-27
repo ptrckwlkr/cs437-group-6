@@ -133,8 +133,16 @@ bool AgentBasedGenerator::placeRoom(int i, int j)
 		
 		for (a = 0; a < room_height; a++)
 		{
+		    //adds a decorative ornament to the wall
+		    bool room_ornament = (rand() % 2) == 1;
+
 			for (b = 0; b < room_width; b++)
-				level_grid[j + a][i + b] = '0';
+            {
+			    if (a == 0 && room_ornament && (b == room_width/3 || b == (room_width-1)-room_width/3))
+                    level_grid[j][i + b] = 'o';
+			    else
+                    level_grid[j + a][i + b] = '0';
+            }
 		}
 
 		num_rooms++;
