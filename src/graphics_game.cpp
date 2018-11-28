@@ -93,42 +93,6 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
 
   target.draw(vertices, states);
 
-//  sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-//  CellType cell_type;
-//
-//  // Calculate the index bounds, to only draw the cells within view of the player
-//  int bound_top   = std::max((int)(view->get_state().get_level().get_player()->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
-//  int bound_bot   = std::min((int)(view->get_state().get_level().get_player()->get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state().get_level().get_map().get_height() - 1);
-//  int bound_left  = std::max((int)(view->get_state().get_level().get_player()->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
-//  int bound_right = std::min((int)(view->get_state().get_level().get_player()->get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state().get_level().get_map().get_width() - 1);
-//
-//  // Draw the map
-//  int i, j;
-//  for (i = bound_top; i < bound_bot; ++i)
-//  {
-//    for (j = bound_left; j < bound_right; ++j)
-//    {
-//      Cell cell = view->get_state().get_level().get_map().get_cell(i, j);
-//      cell_type = cell.get_cell_type();
-//      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-//
-//      if (cell_type == WALL)
-//      {
-//        rect.setFillColor(sf::Color(64, 64, 64));
-//      }
-//      else if (cell_type == FLOOR)
-//      {
-//        rect.setFillColor(sf::Color(128, 128, 128));
-//         // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
-//      }
-//			else if (cell_type == EXIT)
-//			{
-//				rect.setFillColor(sf::Color(255, 230, 0));
-//			}
-//      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-//      target.draw(rect, states);
-//    }
-//  }
 }
 
 
@@ -140,27 +104,5 @@ void GameGraphics::storeLevel()
     tile_map.SetTexture();
     tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), 0);
 	vertices = tile_map.GetVertices();
-
-//	// Draw every cell onto the screen
-//	int i, j;
-//	for (i = 0; i < view->get_state().get_level().get_map().get_height(); ++i)
-//	{
-//		for (j = 0; j < view->get_state().get_level().get_map().get_width(); ++j)
-//		{
-//			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-//			rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-//
-//			// Color the cells according to their type
-//			if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == WALL)
-//			{
-//				rect.setFillColor(sf::Color(64, 64, 64));
-//			}
-//			else if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == FLOOR)
-//			{
-//				rect.setFillColor(sf::Color(128, 128, 128));
-//			}
-//			levelShapes.push_back(rect);
-//		}
-//	}
 }
 

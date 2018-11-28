@@ -104,7 +104,7 @@ void TileMap::UpdateQuads(int i, int j, int tile_index, bool empty) {
 
     // find its position in the tileset texture
     int tu = tile_index % (m_tileset.getSize().x / tileSize.x);
-    int tv = tile_index / (m_tileset.getSize().x / tileSize.x); //+ tileSize.y * level;
+    int tv = tile_index / (m_tileset.getSize().x / tileSize.x) + level;
 
     // get a pointer to the current tile's quad
     sf::Vertex* quad = &m_vertices[(j + i * width) * 4];
