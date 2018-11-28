@@ -2,6 +2,7 @@
 #define CSCI437_ANIMATION_H
 
 #include <SFML/Graphics.hpp>
+#include "vector2d.h"
 
 
 enum Direction{
@@ -15,23 +16,21 @@ enum Direction{
 class Animation 
 {
     private:
-        // sf::Vector2u imageCount;
-        // sf::Vector2u currentImage;
-
-        // float totalTime;
-        // float switchTime;
-    public:
-        sf::IntRect uvRect;
         sf::Vector2u imageCount;
         sf::Vector2u currentImage;
 
         float totalTime;
         float switchTime;
+    public:
+        sf::IntRect uvRect;
+        sf::Sprite sprite;
 
     public:
-        Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
+        Animation();
+        void init(sf::Texture &texture, sf::Vector2u imageCount, float switchTime);
         ~Animation();
-        void Update(int row, int imageCount, float delta);
+        void Update(Vector2D dir, int imageCount, float delta);
+        sf::Sprite &getSprite(){ return sprite;}
 };
 
 #endif //CSCI437_ANIMATION_H

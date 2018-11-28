@@ -9,6 +9,7 @@
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
 	storeLevel();
+	this->view = view;
 
 	// get all necessary resources from resource manager
 	font = resources.GetFont("old_school");
@@ -37,23 +38,28 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		type = ent->get_type();
 
 		sf::CircleShape circle(size);
-		sf::Texture texture = resources.GetTexture("playerTexture");
-		sf::Sprite playerSprite;
+		sf::RectangleShape rect;
+		circle.setFillColor(sf::Color(0,0,0,0));
+		sf::Sprite sprite;
 
-		Animation animation(&texture, sf::Vector2u(13, 21), 0.2f);
-		if (type == TYPE_SKELETON) circle.setFillColor(sf::Color(255, 0, 0));
-		//if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
-		if (type == TYPE_PLAYER) playerSprite.setTexture(texture);
-		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
+		if (type == TYPE_SKELETON) sprite = view->animation_skeleton.getSprite();
+		if (type == TYPE_PLAYER) rect.setFillColor(sf::Color(0, 255, 0, 125));
+		if (type == TYPE_PLAYER) sprite = view->animation_player.getSprite();
+		//if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
 		if (type == TYPE_PROJECTILE) circle.setFillColor(sf::Color(255, 255, 255));
+		rect.setSize( sf::Vector2f(size , size));
+		rect.setOrigin(sf::Vector2f(size/2.0, size/2.0));
 		circle.setOrigin(sf::Vector2f(size, size));
-		playerSprite.setOrigin(sf::Vector2f(size/2, size/2));
-		playerSprite.setPosition(x,y);
+		sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width /2.0, sprite.getLocalBounds().height /2.0 + 15.0 ));
+		sprite.setPosition(x,y);
 		circle.setPosition(x, y);
+		rect.setPosition(x,y);
 
-		playerSprite.setTextureRect(animation.uvRect);
-		target.draw(playerSprite, states);
-		target.draw(circle, states);
+		target.draw(sprite, states);
+		if ( circle.getFillColor() != sf::Color(0,0,0,0))
+			target.draw(circle, states);
+		target.draw(rect, states);
+
 	}
 
   x = EntityManager::Instance()->getPlayer()->get_position().x;
