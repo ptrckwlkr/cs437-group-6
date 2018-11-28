@@ -109,6 +109,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
     }
 
     placeEntities(num_enemies);
+    placeTreasure(50);
     return level_grid;
 }
 
@@ -311,5 +312,29 @@ void AgentBasedGenerator::printLevelGrid() {
             std::cout << level_grid[j][i];
         }
         std::cout << std::endl;
+    }
+}
+
+void AgentBasedGenerator::placeTreasure(int num_treasures)
+{
+    //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
+    for (int e = 0; e < num_treasures; e++) {
+        //randomly choose a room that isn't the player's starting point
+        int room;
+        room = rand() % num_rooms;
+        std::vector<int> treasure_pos;
+
+        do {
+            treasure_pos = std::vector<int>{(rooms[room][0] + rand() % rooms[room][2]),
+                                         (rooms[room][1] + rand() % rooms[room][3])};
+        } //ensure that enemy position is not in a wall, far enough away from the player, and is unique
+        while (level_grid[treasure_pos[1]][treasure_pos[0]] != '0' ||
+               euclideanDistance(player_x, player_y, treasure_pos[0], treasure_pos[1]) <= 10
+               || (std::find(treasure_coords.begin(), treasure_coords.end(), treasure_pos) != treasure_coords.end()));
+
+        //multiply by cell size and add small offset to center enemy before pushing to vector
+        treasure_pos[0] = treasure_pos[0] * CELL_SIZE + CELL_SIZE / 2;
+        treasure_pos[1] = treasure_pos[1] * CELL_SIZE + CELL_SIZE / 2;
+        treasure_coords.emplace_back(treasure_pos);
     }
 }
