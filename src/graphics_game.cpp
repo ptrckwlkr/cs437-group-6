@@ -1,9 +1,10 @@
 #include "graphics_game.h"
 #include "player_view_game.h"
 #include "macros.h"
+#include "Animation.h"
 
-#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)
-#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE)) + 1)
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
@@ -37,15 +38,28 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		type = ent->get_type();
 
 		sf::CircleShape circle(size);
+		sf::RectangleShape rect;
+		circle.setFillColor(sf::Color(0,0,0,0));
+		sf::Sprite sprite;
 
-		if (type == TYPE_SKELETON) circle.setFillColor(sf::Color(255, 0, 0));
-		if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
-		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
+		if (type == TYPE_SKELETON) sprite = view->animation_skeleton.getSprite();
+		if (type == TYPE_PLAYER) rect.setFillColor(sf::Color(0, 255, 0, 125));
+		if (type == TYPE_PLAYER) sprite = view->animation_player.getSprite();
+		//if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
 		if (type == TYPE_PROJECTILE) circle.setFillColor(sf::Color(255, 255, 255));
-
+		rect.setSize( sf::Vector2f(size , size));
+		rect.setOrigin(sf::Vector2f(size/2.0, size/2.0));
 		circle.setOrigin(sf::Vector2f(size, size));
+		sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width /2.0, sprite.getLocalBounds().height /2.0 + 15.0 ));
+		sprite.setPosition(x,y);
 		circle.setPosition(x, y);
-		target.draw(circle, states);
+		rect.setPosition(x,y);
+
+		target.draw(sprite, states);
+		if ( circle.getFillColor() != sf::Color(0,0,0,0))
+			target.draw(circle, states);
+		target.draw(rect, states);
+
 	}
 
   x = EntityManager::Instance()->getPlayer()->get_position().x;

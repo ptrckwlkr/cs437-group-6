@@ -2,25 +2,17 @@
 #include <view_projectile.h>
 #include "macros.h"
 
-Player::Player(float x, float y) : Entity(x, y, 10) {
-    speed = PLAYER_SPEED;
-    type = TYPE_PLAYER;
-    EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
-    //EventManager::Instance()->RegisterObject(EVENT_PLAYER_PROJECTILE_COLLISION, this);
-    delta_sum = 0.0;
+Player::Player(float x, float y) : Entity(x, y, 20)
+{
+  speed = PLAYER_SPEED;
+  type = TYPE_PLAYER;
+  delta_sum = 0.0;
 }
 
 
-Player::~Player() {
+Player::~Player()
+{
     //unsubscirbe from events 
-}
-
-void Player::HandleEvent(Event *event) {
-    // if (event->EventId() == EVENT_GOLD_COLLECTION) printf("PLAYER: I have collected gold!\n"); // TODO
-    // if (event->EventId()==EVENT_PLAYER_PROJECTILE_COLLISION){
-    //   health -= (int)(event->Arg1());
-    //   printf("PLAYER: I have been shoot at \n");
-    // }
 }
 
 void Player::attack(Vector2D &dir, float delta) {
@@ -34,5 +26,4 @@ void Player::attack(Vector2D &dir, float delta) {
         ViewManager::Instance()->add_view<Projectile, ProjectileView>(projectile);
         delta_sum = 0;
     }
-
 }

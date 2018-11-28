@@ -15,13 +15,12 @@ void EntityManager::removeEntity(long long entity_id){
     while (iter != entities.end()){
 
         //find the correct entity
-        if ( (*iter)->get_id() == entity_id){
+        if ( (*iter)->id == entity_id){
 
             //delete the entity from vector 
             iter = entities.erase(iter);
 
             //delete from the correct list
-            //problem of deleteing entity from specific list
         }
         else {
             iter++;
@@ -29,25 +28,6 @@ void EntityManager::removeEntity(long long entity_id){
         }
 }
 
-//Running into problems of changing entity to projectile to place in list 
-
-// std::list<std::shared_ptr<Projectile>> EntityManager::getProjectiles(){
-//     std::vector<std::shared_ptr<Entity> >::iterator iter = entities.begin();
-
-//     while (iter != entities.end()){
-
-//         //find the projectile base on type
-//         if ( (*iter)->get_type() == TYPE_PROJECTILE){
-//             //add to list 
-//             return projectiles.push_back(iter);
-//         }
-
-//         else{
-//             iter++;
-//         }
-//     }
-
-// }
 
 //returns entity with the given id 
 std::shared_ptr<Entity> &EntityManager::getEntity(long long id){
@@ -58,7 +38,7 @@ std::shared_ptr<Entity> &EntityManager::getEntity(long long id){
     while (iter != entities.end()){
 
         //find the correct entity with specific type
-        if ((*iter)->get_id() == id) {
+        if ((*iter)->id == id) {
             //return entity 
             return (*iter);
         }

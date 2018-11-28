@@ -2,22 +2,12 @@
 #include "EventManager.h"
 
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT){
-    speed = PROJECTILE_SPEED_DEFAULT;
-    maxRange = 500;
-    traveled = 0;
-    damage = 0;
-    type = TYPE_PROJECTILE;
-    EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
-}
-
-//handles events 
-void Projectile::HandleEvent( Event* event){
-//     if (event->EventId() == PROJECTILE_SHOOT)
-//   {
-//     printf("PROJECTILE: shooting!\n");
-//     //attack(Vector2D &dir, float delta);
-//     EventManager::Instance()->UnregisterObject(PROJECTILE_SHOOT, this);
-//   }
+  speed = PROJECTILE_SPEED_DEFAULT;
+  maxRange = 500;
+  traveled = 0;
+  damage = 0;
+  type = TYPE_PROJECTILE;
+  obstructible = true; // TODO?
 }
 
 void Projectile::move(Vector2D &dir, float delta){

@@ -4,54 +4,56 @@
 #include <SFML/Window/Event.hpp>
 #include <list>
 #include <map>
+#include <memory>
+#include <functional>
+#include <events/event_gold_collection.h>
+#include <queue>
 #include "event.h"
-#include "entity.h"
+#include "listener.h"
+
+typedef void (Listener::* Callback)(const Event&);
 
 class EventManager
 {
-    private: 
-        //stores objects and their events
-        std::multimap<EVENTID, Entity*> db;
 
-        //list of events that need to be processed 
-        std::list<Event> currentEvents;
+public:
+    //returns an instance of event manager
+    static EventManager* Instance();
 
-        EventManager() {};
-        ~EventManager() { this->Shutdown(); }
+    void shutdown();
+    void processEvents();
+    void unregisterListener(EventType type, Listener *listener);
+    void unregisterAll(Listener *listener);
 
-        //copies constructor
-        // EventManager( const EventManager& rhs){};
-        // EventManager& operator = ( const EventManager& rhs){};
+    template <class T>
+    void sendEvent(T &event)
+    {
+      queueInactive.push(std::make_shared<T>(event));
+    }
 
-        //helper
-        bool AlreadyRegistered( EVENTID event, Entity* object);
+    template <class T, typename U>
+    void registerListener(EventType type, T *listener, U callback)
+    {
+      if (!listener || alreadyRegistered(type, listener)) return;
+      Callback c = (Callback)callback;
+      database.insert(std::make_pair(type, std::make_pair(listener, c)));
+    };
 
-        //will dispatch events 
-        void DispactchEvent( Event* event);
-        
-    public:
+private:
+    EventManager() = default;;
+    ~EventManager() = default;
+    bool alreadyRegistered(EventType type, Listener *listener);
+    void processUnregisters();
+    void dispatchEvent(Event &event);
+    void clearEvents();
 
-        //returns an instance of event manager
-        static EventManager* Instance();
+    // list of events that need to be processed
+    std::queue<std::shared_ptr<Event>> queueActive;
+    std::queue<std::shared_ptr<Event>> queueInactive;
+    std::multimap<EventType, std::pair<Listener*, Callback>> database;
 
-        //register object to listen to for an event 
-        void RegisterObject(EVENTID event, Entity* object);
+    std::queue<std::multimap<EventType, std::pair<Listener*, Callback>>::iterator> erasures;
 
-        //unregister object from an event
-        void UnregisterObject( EVENTID event , Entity* object);
-
-        //unregister object from all event
-        void UnregisterAll(Entity* object );
-
-        //send event 
-        void SendEvent(EVENTID event, void* data = 0);
-
-        void ProcessEvents();
-
-        void ClearEvents();
-
-        //shuts down the event manager 
-        void Shutdown();
 };
 
 #endif //CSCI437_EVENTMANAGER_H

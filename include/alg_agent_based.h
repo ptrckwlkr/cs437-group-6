@@ -22,6 +22,7 @@ public:
 	std::vector<std::vector<char>> &createLevelGrid(int max_rooms, int num_enemies, float fraction_total_size);
 	bool placeRoom(int i, int j);
 	void placeEntities(int num_enemies);
+	void placeTreasure(int num_treasures);
 	void printLevelGrid();
 
 	int width;
@@ -37,7 +38,7 @@ public:
 
 	//vector of enemy initial coordinates
 	std::vector<std::vector<int>> enemy_coords;
-
+	std::vector<std::vector<int>> treasure_coords;
 	std::vector<std::vector<char>> level_grid;
 
 private:

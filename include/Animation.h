@@ -2,29 +2,35 @@
 #define CSCI437_ANIMATION_H
 
 #include <SFML/Graphics.hpp>
+#include "vector2d.h"
+
+
+enum Direction{
+    WALK_UP = 8,
+    WALK_LEFT = 9,
+    WALK_DOWN = 10,
+    WALK_RIGHT = 11,
+
+};
 
 class Animation 
 {
     private:
-    int numFrames = 9;
-    sf::Texture texture;
-    sf::IntRect frames[numFrames];
-    float timeAni = 0.1f;
-    int iFrame = 0;
+        sf::Vector2u imageCount;
+        sf::Vector2u currentImage;
+
+        float totalTime;
+        float switchTime;
+    public:
+        sf::IntRect uvRect;
+        sf::Sprite sprite;
 
     public:
-
-    Animation ( std::string file, int x, int y, int width, int height){
-        texture.loadFromFile(file);
-        for ( int i =0; i< numFrames; i++){
-            frames[i] = {x + i * width, y, width, height};
-            //TODO: finish creating animation, probably will be moved to player 
-
-        }
-
-    void SetSprite( sf::Sprite& sprite) const{};
-
-
+        Animation();
+        void init(sf::Texture &texture, sf::Vector2u imageCount, float switchTime);
+        ~Animation();
+        void Update(Vector2D dir, int imageCount, float delta);
+        sf::Sprite &getSprite(){ return sprite;}
 };
 
 #endif //CSCI437_ANIMATION_H
