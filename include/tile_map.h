@@ -4,12 +4,13 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include "map.h"
+#include <random>
 #include "ResourceManager.h"
 
 class TileMap
 {
 public:
-    TileMap() = default;
+    TileMap();
     ~TileMap() = default;
 
     void PopulateVertexArray(Map &map, int level_num);
@@ -20,11 +21,15 @@ public:
 
 private:
     void UpdateQuads(int i, int j, int tile_index, bool empty);
+    int RandomFloorIndex();
     int RandomWallIndex();
     int WallLogic(int i, int j, Map &map, CellType above_cell_type, CellType below_cell_type);
 
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
+
+    //Mersenne-Twister engine;
+    std::mt19937 generator;
 
     int width;
     int height;
