@@ -54,8 +54,8 @@ public:
     const bool is_obstructible() {return obstructible;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
-    const long long get_id() {return id;}
     const EntityType get_type() {return type;}
+    long long id;
 
     virtual void move(Vector2D &dir, float delta)
     {
@@ -72,7 +72,6 @@ protected:
     int health;
     int mana;
     bool obstructible;
-    long long id;
     EntityType type;
 
 };

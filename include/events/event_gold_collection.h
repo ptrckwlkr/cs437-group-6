@@ -9,7 +9,7 @@ class EventGoldCollection : public Event
 {
 
 public:
-    explicit EventGoldCollection(Gold *gold);
+    explicit EventGoldCollection(Gold *gold) : Event(), gold(gold) {}
     static const EventType eventType;
     const EventType& getEventType() const override {return eventType;}
     Gold &getGold() const {return *gold;}

@@ -133,26 +133,23 @@ void EventManager::Shutdown(){
 
 void EventManager::process()
 {
-    while (!currentEvents.empty())
-    {
-      dispatch(*currentEvents.front());
-      //then remove from the list
-      currentEvents.pop_front();
-    }
+  while (!currentEvents.empty())
+  {
+    dispatch(*currentEvents.front());
+    //then remove from the list
+    currentEvents.pop_front();
+  }
 }
 
 void EventManager::dispatch(Event &event)
 {
   auto type = event.getEventType();
-  if (type == EventGoldCollection::eventType)
+  auto range = database.equal_range(type);
+  for (auto i = range.first; i != range.second; ++i)
   {
-    auto range = database.equal_range(type);
-    for (auto i = range.first; i != range.second; ++i)
-    {
-      auto entity = (*i).second.first;
-      auto callback = (*i).second.second;
-      (entity->*callback)(event);
-    }
+    auto entity = (*i).second.first;
+    auto callback = (*i).second.second;
+    (entity->*callback)(event);
   }
 }
 
@@ -160,7 +157,7 @@ void EventManager::unregister(EventType e, Entity *obj)
 {
   auto range = database.equal_range(e);
   for (auto i = range.first; i != range.second; ++i){
-    if ((*i).second.first->get_id() == obj->get_id()){
+    if ((*i).second.first->id == obj->id){
       i = database.erase(i);
       return;
     }

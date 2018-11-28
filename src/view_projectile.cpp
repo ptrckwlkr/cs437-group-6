@@ -13,7 +13,7 @@ void ProjectileView::update(float delta)
   projectile->move(dir, delta);
   if (projectile->get_travaled() > projectile->get_maxRange())
   {
-    EntityManager::Instance()->removeEntity(projectile->get_id());
+    EntityManager::Instance()->removeEntity(projectile->id);
     ViewManager::Instance()->remove_view(get_id());
   }
 }

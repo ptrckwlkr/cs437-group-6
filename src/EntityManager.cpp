@@ -15,7 +15,7 @@ void EntityManager::removeEntity(long long entity_id){
     while (iter != entities.end()){
 
         //find the correct entity
-        if ( (*iter)->get_id() == entity_id){
+        if ( (*iter)->id == entity_id){
 
             //delete the entity from vector 
             iter = entities.erase(iter);
@@ -58,7 +58,7 @@ std::shared_ptr<Entity> &EntityManager::getEntity(long long id){
     while (iter != entities.end()){
 
         //find the correct entity with specific type
-        if ((*iter)->get_id() == id) {
+        if ((*iter)->id == id) {
             //return entity 
             return (*iter);
         }

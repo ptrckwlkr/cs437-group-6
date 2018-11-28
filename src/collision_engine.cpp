@@ -1,8 +1,8 @@
 #include <vector>
-#include <macros.h>
-#include <EventManager.h>
+#include "macros.h"
+#include "EventManager.h"
+#include "events/event_collision.h"
 #include "collision_engine.h"
-#include "gold.h"
 
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
@@ -30,49 +30,16 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
         // Handle the collision
         if (entity_collision(*entity1, *entity2))
         {
-          // TODO Handle collision
-          // TODO Needs a mechanism by which duplicate collisions (same entities, multiple cells) are properly handled
-          // EventManager::Instance()->SendEvent(COLLISION_EVENT, reinterpret_cast<void *>(1));
-          if (types(*entity1, *entity2, TYPE_SKELETON, TYPE_SKELETON))
-          {
-
-          }
-
-          if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD)){
-            EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
-            std::shared_ptr<Gold> gold;
-            if (entity1->get_type() == TYPE_GOLD)
-            {
-              gold = std::dynamic_pointer_cast<Gold>(entity1);
-            } else
-            {
-              gold = std::dynamic_pointer_cast<Gold>(entity2);
-            }
-            auto x = EventGoldCollection(gold.get());
-            EventManager::Instance()->send(x);
-          }
-
-          if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_SKELETON )){
-            int d = 10;
-            EventManager::Instance()->SendEvent( EVENT_ENEMY_SHOT_AT, &d);
-          }
-
-          if( types (*entity1, *entity2, TYPE_PLAYER, TYPE_SKELETON )){
-
-          }
-
-          if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_PLAYER )){
-            int d = 10;
-            EventManager::Instance()->SendEvent( EVENT_PLAYER_SHOOT_AT, &d);
-          }
+          EventCollision collision1(entity1.get(), entity2.get());
+          EventCollision collision2(entity2.get(), entity1.get());
+          EventManager::Instance()->send(collision1);
+          EventManager::Instance()->send(collision2);
           if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }
       check_wall_collision(level_map, *entity1);
     }
   }
-
-//  check_wall_collisions(level_map, entities);
 }
 
 /**
@@ -83,15 +50,6 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
   float hypo = entity1.get_size() + entity2.get_size();
   Vector2D vec = entity1.get_position() - entity2.get_position();
   return (hypo * hypo > vec.x * vec.x + vec.y * vec.y);
-}
-
-/**
- * Returns true if entities 1 and 2 are of types 1 and 2, in any order
- */
-bool CollisionEngine::types(Entity &entity1, Entity &entity2, EntityType type1, EntityType type2)
-{
-   return (entity1.get_type() == type1 && entity2.get_type() == type2) ||
-           (entity1.get_type() == type2 && entity2.get_type() == type1);
 }
 
 /**
