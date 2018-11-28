@@ -110,7 +110,7 @@ endif()
 # executables (any CPP file in 'bin' dir)
 foreach(EXEC ${EXECLIST})
   get_filename_component(EXECNAME ${EXEC} NAME_WE)
-  add_executable(${EXECNAME} ${EXEC})
+  add_executable(${EXECNAME} ${EXEC} include/tile_map.h src/tile_map.cpp)
 
   if(NOT SRC STREQUAL "")
     target_link_libraries(${EXECNAME} LINK_PUBLIC ${LIBNAME})

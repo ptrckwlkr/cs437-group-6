@@ -15,6 +15,7 @@ Map::Map(std::vector<std::vector<char>> &grid)
       if (ch == '-') temp.emplace_back(WALL);
       else if (ch == '0' || ch == '1') temp.emplace_back(FLOOR);
 	  else if (ch == 'E') temp.emplace_back(EXIT);
+	  else if (ch == 'o') temp.emplace_back(ORNAMENT);
 
     }
     cells.push_back(temp);

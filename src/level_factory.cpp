@@ -1,11 +1,4 @@
 #include <view_skeleton.h>
-#include "skeleton.h"
-#include "level_factory.h"
-#include "EventManager.h"
-#include "EntityManager.h"
-#include "Player.h"
-#include "gold.h"
-#include "Projectile.h"
 #include "alg_agent_based.h"
 #include "view_manager.h"
 
@@ -30,7 +23,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       map = load("../data/test2.txt");
 	    break;
 	case AGENT_BASED:
-		//NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
+
 		AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
 		//gen.printLevelGrid();
