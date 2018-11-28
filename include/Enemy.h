@@ -12,7 +12,6 @@ public:
     ~Enemy();
     virtual void update(double deltaMs) = 0;
     void move(Vector2D &dir, float delta) override;
-    void HandleEvent(Event* event) override;
 
 }; 
 

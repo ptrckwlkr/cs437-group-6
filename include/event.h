@@ -2,6 +2,9 @@
 #define CSCI437_EVENT_H
 
 #include <string>
+
+typedef long long EventType;
+
 using std::string;
 
 enum EVENTID
@@ -14,23 +17,11 @@ enum EVENTID
 
 class Event {
 
-private:
-    //contains these elements
-    EVENTID eventId;
-    void* arg1;
-
-
-public: 
-    Event(EVENTID eventId, void* arg1 = 0 ){
-        this->eventId = eventId;
-        this->arg1 = arg1;
-
-    }
-    ~Event(){}
-
-    inline EVENTID EventId() const {return eventId;}
-    inline void* Arg1(){ return arg1; }
-    
+public:
+    Event() = default;
+    ~Event() = default;
+    inline EVENTID EventId() const {return EVENT_ENEMY_SHOT_AT;}
+    virtual const EventType& getEventType() const = 0;
 
 };
 

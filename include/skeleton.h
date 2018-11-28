@@ -12,7 +12,6 @@ class Skeleton : public Entity
 
 public:
     Skeleton(float x, float y);
-    void HandleEvent(Event *event) override;
 
 private:
 

@@ -28,10 +28,6 @@ class Projectile: public Entity
 
         virtual void update(double deltaMs) {};
 
-        //handles events 
-        void HandleEvent( Event* event) override;
-        ///if eventid = "attack"
-
         void set_damage(int mD) {damage = mD;}
         
         void set_maxRange(int mD) {maxRange = mD;}

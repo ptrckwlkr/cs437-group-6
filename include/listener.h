@@ -3,16 +3,11 @@
 
 #include "event.h"
 
-class Listener {
-    public: 
-
-        //Constructor
-        Listener() {}
-        virtual ~Listener() {}
-
-        //need to call an event class 
-        virtual void HandleEvent( Event* event) = 0; 
-
+class Listener
+{
+public:
+    Listener() = default;
+    ~Listener() = default;
 };
 
 #endif //CSCI437_LISTENER_H

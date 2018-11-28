@@ -3,8 +3,8 @@
 #include "macros.h"
 #include "Animation.h"
 
-#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)
-#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE)) + 1)
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
@@ -117,7 +117,7 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
 void GameGraphics::storeLevel()
 {
     tile_map.SetTexture();
-    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), 0);
+    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), 2);
 	vertices = tile_map.GetVertices();
 }
 

@@ -11,13 +11,6 @@ Enemy::~Enemy()
     //unsubscirbe from events 
 }
 
-void Enemy::HandleEvent(Event* event)
-{
-     ///if eventid = "walk"
-        //move
-    
-}
-
 void Enemy::move(Vector2D &dir, float delta)
 {
   old_pos = pos;

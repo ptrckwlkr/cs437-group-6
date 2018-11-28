@@ -1,6 +1,8 @@
-#include <view_skeleton.h>
+#include "view_skeleton.h"
 #include "alg_agent_based.h"
 #include "view_manager.h"
+#include "gold.h"
+#include "skeleton.h"
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
@@ -37,6 +39,10 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
       ViewManager::Instance()->add_view<Skeleton, SkeletonView>(ent);
 		}
+    for (int i = 0; i < gen.treasure_coords.size(); i++)
+    {
+      auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0], (float) gen.treasure_coords[i][1]);
+    }
 
 		break;
   }
