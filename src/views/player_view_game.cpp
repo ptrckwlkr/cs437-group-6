@@ -6,6 +6,11 @@
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
   graphics = std::make_shared<GameGraphics>(this);
+  player_text = resources.GetTexture( "playerTexture");
+  skeleton_text = resources.GetTexture("skeletonTexture");
+
+  animation_player.init( player_text, sf::Vector2u(13, 21), 3/60.f);
+  animation_skeleton.init( skeleton_text, sf::Vector2u(13, 21), 3/60.f);
 }
 
 void GameView::process_input(float delta)
@@ -39,10 +44,12 @@ void GameView::process_input(float delta)
 
 	// TODO The call to move should probably eventually be handled through the EventManager
 	//only call move when necessary
-	//if (dir != NONE)
-	//{
-	state->get_level().get_player()->move(dir, delta);
-	}
+	// if (dir != VEC_NONE)
+	// {
+    state->get_level().get_player()->move(dir, delta);
+    animation_player.Update(dir, 9, delta);
+	//}
+  }
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -51,6 +58,7 @@ void GameView::process_input(float delta)
     Vector2D direction = mouse_pos - state->get_level().get_player()->get_position();
 		state->get_level().get_player()->attack(direction, delta);
 	}
+
 }
 
 void GameView::handle_event(sf::Event event)

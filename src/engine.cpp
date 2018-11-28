@@ -20,6 +20,8 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("map", "../data/map.png");
   resources.LoadTexture("fog", "../data/vignette.png");
   resources.LoadTexture("tileset", "../data/tilesheet.png");
+  resources.LoadTexture("playerTexture", "../data/playerSprite.png");
+  resources.LoadTexture("skeletonTexture", "../data/skeletonSprite.png");
 
   App = app;
   curr_game_mode = MODE_MENU;
