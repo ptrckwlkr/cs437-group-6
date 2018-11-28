@@ -3,6 +3,7 @@
 
 #include "event.h"
 #include "vector2d.h"
+#include "listener.h"
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -24,11 +25,11 @@ enum EntityType
     TYPE_GOLD,
 };
 
-class Entity
+class Entity : public Listener
 {
 
 public:
-    Entity(float x, float y, float s) : pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
+    Entity(float x, float y, float s) : Listener(), pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
     {
       static long long entity_id = 0;
 

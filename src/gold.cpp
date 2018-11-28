@@ -5,8 +5,8 @@ Gold::Gold(float x, float y) : Entity(x, y, GOLD_SIZE)
 {
   type = TYPE_GOLD;
 
-  EventManager::Instance()->registerEntity(EventGoldCollection::eventType, this, &handleGoldCollection);
-  EventManager::Instance()->registerEntity(EventCollision::eventType, this, &handleCollision);
+  EventManager::Instance()->registerListener(EventGoldCollection::eventType, this, &handleGoldCollection);
+  EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
 }
 
 void Gold::handleGoldCollection(const EventGoldCollection &event)
@@ -14,7 +14,7 @@ void Gold::handleGoldCollection(const EventGoldCollection &event)
   if (event.getGold().id == id)
   {
     printf("Gold Collected!\n");
-    EventManager::Instance()->unregisterObject(EventGoldCollection::eventType, this);
+    EventManager::Instance()->unregisterListener(EventGoldCollection::eventType, this);
   }
 }
 

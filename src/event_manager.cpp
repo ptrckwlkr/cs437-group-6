@@ -24,11 +24,11 @@ void EventManager::processEvents()
   processUnregisters();
 }
 
-void EventManager::unregisterObject(EventType type, Entity *entity)
+void EventManager::unregisterListener(EventType type, Listener *listener)
 {
   auto range = database.equal_range(type);
   for (auto i = range.first; i != range.second; ++i){
-    if ((*i).second.first->id == entity->id)
+    if ((*i).second.first == listener)
     {
       erasures.push(i);
       //i = database.erase(i);
@@ -37,12 +37,12 @@ void EventManager::unregisterObject(EventType type, Entity *entity)
   }
 }
 
-void EventManager::unregisterAll(Entity *entity)
+void EventManager::unregisterAll(Listener *listener)
 {
   auto i = database.begin();
   while (i != database.end())
   {
-    if ((*i).second.first->id == entity->id)
+    if ((*i).second.first == listener)
     {
       i = database.erase(i);
     }
@@ -50,14 +50,14 @@ void EventManager::unregisterAll(Entity *entity)
   }
 }
 
-bool EventManager::alreadyRegistered(EventType type, Entity *entity)
+bool EventManager::alreadyRegistered(EventType type, Listener *listener)
 {
   //all objects that receive this event
   auto range = database.equal_range(type);
   for (auto i = range.first; i != range.second; ++i)
   {
     //if object already subscribed
-    if((*i).second.first->id == entity->id){
+    if((*i).second.first == listener){
       return true;
     }
   }
@@ -80,9 +80,9 @@ void EventManager::dispatchEvent(Event &event)
   auto range = database.equal_range(type);
   for (auto i = range.first; i != range.second; ++i)
   {
-    auto entity = (*i).second.first;
+    auto listener = (*i).second.first;
     auto callback = (*i).second.second;
-    (entity->*callback)(event);
+    (listener->*callback)(event);
   }
 }
 

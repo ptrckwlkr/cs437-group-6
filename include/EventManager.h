@@ -9,9 +9,9 @@
 #include <events/event_gold_collection.h>
 #include <queue>
 #include "event.h"
-#include "entity.h"
+#include "listener.h"
 
-typedef void (Entity::* Callback)(const Event&);
+typedef void (Listener::* Callback)(const Event&);
 
 class EventManager
 {
@@ -22,8 +22,8 @@ public:
 
     void shutdown();
     void processEvents();
-    void unregisterObject(EventType type, Entity *entity);
-    void unregisterAll(Entity *entity);
+    void unregisterListener(EventType type, Listener *listener);
+    void unregisterAll(Listener *listener);
 
     template <class T>
     void sendEvent(T &event)
@@ -32,17 +32,17 @@ public:
     }
 
     template <class T, typename U>
-    void registerEntity(EventType type, T *entity, U callback)
+    void registerListener(EventType type, T *listener, U callback)
     {
-      if (!entity || alreadyRegistered(type, entity)) return;
+      if (!listener || alreadyRegistered(type, listener)) return;
       Callback c = (Callback)callback;
-      database.insert(std::make_pair(type, std::make_pair(entity, c)));
+      database.insert(std::make_pair(type, std::make_pair(listener, c)));
     };
 
 private:
     EventManager() = default;;
     ~EventManager() = default;
-    bool alreadyRegistered(EventType type, Entity *entity);
+    bool alreadyRegistered(EventType type, Listener *listener);
     void processUnregisters();
     void dispatchEvent(Event &event);
     void clearEvents();
@@ -50,9 +50,9 @@ private:
     // list of events that need to be processed
     std::queue<std::shared_ptr<Event>> queueActive;
     std::queue<std::shared_ptr<Event>> queueInactive;
-    std::multimap<EventType, std::pair<Entity*, Callback>> database;
+    std::multimap<EventType, std::pair<Listener*, Callback>> database;
 
-    std::queue<std::multimap<EventType, std::pair<Entity*, Callback>>::iterator> erasures;
+    std::queue<std::multimap<EventType, std::pair<Listener*, Callback>>::iterator> erasures;
 
 };
 
