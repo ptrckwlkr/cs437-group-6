@@ -1,6 +1,6 @@
 #include <engine.h>
-#include "graphics_level_select.h"
-#include "player_view_level_select.h"
+#include "graphics/graphics_level_select.h"
+#include "views/player_view_level_select.h"
 
 LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {

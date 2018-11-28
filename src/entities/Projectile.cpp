@@ -1,4 +1,4 @@
-#include "Projectile.h"
+#include "entities/Projectile.h"
 #include "EventManager.h"
 
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT){

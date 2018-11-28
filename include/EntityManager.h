@@ -6,7 +6,7 @@
 #include <map>
 #include <list>
 #include "entity.h"
-#include "Player.h"
+#include "entities/Player.h"
 //#include "view_manager.h"
 
 

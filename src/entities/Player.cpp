@@ -1,5 +1,5 @@
 #include <view_manager.h>
-#include <view_projectile.h>
+#include <views/view_projectile.h>
 #include "macros.h"
 
 Player::Player(float x, float y) : Entity(x, y, 20)

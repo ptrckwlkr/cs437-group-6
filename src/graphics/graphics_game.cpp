@@ -1,5 +1,5 @@
-#include "graphics_game.h"
-#include "player_view_game.h"
+#include "graphics/graphics_game.h"
+#include "views/player_view_game.h"
 #include "macros.h"
 #include "Animation.h"
 
