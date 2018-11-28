@@ -1,5 +1,5 @@
 #include "EventManager.h"
-#include "gold.h"
+#include "entities/gold.h"
 
 Gold::Gold(float x, float y) : Entity(x, y, GOLD_SIZE)
 {

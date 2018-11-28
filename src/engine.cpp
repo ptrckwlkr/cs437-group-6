@@ -1,8 +1,8 @@
 #include <SFML/Window/Event.hpp>
-#include "view_skeleton.h"
-#include "player_view_menu.h"
-#include "player_view_game.h"
-#include "player_view_level_select.h"
+#include "views/view_skeleton.h"
+#include "views/player_view_menu.h"
+#include "views/player_view_game.h"
+#include "views/player_view_level_select.h"
 #include "engine.h"
 #include "view_manager.h"
 
