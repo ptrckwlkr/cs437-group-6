@@ -104,10 +104,6 @@ void TileMap::UpdateQuads(int i, int j, int tile_index, bool empty) {
     sf::Vertex* quad = &m_vertices[(j + i * width) * 4];
 
     // define its 4 corners
-//    quad[0].position = sf::Vector2f(j * tileSize.x, i * tileSize.y);
-//    quad[1].position = sf::Vector2f((j + 1) * tileSize.x, i * tileSize.y);
-//    quad[2].position = sf::Vector2f((j + 1) * tileSize.x, (i + 1) * tileSize.y);
-//    quad[3].position = sf::Vector2f(j * tileSize.x, (i + 1) * tileSize.y);
     quad[0].position = sf::Vector2f(j * CELL_SIZE, i * CELL_SIZE);
     quad[1].position = sf::Vector2f((j + 1) * CELL_SIZE, i * CELL_SIZE);
     quad[2].position = sf::Vector2f((j + 1) * CELL_SIZE, (i + 1) * CELL_SIZE);
@@ -212,11 +208,11 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
                 tile_sheet_index = 34;
             else if (down_right == WALL && down_left != WALL && up_left == WALL && up_right == WALL)
                 tile_sheet_index = 11;
-            else if (down_right == WALL && down_left != WALL && up_left != WALL && up_right != WALL)
+            else if (down_right == WALL && down_left != WALL && up_right != WALL)
                 tile_sheet_index = 8;
             else if (down_right != WALL && down_left == WALL && up_left == WALL && up_right == WALL)
                 tile_sheet_index = 12;
-            else if (down_right != WALL && down_left == WALL && up_left != WALL && up_right != WALL)
+            else if (down_right != WALL && down_left == WALL && up_left != WALL)
                 tile_sheet_index = 9;
             else// if (down_right != WALL && down_left != WALL && up_left == WALL && up_right == WALL)
                 tile_sheet_index = 10;
@@ -238,12 +234,16 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
         //WALL ON LEFT SIDE
     else if (left_cell_type != WALL && right_cell_type == WALL)
     {
-        if (above_cell_type == WALL && below_cell_type == WALL && down_right == WALL)
+        if (above_cell_type == WALL && below_cell_type == WALL && down_right == WALL && up_right == WALL)
             tile_sheet_index = 11;
+        else if (above_cell_type == WALL && below_cell_type == WALL && (down_right != WALL || up_right != WALL))
+            tile_sheet_index = 36;
         else if (above_cell_type == WALL && below_cell_type == WALL && down_right != WALL)
             tile_sheet_index = 13;
-        else if (above_cell_type == WALL && below_cell_type != WALL)
+        else if (above_cell_type == WALL && below_cell_type != WALL && up_right == WALL)
             tile_sheet_index = 5;
+        else if (above_cell_type == WALL && below_cell_type != WALL && up_right != WALL)
+            tile_sheet_index = 7;
         else if (above_cell_type != WALL && below_cell_type == WALL)
             tile_sheet_index = 8;
         else //if (above_cell_type != WALL && below_cell_type != WALL)
@@ -255,12 +255,16 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
         // WALL ON RIGHT EDGE
     else if (left_cell_type == WALL && right_cell_type != WALL)
     {
-        if (above_cell_type == WALL && below_cell_type == WALL && down_left == WALL)
+        if (above_cell_type == WALL && below_cell_type == WALL && down_left == WALL && up_left == WALL)
             tile_sheet_index = 12;
+        else if (above_cell_type == WALL && below_cell_type == WALL && (down_left != WALL || up_left != WALL))
+            tile_sheet_index = 35;
         else if (above_cell_type == WALL && below_cell_type == WALL && down_left != WALL)
             tile_sheet_index = 13;
-        else if (above_cell_type == WALL && below_cell_type != WALL)
+        else if (above_cell_type == WALL && below_cell_type != WALL && up_left == WALL)
             tile_sheet_index = 6;
+        else if (above_cell_type == WALL && below_cell_type != WALL && up_left != WALL)
+            tile_sheet_index = 7;
         else if (above_cell_type != WALL && below_cell_type == WALL)
             tile_sheet_index = 9;
         else //if (above_cell_type != WALL && below_cell_type != WALL)
