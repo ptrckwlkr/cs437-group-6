@@ -8,6 +8,7 @@
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
 	storeLevel();
+	this->view = view;
 
 	// get all necessary resources from resource manager
 	font = resources.GetFont("old_school");
