@@ -71,7 +71,11 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 			distance_traveled++;
 
 			if (!checkPointInBounds(digger_x, digger_y)) // turn around if the point is out of bounds
-				cur_dir = chooseRandomDirection(cur_dir, false);
+            {
+			    digger_x -= direction_x;
+			    digger_y -= direction_y;
+			    cur_dir = chooseRandomDirection(cur_dir, false);
+            }
 		}
 
 		//we are now outside the room and still in bounds,
@@ -140,7 +144,7 @@ bool AgentBasedGenerator::placeRoom(int i, int j)
 
 			for (b = 0; b < room_width; b++)
             {
-			    if (a == 0 && room_ornament && (b == room_width/3 || b == (room_width-1)-room_width/3))
+			    if (a == 0 && room_ornament && (b == (room_width/3)/2 || b == (room_width-1)-(room_width/3)/2))
                     level_grid[j][i + b] = 'o';
 			    else
                     level_grid[j + a][i + b] = '0';

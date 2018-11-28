@@ -43,14 +43,13 @@ void TileMap::PopulateVertexArray(Map &map, int level_num)
             int tile_sheet_index;
 
             //determine location of appropriate tile in tileset based on cell type and adjacent cell types
-            if (cell_type == FLOOR || (cell_type == ORNAMENT && (above_cell_type != WALL || map.get_cell(i-2,j).get_cell_type() != WALL)))
+            if (cell_type == FLOOR)
             {
                 //randomly sets tile for variation in texture, 8 possible floor textures starting at index 14 in tile set
                tile_sheet_index = (rand() % 8) + 14;
             }
             else if (cell_type == ORNAMENT)
             {
-                // second half of first if statement ensures that a room wasn't created directly above the ornament
                 //necessary to have both the wall and floor ornament textures and consistent ornaments  within a room
                 int temp;
                 if (ornament_index == -1)
@@ -61,9 +60,16 @@ void TileMap::PopulateVertexArray(Map &map, int level_num)
                 else
                     temp = -1;
 
-                //updates adjacent wall's texture
-                UpdateQuads(i-1, j, ornament_index, false);
-                tile_sheet_index = ornament_index + 1;
+                //ensures that a room wasn't created directly above the ornament, uses regular wall instead
+                if (above_cell_type != WALL || (i > 1 && map.get_cell(i-2,j).get_cell_type() != WALL))
+                    tile_sheet_index = (rand() % 8) + 14;
+                else
+                {
+                    //updates adjacent wall's texture
+                    UpdateQuads(i-1, j, ornament_index, false);
+                    tile_sheet_index = ornament_index + 1;
+                }
+
                 ornament_index = temp;
             }
             else if (cell_type == EXIT)
@@ -206,11 +212,11 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
                 tile_sheet_index = 33;
             else if (down_right == WALL && down_left == WALL && up_left != WALL && up_right != WALL)
                 tile_sheet_index = 34;
-            else if (down_right == WALL && down_left != WALL && up_left == WALL && up_right == WALL)
+            else if (down_right == WALL && down_left != WALL && up_right == WALL)
                 tile_sheet_index = 11;
             else if (down_right == WALL && down_left != WALL && up_right != WALL)
                 tile_sheet_index = 8;
-            else if (down_right != WALL && down_left == WALL && up_left == WALL && up_right == WALL)
+            else if (down_right != WALL && down_left == WALL && up_left == WALL)
                 tile_sheet_index = 12;
             else if (down_right != WALL && down_left == WALL && up_left != WALL)
                 tile_sheet_index = 9;
@@ -236,16 +242,18 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
     {
         if (above_cell_type == WALL && below_cell_type == WALL && down_right == WALL && up_right == WALL)
             tile_sheet_index = 11;
-        else if (above_cell_type == WALL && below_cell_type == WALL && (down_right != WALL || up_right != WALL))
+        else if (above_cell_type == WALL && below_cell_type == WALL && up_right != WALL && down_right == WALL)
             tile_sheet_index = 36;
-        else if (above_cell_type == WALL && below_cell_type == WALL && down_right != WALL)
+        else if (above_cell_type == WALL && below_cell_type == WALL && up_right == WALL && down_right != WALL)
             tile_sheet_index = 13;
         else if (above_cell_type == WALL && below_cell_type != WALL && up_right == WALL)
             tile_sheet_index = 5;
         else if (above_cell_type == WALL && below_cell_type != WALL && up_right != WALL)
             tile_sheet_index = 7;
-        else if (above_cell_type != WALL && below_cell_type == WALL)
+        else if (above_cell_type != WALL && below_cell_type == WALL && down_right == WALL)
             tile_sheet_index = 8;
+        else if (above_cell_type != WALL && below_cell_type == WALL && down_right != WALL && down_left != WALL)
+            tile_sheet_index = 10;
         else //if (above_cell_type != WALL && below_cell_type != WALL)
         {
             tile_sheet_index = RandomWallIndex();
@@ -257,16 +265,18 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
     {
         if (above_cell_type == WALL && below_cell_type == WALL && down_left == WALL && up_left == WALL)
             tile_sheet_index = 12;
-        else if (above_cell_type == WALL && below_cell_type == WALL && (down_left != WALL || up_left != WALL))
+        else if (above_cell_type == WALL && below_cell_type == WALL && up_left != WALL && down_left == WALL)
             tile_sheet_index = 35;
-        else if (above_cell_type == WALL && below_cell_type == WALL && down_left != WALL)
+        else if (above_cell_type == WALL && below_cell_type == WALL && up_left == WALL && down_left != WALL)
             tile_sheet_index = 13;
         else if (above_cell_type == WALL && below_cell_type != WALL && up_left == WALL)
             tile_sheet_index = 6;
         else if (above_cell_type == WALL && below_cell_type != WALL && up_left != WALL)
             tile_sheet_index = 7;
-        else if (above_cell_type != WALL && below_cell_type == WALL)
+        else if (above_cell_type != WALL && below_cell_type == WALL && down_left == WALL)
             tile_sheet_index = 9;
+        else if (above_cell_type != WALL && below_cell_type == WALL && down_left != WALL && down_right != WALL)
+            tile_sheet_index = 10;
         else //if (above_cell_type != WALL && below_cell_type != WALL)
         {
             tile_sheet_index = RandomWallIndex();
