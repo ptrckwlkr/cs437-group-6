@@ -1,19 +1,22 @@
-#include "graphics_game.h"
-#include "player_view_game.h"
+#include "graphics/graphics_game.h"
+#include "views/player_view_game.h"
 #include "macros.h"
+#include "Animation.h"
 
-#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)
-#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE)) + 1)
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view)
 {
 	storeLevel();
+	this->view = view;
 
 	// get all necessary resources from resource manager
 	font = resources.GetFont("old_school");
 	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
 	buffer = resources.GetXMLBuffer("text");
 	root_node = (*doc).first_node("Root")->first_node("UI");
+	tileTexture = resources.GetTexture("tileset");
 }
 
 void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -35,15 +38,28 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		type = ent->get_type();
 
 		sf::CircleShape circle(size);
+		sf::RectangleShape rect;
+		circle.setFillColor(sf::Color(0,0,0,0));
+		sf::Sprite sprite;
 
-		if (type == TYPE_SKELETON) circle.setFillColor(sf::Color(255, 0, 0));
-		if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
-		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
+		if (type == TYPE_SKELETON) sprite = view->animation_skeleton.getSprite();
+		if (type == TYPE_PLAYER) rect.setFillColor(sf::Color(0, 255, 0, 125));
+		if (type == TYPE_PLAYER) sprite = view->animation_player.getSprite();
+		//if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
 		if (type == TYPE_PROJECTILE) circle.setFillColor(sf::Color(255, 255, 255));
-
+		rect.setSize( sf::Vector2f(size , size));
+		rect.setOrigin(sf::Vector2f(size/2.0, size/2.0));
 		circle.setOrigin(sf::Vector2f(size, size));
+		sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width /2.0, sprite.getLocalBounds().height /2.0 + 15.0 ));
+		sprite.setPosition(x,y);
 		circle.setPosition(x, y);
-		target.draw(circle, states);
+		rect.setPosition(x,y);
+
+		target.draw(sprite, states);
+		if ( circle.getFillColor() != sf::Color(0,0,0,0))
+			target.draw(circle, states);
+		target.draw(rect, states);
+
 	}
 
   x = EntityManager::Instance()->getPlayer()->get_position().x;
@@ -88,43 +104,10 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
 {
   // This must always be the first line of every draw method
   states.transform *= getTransform();
+  states.texture = &tileTexture;
 
-  sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-  CellType cell_type;
+  target.draw(vertices, states);
 
-  // Calculate the index bounds, to only draw the cells within view of the player
-  int bound_top   = std::max((int)(view->get_state().get_level().get_player()->get_position().y / CELL_SIZE - IDX_BOUND_Y), 0);
-  int bound_bot   = std::min((int)(view->get_state().get_level().get_player()->get_position().y / CELL_SIZE + IDX_BOUND_Y), view->get_state().get_level().get_map().get_height() - 1);
-  int bound_left  = std::max((int)(view->get_state().get_level().get_player()->get_position().x / CELL_SIZE - IDX_BOUND_X), 0);
-  int bound_right = std::min((int)(view->get_state().get_level().get_player()->get_position().x / CELL_SIZE + IDX_BOUND_X), view->get_state().get_level().get_map().get_width() - 1);
-
-  // Draw the map
-  int i, j;
-  for (i = bound_top; i < bound_bot; ++i)
-  {
-    for (j = bound_left; j < bound_right; ++j)
-    {
-      Cell cell = view->get_state().get_level().get_map().get_cell(i, j);
-      cell_type = cell.get_cell_type();
-      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-
-      if (cell_type == WALL)
-      {
-        rect.setFillColor(sf::Color(64, 64, 64));
-      }
-      else if (cell_type == FLOOR)
-      {
-        rect.setFillColor(sf::Color(128, 128, 128));
-         // if (cell.is_occupied()) rect.setFillColor(sf::Color(128, 128, 255)); // TODO just for fun
-      }
-			else if (cell_type == EXIT)
-			{
-				rect.setFillColor(sf::Color(255, 230, 0));
-			}
-      rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-      target.draw(rect, states);
-    }
-  }
 }
 
 
@@ -133,26 +116,8 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
 */
 void GameGraphics::storeLevel()
 {
-	// Draw every cell onto the screen
-	int i, j;
-	for (i = 0; i < view->get_state().get_level().get_map().get_height(); ++i)
-	{
-		for (j = 0; j < view->get_state().get_level().get_map().get_width(); ++j)
-		{
-			sf::RectangleShape rect(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-			rect.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-
-			// Color the cells according to their type
-			if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == WALL)
-			{
-				rect.setFillColor(sf::Color(64, 64, 64));
-			}
-			else if (view->get_state().get_level().get_map().get_cell(i, j).get_cell_type() == FLOOR)
-			{
-				rect.setFillColor(sf::Color(128, 128, 128));
-			}
-			levelShapes.push_back(rect);
-		}
-	}
+    tile_map.SetTexture();
+    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), 2);
+	vertices = tile_map.GetVertices();
 }
 

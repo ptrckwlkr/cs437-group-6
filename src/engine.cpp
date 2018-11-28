@@ -1,12 +1,9 @@
 #include <SFML/Window/Event.hpp>
-#include <iostream>
-#include <chrono>
-#include "view_skeleton.h"
-#include "player_view_menu.h"
-#include "player_view_game.h"
-#include "player_view_level_select.h"
+#include "views/view_skeleton.h"
+#include "views/player_view_menu.h"
+#include "views/player_view_game.h"
+#include "views/player_view_level_select.h"
 #include "engine.h"
-#include "macros.h"
 #include "view_manager.h"
 
 Engine &Engine::getInstance()
@@ -22,6 +19,9 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadXML("text", "../data/game-text.xml");
   resources.LoadTexture("map", "../data/map.png");
   resources.LoadTexture("fog", "../data/vignette.png");
+  resources.LoadTexture("tileset", "../data/tilesheet.png");
+  resources.LoadTexture("playerTexture", "../data/playerSprite.png");
+  resources.LoadTexture("skeletonTexture", "../data/skeletonSprite.png");
 
   App = app;
   curr_game_mode = MODE_MENU;

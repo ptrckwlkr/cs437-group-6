@@ -1,13 +1,8 @@
-#include <view_skeleton.h>
-#include "skeleton.h"
-#include "level_factory.h"
-#include "EventManager.h"
-#include "EntityManager.h"
-#include "Player.h"
-#include "gold.h"
-#include "Projectile.h"
+#include "views/view_skeleton.h"
 #include "alg_agent_based.h"
 #include "view_manager.h"
+#include "entities/gold.h"
+#include "entities/skeleton.h"
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
@@ -30,7 +25,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       map = load("../data/test2.txt");
 	    break;
 	case AGENT_BASED:
-		//NOTE THAT NUMBER OF ENEMIES HAS TO BE LARGER THAN THE NUMBER OF ROOMS!!!
+
 		AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
 		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
 		//gen.printLevelGrid();
@@ -44,6 +39,10 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
       ViewManager::Instance()->add_view<Skeleton, SkeletonView>(ent);
 		}
+    for (int i = 0; i < gen.treasure_coords.size(); i++)
+    {
+      auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0], (float) gen.treasure_coords[i][1]);
+    }
 
 		break;
   }

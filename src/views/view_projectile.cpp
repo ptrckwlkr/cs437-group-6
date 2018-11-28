@@ -1,6 +1,6 @@
 #include <game_logic.h>
 #include <view_manager.h>
-#include "view_projectile.h"
+#include "views/view_projectile.h"
 
 ProjectileView::ProjectileView(GameLogic *state, Projectile &entity) : View(state)
 {
@@ -13,7 +13,7 @@ void ProjectileView::update(float delta)
   projectile->move(dir, delta);
   if (projectile->get_travaled() > projectile->get_maxRange())
   {
-    EntityManager::Instance()->removeEntity(projectile->get_id());
+    EntityManager::Instance()->removeEntity(projectile->id);
     ViewManager::Instance()->remove_view(get_id());
   }
 }

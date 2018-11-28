@@ -1,5 +1,4 @@
 #include <view_manager.h>
-#include "game_logic.h"
 
 GameLogic::GameLogic()
 {
@@ -17,7 +16,7 @@ void GameLogic::update_state()
   collision_engine.hash_entities(level->get_map(), EntityManager::Instance()->getEntites());
   level->update();
   collision_engine.check_collisions(level->get_map(), EntityManager::Instance()->getEntites());
-  EventManager::Instance()->ProcessEvents();
+  EventManager::Instance()->processEvents();//ProcessEvents();
 }
 
 /**
@@ -32,10 +31,10 @@ void GameLogic::create_new_level(Generator g)
 
 void GameLogic::reset()
 {
-  EventManager::Instance()->ClearEvents();
+  EventManager::Instance()->shutdown();
   for (const auto &e : EntityManager::Instance()->getEntites())
   {
-    EventManager::Instance()->UnregisterAll(e.get());
+    EventManager::Instance()->unregisterAll(e.get());
   }
   collision_engine.reset();
   EntityManager::Instance()->ClearAll();

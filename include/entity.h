@@ -3,6 +3,7 @@
 
 #include "event.h"
 #include "vector2d.h"
+#include "listener.h"
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -24,11 +25,11 @@ enum EntityType
     TYPE_GOLD,
 };
 
-class Entity
+class Entity : public Listener
 {
 
 public:
-    Entity(float x, float y, float s) : pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
+    Entity(float x, float y, float s) : Listener(), pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
     {
       static long long entity_id = 0;
 
@@ -37,6 +38,7 @@ public:
       health = 0; //TODO
       mana = 0;   //TODO
       speed = 0;
+      obstructible = false;
       type = TYPE_NONE;
     }
     ~Entity() = default;
@@ -50,10 +52,11 @@ public:
     const Vector2D &get_position() {return pos;}
     const Vector2D &get_old_position() {return old_pos;}
     const float get_size() {return size;}
+    const bool is_obstructible() {return obstructible;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
-    const long long get_id() {return id;}
     const EntityType get_type() {return type;}
+    long long id;
 
     virtual void move(Vector2D &dir, float delta)
     {
@@ -61,7 +64,6 @@ public:
       float delta_speed = speed * delta;
       pos = pos + dir.normal() * delta_speed;
     }
-    virtual void HandleEvent(Event* event) = 0;
 
 protected:
     Vector2D pos;
@@ -70,7 +72,7 @@ protected:
     float speed;
     int health;
     int mana;
-    long long id;
+    bool obstructible;
     EntityType type;
 
 };
