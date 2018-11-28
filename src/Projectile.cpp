@@ -9,7 +9,6 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     traveled = 0;
     damage = 0;
     type = TYPE_PROJECTILE;
-    EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
 }
 
 void Projectile::move(Vector2D &dir, float delta){

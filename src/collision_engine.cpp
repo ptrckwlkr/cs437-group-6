@@ -32,8 +32,8 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
         {
           EventCollision collision1(entity1.get(), entity2.get());
           EventCollision collision2(entity2.get(), entity1.get());
-          EventManager::Instance()->send(collision1);
-          EventManager::Instance()->send(collision2);
+          EventManager::Instance()->sendEvent(collision1);
+          EventManager::Instance()->sendEvent(collision2);
           if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }

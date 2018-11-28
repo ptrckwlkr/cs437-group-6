@@ -9,8 +9,6 @@ Player::Player(float x, float y) : Entity(x, y, 10)
 {
   speed = PLAYER_SPEED;
   type = TYPE_PLAYER;
-  EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
-  //EventManager::Instance()->RegisterObject(EVENT_PLAYER_PROJECTILE_COLLISION, this);
 }
 
 
