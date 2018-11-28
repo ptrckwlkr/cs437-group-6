@@ -1,4 +1,4 @@
-#include "view_skeleton.h"
+#include "views/view_skeleton.h"
 #include "view_manager.h"
 
 ViewManager::ViewManager()

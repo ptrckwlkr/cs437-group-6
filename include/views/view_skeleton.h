@@ -2,8 +2,9 @@
 #define CSCI437_SKELETONVIEW_H
 
 #include "view.h"
-#include "skeleton.h"
+#include "entities/skeleton.h"
 #include <math.h>
+
 
 class SkeletonView : public View
 {

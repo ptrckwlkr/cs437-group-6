@@ -1,5 +1,5 @@
-#include "graphics_menu.h"
-#include "player_view_menu.h"
+#include "graphics/graphics_menu.h"
+#include "views/player_view_menu.h"
 #include "macros.h"
 
 MenuGraphics::MenuGraphics(MenuView *view) : Graphics(), view(view)
