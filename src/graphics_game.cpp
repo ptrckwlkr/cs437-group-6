@@ -1,6 +1,7 @@
 #include "graphics_game.h"
 #include "player_view_game.h"
 #include "macros.h"
+#include "Animation.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE)) + 1)
@@ -35,14 +36,22 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		type = ent->get_type();
 
 		sf::CircleShape circle(size);
+		sf::Texture texture = resources.GetTexture("playerTexture");
+		sf::Sprite playerSprite;
 
+		Animation animation(&texture, sf::Vector2u(13, 21), 0.2f);
 		if (type == TYPE_SKELETON) circle.setFillColor(sf::Color(255, 0, 0));
-		if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
+		//if (type == TYPE_PLAYER) circle.setFillColor(sf::Color(0, 255, 0));
+		if (type == TYPE_PLAYER) playerSprite.setTexture(texture);
 		if (type == TYPE_GOLD) circle.setFillColor(sf::Color(255, 255, 0));
 		if (type == TYPE_PROJECTILE) circle.setFillColor(sf::Color(255, 255, 255));
-
 		circle.setOrigin(sf::Vector2f(size, size));
+		playerSprite.setOrigin(sf::Vector2f(size/2, size/2));
+		playerSprite.setPosition(x,y);
 		circle.setPosition(x, y);
+
+		playerSprite.setTextureRect(animation.uvRect);
+		target.draw(playerSprite, states);
 		target.draw(circle, states);
 	}
 

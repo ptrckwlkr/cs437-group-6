@@ -46,7 +46,9 @@ void GameView::process_input(float delta)
 	//only call move when necessary
 	//if (dir != NONE)
 	//{
-	state->get_level().get_player()->move(dir, delta);
+    state->get_level().get_player()->move(dir, delta);
+    // animation.Update(8,9, 0.3f);
+		// playerSprite.setTextureRect(animation.uvRect);
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
