@@ -24,7 +24,9 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
 
 	//seeds random generator for testing purposes, using time(NULL) makes the level random every time
 	//srand(123456789);
-	srand((unsigned int) time(NULL));
+    unsigned seed = (unsigned int) time(NULL);
+	srand(seed);
+	printf("Seed: %d\n",seed);
 }
 
 
@@ -69,7 +71,11 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 			distance_traveled++;
 
 			if (!checkPointInBounds(digger_x, digger_y)) // turn around if the point is out of bounds
-				cur_dir = chooseRandomDirection(cur_dir, false);
+            {
+			    digger_x -= direction_x;
+			    digger_y -= direction_y;
+			    cur_dir = chooseRandomDirection(cur_dir, false);
+            }
 		}
 
 		//we are now outside the room and still in bounds,
@@ -133,8 +139,16 @@ bool AgentBasedGenerator::placeRoom(int i, int j)
 		
 		for (a = 0; a < room_height; a++)
 		{
+		    //adds a decorative ornament to the wall
+		    bool room_ornament = (rand() % 2) == 1;
+
 			for (b = 0; b < room_width; b++)
-				level_grid[j + a][i + b] = '0';
+            {
+			    if (a == 0 && room_ornament && (b == (room_width/3)/2 || b == (room_width-1)-(room_width/3)/2))
+                    level_grid[j][i + b] = 'o';
+			    else
+                    level_grid[j + a][i + b] = '0';
+            }
 		}
 
 		num_rooms++;
