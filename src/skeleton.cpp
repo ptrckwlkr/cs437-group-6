@@ -1,5 +1,4 @@
 #include "skeleton.h"
-#include "skeleton.h"
 #include "EventManager.h"
 
 Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)

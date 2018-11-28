@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "graphics.h"
 #include "player_view.h"
+#include "tile_map.h"
 
 class GameView;
 class GameGraphics : public Graphics
@@ -19,6 +20,10 @@ private:
 	void drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const;
 	void drawLevel(sf::RenderTarget &target, sf::RenderStates states) const;
 	void storeLevel();
+
+	TileMap tile_map;
+	sf::VertexArray vertices;
+	sf::Texture tileTexture;
 
 	std::vector<sf::RectangleShape> levelShapes;
 	sf::Font font;

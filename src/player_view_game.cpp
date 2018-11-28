@@ -2,11 +2,6 @@
 #include "graphics_game.h"
 #include "macros.h"
 #include "engine.h"
-#include "Player.h"
-#include "Projectile.h"
-#include "math.h"
-#include <algorithm>
-#include <iostream>
 
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
