@@ -27,20 +27,20 @@ bool EventManager::AlreadyRegistered( EVENTID eventId, Entity* object){
 }
 
 //iterate through list of objects to respond to a specific event
-void EventManager::DispactchEvent( Event* event){
+void EventManager::DispactchEvent(Event &event){
 
   //iterator 
     std::pair<std::multimap<EVENTID, Entity*>::iterator,
     std::multimap<EVENTID, Entity*>::iterator> range;
 
     //find all objects who react to this event
-    range = db.equal_range( event->EventId() );
+    range = db.equal_range( event.EventId() );
 
     for ( std::multimap<EVENTID, Entity*>::iterator i = range.first;
         i != range.second; i++){
 
             //for each object handle the event
-            (*i).second ->HandleEvent(event);
+            //(*i).second ->HandleEvent(event);
         }
 }
 
@@ -106,15 +106,15 @@ void EventManager::UnregisterAll(Entity *object){
 
 //send event
 void EventManager::SendEvent(EVENTID event, void *data){
-    Event newEvent(event, data);
-    currentEvents.push_back(newEvent);
+    //Event newEvent(event, data);
+    //currentEvents.push_back(newEvent);
 }
 
 void EventManager::ProcessEvents(){
 
     //for each event in list, dispatch the event
     while (currentEvents.size()){
-        DispactchEvent(&currentEvents.front());
+        DispactchEvent(*currentEvents.front());
         //then remove from the list
         currentEvents.pop_front();
     }
@@ -129,4 +129,40 @@ void EventManager::ClearEvents(){
 
 //shuts down the event manager
 void EventManager::Shutdown(){
+}
+
+void EventManager::process()
+{
+    while (!currentEvents.empty())
+    {
+      dispatch(*currentEvents.front());
+      //then remove from the list
+      currentEvents.pop_front();
+    }
+}
+
+void EventManager::dispatch(Event &event)
+{
+  auto type = event.getEventType();
+  if (type == EventGoldCollection::eventType)
+  {
+    auto range = database.equal_range(type);
+    for (auto i = range.first; i != range.second; ++i)
+    {
+      auto entity = (*i).second.first;
+      auto callback = (*i).second.second;
+      (entity->*callback)(event);
+    }
+  }
+}
+
+void EventManager::unregister(EventType e, Entity *obj)
+{
+  auto range = database.equal_range(e);
+  for (auto i = range.first; i != range.second; ++i){
+    if ((*i).second.first->get_id() == obj->get_id()){
+      i = database.erase(i);
+      return;
+    }
+  }
 }

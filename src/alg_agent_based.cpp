@@ -108,6 +108,7 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 	}
 	
 	placeEntities(num_enemies);
+	placeTreasure(100);
 	return level_grid;
 }
 
@@ -183,6 +184,42 @@ void AgentBasedGenerator::placeEntities(int num_enemies)
 		enemy_pos[0] = enemy_pos[0] * CELL_SIZE + CELL_SIZE / 2;
 		enemy_pos[1] = enemy_pos[1] * CELL_SIZE + CELL_SIZE / 2;
 		enemy_coords.emplace_back(enemy_pos);
+
+	}
+	// multiply coordinates by cell size before leaving function so that everything works properly in the graphics
+	player_x *= CELL_SIZE, player_y *= CELL_SIZE;
+	exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
+}
+
+
+void AgentBasedGenerator::placeTreasure(int num_treasures)
+{
+	int player_room = createStartAndExit();
+
+	//mark exit cell
+	level_grid[exit_y][exit_x] = 'E';
+
+	//iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
+	for (int e = 0; e < num_treasures; e++)
+	{
+		//randomly choose a room that isn't the player's starting point
+		int room;
+		do {
+			room = rand() % num_rooms;
+		} while (room == player_room || euclideanDistance(player_x, player_y, rooms[room][0] + rooms[room][2] / 2, rooms[room][1] + rooms[room][3] / 2) < 12);
+
+		std::vector<int> treasure_pos;
+
+		do {
+			treasure_pos = std::vector<int>{ (rooms[room][0] + rand() % rooms[room][2]), (rooms[room][1] + rand() % rooms[room][3]) };
+		} //ensure that enemy position is not in a wall, far enough away from the player, and is unique
+		while (level_grid[treasure_pos[1]][treasure_pos[0]] != '0' || euclideanDistance(player_x, player_y, treasure_pos[0], treasure_pos[1]) <= 10
+					 || (std::find(enemy_coords.begin(), enemy_coords.end(), treasure_pos) != enemy_coords.end()));
+
+		//multiply by cell size and add small offset to center enemy before pushing to vector
+		treasure_pos[0] = treasure_pos[0] * CELL_SIZE + CELL_SIZE / 2;
+		treasure_pos[1] = treasure_pos[1] * CELL_SIZE + CELL_SIZE / 2;
+		treasure_coords.emplace_back(treasure_pos);
 
 	}
 	// multiply coordinates by cell size before leaving function so that everything works properly in the graphics

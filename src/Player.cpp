@@ -19,15 +19,6 @@ Player::~Player()
     //unsubscirbe from events 
 }
 
-void Player::HandleEvent(Event* event)
-{
-  // if (event->EventId() == EVENT_GOLD_COLLECTION) printf("PLAYER: I have collected gold!\n"); // TODO
-  // if (event->EventId()==EVENT_PLAYER_PROJECTILE_COLLISION){
-  //   health -= (int)(event->Arg1());
-  //   printf("PLAYER: I have been shoot at \n");
-  // }
-}
-
 void Player::attack(Vector2D &dir)
 {
   float x = EntityManager::Instance()->getPlayer()->get_position().x;

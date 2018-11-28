@@ -44,6 +44,10 @@ std::shared_ptr<Level> LevelFactory::generate_level()
       auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
       ViewManager::Instance()->add_view<Skeleton, SkeletonView>(ent);
 		}
+    for (int i = 0; i < gen.treasure_coords.size(); i++)
+    {
+      auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0], (float) gen.treasure_coords[i][1]);
+    }
 
 		break;
   }

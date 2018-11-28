@@ -17,7 +17,7 @@ void GameLogic::update_state()
   collision_engine.hash_entities(level->get_map(), EntityManager::Instance()->getEntites());
   level->update();
   collision_engine.check_collisions(level->get_map(), EntityManager::Instance()->getEntites());
-  EventManager::Instance()->ProcessEvents();
+  EventManager::Instance()->process();//ProcessEvents();
 }
 
 /**

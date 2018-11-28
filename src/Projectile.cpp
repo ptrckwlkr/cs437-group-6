@@ -12,16 +12,6 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     EventManager::Instance()->RegisterObject(EVENT_GOLD_COLLECTION, this);
 }
 
-//handles events 
-void Projectile::HandleEvent( Event* event){
-//     if (event->EventId() == PROJECTILE_SHOOT)
-//   {
-//     printf("PROJECTILE: shooting!\n");
-//     //attack(Vector2D &dir, float delta);
-//     EventManager::Instance()->UnregisterObject(PROJECTILE_SHOOT, this);
-//   }
-}
-
 void Projectile::move(Vector2D &dir, float delta){
   old_pos = pos;
   float delta_speed = speed * delta;

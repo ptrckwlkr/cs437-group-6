@@ -37,6 +37,7 @@ public:
       health = 0; //TODO
       mana = 0;   //TODO
       speed = 0;
+      obstructible = false;
       type = TYPE_NONE;
     }
     ~Entity() = default;
@@ -50,6 +51,7 @@ public:
     const Vector2D &get_position() {return pos;}
     const Vector2D &get_old_position() {return old_pos;}
     const float get_size() {return size;}
+    const bool is_obstructible() {return obstructible;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
     const long long get_id() {return id;}
@@ -61,7 +63,6 @@ public:
       float delta_speed = speed * delta;
       pos = pos + dir.normal() * delta_speed;
     }
-    virtual void HandleEvent(Event* event) = 0;
 
 protected:
     Vector2D pos;
@@ -70,6 +71,7 @@ protected:
     float speed;
     int health;
     int mana;
+    bool obstructible;
     long long id;
     EntityType type;
 

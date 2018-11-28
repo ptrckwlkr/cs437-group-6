@@ -2,6 +2,7 @@
 #include <macros.h>
 #include <EventManager.h>
 #include "collision_engine.h"
+#include "gold.h"
 
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
@@ -39,6 +40,16 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
 
           if (types(*entity1, *entity2, TYPE_PLAYER, TYPE_GOLD)){
             EventManager::Instance()->SendEvent(EVENT_GOLD_COLLECTION, nullptr);
+            std::shared_ptr<Gold> gold;
+            if (entity1->get_type() == TYPE_GOLD)
+            {
+              gold = std::dynamic_pointer_cast<Gold>(entity1);
+            } else
+            {
+              gold = std::dynamic_pointer_cast<Gold>(entity2);
+            }
+            auto x = EventGoldCollection(gold.get());
+            EventManager::Instance()->send(x);
           }
 
           if( types (*entity1, *entity2, TYPE_PROJECTILE, TYPE_SKELETON )){
@@ -54,10 +65,7 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
             int d = 10;
             EventManager::Instance()->SendEvent( EVENT_PLAYER_SHOOT_AT, &d);
           }
-          else
-          {
-            adjust_positions(*entity1, *entity2);
-          }
+          if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }
       check_wall_collision(level_map, *entity1);
