@@ -4,7 +4,7 @@
 #include "entity.h"
 #include "event.h"
 
-#define SKELETON_SIZE  10
+#define SKELETON_SIZE  15
 #define SKELETON_SPEED 50
 
 class Skeleton : public Entity
@@ -12,6 +12,8 @@ class Skeleton : public Entity
 
 public:
     Skeleton(float x, float y);
+    static const EntityType entityType;
+    const EntityType& getEntityType() const override {return entityType;}
 
 private:
 

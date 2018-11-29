@@ -15,15 +15,7 @@
 #define VEC_WEST         Vector2D(-1, 0)
 #define VEC_NORTHWEST    Vector2D(-1, -1)
 
-enum EntityType
-{
-    TYPE_NONE,
-    TYPE_PLAYER,
-    TYPE_ENEMY,
-    TYPE_SKELETON,
-    TYPE_PROJECTILE,
-    TYPE_GOLD,
-};
+typedef long long EntityType;
 
 class Entity : public Listener
 {
@@ -39,10 +31,8 @@ public:
       mana = 0;   //TODO
       speed = 0;
       obstructible = false;
-      type = TYPE_NONE;
       alive = true;
     }
-    ~Entity() = default;
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
     void set_position(Vector2D new_pos) {pos = new_pos;}
@@ -57,9 +47,9 @@ public:
     const bool is_dead() {return !alive;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
-    const EntityType get_type() {return type;}
     long long id;
 
+    virtual const EntityType& getEntityType() const = 0;
     virtual void move(Vector2D &dir, float delta)
     {
       old_pos = pos;
@@ -76,7 +66,6 @@ protected:
     int mana;
     bool obstructible;
     bool alive;
-    EntityType type;
 
 };
 

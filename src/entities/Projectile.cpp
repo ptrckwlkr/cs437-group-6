@@ -6,7 +6,6 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
   maxRange = 500;
   traveled = 0;
   damage = 0;
-  type = TYPE_PROJECTILE;
   obstructible = true; // TODO?
 
   EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &handleWallCollision);
@@ -27,5 +26,5 @@ void Projectile::move(Vector2D &dir, float delta){
 
 void Projectile::handleWallCollision(const EventWallCollision &event)
 {
-
+  if (event.getEntity().id == id) alive = false;
 }

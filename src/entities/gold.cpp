@@ -4,8 +4,6 @@
 
 Gold::Gold(float x, float y) : Entity(x, y, GOLD_SIZE)
 {
-  type = TYPE_GOLD;
-
   EventManager::Instance()->registerListener(EventGoldCollection::eventType, this, &handleGoldCollection);
   EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
 }
@@ -27,7 +25,7 @@ void Gold::handleGoldCollection(const EventGoldCollection &event)
 
 void Gold::handleCollision(const EventCollision &event)
 {
-  if (event.getSelf().id == id && event.getOther().get_type() == TYPE_PLAYER)
+  if (event.getSelf().id == id && event.getOther().getEntityType() == Player::entityType)
   {
     auto e = EventGoldCollection(this);
     EventManager::Instance()->sendEvent(e);
