@@ -31,20 +31,19 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
         // Handle the collision
         if (entity_collision(*entity1, *entity2))
         {
-          EventCollision collision1(entity1.get(), entity2.get());
-          EventCollision collision2(entity2.get(), entity1.get());
-          EventManager::Instance()->sendEvent(collision1);
-          EventManager::Instance()->sendEvent(collision2);
+          EventItem item = {EventCollision::eventType, entity1.get(), entity2.get()};
+          event_set.insert(item);
           if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }
       if (wall_collision(level_map, *entity1))
       {
-        EventWallCollision collision(entity1.get());
-        EventManager::Instance()->sendEvent(collision);
+        EventItem item = {EventWallCollision::eventType, entity1.get(), nullptr};
+        event_set.insert(item);
       }
     }
   }
+  dispatchEvents();
 }
 
 /**
@@ -168,4 +167,25 @@ void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
   float dy = correction.y / 2;
   entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
   entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
+}
+
+void CollisionEngine::dispatchEvents()
+{
+  for (auto &item : event_set)
+  {
+    if (item.type == EventCollision::eventType)
+    {
+      EventCollision collision1(item.entity1, item.entity2);
+      EventCollision collision2(item.entity2, item.entity1);
+      EventManager::Instance()->sendEvent(collision1);
+      EventManager::Instance()->sendEvent(collision2);
+
+    }
+    else if (item.type == EventWallCollision::eventType)
+    {
+      EventWallCollision collision(item.entity1);
+      EventManager::Instance()->sendEvent(collision);
+    }
+  }
+  event_set.clear();
 }

@@ -32,6 +32,7 @@ public:
       speed = 0;
       obstructible = false;
       alive = true;
+      hostile = false;
     }
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
@@ -45,6 +46,7 @@ public:
     const float get_size() {return size;}
     const bool is_obstructible() {return obstructible;}
     const bool is_dead() {return !alive;}
+    const bool is_hostile() {return hostile;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
     long long id;
@@ -66,6 +68,7 @@ protected:
     int mana;
     bool obstructible;
     bool alive;
+    bool hostile;
 
 };
 

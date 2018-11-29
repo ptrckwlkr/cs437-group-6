@@ -2,6 +2,7 @@
 #define CSCI437_PROJECTILE_H
 
 #include <events/event_wall_collision.h>
+#include <events/event_collision.h>
 #include "entity.h"
 #include "event.h"
 #include "math.h"
@@ -20,6 +21,7 @@ private:
     float traveled;
 
     void handleWallCollision(const EventWallCollision &event);
+    void handleCollision(const EventCollision &event);
 
 protected:
     Vector2D direction = VEC_NONE;
