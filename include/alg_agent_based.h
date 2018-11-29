@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <math.h>
 #include <random>
+#include "vector2d.h"
 
 
 
@@ -28,6 +29,12 @@ public:
 	int width;
 	int height;
 
+	//vector for enemy movement
+	std::vector<Vector2D> path_nodes;
+
+	//extreme points to cut down size of map
+	int min_x, max_x, min_y, max_y;
+
 	//player's initial coordinates
 	int player_x;
 	int player_y;
@@ -49,6 +56,7 @@ private:
 	{ return ((i < width - 2) && (j < height - 2) && (i > 1) && (j > 1)); }
 	
 	float euclideanDistance(int x1, int y1, int x2, int y2) { return sqrtf((float)(x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2)); }
+	void updateExtremeCoords(int cur_x, int cur_y);
 
 	//stores information about each room in the level
 	std::vector<std::vector<int>> rooms;
