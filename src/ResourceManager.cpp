@@ -45,6 +45,18 @@ sf::Sprite &ResourceManager::GetSprite( std::string name){
 
 }
 
+void ResourceManager::LoadSound( std::string name, std::string fileName) {
+	sf::SoundBuffer snd;
+	if (snd.loadFromFile(fileName) ){
+		this->_soundbuffers[name] = snd;
+		this->_sounds[name] = sf::Sound(this->_soundbuffers.at(name));
+	}
+}
+
+sf::Sound &ResourceManager::GetSound( std::string name) {
+	return this->_sounds.at(name);
+}
+
 void ResourceManager::LoadXML(std::string name, std::string filename)
 {
 	// Read the xml file into a vector
