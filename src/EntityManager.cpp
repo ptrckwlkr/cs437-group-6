@@ -1,4 +1,4 @@
-#include "EntityManager.h"    
+#include "EntityManager.h"
         
 
 //returns an instance of event manager
@@ -48,24 +48,6 @@ std::shared_ptr<Entity> &EntityManager::getEntity(long long id){
         }
     }
 
-}
-
-std::shared_ptr<Entity> &EntityManager::getEntity(enum EntityType type){
-     //iterator
-    std::vector<std::shared_ptr<Entity> >::iterator iter = entities.begin();
-
-    while (iter != entities.end()){
-
-        //find the correct entity with specific type
-        if ( (*iter)->get_type() == type){
-            //return entity 
-            return (*iter);
-        }
-
-        else{
-            iter++;
-        }
-    }
 }
 
 

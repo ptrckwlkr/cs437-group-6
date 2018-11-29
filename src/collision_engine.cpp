@@ -1,4 +1,5 @@
 #include <vector>
+#include <events/event_wall_collision.h>
 #include "macros.h"
 #include "EventManager.h"
 #include "events/event_collision.h"
@@ -30,16 +31,19 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
         // Handle the collision
         if (entity_collision(*entity1, *entity2))
         {
-          EventCollision collision1(entity1.get(), entity2.get());
-          EventCollision collision2(entity2.get(), entity1.get());
-          EventManager::Instance()->sendEvent(collision1);
-          EventManager::Instance()->sendEvent(collision2);
+          EventItem item = {EventCollision::eventType, entity1.get(), entity2.get()};
+          event_set.insert(item);
           if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }
-      check_wall_collision(level_map, *entity1);
+      if (wall_collision(level_map, *entity1))
+      {
+        EventItem item = {EventWallCollision::eventType, entity1.get(), nullptr};
+        event_set.insert(item);
+      }
     }
   }
+  dispatchEvents();
 }
 
 /**
@@ -97,7 +101,7 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
  */
 void CollisionEngine::clear_cells(Map &level_map)
 {
-  for (auto cell : occupied_cells)
+  for (auto &cell : occupied_cells)
   {
     cell->clear_entities();
   }
@@ -107,7 +111,7 @@ void CollisionEngine::clear_cells(Map &level_map)
 /**
  * For a given entity, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
+bool CollisionEngine::wall_collision(Map &level_map, Entity &entity)
 {
   float size = entity.get_size();
   Vector2D curr = entity.get_position();
@@ -127,7 +131,7 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
   if (top_blocked + left_blocked + bot_blocked + right_blocked > 2)
   {
     entity.set_position(entity.get_old_position());
-    return;
+    return true;
   }
 
   if (left_blocked)
@@ -150,6 +154,8 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
     Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
     entity.set_position(entity.get_position() + penetration);
   }
+
+  return left_blocked || right_blocked || top_blocked || bot_blocked;
 }
 
 void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
@@ -161,4 +167,25 @@ void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
   float dy = correction.y / 2;
   entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
   entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
+}
+
+void CollisionEngine::dispatchEvents()
+{
+  for (auto &item : event_set)
+  {
+    if (item.type == EventCollision::eventType)
+    {
+      EventCollision collision1(item.entity1, item.entity2);
+      EventCollision collision2(item.entity2, item.entity1);
+      EventManager::Instance()->sendEvent(collision1);
+      EventManager::Instance()->sendEvent(collision2);
+
+    }
+    else if (item.type == EventWallCollision::eventType)
+    {
+      EventWallCollision collision(item.entity1);
+      EventManager::Instance()->sendEvent(collision);
+    }
+  }
+  event_set.clear();
 }

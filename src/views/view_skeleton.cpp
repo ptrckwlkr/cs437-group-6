@@ -1,3 +1,4 @@
+#include "view_manager.h"
 #include "macros.h"
 #include "views/view_skeleton.h"
 
@@ -14,6 +15,11 @@ void SkeletonView::update(float delta)
   if (dir.length < ENEMY_ACTIVE_DISTANCE && hypo * hypo < dir.length * dir.length)
   {
     skeleton->move(dir, delta);
+  }
+  if (skeleton->is_dead())
+  {
+    EntityManager::Instance()->removeEntity(skeleton->id);
+    ViewManager::Instance()->remove_view(get_id());
   }
 }
 

@@ -2,10 +2,9 @@
 #include <views/view_projectile.h>
 #include "macros.h"
 
-Player::Player(float x, float y) : Entity(x, y, 20)
+Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
 {
   speed = PLAYER_SPEED;
-  type = TYPE_PLAYER;
   delta_sum = 0.0;
 }
 

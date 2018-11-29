@@ -19,13 +19,26 @@ public:
 
 private:
     bool entity_collision(Entity &entity1, Entity &entity2);
-    void check_wall_collision(Map &level_map, Entity &entity);
+    bool wall_collision(Map &level_map, Entity &entity);
     void clear_cells(Map &level_map);
     void adjust_positions(Entity &entity1, Entity &entity2);
+    void dispatchEvents();
+
+    struct EventItem
+    {
+        EventType type;
+        Entity *entity1;
+        Entity *entity2;
+        bool operator< (const EventItem &other) const
+        {
+          if (type != other.type)            return type < other.type;
+          else if (entity1 != other.entity1) return entity1 < other.entity1;
+          else                               return entity2 < other.entity2;
+        }
+    };
 
     std::set<Cell*> occupied_cells;
-
-
+    std::set<EventItem> event_set;
 
 };
 

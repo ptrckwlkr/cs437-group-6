@@ -24,7 +24,6 @@ class EntityManager{
         void set_player(std::shared_ptr<Player> p) {player = p;}
         void removeEntity(long long entity_id);
         std::shared_ptr<Player> &getPlayer(){return player;}
-        std::shared_ptr<Entity> &getEntity(enum EntityType type);
         std::shared_ptr<Entity> &getEntity(long long id);
         std::vector<std::shared_ptr<Entity>> &getEntites() {return entities;}
         void ClearAll();

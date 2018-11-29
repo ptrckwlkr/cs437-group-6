@@ -15,14 +15,14 @@ Engine &Engine::getInstance()
 void Engine::init(sf::RenderWindow *app)
 {
   //loads necessary resources to the resource manager
-  resources.LoadFont("old_school", "../data/Old-School-Adventures.ttf");
-  resources.LoadXML("text", "../data/game-text.xml");
-  resources.LoadTexture("map", "../data/map.png");
-  resources.LoadTexture("fog", "../data/vignette.png");
-  resources.LoadTexture("tileset", "../data/tilesheet.png");
-  resources.LoadTexture("playerTexture", "../data/playerSprite.png");
-  resources.LoadTexture("skeletonTexture", "../data/skeletonSprite.png");
-
+  resources.LoadFont("old_school", "../data/Fonts/Old-School-Adventures.ttf");
+  resources.LoadXML("text", "../data/xml/game-text.xml");
+  resources.LoadTexture("map", "../data/Images/map.png");
+  resources.LoadTexture("fog", "../data/Images/vignette.png");
+  resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
+  resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
+  resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
+  if (MUSIC) resources.LoadSound("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
   App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();
