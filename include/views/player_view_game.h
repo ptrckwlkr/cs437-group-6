@@ -25,7 +25,7 @@ private:
     void handle_event(sf::Event event) override;
     sf::Texture skeleton_text;
     sf::Texture player_text;
-    sf::Sound bg_music;
+    std::shared_ptr<sf::Music> bg_music;
 
 };
 

@@ -1,6 +1,7 @@
 #ifndef CSCI437_EVENT_COLLISION_H
 #define CSCI437_EVENT_COLLISION_H
 
+#include "entities/entity.h"
 #include "event.h"
 
 class EventCollision : public Event

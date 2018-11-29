@@ -5,6 +5,7 @@
 #include "vector2d.h"
 #include "listener.h"
 #include "EventManager.h"
+#include <vector>
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -57,6 +58,11 @@ public:
     long long id;
 
     virtual const EntityType& getEntityType() const = 0;
+
+    //trail behind the a circle projectile, helps show ball speed
+    std::vector<Vector2D> trail;
+    bool trail_enabled = false;
+
     virtual void move(Vector2D &dir, float delta)
     {
       old_pos = pos;

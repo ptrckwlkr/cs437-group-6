@@ -3,6 +3,8 @@
 
 #include "view.h"
 #include "entities/skeleton.h"
+#include <math.h>
+
 
 class SkeletonView : public View
 {
@@ -14,6 +16,8 @@ public:
 private:
     Skeleton *skeleton;
 
+    void AStar(Vector2D player_pos);
+    double DiagonalDistance(const Vector2D cur_pos, const Vector2D player_pos);
 };
 
 
