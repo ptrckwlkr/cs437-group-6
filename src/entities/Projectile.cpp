@@ -8,8 +8,8 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
   damage = 0;
   obstructible = true; // TODO?
 
-  EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &handleWallCollision);
-  EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
+  EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &Projectile::handleWallCollision);
+  EventManager::Instance()->registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
 }
 
 Projectile::~Projectile()
