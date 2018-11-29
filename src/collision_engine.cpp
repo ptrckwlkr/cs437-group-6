@@ -1,4 +1,5 @@
 #include <vector>
+#include <events/event_wall_collision.h>
 #include "macros.h"
 #include "EventManager.h"
 #include "events/event_collision.h"
@@ -37,7 +38,11 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
           if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }
-      check_wall_collision(level_map, *entity1);
+      if (wall_collision(level_map, *entity1))
+      {
+        EventWallCollision collision(entity1.get());
+        EventManager::Instance()->sendEvent(collision);
+      }
     }
   }
 }
@@ -97,7 +102,7 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
  */
 void CollisionEngine::clear_cells(Map &level_map)
 {
-  for (auto cell : occupied_cells)
+  for (auto &cell : occupied_cells)
   {
     cell->clear_entities();
   }
@@ -107,7 +112,7 @@ void CollisionEngine::clear_cells(Map &level_map)
 /**
  * For a given entity, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
+bool CollisionEngine::wall_collision(Map &level_map, Entity &entity)
 {
   float size = entity.get_size();
   Vector2D curr = entity.get_position();
@@ -127,7 +132,7 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
   if (top_blocked + left_blocked + bot_blocked + right_blocked > 2)
   {
     entity.set_position(entity.get_old_position());
-    return;
+    return true;
   }
 
   if (left_blocked)
@@ -150,6 +155,8 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
     Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
     entity.set_position(entity.get_position() + penetration);
   }
+
+  return left_blocked || right_blocked || top_blocked || bot_blocked;
 }
 
 void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)

@@ -40,6 +40,7 @@ public:
       speed = 0;
       obstructible = false;
       type = TYPE_NONE;
+      alive = true;
     }
     ~Entity() = default;
 
@@ -53,6 +54,7 @@ public:
     const Vector2D &get_old_position() {return old_pos;}
     const float get_size() {return size;}
     const bool is_obstructible() {return obstructible;}
+    const bool is_dead() {return !alive;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
     const EntityType get_type() {return type;}
@@ -73,6 +75,7 @@ protected:
     int health;
     int mana;
     bool obstructible;
+    bool alive;
     EntityType type;
 
 };

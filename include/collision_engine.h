@@ -19,7 +19,7 @@ public:
 
 private:
     bool entity_collision(Entity &entity1, Entity &entity2);
-    void check_wall_collision(Map &level_map, Entity &entity);
+    bool wall_collision(Map &level_map, Entity &entity);
     void clear_cells(Map &level_map);
     void adjust_positions(Entity &entity1, Entity &entity2);
 

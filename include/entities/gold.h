@@ -13,12 +13,12 @@ class Gold : public Entity
 
 public:
     Gold(float x, float y);
+    ~Gold();
     void move(Vector2D &dir, float delta) override {}
 
+private:
     void handleGoldCollection(const EventGoldCollection &event);
     void handleCollision(const EventCollision &event);
-
-private:
 
 };
 

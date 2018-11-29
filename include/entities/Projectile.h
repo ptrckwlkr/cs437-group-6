@@ -1,6 +1,7 @@
 #ifndef CSCI437_PROJECTILE_H
 #define CSCI437_PROJECTILE_H
 
+#include <events/event_wall_collision.h>
 #include "entity.h"
 #include "event.h"
 #include "math.h"
@@ -13,36 +14,39 @@
 class Projectile: public Entity
 {
 
-    private:
+private:
     int damage;
     int maxRange;
     float traveled;
 
-    protected:
+    void handleWallCollision(const EventWallCollision &event);
+
+protected:
     Vector2D direction = VEC_NONE;
 
 
 
-    public: 
-        Projectile(float x, float y);
+public:
+    Projectile(float x, float y);
+    ~Projectile();
 
-        virtual void update(double deltaMs) {};
+    virtual void update(double deltaMs) {};
 
-        void set_damage(int mD) {damage = mD;}
-        
-        void set_maxRange(int mD) {maxRange = mD;}
+    void set_damage(int mD) {damage = mD;}
 
-        void set_speed (int s) {speed = s;}
+    void set_maxRange(int mD) {maxRange = mD;}
 
-        void set_direction(Vector2D vec) {direction = vec;}
+    void set_speed (int s) {speed = s;}
 
-        float get_travaled() {return traveled;}
+    void set_direction(Vector2D vec) {direction = vec;}
 
-        int get_maxRange() {return maxRange;}
+    float get_travaled() {return traveled;}
 
-        Vector2D  get_direciton(){ return direction;}
+    int get_maxRange() {return maxRange;}
 
-        void move(Vector2D &dir, float delta) override;
+    Vector2D  get_direciton(){ return direction;}
+
+    void move(Vector2D &dir, float delta) override;
 
 }; 
 

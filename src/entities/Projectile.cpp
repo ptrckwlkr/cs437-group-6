@@ -8,6 +8,13 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
   damage = 0;
   type = TYPE_PROJECTILE;
   obstructible = true; // TODO?
+
+  EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &handleWallCollision);
+}
+
+Projectile::~Projectile()
+{
+  EventManager::Instance()->unregisterListener(EventWallCollision::eventType, this);
 }
 
 void Projectile::move(Vector2D &dir, float delta){
@@ -16,4 +23,9 @@ void Projectile::move(Vector2D &dir, float delta){
   Vector2D change = dir.normal() * delta_speed;
   traveled += change.length;
   pos = pos + change;
+}
+
+void Projectile::handleWallCollision(const EventWallCollision &event)
+{
+
 }

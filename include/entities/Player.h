@@ -24,7 +24,7 @@ public:
 
     //used to prevent more than one projectile firing each frame (assuming 60fps)
     //NOTE THIS CAN BE CHANGED TO SIMULATE DIFFERENT WEAPON SPEED
-    float delta_threshold = (float)(2 / 60.0);
+    float delta_threshold = (float)(2 / 10.0);
     float delta_sum;
 
 };
