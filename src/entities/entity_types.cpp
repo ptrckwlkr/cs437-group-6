@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "entities/entity.h"
 #include "entities/gold.h"
 #include "entities/Player.h"
 #include "entities/Projectile.h"

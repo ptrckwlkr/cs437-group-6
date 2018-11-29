@@ -60,6 +60,9 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
         digger_y = rand() % height;
     } while (!placeRoom(digger_x, digger_y));
 
+    min_x = digger_x, max_x = digger_x;
+    min_y = digger_y, max_y = digger_y;
+
     int cur_dir = chooseRandomDirection(-1, false);
 
     while (num_rooms < max_rooms || distance_traveled < (width * height) / fraction_total_size) {
@@ -76,28 +79,38 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
                 cur_dir = chooseRandomDirection(cur_dir, false);
             }
         }
+        //add end of the room to path_nodes
+        path_nodes.emplace_back(Vector2D(digger_x - direction_x, digger_y - direction_y));
 
         //we are now outside the room and still in bounds,
         float cur_prob_turn = 0, cur_prob_room = 0 - prob_room; // ensures room isn't generated immediately
         int rand_turn, rand_room;
         do {
             level_grid[digger_y][digger_x] = '1';
+            updateExtremeCoords(digger_x, digger_y);
 
             //generate random numbers between 1 and 100 for probabilities
             rand_turn = (rand() % 100) + 1;
             rand_room = (rand() % 100) + 1;
 
             //turn if random number is less than probability or if point is out of bounds
+            bool turn = false;
             if (rand_turn < cur_prob_turn) {
                 cur_dir = chooseRandomDirection(cur_dir, true);
                 cur_prob_turn = 0;
+                turn = true;
             } else
                 cur_prob_turn += prob_turn; //increase probability of turn by passed value if no turn
 
             while (!checkPointInBounds(digger_x + direction_x, digger_y + direction_y)) {
                 cur_dir = chooseRandomDirection(cur_dir, true);
                 cur_prob_turn = 0;
+                turn = true;
             }
+
+            //add current position if there was a turn
+            if (turn) path_nodes.emplace_back(digger_x, digger_y);
+
             //increase probability of room and move the digger
             cur_prob_room += prob_room;
             digger_x += direction_x, digger_y += direction_y;
@@ -151,6 +164,10 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
 
         //stores info about room in the member vector
         rooms.emplace_back(std::vector<int>{i, j, room_width, room_height});
+        //updates extreme coordinates
+        updateExtremeCoords(i, j);
+        updateExtremeCoords(i + room_width, j + room_height);
+
         return true;
     }
 
@@ -337,4 +354,13 @@ void AgentBasedGenerator::placeTreasure(int num_treasures)
         treasure_pos[1] = treasure_pos[1] * CELL_SIZE + CELL_SIZE / 2;
         treasure_coords.emplace_back(treasure_pos);
     }
+}
+
+
+void AgentBasedGenerator::updateExtremeCoords(int cur_x, int cur_y) {
+    if (cur_x > max_x) max_x = cur_x;
+    else if (cur_x < min_x) min_x = cur_x;
+
+    if (cur_y > max_y) max_y = cur_y;
+    else if (cur_y < min_y) min_y = cur_y;
 }

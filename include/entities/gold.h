@@ -3,7 +3,7 @@
 
 #include <events/event_gold_collection.h>
 #include <events/event_collision.h>
-#include "entity.h"
+#include "entities/entity.h"
 #include "listener.h"
 
 #define GOLD_SIZE 10
