@@ -7,6 +7,7 @@
 #define GAME_CLOCK_SCALER           2.f
 #define ZOOM_SCALAR					        1.0f
 #define NUMBER_OF_LEVELS            7
+#define MUSIC                       false
 
 #define PLAYER_SPEED				        100
 #define CELL_SIZE                   64      //HAS TO BE A MULTIPLE OF TILE MAP TEXTURE SIZE!
