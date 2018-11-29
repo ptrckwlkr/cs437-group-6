@@ -1,9 +1,13 @@
-#include "views/view_skeleton.h"
 #include "view_manager.h"
 
-ViewManager::ViewManager()
+ViewManager::ViewManager() : Listener()
 {
+  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &handleEntityRemoval);
+}
 
+ViewManager::~ViewManager()
+{
+  EventManager::Instance()->unregisterAll(this);
 }
 
 ViewManager *ViewManager::Instance()
@@ -12,15 +16,28 @@ ViewManager *ViewManager::Instance()
   return &instance;
 }
 
-void ViewManager::remove_view(long long view_id)
+void ViewManager::handleEntityRemoval(const EventEntityDestroyed &event)
 {
-  auto iter = views.begin();
-  while (iter != views.end()){
-    if ((*iter)->get_id() == view_id){
-      iter = views.erase(iter);
-    }
-    else {
-      iter++;
-    }
+  views.erase(event.getEntityID());
+}
+
+void ViewManager::update_views(float delta)
+{
+  curr_player_view->update(delta);
+  for (auto &view : views)
+  {
+    view.second->update(delta);
   }
+}
+
+View &ViewManager::get_view(long long entity_id)
+{
+  return *views[entity_id];
+}
+
+std::vector<std::shared_ptr<View>> ViewManager::get_views()
+{
+  std::vector<std::shared_ptr<View>> view_list;
+  for(auto kv : views) view_list.push_back(kv.second);
+  return view_list;
 }

@@ -11,7 +11,7 @@ Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
 
 Player::~Player()
 {
-    //unsubscirbe from events 
+
 }
 
 void Player::attack(Vector2D &dir, float delta) {

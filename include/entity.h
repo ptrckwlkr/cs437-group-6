@@ -4,6 +4,7 @@
 #include "event.h"
 #include "vector2d.h"
 #include "listener.h"
+#include "EventManager.h"
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -33,6 +34,10 @@ public:
       obstructible = false;
       alive = true;
       hostile = false;
+    }
+    ~Entity()
+    {
+      EventManager::Instance()->unregisterAll(this);
     }
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}

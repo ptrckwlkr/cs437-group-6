@@ -14,8 +14,7 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
 
 Projectile::~Projectile()
 {
-  EventManager::Instance()->unregisterListener(EventWallCollision::eventType, this);
-  EventManager::Instance()->unregisterListener(EventCollision::eventType, this);
+
 }
 
 void Projectile::move(Vector2D &dir, float delta){

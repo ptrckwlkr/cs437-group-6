@@ -17,8 +17,7 @@ void Gold::handleGoldCollection(const EventGoldCollection &event)
 {
   if (event.getGold().id == id)
   {
-    printf("Gold Collected!\n");
-    EventManager::Instance()->unregisterListener(EventGoldCollection::eventType, this);
+
     EntityManager::Instance()->removeEntity(id);
   }
 }
@@ -27,6 +26,7 @@ void Gold::handleCollision(const EventCollision &event)
 {
   if (event.getSelf().id == id && event.getOther().getEntityType() == Player::entityType)
   {
+    printf("Gold Collected! %lli\n", id);
     auto e = EventGoldCollection(this);
     EventManager::Instance()->sendEvent(e);
   }

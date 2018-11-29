@@ -18,6 +18,6 @@ void SkeletonView::update(float delta)
   if (skeleton->is_dead())
   {
     EntityManager::Instance()->removeEntity(skeleton->id);
-    ViewManager::Instance()->remove_view(get_id());
+    //ViewManager::Instance()->remove_view(get_id());
   }
 }

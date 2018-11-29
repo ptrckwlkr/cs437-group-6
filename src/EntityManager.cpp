@@ -1,3 +1,4 @@
+#include "events/event_entity_destroyed.h"
 #include "EntityManager.h"
         
 
@@ -17,6 +18,8 @@ void EntityManager::removeEntity(long long entity_id){
         //find the correct entity
         if ( (*iter)->id == entity_id){
 
+            EventEntityDestroyed event((*iter)->id, (*iter)->getEntityType(), (*iter)->get_position());
+            EventManager::Instance()->sendEvent(event);
             //delete the entity from vector 
             iter = entities.erase(iter);
 

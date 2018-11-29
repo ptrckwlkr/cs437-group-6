@@ -3,11 +3,6 @@
 
 #include "event.h"
 
-class Listener
-{
-public:
-    Listener() = default;
-    ~Listener() = default;
-};
+class Listener {};
 
 #endif //CSCI437_LISTENER_H
