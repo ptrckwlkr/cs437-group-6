@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "event.h"
-#include "entity.h"
+#include "entities/entity.h"
 #include "Projectile.h"
 #include "listener.h"
 

@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "cell.h"
-#include "entity.h"
+#include "entities/entity.h"
 
 typedef std::vector<std::vector<Cell>> CellMap;
 

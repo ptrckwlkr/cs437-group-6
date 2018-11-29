@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include <set>
-#include "entity.h"
+#include "entities/entity.h"
 
 enum CellType
 {

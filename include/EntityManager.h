@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include <list>
-#include "entity.h"
+#include "entities/entity.h"
 #include "entities/Player.h"
 //#include "view_manager.h"
 
