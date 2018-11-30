@@ -1,36 +1,31 @@
 #include "entities/Projectile.h"
 #include "entities/skeleton.h"
 
-Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)
-{
-  obstructible = true;
-  hostile = true;
+Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
+    obstructible = true;
+    hostile = true;
 
-  std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("enemies");
-  buffer = resources.GetXMLBuffer("enemies");
-  root_node = (*doc).first_node("Root");
+    std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("enemies");
+    buffer = resources.GetXMLBuffer("enemies");
+    root_node = (*doc).first_node("Root");
 
-   //uses normal skeleton by default
-   setType("white");
+    //uses normal skeleton by default
+    setType("white");
 
-  EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
+    EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
 }
 
-Skeleton::~Skeleton()
-{
+Skeleton::~Skeleton() {
 
 }
 
-void Skeleton::handleCollision(const EventCollision &event)
-{
-  if (event.getSelf().id == id && event.getOther().getEntityType() == Projectile::entityType)
-  {
-    health -= 3;
-    if (health <= 0)
-    {
-      alive = false;
+void Skeleton::handleCollision(const EventCollision &event) {
+    if (event.getSelf().id == id && event.getOther().getEntityType() == Projectile::entityType) {
+        health -= 3;
+        if (health <= 0) {
+            alive = false;
+        }
     }
-  }
 }
 
 
