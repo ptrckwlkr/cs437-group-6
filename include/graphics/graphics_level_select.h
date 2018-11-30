@@ -5,7 +5,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "graphics.h"
-#include "player_view.h"
+#include "views/player_view.h"
 
 class LevelSelectView;
 class LevelSelectGraphics : public Graphics

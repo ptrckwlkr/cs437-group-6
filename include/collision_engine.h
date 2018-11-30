@@ -5,7 +5,7 @@
 #include <set>
 #include "map.h"
 #include "cell.h"
-#include "event.h"
+#include "events/event.h"
 
 /**
  * Encapsulates collision detection and handling

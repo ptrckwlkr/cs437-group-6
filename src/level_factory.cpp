@@ -1,7 +1,7 @@
 #include "level_factory.h"
 #include "views/view_skeleton.h"
 #include "alg_agent_based.h"
-#include "view_manager.h"
+#include "views/view_manager.h"
 #include "entities/gold.h"
 #include "EntityManager.h"
 #include "level.h"

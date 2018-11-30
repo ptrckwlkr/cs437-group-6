@@ -1,7 +1,7 @@
 #ifndef CSCI437_WEAPON_H
 #define CSCI437_WEAPON_H
 
-#include "event.h"
+#include "events/event.h"
 #include "vector2d.h"
 
 class Weapon

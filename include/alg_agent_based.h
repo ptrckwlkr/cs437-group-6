@@ -25,12 +25,12 @@ public:
 	void placeEntities(int num_enemies);
 	void placeTreasure(int num_treasures);
 	void printLevelGrid();
+	std::vector<Vector2D> &getPathNodes() { return path_nodes;};
 
 	int width;
 	int height;
 
-	//vector for enemy movement
-	std::vector<Vector2D> path_nodes;
+
 
 	//extreme points to cut down size of map
 	int min_x, max_x, min_y, max_y;
@@ -60,6 +60,9 @@ private:
 
 	//stores information about each room in the level
 	std::vector<std::vector<int>> rooms;
+
+	//vector for enemy movement
+	std::vector<Vector2D> path_nodes;
 
 	//indices in the above vector that correspond to the player's starting room and exit rooms
 	int player_room_index;

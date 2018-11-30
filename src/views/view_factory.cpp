@@ -1,6 +1,6 @@
 #include "views/view_projectile.h"
 #include "views/view_skeleton.h"
-#include "view_factory.h"
+#include "views/view_factory.h"
 
 using namespace ViewFactory;
 

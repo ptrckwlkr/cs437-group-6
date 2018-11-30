@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "graphics.h"
-#include "player_view.h"
+#include "views/player_view.h"
 #include "tile_map.h"
 
 class GameView;
