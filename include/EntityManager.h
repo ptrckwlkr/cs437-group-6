@@ -4,6 +4,7 @@
 #include <typeinfo>
 #include <unordered_map>
 #include <memory>
+#include "events/event_entity_created.h"
 #include "entities/entity.h"
 #include "entities/Player.h"
 #include "views/view_manager.h"
@@ -32,7 +33,9 @@ public:
         std::shared_ptr<T> entity = std::make_shared<T>(x, y);
         std::shared_ptr<Entity> ent = entity;
         entity_set.insert(std::pair<long long, std::shared_ptr<Entity>>(ent->id, entity));
-        ViewManager::Instance()->add_view(entity);
+        //ViewManager::Instance()->add_view(entity.get());
+        EventEntityCreated event(entity.get());
+        EventManager::Instance()->sendEvent(event);
         return entity;
     }
 
