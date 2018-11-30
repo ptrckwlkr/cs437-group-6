@@ -1,7 +1,7 @@
 #ifndef CSCI437_EVENT_ENTITY_DESTROYED_H
 #define CSCI437_EVENT_ENTITY_DESTROYED_H
 
-#include "entity.h"
+#include "entities/entity.h"
 #include "event.h"
 
 class EventEntityDestroyed : public Event

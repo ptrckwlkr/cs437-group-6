@@ -7,13 +7,16 @@
 #include "view.h"
 #include "player_view.h"
 #include "game_logic.h"
+#include "view_factory.h"
 
 class ViewManager : public Listener
 {
+
 private:
-    ViewManager();
+    ViewManager() = default;
     ~ViewManager();
-    GameLogic *state;
+    ViewFactory factory;
+    GameLogic *state = nullptr;
     std::shared_ptr<PlayerView> curr_player_view;
     std::unordered_map<long long, std::shared_ptr<View>> views;
     void handleEntityRemoval(const EventEntityDestroyed &event);
@@ -21,7 +24,7 @@ private:
 
 public:
     static ViewManager* Instance();
-    void init(GameLogic *s) {state = s;}
+    void init(GameLogic *s);
     void update_views(float delta);
     View &get_view(long long entity_id);
     PlayerView &get_curr_player_view() {return *curr_player_view;}
@@ -29,12 +32,12 @@ public:
     std::vector<std::shared_ptr<View>> get_views();
     void clear() {views.clear();}
 
-    template <class E, class V>
+    template <class E>
     void add_view(std::shared_ptr<E> &ent)
     {
-      auto view = std::make_shared<V>(state, *ent);
       std::shared_ptr<Entity> x = ent;
-      views.insert(std::pair<long long, std::shared_ptr<View>>(x->id, view));
+      auto view = factory.create<E>(ent);
+      if (view) views.insert(std::pair<long long, std::shared_ptr<View>>(x->id, view));
     }
 
     template <class T>

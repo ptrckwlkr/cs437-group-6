@@ -22,7 +22,7 @@ void Player::attack(Vector2D &dir, float delta) {
         float y = EntityManager::Instance()->getPlayer()->get_position().y;
         auto projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
         projectile->set_direction(dir);
-        ViewManager::Instance()->add_view<Projectile, ProjectileView>(projectile);
+        ViewManager::Instance()->add_view<Projectile>(projectile);
         delta_sum = 0;
     }
 }

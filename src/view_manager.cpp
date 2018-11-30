@@ -1,7 +1,9 @@
 #include "view_manager.h"
 
-ViewManager::ViewManager() : Listener()
+void ViewManager::init(GameLogic *s)
 {
+  state = s;
+  factory.init(s);
   EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &handleEntityRemoval);
 }
 

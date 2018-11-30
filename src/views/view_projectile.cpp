@@ -15,6 +15,5 @@ void ProjectileView::update(float delta)
   if (projectile->is_dead() || projectile->get_traveled() > projectile->get_maxRange())
   {
     EntityManager::Instance()->removeEntity(projectile->id);
-    //ViewManager::Instance()->remove_view(get_id());
   }
 }
