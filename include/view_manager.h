@@ -15,7 +15,6 @@ class ViewManager : public Listener
 private:
     ViewManager() = default;
     ~ViewManager() = default;
-    ViewFactory factory;
     GameLogic *state = nullptr;
     std::shared_ptr<PlayerView> curr_player_view;
     std::unordered_map<long long, std::shared_ptr<View>> views;

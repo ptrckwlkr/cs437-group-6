@@ -3,7 +3,6 @@
 void ViewManager::init(GameLogic *s)
 {
   state = s;
-  factory.init(s);
   EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &handleEntityRemoval);
   EventManager::Instance()->registerListener(EventEntityCreated::eventType, this, &handleEntityCreation);
 }
@@ -35,6 +34,6 @@ View &ViewManager::get_view(long long entity_id)
 
 void ViewManager::handleEntityCreation(const EventEntityCreated &event)
 {
-  auto view = factory.createView(&event.getEntity());
+  auto view = ViewFactory::createView(state, &event.getEntity());
   if (view) views.insert(std::pair<long long, std::shared_ptr<View>>(event.getEntity().id, view));
 }
