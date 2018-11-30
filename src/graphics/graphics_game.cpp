@@ -27,6 +27,13 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
 
+  sf::View camera;
+  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+  Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+  camera.zoom(1 / ZOOM_SCALAR);
+  camera.setCenter(playerPos.x, playerPos.y);
+  target.setView(camera);
+  target.clear(sf::Color::Black);
 	drawLevel(target, states);
 
 	float x;
@@ -67,9 +74,10 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	}
 
-  x = EntityManager::Instance()->getPlayer()->get_position().x;
-  y = EntityManager::Instance()->getPlayer()->get_position().y;
-	drawUI(target, states, x, y);
+  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+  camera.setCenter(playerPos.x, playerPos.y);
+  target.setView(camera);
+	drawUI(target, states, playerPos.x, playerPos.y);
 }
 
 

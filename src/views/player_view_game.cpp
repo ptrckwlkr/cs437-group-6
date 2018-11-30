@@ -81,14 +81,6 @@ void GameView::update(float delta) {
 void GameView::draw() {
     // initializes the camera
     // TODO send some of this to the constructor?
-    sf::View camera;
-    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-    Vector2D playerPos = state->get_level().get_player().get_position();
-    camera.zoom(1 / ZOOM_SCALAR);
-    camera.setCenter(playerPos.x, playerPos.y);
-
-    app->setView(camera);
-    app->clear(sf::Color::Black);
     app->draw(*graphics);
     app->display();
 }
