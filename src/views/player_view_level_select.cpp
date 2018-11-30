@@ -49,7 +49,7 @@ void LevelSelectView::update(float delta)
   process_input(delta);
 }
 
-void LevelSelectView::draw()
+void LevelSelectView::draw(float delta)
 {
   app->clear(sf::Color::Black);
   app->draw(*graphics);

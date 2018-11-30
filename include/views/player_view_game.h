@@ -15,7 +15,7 @@ public:
     GameView(GameLogic *state, sf::RenderWindow *App);
     ~GameView();
     void update(float delta) override;
-    void draw() override;
+    void draw(float delta) override;
     //to be used to update sprite movement 
     Animation animation_player;
     Animation animation_skeleton;

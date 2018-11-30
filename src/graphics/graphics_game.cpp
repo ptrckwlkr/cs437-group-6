@@ -177,3 +177,8 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
         }
     }
 }
+
+void GameGraphics::update(float delta)
+{
+
+}

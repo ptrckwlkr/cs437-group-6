@@ -15,7 +15,7 @@ class PlayerView : public View
 
 public:
     PlayerView(GameLogic *state, sf::RenderWindow *App) : View(state), app(App) {}
-    virtual void draw() = 0;
+    virtual void draw(float delta) = 0;
     //to be used to update sprite movement 
     Animation animation;
 

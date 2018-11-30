@@ -102,7 +102,7 @@ void MenuView::goBack()
 
 }
 
-void MenuView::draw()
+void MenuView::draw(float delta)
 {
 	app->clear(sf::Color::Black);
 	app->draw(*graphics);

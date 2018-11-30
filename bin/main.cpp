@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     float delta = Engine::getInstance().clock();
     Engine::getInstance().update_views(delta);
     Engine::getInstance().update_state(delta);
-    Engine::getInstance().update_graphics();
+    Engine::getInstance().update_graphics(delta);
   }
 
   // Done.

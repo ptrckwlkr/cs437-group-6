@@ -16,6 +16,8 @@ public:
 private:
     GameView *view;
 
+    void update(float delta) override;
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     void drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const;

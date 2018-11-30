@@ -79,9 +79,9 @@ void GameView::update(float delta) {
     process_input(delta);
 }
 
-void GameView::draw() {
+void GameView::draw(float delta) {
     // initializes the camera
-    // TODO send some of this to the constructor?
+    graphics->update(delta);
     app->draw(*graphics);
     app->display();
 }

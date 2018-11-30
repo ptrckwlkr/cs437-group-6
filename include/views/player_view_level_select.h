@@ -22,7 +22,7 @@ private:
 public:
     LevelSelectView(GameLogic *state, sf::RenderWindow *App);
     void update(float delta) override;
-    void draw() override;
+    void draw(float delta) override;
     Node get_node(int node) {return nodes[node];}
 
 };
