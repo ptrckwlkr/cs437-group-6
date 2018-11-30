@@ -6,8 +6,9 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     traveled = 0;
     damage = 0;
     obstructible = true; // TODO?
-    trail.reserve(5);
     trail_enabled = true;
+    for (int i = 0; i < 5; i++)
+        trail.emplace_back(pos);
 
     EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &handleWallCollision);
     EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
@@ -42,8 +43,15 @@ void Projectile::handleCollision(const EventCollision &event) {
 void Projectile::updateTrail() {
     for (int i = 4; i > -1; i--) {
         if (i == 0)
-            trail[i] = old_pos;
+        {
+            trail[i].x = pos.x;
+            trail[i].y = pos.y;
+        }
         else
-            trail[i] = trail[i - 1];
+        {
+            trail[i].x = trail[i - 1].x;
+            trail[i].y = trail[i - 1].y;
+        }
+
     }
 }
