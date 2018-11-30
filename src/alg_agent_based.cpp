@@ -41,8 +41,7 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
 	param int fraction_total_size is essentially how much of the total map should the level cover,
 	since it is a denominator, larger values == smaller size level
 */
-std::vector<std::vector<char>> &
-AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fraction_total_size) {
+std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fraction_total_size) {
     std::vector<std::vector<char>> grid(height, std::vector<char>(width, '-'));
     this->level_grid = grid;
 
@@ -121,8 +120,36 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
     }
 
+    width = (max_x - min_x) + 3;
+    height = (max_y - min_y) + 2;
+    std::vector<std::vector<char>> optimized_grid(height, std::vector<char>(width));
+
+    std::vector<char> tmp(width);
+    int grid_row = 0;
+    for (int y = min_y - 1; y < max_y + 1; y++)
+    {
+        std::copy(level_grid[y].begin() + min_x - 1, level_grid[y].begin() + min_x - 1 + width, optimized_grid[grid_row].begin());
+        grid_row++;
+    }
+
+    //cuts down unused space in level_grid, have to update coordinates to reflect this new grid
+    level_grid = optimized_grid;
+    for (int i = 0; i < path_nodes.size(); i++)
+    {
+        path_nodes[i].x -= (min_x - 1);
+        path_nodes[i].y -= (min_y - 1);
+    }
+
+    for (int i = 0; i < rooms.size(); i++)
+    {
+        rooms[i][0] -= (min_x - 1);
+        rooms[i][1] -= (min_y - 1);
+    }
+    avg_i -= (min_x - 1); avg_j -= (min_y - 1);
+
     placeEntities(num_enemies);
     placeTreasure(50);
+
     return level_grid;
 }
 
@@ -138,8 +165,10 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
     int room_width = (rand() % (max_room_size + 1 - min_room_size)) + min_room_size;
     int room_height = (rand() % (max_room_size + 1 - min_room_size)) + min_room_size;
     //offset is between 0 and room_width - 1 (and room_height - 1) so that (i, j) is still in the room
-    i -= (rand() % room_width);
-    j -= (rand() % room_height);
+    int rand_x_offset = rand() % room_width;
+    int rand_y_offset = rand() % room_height;
+    i -= rand_x_offset;
+    j -= rand_y_offset;
 
     // area that bounds are checked is one unit smaller than actual bounds so that there is a wall between a room and the void
     if (j > 0 && i > 0 && j < (height - 2) - max_room_size && i < (width - 2) - max_room_size) {
@@ -167,6 +196,7 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
         //updates extreme coordinates
         updateExtremeCoords(i, j);
         updateExtremeCoords(i + room_width, j + room_height);
+        path_nodes.emplace_back(i + rand_x_offset, j + rand_y_offset);
 
         return true;
     }
@@ -324,8 +354,8 @@ int AgentBasedGenerator::chooseRandomDirection(int cur_dir, bool orthogonal) {
 
 
 void AgentBasedGenerator::printLevelGrid() {
-    for (int j = 0; j < height; j++) {
-        for (int i = 0; i < width; i++) {
+    for (int j = 0; j < level_grid.size(); j++) {
+        for (int i = 0; i < level_grid[j].size(); i++) {
             std::cout << level_grid[j][i];
         }
         std::cout << std::endl;
