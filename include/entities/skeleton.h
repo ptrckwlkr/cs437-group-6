@@ -21,6 +21,8 @@ public:
     void givePathNodes(std::vector<Vector2D> &path) {path_nodes = path;};
     void setType(std::string param_type);
 
+    int aggro_dist;
+
     //represents the kind of skeleton, 0 for normal/dumb (white), 1 for smarter (red), and 2 for smartest (gold)
     std::string type;
     std::vector<Vector2D> path_nodes;

@@ -5,6 +5,7 @@
 #include "vector2d.h"
 #include "listener.h"
 #include "EventManager.h"
+#include "ResourceManager.h"
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -79,6 +80,13 @@ protected:
     bool alive;
     bool hostile;
 
+    //ensures the xml file text does not go out of scope
+    rapidxml::xml_node<> *root_node;
+    std::shared_ptr <std::vector<char>> buffer;
+
 };
+
+//global access to resource manager
+extern ResourceManager resources;
 
 #endif //CSCI437_ENTITY_H

@@ -25,7 +25,7 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
     //srand(123456789);
     auto seed = (unsigned int) time(nullptr);
-    srand(1543594143);
+    srand(seed);
     printf("Seed: %d\n", seed);
     //TODO change to C++ random library if time permits for more robust generation
 }
