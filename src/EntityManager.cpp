@@ -54,7 +54,7 @@ std::shared_ptr<Entity> &EntityManager::getEntity(long long id){
 }
 
 
-void EntityManager::ClearAll(){
+void EntityManager::reset(){
     entities.clear();
 }
 

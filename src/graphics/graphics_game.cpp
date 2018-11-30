@@ -6,7 +6,6 @@
 #include "Animation.h"
 #include "EntityManager.h"
 #include "entities/Projectile.h"
-#include "game_logic.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)

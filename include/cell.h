@@ -10,8 +10,8 @@ enum CellType
 {
     WALL,
     FLOOR,
-	EXIT,
-	ORNAMENT	//floor cell with decorative texture on itself and wall above
+		EXIT,
+		ORNAMENT	//floor cell with decorative texture on itself and wall above
 };
 
 /**

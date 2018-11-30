@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include "map.h"
 #include <random>
+#include "map.h"
 #include "ResourceManager.h"
 
 class TileMap

@@ -1,9 +1,9 @@
 #ifndef CSCI437_SKELETONVIEW_H
 #define CSCI437_SKELETONVIEW_H
 
+#include <cmath>
 #include "view.h"
 #include "entities/skeleton.h"
-#include <math.h>
 
 
 class SkeletonView : public View

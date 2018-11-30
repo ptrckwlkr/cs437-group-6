@@ -1,8 +1,8 @@
 #ifndef CSCI437_VIEW_LEVELSELECT_H
 #define CSCI437_VIEW_LEVELSELECT_H
 
-#include "view.h"
 #include "macros.h"
+#include "player_view.h"
 
 class LevelSelectView : public PlayerView
 {

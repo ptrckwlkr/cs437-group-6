@@ -1,10 +1,9 @@
 #ifndef CSCI437_VIEW_GAME_H
 #define CSCI437_VIEW_GAME_H
 
-#include "view.h"
-#include "player_view.h"
 #include <SFML/Audio.hpp>
 #include <memory>
+#include "player_view.h"
 
 /**
 * Controller class for Stu Dent

@@ -1,9 +1,8 @@
 #include <SFML/Window/Event.hpp>
-#include "views/view_skeleton.h"
+#include "engine.h"
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
-#include "engine.h"
 #include "view_manager.h"
 
 Engine &Engine::getInstance()
@@ -82,7 +81,7 @@ void Engine::switch_mode()
   if (curr_game_mode != old_mode)
   {
     old_mode = curr_game_mode;
-    ViewManager::Instance()->clear();
+    ViewManager::Instance()->reset();
 
     //places the primary controller and view for the mode at the 0th index of each vector
     switch (curr_game_mode)

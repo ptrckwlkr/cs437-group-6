@@ -4,6 +4,7 @@
 #include <memory>
 #include <unordered_map>
 #include "view.h"
+#include "game_logic.h"
 
 typedef std::shared_ptr<View> (* Factory)(GameLogic*, Entity&);
 

@@ -5,9 +5,7 @@
 #include <memory>
 #include <chrono>
 #include "game_logic.h"
-#include "view.h"
 #include "ResourceManager.h"
-#include "player_view.h"
 
 
 enum GameMode

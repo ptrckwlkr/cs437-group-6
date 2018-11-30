@@ -26,7 +26,7 @@ class EntityManager{
         std::shared_ptr<Player> &getPlayer(){return player;}
         std::shared_ptr<Entity> &getEntity(long long id);
         std::vector<std::shared_ptr<Entity>> &getEntites() {return entities;}
-        void ClearAll();
+        void reset();
         void Shutdown();
 
         template <class T>
@@ -34,7 +34,7 @@ class EntityManager{
         {
             std::shared_ptr<T> entity = std::make_shared<T>(x, y);
             entities.push_back(entity);
-//            ViewManager::Instance()->add_view(entity);
+            ViewManager::Instance()->add_view(entity);
             return entity;
         }
 

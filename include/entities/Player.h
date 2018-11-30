@@ -2,10 +2,7 @@
 #define CSCI437_PLAYER_H
 
 #include <memory>
-#include "event.h"
 #include "entities/entity.h"
-#include "Projectile.h"
-#include "listener.h"
 
 #define PLAYER_SIZE  15
 

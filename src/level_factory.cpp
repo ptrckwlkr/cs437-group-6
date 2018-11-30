@@ -3,6 +3,7 @@
 #include "alg_agent_based.h"
 #include "view_manager.h"
 #include "entities/gold.h"
+#include "EntityManager.h"
 #include "level.h"
 
 /**
@@ -38,7 +39,6 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 		for (int i = 0; i < gen.enemy_coords.size(); i++)
 		{
       auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
-      ViewManager::Instance()->add_view<Skeleton>(ent);
 		}
     for (int i = 0; i < gen.treasure_coords.size(); i++)
     {

@@ -1,11 +1,10 @@
 #ifndef CSCI437_ENTITY_H
 #define CSCI437_ENTITY_H
 
-#include "event.h"
+#include <vector>
 #include "vector2d.h"
 #include "listener.h"
 #include "EventManager.h"
-#include <vector>
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)

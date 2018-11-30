@@ -29,7 +29,7 @@ public:
     PlayerView &get_curr_player_view() {return *curr_player_view;}
     std::shared_ptr<PlayerView> &get_player_view(){return curr_player_view;}
     std::vector<std::shared_ptr<View>> get_views();
-    void clear() {views.clear();}
+    void reset() {views.clear();}
 
     template <class E>
     void add_view(std::shared_ptr<E> &ent)

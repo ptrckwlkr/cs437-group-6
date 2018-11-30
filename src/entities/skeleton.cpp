@@ -1,6 +1,5 @@
-#include <entities/Projectile.h>
+#include "entities/Projectile.h"
 #include "entities/skeleton.h"
-#include "EventManager.h"
 
 Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)
 {

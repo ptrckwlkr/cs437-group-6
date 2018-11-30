@@ -1,9 +1,9 @@
 #include <vector>
-#include <events/event_wall_collision.h>
+#include "collision_engine.h"
+#include "events/event_wall_collision.h"
+#include "events/event_collision.h"
 #include "macros.h"
 #include "EventManager.h"
-#include "events/event_collision.h"
-#include "collision_engine.h"
 
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure

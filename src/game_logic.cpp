@@ -1,5 +1,6 @@
 #include "game_logic.h"
 #include "view_manager.h"
+#include "EntityManager.h"
 
 GameLogic::GameLogic()
 {
@@ -39,6 +40,6 @@ void GameLogic::reset()
     EventManager::Instance()->unregisterAll(e.get());
   }
   collision_engine.reset();
-  EntityManager::Instance()->ClearAll();
-  ViewManager::Instance()->clear();
+  EntityManager::Instance()->reset();
+  ViewManager::Instance()->reset();
 }

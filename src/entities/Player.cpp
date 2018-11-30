@@ -1,5 +1,6 @@
-#include "entities/player.h"
 #include "macros.h"
+#include "entities/player.h"
+#include "entities/Projectile.h"
 #include "EntityManager.h"
 
 Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)

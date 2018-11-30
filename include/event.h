@@ -3,7 +3,6 @@
 
 typedef long long EventType;
 
-class Entity;
 class Event {
 
 public:

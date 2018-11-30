@@ -1,13 +1,11 @@
 #ifndef CSCI437_PROJECTILE_H
 #define CSCI437_PROJECTILE_H
 
-#include <events/event_wall_collision.h>
-#include <events/event_collision.h>
+#include <cmath>
+#include "events/event_wall_collision.h"
+#include "events/event_collision.h"
 #include "entities/entity.h"
-#include "event.h"
-#include "math.h"
 #include "SFML/System.hpp"
-#include "vector2d.h"
 
 #define PROJECTILE_SPEED_DEFAULT        150
 #define PROJECTILE_SIZE_DEFAULT         5
