@@ -66,6 +66,7 @@ void GameView::process_input(float delta) {
 
 void GameView::handle_event(sf::Event event) {
     if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
+    else if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
 }
 
 void GameView::update(float delta) {
@@ -78,9 +79,9 @@ void GameView::update(float delta) {
     process_input(delta);
 }
 
-void GameView::draw() {
+void GameView::draw(float delta) {
     // initializes the camera
-    // TODO send some of this to the constructor?
+    graphics->update(delta);
     app->draw(*graphics);
     app->display();
 }

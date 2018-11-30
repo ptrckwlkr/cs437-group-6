@@ -55,9 +55,9 @@ void Engine::update_state(float delta)
   }
 }
 
-void Engine::update_graphics()
+void Engine::update_graphics(float delta)
 {
-  ViewManager::Instance()->get_player_view()->draw();
+  ViewManager::Instance()->get_player_view()->draw(delta);
 }
 
 /**

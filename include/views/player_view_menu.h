@@ -9,7 +9,7 @@ class MenuView : public PlayerView
 public:
     MenuView(GameLogic *state, sf::RenderWindow *App);
     void update(float delta) override;
-    void draw() override;
+    void draw(float delta) override;
     int selectionIndex;	//represents current highlighted option on screen
     int screenIndex;	//represents current menu screen to display
 

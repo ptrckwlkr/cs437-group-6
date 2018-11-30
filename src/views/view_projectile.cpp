@@ -10,9 +10,4 @@ void ProjectileView::update(float delta)
 {
   Vector2D dir = projectile->get_direciton();
   projectile->move(dir, delta);
-
-  if (projectile->is_dead() || projectile->get_traveled() > projectile->get_maxRange())
-  {
-    EntityManager::Instance()->removeEntity(projectile->id);
-  }
 }

@@ -15,9 +15,6 @@ void SkeletonView::update(float delta) {
     if (dir.length < skeleton->aggro_dist && hypo * hypo < dir.length * dir.length) {
         skeleton->move(dir, delta);
     }
-    if (skeleton->is_dead()) {
-        EntityManager::Instance()->removeEntity(skeleton->id);
-    }
 }
 
 

@@ -1,3 +1,4 @@
+#include "EntityManager.h"
 #include "entities/Projectile.h"
 #include "entities/skeleton.h"
 
@@ -19,12 +20,12 @@ Skeleton::~Skeleton() {
 
 }
 
-void Skeleton::handleCollision(const EventCollision &event) {
-    if (event.getSelf().id == id && event.getOther().getEntityType() == Projectile::entityType) {
+void Skeleton::handleCollision(const EventCollision &event)
+{
+    if (event.getSelf().id == id && event.getOther().getEntityType() == Projectile::entityType)
+    {
         health -= 3;
-        if (health <= 0) {
-            alive = false;
-        }
+        if (health <= 0) EntityManager::Instance()->removeEntity(id);
     }
 }
 

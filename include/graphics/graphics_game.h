@@ -16,6 +16,8 @@ public:
 private:
     GameView *view;
 
+    void update(float delta) override;
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     void drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const;
@@ -23,6 +25,8 @@ private:
     void drawLevel(sf::RenderTarget &target, sf::RenderStates states) const;
 
     void storeLevel();
+
+    void drawMap(sf::RenderTarget &target, sf::RenderStates states) const;
 
     void drawProjectileMotionBlur(sf::RenderTarget &target, sf::RenderStates states, sf::CircleShape,  std::vector<Vector2D> &trail) const;
 

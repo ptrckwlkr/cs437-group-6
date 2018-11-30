@@ -1,4 +1,5 @@
 #include "entities/Projectile.h"
+#include "EntityManager.h"
 
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT) {
     speed = PROJECTILE_SPEED_DEFAULT;
@@ -31,11 +32,11 @@ void Projectile::move(Vector2D &dir, float delta) {
 }
 
 void Projectile::handleWallCollision(const EventWallCollision &event) {
-    if (event.getEntity().id == id) alive = false;
+    if (event.getEntity().id == id) EntityManager::Instance()->removeEntity(id);
 }
 
 void Projectile::handleCollision(const EventCollision &event) {
-    if (event.getSelf().id == id && event.getOther().is_hostile()) alive = false;
+    if (event.getSelf().id == id && event.getOther().is_hostile()) EntityManager::Instance()->removeEntity(id);
 }
 
 

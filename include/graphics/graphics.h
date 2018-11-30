@@ -17,6 +17,7 @@ class Graphics : public sf::Drawable, public sf::Transformable
 
 public:
   Graphics() = default;
+	virtual void update(float delta) {}
 
 	/* finds element in under root node in xml file and creates sf::Text object with given parameters
 	    Note that the text will have an origin at its center. Since params are in xml file they can be changed without recompiling.
