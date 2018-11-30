@@ -25,7 +25,7 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
     //srand(123456789);
     auto seed = (unsigned int) time(nullptr);
-    srand(1543619201);
+    srand(seed);
     printf("Seed: %d\n", seed);
     //TODO change to C++ random library if time permits for more robust generation
 }
@@ -123,9 +123,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
 
     }
-    printLevelGrid();
-    printf("\n\n");
-    printf("max x: %d, max y: %d\nmin x:%d, min y:%d\n", max_x, max_y, min_x, min_y);
+
     width = (max_x - min_x) + 3;
     height = (max_y - min_y) + 3;
     std::vector<std::vector<char>> optimized_grid(height, std::vector<char>(width));
@@ -162,7 +160,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
     placeEntities(num_enemies);
     placeTreasure(50);
-    printLevelGrid();
+
 
     return level_grid;
 }
