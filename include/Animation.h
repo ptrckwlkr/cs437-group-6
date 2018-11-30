@@ -29,7 +29,7 @@ class Animation
         Animation();
         void init(sf::Texture &texture, sf::Vector2u imageCount, float switchTime);
         ~Animation();
-        void Update(Vector2D dir, int imageCount, float delta);
+        void Update(float delta);
         sf::Sprite &getSprite(){ return sprite;}
 };
 

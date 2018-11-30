@@ -5,6 +5,7 @@
 #include "graphics.h"
 #include "views/player_view.h"
 #include "tile_map.h"
+#include "sprite_manager.h"
 
 class GameView;
 
@@ -36,6 +37,8 @@ private:
 
     std::vector<sf::RectangleShape> levelShapes;
     sf::Font font;
+
+    SpriteManager spriteManager;
 
 };
 

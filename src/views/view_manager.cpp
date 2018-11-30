@@ -15,7 +15,8 @@ ViewManager *ViewManager::Instance()
 
 void ViewManager::handleEntityRemoval(const EventEntityDestroyed &event)
 {
-  views.erase(event.getEntityID());
+  auto i = views.find(event.getEntityID());
+  if (i != views.end()) views.erase(i);
 }
 
 void ViewManager::update_views(float delta)

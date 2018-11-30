@@ -3,7 +3,6 @@
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
-#include "Animation.h"
 #include "EntityManager.h"
 #include "entities/Projectile.h"
 
@@ -180,5 +179,5 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
 
 void GameGraphics::update(float delta)
 {
-
+    spriteManager.updateAnimations(delta);
 }

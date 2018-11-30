@@ -22,7 +22,9 @@ void Animation::init(sf::Texture &texture, sf::Vector2u imageCount, float switch
 
 Animation::~Animation(){}
 
-void Animation::Update(Vector2D dir, int imageCount, float delta){
+void Animation::Update(float delta){
+
+    /*
 
     ///get current sprite when the direction is passed 
     //playergame view can access this current sprite to draw it 
@@ -48,5 +50,5 @@ void Animation::Update(Vector2D dir, int imageCount, float delta){
         uvRect.top = currentImage.y * uvRect.height;
 
         sprite.setTextureRect(uvRect);
-    }
+    }*/
 }

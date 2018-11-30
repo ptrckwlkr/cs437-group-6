@@ -51,7 +51,7 @@ void GameView::process_input(float delta) {
         // if (dir != VEC_NONE)
         // {
         state->get_level().get_player().move(dir, delta);
-        animation_player.Update(dir, 9, delta);
+        //animation_player.Update(dir, 9, delta);
         //}
     }
 
