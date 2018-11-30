@@ -121,12 +121,12 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
     }
 
     width = (max_x - min_x) + 3;
-    height = (max_y - min_y) + 2;
+    height = (max_y - min_y) + 3;
     std::vector<std::vector<char>> optimized_grid(height, std::vector<char>(width));
 
     std::vector<char> tmp(width);
     int grid_row = 0;
-    for (int y = min_y - 1; y < max_y + 1; y++)
+    for (int y = min_y - 1; y <= max_y + 1; y++)
     {
         std::copy(level_grid[y].begin() + min_x - 1, level_grid[y].begin() + min_x - 1 + width, optimized_grid[grid_row].begin());
         grid_row++;
