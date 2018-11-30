@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include "../rapidxml/rapidxml.hpp"
+#include "../../rapidxml/rapidxml.hpp"
 #include "ResourceManager.h"
 #include <memory>
 #include <string>

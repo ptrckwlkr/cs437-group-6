@@ -1,5 +1,5 @@
 #include "game_logic.h"
-#include "view_manager.h"
+#include "views/view_manager.h"
 #include "EntityManager.h"
 
 GameLogic::GameLogic()

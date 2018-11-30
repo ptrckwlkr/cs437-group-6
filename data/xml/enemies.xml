@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+    <Skeleton_White>
+        <health>25</health>
+        <speed>50</speed>
+        <aggro-dist>300</aggro-dist>
+    </Skeleton_White>
+    <Skeleton_Red>
+        <health>40</health>
+        <speed>75</speed>
+        <aggro-dist>450</aggro-dist>
+    </Skeleton_Red>
+    <Skeleton_Gold>
+        <health>55</health>
+        <speed>100</speed>
+        <aggro-dist>600</aggro-dist>
+    </Skeleton_Gold>
+
+
+</Root>

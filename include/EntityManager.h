@@ -6,7 +6,7 @@
 #include <memory>
 #include "entities/entity.h"
 #include "entities/Player.h"
-#include "view_manager.h"
+#include "views/view_manager.h"
 
 
 class EntityManager{

@@ -5,6 +5,8 @@
 SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state)
 {
   skeleton = &s;
+  cur_state = PASSIVE;
+  type = skeleton->type;
 }
 
 void SkeletonView::update(float delta)
@@ -23,10 +25,6 @@ void SkeletonView::update(float delta)
 }
 
 
-void SkeletonView::AStar(Vector2D player_pos)
-{
-
-}
 
 
 /*

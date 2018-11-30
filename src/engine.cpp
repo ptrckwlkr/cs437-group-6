@@ -3,7 +3,7 @@
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
-#include "view_manager.h"
+#include "views/view_manager.h"
 #include "EntityManager.h"
 
 Engine &Engine::getInstance()
@@ -23,6 +23,8 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
   resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
   if (MUSIC) resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+  resources.LoadXML("enemies", "../data/xml/enemies.xml");
+
   App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();

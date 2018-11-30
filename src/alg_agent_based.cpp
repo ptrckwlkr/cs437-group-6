@@ -25,7 +25,7 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
     //srand(123456789);
     auto seed = (unsigned int) time(nullptr);
-    srand(seed);
+    srand(1543594143);
     printf("Seed: %d\n", seed);
     //TODO change to C++ random library if time permits for more robust generation
 }
@@ -78,8 +78,6 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
                 cur_dir = chooseRandomDirection(cur_dir, false);
             }
         }
-        //add end of the room to path_nodes
-        path_nodes.emplace_back(Vector2D(digger_x - direction_x, digger_y - direction_y));
 
         //we are now outside the room and still in bounds,
         float cur_prob_turn = 0, cur_prob_room = 0 - prob_room; // ensures room isn't generated immediately
@@ -87,6 +85,10 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
         do {
             level_grid[digger_y][digger_x] = '1';
             updateExtremeCoords(digger_x, digger_y);
+
+            //add end of the room to path_nodes
+            if (level_grid[digger_y - direction_y][digger_x - direction_x] == '0')
+                path_nodes.emplace_back(Vector2D(digger_x - direction_x, digger_y - direction_y));
 
             //generate random numbers between 1 and 100 for probabilities
             rand_turn = (rand() % 100) + 1;
@@ -134,10 +136,15 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
 
     //cuts down unused space in level_grid, have to update coordinates to reflect this new grid
     level_grid = optimized_grid;
-    for (int i = 0; i < path_nodes.size(); i++)
+    for (std::vector<Vector2D>::iterator it=path_nodes.begin(); it!=path_nodes.end();)
     {
-        path_nodes[i].x -= (min_x - 1);
-        path_nodes[i].y -= (min_y - 1);
+       it->x -= (min_x - 1);
+       it->y -= (min_y - 1);
+       if (level_grid[it->y+1][it->x] == '0' && level_grid[it->y-1][it->x] == '0'
+            && level_grid[it->y][it->x+1] == '0' && level_grid[it->y][it->x-1] == '0')
+           it = path_nodes.erase(it);
+       else
+           it++;
     }
 
     for (int i = 0; i < rooms.size(); i++)
@@ -147,6 +154,9 @@ std::vector<std::vector<char>> &AgentBasedGenerator::createLevelGrid(int max_roo
     }
     avg_i -= (min_x - 1); avg_j -= (min_y - 1);
 
+//    for (auto e : path_nodes)
+//        level_grid[e.y][e.x] = '9';
+    printLevelGrid();
     placeEntities(num_enemies);
     placeTreasure(50);
 
@@ -184,6 +194,13 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
                     level_grid[j][i + b] = 'o';
                 else
                     level_grid[j + a][i + b] = '0';
+
+                //add end of the room to path_nodes
+                if ((a == 0 && level_grid[j+a-1][i+b] == '1') || (a == room_height - 1 && level_grid[j+a+1][i+b] == '1')
+                    || (b == 0 && level_grid[j+a][i+b-1] == '1') || (b == room_width - 1 && level_grid[j+a][i+b+1] == '1'))
+                    path_nodes.emplace_back(Vector2D(i+b, j+a));
+
+
             }
         }
 
@@ -196,7 +213,6 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
         //updates extreme coordinates
         updateExtremeCoords(i, j);
         updateExtremeCoords(i + room_width, j + room_height);
-        path_nodes.emplace_back(i + rand_x_offset, j + rand_y_offset);
 
         return true;
     }

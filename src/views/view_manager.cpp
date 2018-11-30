@@ -1,4 +1,4 @@
-#include "view_manager.h"
+#include "views/view_manager.h"
 
 void ViewManager::init(GameLogic *s)
 {

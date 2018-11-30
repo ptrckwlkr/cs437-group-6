@@ -3,10 +3,10 @@
 
 Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)
 {
-  health = SKELETON_HEALTH;
-  speed = SKELETON_SPEED;
   obstructible = true;
   hostile = true;
+  //uses normal skeleton by default
+  type = "white";
 
   EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
 }
@@ -26,4 +26,16 @@ void Skeleton::handleCollision(const EventCollision &event)
       alive = false;
     }
   }
+}
+
+
+void Skeleton::updateAttributes() {
+
+
+}
+
+
+void Skeleton::setType(std::string param_type) {
+  type = param_type;
+  updateAttributes();
 }
