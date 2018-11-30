@@ -24,6 +24,8 @@ private:
 
     void storeLevel();
 
+    void drawMap(sf::RenderTarget &target, sf::RenderStates states) const;
+
     void drawProjectileMotionBlur(sf::RenderTarget &target, sf::RenderStates states, sf::CircleShape,  std::vector<Vector2D> &trail) const;
 
     TileMap tile_map;

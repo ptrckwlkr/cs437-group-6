@@ -20,12 +20,16 @@ public:
     Animation animation_player;
     Animation animation_skeleton;
 
+    bool getMapMode() {return map_mode;}
+
 private:
     void process_input(float delta) override;
     void handle_event(sf::Event event) override;
     sf::Texture skeleton_text;
     sf::Texture player_text;
     std::shared_ptr<sf::Music> bg_music;
+
+    bool map_mode;
 
 };
 

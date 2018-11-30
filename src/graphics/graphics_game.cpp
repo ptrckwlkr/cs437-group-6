@@ -69,15 +69,15 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 		target.draw(sprite, states);
 		if ( circle.getFillColor() != sf::Color(0,0,0,0))
-			target.draw(circle, states);
-		//target.draw(rect, states);
+			  target.draw(circle, states);
+		    //target.draw(rect, states);
 
-	}
+    }
 
-  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  camera.setCenter(playerPos.x, playerPos.y);
-  target.setView(camera);
-	drawUI(target, states, playerPos.x, playerPos.y);
+    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    camera.setCenter(playerPos.x, playerPos.y);
+    target.setView(camera);
+    drawUI(target, states, playerPos.x, playerPos.y);
 }
 
 
@@ -110,6 +110,8 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, flo
     manaText.setPosition(x - WINDOW_WIDTH / 2.f + 135, manaBar.getPosition().y + manaBar.getLocalBounds().height / 2.f);
     target.draw(hpText, states);
     target.draw(manaText, states);
+
+    if (view->getMapMode()) drawMap(target, states);
 }
 
 void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -145,4 +147,33 @@ void GameGraphics::drawProjectileMotionBlur(sf::RenderTarget &target, sf::Render
         target.draw(trail_shape, states);
     }
 
+}
+
+void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) const
+{
+    //TODO this can be heavily optimized, theoretically the tiles one must draw should only need to be computed once
+    //TODO unless we want to have a "visited" or "seen" kind of cell attribute?
+    //TODO also, there's got to be a better way to do the camera for everything
+    sf::View camera;
+    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    camera.zoom(3);
+    camera.setCenter(playerPos.x, playerPos.y);
+    target.setView(camera);
+    sf::RectangleShape rect;
+    rect.setSize(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+    rect.setFillColor(sf::Color(128, 128, 128, 96));
+    auto map = view->get_state().get_level().get_map();
+    for (int m = 1; m < map.get_height() - 1; ++m)
+    {
+        for (int n = 1; n < map.get_width() - 1; ++n)
+        {
+            auto type = map.get_cell(m, n).get_cell_type();
+            if (type == FLOOR || type == ORNAMENT || type == EXIT)
+            {
+                rect.setPosition(n * CELL_SIZE, m * CELL_SIZE);
+                target.draw(rect, states);
+            }
+        }
+    }
 }
