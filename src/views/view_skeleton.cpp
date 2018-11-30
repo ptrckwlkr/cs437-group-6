@@ -16,10 +16,6 @@ void SkeletonView::update(float delta)
   {
     skeleton->move(dir, delta);
   }
-  if (skeleton->is_dead())
-  {
-    EntityManager::Instance()->removeEntity(skeleton->id);
-  }
 }
 
 

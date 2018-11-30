@@ -1,3 +1,4 @@
+#include "EntityManager.h"
 #include "entities/Projectile.h"
 #include "entities/skeleton.h"
 
@@ -23,7 +24,7 @@ void Skeleton::handleCollision(const EventCollision &event)
     health -= 3;
     if (health <= 0)
     {
-      alive = false;
+      EntityManager::Instance()->removeEntity(id);
     }
   }
 }
