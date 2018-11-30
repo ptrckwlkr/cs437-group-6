@@ -4,6 +4,7 @@
 #include "view.h"
 #include "player_view.h"
 #include <SFML/Audio.hpp>
+#include <memory>
 
 /**
 * Controller class for Stu Dent

@@ -1,10 +1,12 @@
-#include <entities/skeleton.h>
-#include <entities/gold.h>
+#include "entities/skeleton.h"
+#include "entities/gold.h"
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
 #include "Animation.h"
+#include "EntityManager.h"
 #include "entities/Projectile.h"
+#include "game_logic.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)

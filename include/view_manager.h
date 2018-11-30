@@ -6,7 +6,6 @@
 #include "events/event_entity_destroyed.h"
 #include "view.h"
 #include "player_view.h"
-#include "game_logic.h"
 #include "view_factory.h"
 
 class ViewManager : public Listener

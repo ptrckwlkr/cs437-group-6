@@ -4,7 +4,6 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include "game_logic.h"
 #include "../rapidxml/rapidxml.hpp"
 #include "ResourceManager.h"
 #include <memory>

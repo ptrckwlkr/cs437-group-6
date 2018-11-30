@@ -1,11 +1,10 @@
 #ifndef CSCI437_VIEW_H
 #define CSCI437_VIEW_H
 
-#include "game_logic.h"
-
 /**
  * Abstract base class for all controllers.
  */
+class GameLogic;
 class View
 {
 

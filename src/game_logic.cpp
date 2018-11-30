@@ -1,4 +1,5 @@
-#include <view_manager.h>
+#include "game_logic.h"
+#include "view_manager.h"
 
 GameLogic::GameLogic()
 {

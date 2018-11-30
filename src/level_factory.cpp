@@ -1,8 +1,9 @@
+#include "level_factory.h"
 #include "views/view_skeleton.h"
 #include "alg_agent_based.h"
 #include "view_manager.h"
 #include "entities/gold.h"
-#include "entities/skeleton.h"
+#include "level.h"
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter

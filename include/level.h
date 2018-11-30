@@ -7,7 +7,6 @@
 #include "map.h"
 #include "collision_engine.h"
 #include "entities/Player.h"
-#include "entities/Projectile.h"
 #include "EntityManager.h"
 
 class Level

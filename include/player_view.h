@@ -3,14 +3,13 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
-#include "game_logic.h"
+#include <memory>
 #include "view.h"
 #include "Animation.h"
 /**
  * Abstract base class for all the player views, to include functionality for SFML input, graphics, and audio.
  */
 class Graphics;
-
 class PlayerView : public View
 {
 
