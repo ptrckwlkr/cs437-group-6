@@ -21,13 +21,10 @@ class ViewFactory
 
 private:
     void init(GameLogic *s) {state = s;}
-    template <class E>
-    std::shared_ptr<View> create(std::shared_ptr<E> &entity)
+    std::shared_ptr<View> createView(Entity *entity)
     {
       std::shared_ptr<View> view = nullptr;
-      std::shared_ptr<Entity> ent = entity;
-
-      auto i = map.find(ent->getEntityType());
+      auto i = map.find(entity->getEntityType());
       if (i != map.end())
       {
         Factory f = i->second;
