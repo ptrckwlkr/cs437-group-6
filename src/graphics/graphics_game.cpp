@@ -33,8 +33,9 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	float y;
 	float size;
 	EntityType type;
-	for (auto &ent : EntityManager::Instance()->getEntites())
+	for (auto &i : EntityManager::Instance()->getEntites())
 	{
+    auto ent = i.second;
 		x = ent->get_position().x;
 		y = ent->get_position().y;
 		size = ent->get_size();

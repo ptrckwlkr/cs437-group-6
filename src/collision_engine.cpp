@@ -8,7 +8,7 @@
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
  */
-void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
+void CollisionEngine::check_collisions(Map &level_map)
 {
   int num_entities;
   int i;
@@ -59,7 +59,7 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 /**
  * Sort a list of pointers to game entities into the map's cells, according to the entities' positions
  */
-void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
+void CollisionEngine::hash_entities(Map &level_map, std::unordered_map<long long, std::shared_ptr<Entity>> entities)
 {
   // TODO will probably ultimately accept the EntityManager& as a parameter, instead of a raw vector of pointers
   float radius;
@@ -70,9 +70,10 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
   Cell *cell;
 
   // Sort every entity into one or more of the game grid's cells
-  clear_cells(level_map);
-  for (auto &ent : entities)
+  clear_cells();
+  for (auto &i : entities)
   {
+    auto ent = i.second;
     Vector2D pos = ent->get_position();
     radius  = ent->get_size();
     top     = pos.y - radius - COLLISION_BUFFER;
@@ -99,7 +100,7 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
 /**
  * Clear every cell of its registered entities
  */
-void CollisionEngine::clear_cells(Map &level_map)
+void CollisionEngine::clear_cells()
 {
   for (auto &cell : occupied_cells)
   {

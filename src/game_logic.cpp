@@ -18,7 +18,7 @@ void GameLogic::update_state()
   EventManager::Instance()->processEvents(); // Process all other events
   collision_engine.hash_entities(level->get_map(), EntityManager::Instance()->getEntites());
   level->update();
-  collision_engine.check_collisions(level->get_map(), EntityManager::Instance()->getEntites());
+  collision_engine.check_collisions(level->get_map());
   EventManager::Instance()->processEvents(); // Process collisions
 }
 
@@ -34,12 +34,8 @@ void GameLogic::create_new_level(Generator g)
 
 void GameLogic::reset()
 {
-  EventManager::Instance()->shutdown();
-  for (const auto &e : EntityManager::Instance()->getEntites())
-  {
-    EventManager::Instance()->unregisterAll(e.get());
-  }
   collision_engine.reset();
-  EntityManager::Instance()->reset();
   ViewManager::Instance()->reset();
+  EntityManager::Instance()->reset();
+  EventManager::Instance()->reset();
 }

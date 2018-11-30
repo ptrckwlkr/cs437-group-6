@@ -4,6 +4,7 @@
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
 #include "view_manager.h"
+#include "EntityManager.h"
 
 Engine &Engine::getInstance()
 {
@@ -100,4 +101,12 @@ void Engine::switch_mode()
         break;
     }
   }
+}
+
+void Engine::shutdown()
+{
+  ViewManager::Instance()->reset();
+  EntityManager::Instance()->reset();
+  EventManager::Instance()->reset();
+  App->close();
 }

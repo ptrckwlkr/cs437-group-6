@@ -1,6 +1,5 @@
 #include "events/event_entity_destroyed.h"
 #include "EntityManager.h"
-        
 
 //returns an instance of event manager
 EntityManager* EntityManager::Instance(){
@@ -8,56 +7,29 @@ EntityManager* EntityManager::Instance(){
     return &instance;
 }
 
-void EntityManager::removeEntity(long long entity_id){
-
-    //iterator 
-    std::vector<std::shared_ptr<Entity> >::iterator iter = entities.begin();
-
-    while (iter != entities.end()){
-
-        //find the correct entity
-        if ( (*iter)->id == entity_id){
-
-            EventEntityDestroyed event((*iter)->id, (*iter)->getEntityType(), (*iter)->get_position());
-            EventManager::Instance()->sendEvent(event);
-            //delete the entity from vector 
-            iter = entities.erase(iter);
-
-            //delete from the correct list
-        }
-        else {
-            iter++;
-            }
-        }
+void EntityManager::removeEntity(long long entity_id)
+{
+    auto entity = entity_set[entity_id];
+    EventEntityDestroyed event(entity->id, entity->getEntityType(), entity->get_position());
+    EventManager::Instance()->sendEvent(event);
+    entity_set.erase(entity_id);
 }
 
 
 //returns entity with the given id 
-std::shared_ptr<Entity> &EntityManager::getEntity(long long id){
+std::shared_ptr<Entity> &EntityManager::getEntity(long long entity_id)
+{
+    return entity_set[entity_id];
+}
 
-    //iterator
-    std::vector<std::shared_ptr<Entity> >::iterator iter = entities.begin();
 
-    while (iter != entities.end()){
-
-        //find the correct entity with specific type
-        if ((*iter)->id == id) {
-            //return entity 
-            return (*iter);
-        }
-
-        else{
-            iter++;
-        }
+void EntityManager::reset()
+{
+    for (auto &i : entity_set)
+    {
+      auto e = i.second;
+      EventManager::Instance()->unregisterAll(e.get());
     }
-
-}
-
-
-void EntityManager::reset(){
-    entities.clear();
-}
-
-void EntityManager::Shutdown(){
-
+    EventManager::Instance()->unregisterAll(player.get());
+    entity_set.clear();
 }

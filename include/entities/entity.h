@@ -35,10 +35,9 @@ public:
       alive = true;
       hostile = false;
     }
-    ~Entity()
-    {
+    ~Entity() {
       EventManager::Instance()->unregisterAll(this);
-    }
+    };
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
     void set_position(Vector2D new_pos) {pos = new_pos;}

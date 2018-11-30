@@ -28,6 +28,7 @@ public:
     void update_state(float delta);
 		void update_graphics();
     void set_mode(GameMode mode);
+		void shutdown();
     float clock();
 	
 

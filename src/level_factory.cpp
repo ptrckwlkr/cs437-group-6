@@ -34,7 +34,6 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
     std::shared_ptr<Player> player = EntityManager::Instance()->createEntity<Player>(gen.player_x, gen.player_y);
     EntityManager::Instance()->set_player(player);
-//		EntityManager::Instance()->createEntity<Gold>(3750, 2750);
 		//TEMP method to place enemies
 		for (int i = 0; i < gen.enemy_coords.size(); i++)
 		{
@@ -50,7 +49,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
   // Create the actual level
   level = std::make_shared<Level>(map);
-  level->set_player(EntityManager::Instance()->getPlayer());
+  level->set_player(EntityManager::Instance()->getPlayer().get());
 
   return level;
 }

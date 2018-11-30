@@ -10,8 +10,8 @@ SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state)
 void SkeletonView::update(float delta)
 {
   //get player position
-  Vector2D dir = state->get_level().get_player()->get_position() - skeleton->get_position();
-  float hypo = state->get_level().get_player()->get_size() + skeleton->get_size();
+  Vector2D dir = state->get_level().get_player().get_position() - skeleton->get_position();
+  float hypo = state->get_level().get_player().get_size() + skeleton->get_size();
   if (dir.length < ENEMY_ACTIVE_DISTANCE && hypo * hypo < dir.length * dir.length)
   {
     skeleton->move(dir, delta);
@@ -19,7 +19,6 @@ void SkeletonView::update(float delta)
   if (skeleton->is_dead())
   {
     EntityManager::Instance()->removeEntity(skeleton->id);
-    //ViewManager::Instance()->remove_view(get_id());
   }
 }
 

@@ -7,11 +7,6 @@ void ViewManager::init(GameLogic *s)
   EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &handleEntityRemoval);
 }
 
-ViewManager::~ViewManager()
-{
-  EventManager::Instance()->unregisterAll(this);
-}
-
 ViewManager *ViewManager::Instance()
 {
   static ViewManager instance;

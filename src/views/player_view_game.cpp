@@ -50,7 +50,7 @@ void GameView::process_input(float delta) {
         //only call move when necessary
         // if (dir != VEC_NONE)
         // {
-        state->get_level().get_player()->move(dir, delta);
+        state->get_level().get_player().move(dir, delta);
         animation_player.Update(dir, 9, delta);
         //}
     }
@@ -58,14 +58,14 @@ void GameView::process_input(float delta) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
         Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
-        Vector2D direction = mouse_pos - state->get_level().get_player()->get_position();
-        state->get_level().get_player()->attack(direction, delta);
+        Vector2D direction = mouse_pos - state->get_level().get_player().get_position();
+        state->get_level().get_player().attack(direction, delta);
     }
 
 }
 
 void GameView::handle_event(sf::Event event) {
-    if (event.type == sf::Event::Closed) app->close();
+    if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
 }
 
 void GameView::update(float delta) {
@@ -83,7 +83,7 @@ void GameView::draw() {
     // TODO send some of this to the constructor?
     sf::View camera;
     camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-    Vector2D playerPos = state->get_level().get_player()->get_position();
+    Vector2D playerPos = state->get_level().get_player().get_position();
     camera.zoom(1 / ZOOM_SCALAR);
     camera.setCenter(playerPos.x, playerPos.y);
 

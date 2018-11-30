@@ -20,7 +20,7 @@ public:
     //returns an instance of event manager
     static EventManager* Instance();
 
-    void shutdown();
+    void reset();
     void processEvents();
     void unregisterListener(EventType type, Listener *listener);
     void unregisterAll(Listener *listener);
