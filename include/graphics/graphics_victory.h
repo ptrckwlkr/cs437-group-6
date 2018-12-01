@@ -17,9 +17,6 @@ private:
     VictoryView *view;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-    void storeStaticText();
-    void storeControlText();
-    void drawTitleScreenDynamicText(sf::RenderTarget &target, sf::RenderStates states, int index) const;
 
     sf::Font font;
     sf::Text title;

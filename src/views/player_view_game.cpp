@@ -13,8 +13,6 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
 	music.setVolume(35.0);
 	music.playMusic();
     }
-    //animation_player.init(player_text, sf::Vector2u(13, 21), 3 / 60.f);
-    //animation_skeleton.init(skeleton_text, sf::Vector2u(13, 21), 3 / 60.f);
 }
 
 GameView::~GameView() {
@@ -27,14 +25,13 @@ void GameView::process_input(float delta) {
         Engine::getInstance().set_mode(MODE_MENU);
     }
 
-    // TODO check that game has started (not in menu)
 
-
-    int x_dir = 0, y_dir = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) y_dir++;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) y_dir--;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) x_dir--;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) x_dir++;
+	// TODO check that game has started (not in menu)
+	int x_dir = 0, y_dir = 0;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	y_dir++;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))	y_dir--;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	x_dir--;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	x_dir++;
 
     if (x_dir != 0 || y_dir != 0) {
         auto dir = VEC_NONE;
