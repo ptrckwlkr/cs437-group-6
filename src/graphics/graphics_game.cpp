@@ -51,13 +51,11 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         type = ent->getEntityType();
 
         sf::CircleShape circle(size);
-        circle.setFillColor(sf::Color(255, 255, 255, 125));
-
-        if (type == Player::entityType) circle.setFillColor(sf::Color(0, 255, 0, 125));
-        if (type == Projectile::entityType) {
+        circle.setFillColor(sf::Color(0, 0, 0, 0));
+        if (type == Projectile::entityType)
             circle.setFillColor(sf::Color(255, 140, 0)), drawProjectileMotionBlur(target, states, circle, ent->trail);
-        }
-        if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0, 125));
+        if (type == Gold::entityType)
+            circle.setFillColor(sf::Color(255, 255, 0, 125));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);

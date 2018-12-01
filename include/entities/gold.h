@@ -12,7 +12,6 @@ class Gold : public Entity
 
 public:
     Gold(float x, float y);
-    ~Gold();
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
     void move(Vector2D &dir, float delta) override {}

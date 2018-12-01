@@ -9,12 +9,6 @@ Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
   delta_sum = 0.0;
 }
 
-
-Player::~Player()
-{
-
-}
-
 void Player::attack(Vector2D &dir, float delta) {
     delta_sum += delta;
     //prevents projectiles from being spammed

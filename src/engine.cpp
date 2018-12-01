@@ -22,6 +22,7 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
   resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
   resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
+  resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
   if (MUSIC) resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
   resources.LoadXML("enemies", "../data/xml/enemies.xml");
 
