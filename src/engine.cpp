@@ -104,6 +104,10 @@ void Engine::switch_mode()
         state.create_new_level(AGENT_BASED);
         ViewManager::Instance()->set_player_view<GameView>(&state, App);
         break;
+        case MODE_VICTORY:
+            //ViewManager::Instance()->set_player_view(<VictoryView>(&state, App);
+          break;
+
     }
   }
 }

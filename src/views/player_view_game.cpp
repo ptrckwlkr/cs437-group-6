@@ -6,16 +6,16 @@
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
   graphics = std::make_shared<GameGraphics>(this);
-  player_text = resources.GetTexture( "playerTexture");
-  skeleton_text = resources.GetTexture("skeletonTexture");
+  //player_text = resources.GetTexture( "playerTexture");
+  //skeleton_text = resources.GetTexture("skeletonTexture");
   if (MUSIC)
   {
     bg_music = resources.GetSound("vanquisher");
     bg_music.setVolume(50.0);
     bg_music.play();
   }
-  animation_player.init( player_text, sf::Vector2u(13, 21), 3/60.f);
-  animation_skeleton.init( skeleton_text, sf::Vector2u(13, 21), 3/60.f);
+  //animation_player.init( player_text, sf::Vector2u(13, 21), 3/60.f);
+  //animation_skeleton.init( skeleton_text, sf::Vector2u(13, 21), 3/60.f);
 }
 
 GameView::~GameView() {
@@ -56,7 +56,8 @@ void GameView::process_input(float delta)
 	// if (dir != VEC_NONE)
 	// {
     state->get_level().get_player()->move(dir, delta);
-    animation_player.Update(dir, 9, delta);
+    //animation_player.Update(dir, 9, delta);
+    //animation_skeleton.Update(ent->get_position(), 9, Engine::getInstance().clock());
 	//}
   }
 

@@ -4,8 +4,8 @@
 
 Gold::Gold(float x, float y) : Entity(x, y, GOLD_SIZE)
 {
-  EventManager::Instance()->registerListener(EventGoldCollection::eventType, this, &handleGoldCollection);
-  EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
+  EventManager::Instance()->registerListener(EventGoldCollection::eventType, this, &Gold::handleGoldCollection);
+  EventManager::Instance()->registerListener(EventCollision::eventType, this, &Gold::handleCollision);
 }
 
 Gold::~Gold()

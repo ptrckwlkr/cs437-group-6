@@ -2,6 +2,7 @@
 #define CSCI437_VIEW_H
 
 #include "game_logic.h"
+#include "Animations/Animation.h"
 
 /**
  * Abstract base class for all controllers.
@@ -19,10 +20,17 @@ public:
     virtual void update(float delta) = 0;
     GameLogic &get_state() {return *state;}
     long long get_id() {return id;}
+    //Animation getPlayerAnimation(){ return  animation_player;}
+    //Animation getSkeletonAnimation(){ return  animation_skeleton;}
 
 protected:
     GameLogic *state;
     long long id;
+    //to be used to update sprite movement
+//    Animation animation_player;
+//    Animation animation_skeleton;
+//    sf::Texture skeleton_text;
+//    sf::Texture player_text;
 
 };
 

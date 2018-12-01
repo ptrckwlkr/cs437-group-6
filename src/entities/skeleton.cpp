@@ -9,7 +9,7 @@ Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE)
   obstructible = true;
   hostile = true;
 
-  EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
+  EventManager::Instance()->registerListener(EventCollision::eventType, this, &Skeleton::handleCollision);
 }
 
 Skeleton::~Skeleton()

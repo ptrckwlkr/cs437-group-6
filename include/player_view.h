@@ -5,7 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include "game_logic.h"
 #include "view.h"
-#include "Animation.h"
+#include "Animations/Animation.h"
 /**
  * Abstract base class for all the player views, to include functionality for SFML input, graphics, and audio.
  */

@@ -1,9 +1,10 @@
 #include <entities/skeleton.h>
 #include <entities/gold.h>
+#include <engine.h>
+#include <Animations/PlayerAnimation.h>
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
-#include "Animation.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
@@ -44,11 +45,18 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		circle.setFillColor(sf::Color(0,0,0,0));
 		sf::Sprite sprite;
 
-		if (type == Skeleton::entityType) sprite = view->animation_skeleton.getSprite();
+		sf::Texture playerTexture = resources.GetTexture("playerTexture");
+
+		if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
 		if (type == Player::entityType) rect.setFillColor(sf::Color(0, 255, 0, 125));
-		if (type == Player::entityType) sprite = view->animation_player.getSprite();
+		if (type == Player::entityType) {
+
+			PlayerAnimation(&ent, &playerTexture, sf::Vector2u(13, 21), 3/60.f);
+
+			sprite = view->getPlayerAnimation().getSprite();
+		}
 		if (type == Projectile::entityType) circle.setFillColor(sf::Color(255, 255, 255));
-    if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0));
+        if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0));
 		rect.setSize( sf::Vector2f(size , size));
 		rect.setOrigin(sf::Vector2f(size/2.0, size/2.0));
 		circle.setOrigin(sf::Vector2f(size, size));

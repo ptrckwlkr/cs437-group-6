@@ -13,8 +13,7 @@ public:
 
 private:
     Skeleton *skeleton;
-
+    
 };
-
 
 #endif //CSCI437_SKELETONVIEW_H
