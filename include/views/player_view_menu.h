@@ -18,7 +18,6 @@ private:
     void handle_event(sf::Event event) override;
 		bool makeSelection();
 		void goBack();
-
 };
 
 

@@ -53,6 +53,9 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
     avg_i = 0, avg_j = 0;
     int distance_traveled = 0;
 
+    min_x = width, max_x = 0;
+    min_y = height, max_y = 0;
+
     //determine digger's initial coordinates and place first room
     int digger_x, digger_y;
     do {
@@ -60,8 +63,6 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
         digger_y = rand() % height;
     } while (!placeRoom(digger_x, digger_y));
 
-    min_x = digger_x, max_x = digger_x;
-    min_y = digger_y, max_y = digger_y;
 
     int cur_dir = chooseRandomDirection(-1, false);
 
@@ -160,6 +161,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
     placeEntities(num_enemies);
     placeTreasure(50);
 
+
     return level_grid;
 }
 
@@ -243,19 +245,22 @@ void AgentBasedGenerator::placeEntities(int num_enemies) {
                                                           rooms[room][1] + rooms[room][3] / 2) < 12);
 
         std::vector<int> enemy_pos;
+        std::vector<int> enemy_pos_pixels;
 
         do {
             enemy_pos = std::vector<int>{(rooms[room][0] + rand() % rooms[room][2]),
                                          (rooms[room][1] + rand() % rooms[room][3])};
+            //multiply by cell size and add small offset to center enemy before pushing to vector
+            enemy_pos_pixels = std::vector<int>{enemy_pos[0] * CELL_SIZE + CELL_SIZE / 2,
+                                                enemy_pos[1] * CELL_SIZE + CELL_SIZE / 2};
+
         } //ensure that enemy position is not in a wall, far enough away from the player, and is unique
         while (level_grid[enemy_pos[1]][enemy_pos[0]] != '0' ||
                euclideanDistance(player_x, player_y, enemy_pos[0], enemy_pos[1]) <= 10
-               || (std::find(enemy_coords.begin(), enemy_coords.end(), enemy_pos) != enemy_coords.end()));
+               || (std::find(enemy_coords.begin(), enemy_coords.end(), enemy_pos_pixels) != enemy_coords.end()));
 
-        //multiply by cell size and add small offset to center enemy before pushing to vector
-        enemy_pos[0] = enemy_pos[0] * CELL_SIZE + CELL_SIZE / 2;
-        enemy_pos[1] = enemy_pos[1] * CELL_SIZE + CELL_SIZE / 2;
-        enemy_coords.emplace_back(enemy_pos);
+
+        enemy_coords.emplace_back(enemy_pos_pixels);
 
     }
     // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
@@ -387,27 +392,30 @@ void AgentBasedGenerator::placeTreasure(int num_treasures) {
         int room;
         room = rand() % num_rooms;
         std::vector<int> treasure_pos;
+        std::vector<int> treasure_pos_pixels;
 
         do {
             treasure_pos = std::vector<int>{(rooms[room][0] + rand() % rooms[room][2]),
                                             (rooms[room][1] + rand() % rooms[room][3])};
+            //multiply by cell size and add small offset to center enemy before pushing to vector
+            treasure_pos_pixels = std::vector<int>{treasure_pos[0] * CELL_SIZE + CELL_SIZE / 2,
+                                                   treasure_pos[1] * CELL_SIZE + CELL_SIZE / 2};
+
         } //ensure that enemy position is not in a wall, far enough away from the player, and is unique
         while (level_grid[treasure_pos[1]][treasure_pos[0]] != '0' ||
                euclideanDistance(player_x, player_y, treasure_pos[0], treasure_pos[1]) <= 10
-               || (std::find(treasure_coords.begin(), treasure_coords.end(), treasure_pos) != treasure_coords.end()));
+               || (std::find(treasure_coords.begin(), treasure_coords.end(), treasure_pos_pixels) !=
+                   treasure_coords.end()));
 
-        //multiply by cell size and add small offset to center enemy before pushing to vector
-        treasure_pos[0] = treasure_pos[0] * CELL_SIZE + CELL_SIZE / 2;
-        treasure_pos[1] = treasure_pos[1] * CELL_SIZE + CELL_SIZE / 2;
-        treasure_coords.emplace_back(treasure_pos);
+        treasure_coords.emplace_back(treasure_pos_pixels);
     }
 }
 
 
 void AgentBasedGenerator::updateExtremeCoords(int cur_x, int cur_y) {
     if (cur_x > max_x) max_x = cur_x;
-    else if (cur_x < min_x) min_x = cur_x;
+    if (cur_x < min_x) min_x = cur_x;
 
     if (cur_y > max_y) max_y = cur_y;
-    else if (cur_y < min_y) min_y = cur_y;
+    if (cur_y < min_y) min_y = cur_y;
 }

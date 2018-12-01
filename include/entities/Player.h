@@ -16,7 +16,6 @@ private:
 
 public:
 		Player(float x, float y);
-    ~Player();
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
     void update(double delta) {};

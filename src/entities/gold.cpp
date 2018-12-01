@@ -7,10 +7,6 @@ Gold::Gold(float x, float y) : Entity(x, y, GOLD_SIZE)
   EventManager::Instance()->registerListener(EventCollision::eventType, this, &Gold::handleCollision);
 }
 
-Gold::~Gold()
-{
-
-}
 
 void Gold::handleGoldCollection(const EventGoldCollection &event)
 {

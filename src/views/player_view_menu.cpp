@@ -5,10 +5,16 @@
 
 MenuView::MenuView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
-	screenIndex = 0;
-	selectionIndex = 0;
+  screenIndex = 0;
+  selectionIndex = 0;
   graphics = std::make_shared<MenuGraphics>(this);
   App->setView(App->getDefaultView());
+  if (MUSIC) {
+	music.stopMusic();
+	music.setMusic("takecourage_noper");
+	music.setVolume(35.0);
+	music.playMusic();
+  }
 }
 
 void MenuView::process_input(float delta)

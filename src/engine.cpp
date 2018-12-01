@@ -1,4 +1,6 @@
 #include <SFML/Window/Event.hpp>
+#include <views/player_view_victory.h>
+#include <views/player_view_level_select.h>
 #include "engine.h"
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
@@ -22,7 +24,11 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
   resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
   resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
-  if (MUSIC) resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+  resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
+  if (MUSIC) {
+	resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+ 	resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
+  }
   resources.LoadXML("enemies", "../data/xml/enemies.xml");
 
   App = app;
@@ -93,7 +99,7 @@ void Engine::switch_mode()
         ViewManager::Instance()->set_player_view<MenuView>(&state, App);
         break;
       case MODE_LEVEL_SELECT:
-        ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
+          ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
 	      break;
       case MODE_SHOP:
         break;
@@ -102,7 +108,7 @@ void Engine::switch_mode()
         ViewManager::Instance()->set_player_view<GameView>(&state, App);
         break;
         case MODE_VICTORY:
-            //ViewManager::Instance()->set_player_view(<VictoryView>(&state, App);
+            ViewManager::Instance()->set_player_view<VictoryView>(&state, App);
           break;
 
     }
