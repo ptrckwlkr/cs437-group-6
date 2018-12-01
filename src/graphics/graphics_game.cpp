@@ -10,6 +10,9 @@
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 
+#define VISIBLE_RANGE_X     (WINDOW_WIDTH / (2 * ZOOM_SCALAR) + 100)
+#define VISIBLE_RANGE_Y     (WINDOW_HEIGHT / (2 * ZOOM_SCALAR) + 100)
+
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view) {
     storeLevel();
     this->view = view;
@@ -51,35 +54,55 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         type = ent->getEntityType();
 
         sf::CircleShape circle(size);
-        circle.setFillColor(sf::Color(255, 255, 255, 125));
-
-        if (type == Player::entityType) circle.setFillColor(sf::Color(0, 255, 0, 125));
-        if (type == Projectile::entityType) {
+        circle.setFillColor(sf::Color(0, 0, 0, 0));
+        if (type == Projectile::entityType)
             circle.setFillColor(sf::Color(255, 140, 0)), drawProjectileMotionBlur(target, states, circle, ent->trail);
-        }
-        if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0, 125));
+        if (type == Gold::entityType)
+            circle.setFillColor(sf::Color(255, 255, 0, 125));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);
     }
 
-    // Draw the all the sprites
-    sf::Sprite s;
-    for (auto i : spriteManager.getAnimations())
+    drawSprites(target, states);
+    drawUI(target, states);
+}
+
+void GameGraphics::drawSprites(sf::RenderTarget &target, sf::RenderStates states) const
+{
+    float x, y;
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    std::priority_queue<sf::Sprite*, std::vector<sf::Sprite*>, ComparatorY> spriteQueue;
+
+    // Add the sprites within visible range in Y-order
+    for (auto &i : spriteManager.getAnimations())
     {
-        auto animation = i.second->getSprite();
-        target.draw(animation, states);
+        x = i.second->getSprite().getPosition().x;
+        y = i.second->getSprite().getPosition().y;
+        if (x >= playerPos.x - VISIBLE_RANGE_X && x <= playerPos.x + VISIBLE_RANGE_X &&
+            y >= playerPos.y - VISIBLE_RANGE_Y && y <= playerPos.y + VISIBLE_RANGE_Y)
+        {
+            spriteQueue.push(&i.second->getSprite());
+        }
     }
 
-    drawUI(target, states, playerPos.x, playerPos.y);
+    // Draw the all the sprites
+    while (!spriteQueue.empty())
+    {
+        auto sprite = spriteQueue.top();
+        target.draw(*sprite, states);
+        spriteQueue.pop();
+    }
 }
 
 
-void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const {
+void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) const {
 
     sf::View camera;
     camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
     Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    float x = playerPos.x;
+    float y = playerPos.y;
     camera.setCenter(playerPos.x, playerPos.y);
     target.setView(camera);
 

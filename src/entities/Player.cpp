@@ -1,5 +1,5 @@
 #include "macros.h"
-#include "entities/player.h"
+#include "entities/Player.h"
 #include "entities/Projectile.h"
 #include "EntityManager.h"
 
@@ -7,12 +7,6 @@ Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
 {
   speed = PLAYER_SPEED;
   delta_sum = 0.0;
-}
-
-
-Player::~Player()
-{
-
 }
 
 void Player::attack(Vector2D &dir, float delta) {

@@ -15,11 +15,6 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     EventManager::Instance()->registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
 }
 
-Projectile::~Projectile()
-{
-
-}
-
 void Projectile::move(Vector2D &dir, float delta) {
     old_pos = pos;
     float delta_speed = speed * delta;

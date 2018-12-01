@@ -1,7 +1,6 @@
 #ifndef CSCI437_VIEW_GAME_H
 #define CSCI437_VIEW_GAME_H
 
-#include <SFML/Audio.hpp>
 #include <memory>
 #include "player_view.h"
 
@@ -27,7 +26,6 @@ private:
     void handle_event(sf::Event event) override;
     sf::Texture skeleton_text;
     sf::Texture player_text;
-    std::shared_ptr<sf::Music> bg_music;
     bool map_mode = false;
 
 };

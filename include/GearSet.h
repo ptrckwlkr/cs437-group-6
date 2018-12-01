@@ -16,7 +16,7 @@ class GearSet
 	public:
 		GearSet();
 		void equipItem(Equipment*);
-		Equipment* getItem(EquipSlot, int = 1);
+		Equipment* getItem(EquipSlot, int = 0);
 };
 
 #endif //CSCI431_GEARSET_H

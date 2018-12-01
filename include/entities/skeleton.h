@@ -14,7 +14,6 @@ class Skeleton : public Entity
 
 public:
     Skeleton(float x, float y);
-    ~Skeleton();
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
     void updateAttributes();

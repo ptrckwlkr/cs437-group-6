@@ -19,8 +19,8 @@ class Animation
         sf::Texture texture;
 
     public:
-        Animation();
-        ~Animation();
+        Animation() = default;
+        ~Animation() = default;
         virtual void update(float delta) = 0;
         sf::Sprite &getSprite(){ return sprite;}
 };

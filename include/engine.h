@@ -6,7 +6,7 @@
 #include <chrono>
 #include "game_logic.h"
 #include "ResourceManager.h"
-
+#include "MusicManager.h"
 
 enum GameMode
 {
@@ -50,6 +50,5 @@ private:
 
 //global access to resource manager
 extern ResourceManager resources;
-
 
 #endif //CSCI437_ENGINE_H
