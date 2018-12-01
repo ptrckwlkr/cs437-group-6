@@ -9,7 +9,7 @@ SpriteManager::SpriteManager()
 
 SpriteManager::~SpriteManager()
 {
-  printf("SpriteManager destroyed\n");
+  EventManager::Instance()->unregisterAll(this);
   animations.clear();
 }
 
@@ -25,7 +25,6 @@ void SpriteManager::handleEntityRemoval(const EventEntityDestroyed &event)
 {
   auto i = animations.find(event.getEntityID());
   if (i != animations.end()) {
-    printf("Animation destroyed\n");
     animations.erase(i);
   }
 }
@@ -34,7 +33,6 @@ void SpriteManager::handleEntityCreation(const EventEntityCreated &event)
 {
   auto animation = AnimationFactory::createAnimation(&event.getEntity());
   if (animation) {
-    printf("Animation created\n");
     animations.insert(std::pair<long long, std::shared_ptr<Animation>>(event.getEntity().id, animation));
   }
 }

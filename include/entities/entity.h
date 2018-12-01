@@ -34,7 +34,6 @@ public:
       mana = 0;   //TODO
       speed = 0;
       obstructible = false;
-      alive = true;
       hostile = false;
     }
     ~Entity() {
@@ -51,7 +50,6 @@ public:
     const Vector2D &get_old_position() {return old_pos;}
     const float get_size() {return size;}
     const bool is_obstructible() {return obstructible;}
-    const bool is_dead() {return !alive;}
     const bool is_hostile() {return hostile;}
     const int get_health() {return health;}
     const int get_mana() {return mana;}
@@ -78,7 +76,6 @@ protected:
     int health;
     int mana;
     bool obstructible;
-    bool alive;
     bool hostile;
 
     //ensures the xml file text does not go out of scope

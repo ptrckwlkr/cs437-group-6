@@ -41,6 +41,7 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     float size;
     EntityType type;
 
+    //TODO This entire loop can probably ultimately be removed entirely
     for (auto &i : EntityManager::Instance()->getEntites())
     {
         auto ent = i.second;
@@ -52,15 +53,17 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         sf::CircleShape circle(size);
         circle.setFillColor(sf::Color(255, 255, 255, 125));
 
-        //if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
         if (type == Player::entityType) circle.setFillColor(sf::Color(0, 255, 0, 125));
-        if (type == Projectile::entityType) circle.setFillColor(sf::Color(255, 255, 255, 125));
+        if (type == Projectile::entityType) {
+            circle.setFillColor(sf::Color(255, 140, 0)), drawProjectileMotionBlur(target, states, circle, ent->trail);
+        }
         if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0, 125));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);
     }
 
+    // Draw the all the sprites
     sf::Sprite s;
     for (auto i : spriteManager.getAnimations())
     {
@@ -68,14 +71,17 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         target.draw(animation, states);
     }
 
-    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-    camera.setCenter(playerPos.x, playerPos.y);
-    target.setView(camera);
     drawUI(target, states, playerPos.x, playerPos.y);
 }
 
 
 void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const {
+
+    sf::View camera;
+    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    camera.setCenter(playerPos.x, playerPos.y);
+    target.setView(camera);
 
     sf::Sprite sprite;
     sprite.setTexture(resources.GetTexture("fog"));
@@ -112,9 +118,7 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
     // This must always be the first line of every draw method
     states.transform *= getTransform();
     states.texture = &tileTexture;
-
     target.draw(vertices, states);
-
 }
 
 
@@ -140,11 +144,10 @@ void GameGraphics::drawProjectileMotionBlur(sf::RenderTarget &target, sf::Render
         trail_shape.setPosition(trail[i].x, trail[i].y);
         target.draw(trail_shape, states);
     }
-
 }
 
-void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) const
-{
+void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) const {
+    states.transform *= getTransform();
     //TODO this can be heavily optimized, theoretically the tiles one must draw should only need to be computed once
     //TODO unless we want to have a "visited" or "seen" kind of cell attribute?
     //TODO also, there's got to be a better way to do the camera for everything
