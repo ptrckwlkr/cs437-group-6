@@ -7,12 +7,12 @@
 #include "graphics.h"
 #include "views/player_view.h"
 
-class InventoryView
+class InventoryView;
 class InventoryGraphics : public Graphics
 {
 
 public:
-    explicit InventoryGraphics(LevelSelectView *view);
+    explicit InventoryGraphics(InventoryView *view);
 
 private:
 		InventoryView *view;

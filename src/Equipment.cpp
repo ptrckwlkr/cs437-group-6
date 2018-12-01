@@ -13,8 +13,8 @@ Equipment::Equipment(int atk, int mag, int def, int health, int mana, std::strin
 	this->statData.insert(std::pair<std::string, int> ("magic", mag));	
 	this->statData.insert(std::pair<std::string, int> ("defense", def));	
 	this->statData.insert(std::pair<std::string, int> ("hp", health));	
-	this->statData.insert(std::pair<std::string, int> ("mp", mana));i
-	this->icon = resources.getSprite(sprite);	
+	this->statData.insert(std::pair<std::string, int> ("mp", mana));
+	this->icon = resources.GetSprite(sprite);	
 }
 
 Equipment::~Equipment() {
