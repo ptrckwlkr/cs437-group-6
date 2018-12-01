@@ -13,7 +13,7 @@ Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
     //uses normal skeleton by default
     setType("white");
 
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
+    EventManager::Instance()->registerListener(EventCollision::eventType, this, &Skeleton::handleCollision);
 }
 
 Skeleton::~Skeleton() {

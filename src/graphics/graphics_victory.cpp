@@ -18,11 +18,11 @@ void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
     // This must always be the first line of every draw method
     states.transform *= getTransform();
 
-    if (view->screenIndex == 0)		//draw elements for title screen
-    {
-        drawTitleScreenDynamicText(target, states, view->selectionIndex);
-        target.draw(title, states);
-    }
+//    if (view->screenIndex == 0)		//draw elements for title screen
+//    {
+//        drawTitleScreenDynamicText(target, states, view->selectionIndex);
+//        target.draw(title, states);
+//    }
 
 }
 
