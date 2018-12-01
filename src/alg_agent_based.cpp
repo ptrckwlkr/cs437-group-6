@@ -149,8 +149,8 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
             //TODO COMMENT OUT BELOW LINE ONLY USED TO SEE PATH NODES FOR TESTING
             //level_grid[it->y][it->x] = 'E';
             //convert path nodes to pixel coords in center of cell
-            it->x = (it->x * CELL_SIZE) + CELL_SIZE/2;
-            it->y = (it->y * CELL_SIZE) + CELL_SIZE/2;
+            it->x = (it->x * CELL_SIZE) + CELL_SIZE / 2;
+            it->y = (it->y * CELL_SIZE) + CELL_SIZE / 2;
             it++;
         }
     }
@@ -161,8 +161,6 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
     }
     avg_i -= (min_x - 1);
     avg_j -= (min_y - 1);
-
-
 
 
     placeEntities(num_enemies);
@@ -272,7 +270,7 @@ void AgentBasedGenerator::placeEntities(int num_enemies) {
 
     }
     // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
-    player_x =  player_x * CELL_SIZE + CELL_SIZE/2, player_y = player_y * CELL_SIZE + CELL_SIZE/2;
+    player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
     exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
 }
 

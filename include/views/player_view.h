@@ -6,6 +6,7 @@
 #include <memory>
 #include "view.h"
 #include "Animations/Animation.h"
+
 /**
  * Abstract base class for all the player views, to include functionality for SFML input, graphics, and audio.
  */

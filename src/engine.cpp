@@ -23,7 +23,10 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
   resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
   resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
-  if (MUSIC) resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+  if (MUSIC) {
+	resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+ 	resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
+  }
   resources.LoadXML("enemies", "../data/xml/enemies.xml");
 
   App = app;
