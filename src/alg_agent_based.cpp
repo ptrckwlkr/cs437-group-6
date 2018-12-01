@@ -124,6 +124,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
     }
 
+
     width = (max_x - min_x) + 3;
     height = (max_y - min_y) + 3;
     std::vector<std::vector<char>> optimized_grid(height, std::vector<char>(width));
@@ -157,6 +158,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
 //    for (auto e : path_nodes)
 //        level_grid[e.y][e.x] = '9';
+
 
     placeEntities(num_enemies);
     placeTreasure(50);

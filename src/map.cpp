@@ -44,3 +44,16 @@ Cell& Map::get_cell(int m, int n)
 {
   return cells[m][n];
 }
+
+
+void Map::updatePlayerRecentCells(Vector2D pos)
+{
+  player_recent_cells.push(pos);
+  if (player_recent_cells.size() > recent_cells_max) player_recent_cells.pop();
+
+  if (std::find(path_nodes.begin(), path_nodes.end(), pos) != path_nodes.end())
+  {
+    player_recent_path_nodes.push(pos);
+    if (player_recent_path_nodes.size() > recent_nodes_max) player_recent_path_nodes.pop();
+  }
+}

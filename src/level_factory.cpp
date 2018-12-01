@@ -30,6 +30,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
 		AgentBasedGenerator gen = AgentBasedGenerator(64, 64, 1, 10, 0);
 		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 64.0));
+		map->givePathNodes(gen.getPathNodes());
 		//gen.printLevelGrid();
 
     std::shared_ptr<Player> player = EntityManager::Instance()->createEntity<Player>(gen.player_x, gen.player_y);

@@ -21,19 +21,17 @@ public:
     SkeletonView(GameLogic *state, Skeleton &entity);
     void update(float delta) override;
     SkeletonState cur_state;
-    std::string GetType() {return type;};
+    std::string GetType() {return type;}
 
 private:
     Skeleton *skeleton;
     std::string type;
 
     //update methods for different kinds of skeletons
-    void updateWhite(float delta);
-    void updateRed(float delta);
-    void updateGold(float delta);
+    void updateWhite(float delta, Vector2D dir);
+    void updateRed(float delta, Vector2D dir);
+    void updateGold(float delta, Vector2D dir);
 
-
-    double DiagonalDistance(Vector2D cur_pos, Vector2D player_pos);
 
 };
 

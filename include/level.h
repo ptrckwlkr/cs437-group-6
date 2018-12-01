@@ -6,6 +6,7 @@
 #include <memory>
 #include "map.h"
 #include "entities/Player.h"
+#include "macros.h"
 
 class Level
 {
@@ -20,6 +21,9 @@ public:
 protected:
     std::shared_ptr<Map> map;
     Player *player;
+
+    int player_prev_x;
+    int player_prev_y;
 
 };
 
