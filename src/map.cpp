@@ -59,3 +59,8 @@ void Map::updatePlayerRecentCells(const Vector2D &pos)
     if (player_recent_path_nodes.size() > recent_nodes_max) player_recent_path_nodes.pop();
   }
 }
+
+Cell& Map::get_cell_at(float x, float y)
+{
+  return cells[(int)y / CELL_SIZE][(int)x / CELL_SIZE];
+}

@@ -23,6 +23,7 @@ public:
     int get_height() {return height;}
     int get_width() {return width;}
     Cell& get_cell(int m, int n);
+    Cell& get_cell_at(float x, float y);
     void givePathNodes(std::vector<Vector2D> &path_nodes) {this->path_nodes = path_nodes;}
     void updatePlayerRecentCells(const Vector2D &pos);
 
