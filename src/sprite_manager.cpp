@@ -3,8 +3,10 @@
 
 SpriteManager::SpriteManager()
 {
+
   EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &SpriteManager::handleEntityRemoval);
   EventManager::Instance()->registerListener(EventEntityCreated::eventType, this, &SpriteManager::handleEntityCreation);
+
 }
 
 SpriteManager::~SpriteManager()
