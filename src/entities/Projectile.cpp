@@ -10,8 +10,8 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     trail.reserve(5);
     trail_enabled = true;
 
-    EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &handleWallCollision);
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
+    EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &Projectile::handleWallCollision);
+    EventManager::Instance()->registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
 }
 
 Projectile::~Projectile()

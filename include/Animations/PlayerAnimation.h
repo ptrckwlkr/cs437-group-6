@@ -15,14 +15,6 @@ public:
 
 private:
     Player *player;
-//    float totalTime;
-//    float switchTime;
-//    sf::IntRect uvRect;
-
-//    sf::Texture texture;
-//    sf::Vector2u imageCount;
-//    sf::Vector2u currentImage;
-
 
 
 };

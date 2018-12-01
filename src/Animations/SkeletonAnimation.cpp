@@ -1,8 +1,7 @@
+#include "Animations/SkeletonAnimation.h"
 
-#include "Animations/PlayerAnimation.h"
-
-PlayerAnimation::PlayerAnimation(Player &entity) : Animation(), player(&entity) {
-    texture = resources.GetTexture("playerTexture");
+SkeletonAnimation::SkeletonAnimation(Skeleton &entity) : Animation(), skeleton(&entity) {
+    texture = resources.GetTexture("skeletonTexture");
     //sprite.setTextureRect(uvRect);
     imageCount = sf::Vector2u(13, 21);
     switchTime = 3/60.f;
@@ -16,15 +15,15 @@ PlayerAnimation::PlayerAnimation(Player &entity) : Animation(), player(&entity) 
     sprite.setTexture(texture);
     sprite.setTextureRect(uvRect);
     sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.0, sprite.getLocalBounds().height / 2.0 + 15.0 ));
-    sprite.setPosition(player->get_position().x, player->get_position().y);
+    sprite.setPosition(skeleton->get_position().x, skeleton->get_position().y);
 }
-PlayerAnimation::~PlayerAnimation(){}
+SkeletonAnimation::~SkeletonAnimation(){}
 
-void PlayerAnimation::update(float delta){
+void SkeletonAnimation::update(float delta){
     //imageCount is the specific value for the number of animation
     //for a certain movement base on the sprite sheet
     unsigned int imageCount = 9;
-    Vector2D dir = player->get_position() - player->get_old_position();
+    Vector2D dir = skeleton->get_position() - skeleton->get_old_position();
 
     if (dir.y < 0)
         currentImage.y = 8;
@@ -50,5 +49,5 @@ void PlayerAnimation::update(float delta){
 
     sprite.setTextureRect(uvRect);
     sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2 + 15));
-    sprite.setPosition(player->get_position().x, player->get_position().y);
+    sprite.setPosition(skeleton->get_position().x, skeleton->get_position().y);
 }
