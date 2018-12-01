@@ -24,62 +24,48 @@ GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view) {
 
 void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	// This must always be the first line of every draw method
-	states.transform *= getTransform();
+    // This must always be the first line of every draw method
+    states.transform *= getTransform();
 
-  sf::View camera;
-  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  Vector2D playerPos = view->get_state().get_level().get_player().get_position();
-  camera.zoom(1 / ZOOM_SCALAR);
-  camera.setCenter(playerPos.x, playerPos.y);
-  target.setView(camera);
-  target.clear(sf::Color::Black);
-	drawLevel(target, states);
+    sf::View camera;
+    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    camera.zoom(1 / ZOOM_SCALAR);
+    camera.setCenter(playerPos.x, playerPos.y);
+    target.setView(camera);
+    target.clear(sf::Color::Black);
+    drawLevel(target, states);
 
-	float x;
-	float y;
-	float size;
-	EntityType type;
+    float x;
+    float y;
+    float size;
+    EntityType type;
 
-	for (auto &i : EntityManager::Instance()->getEntites())
-	{
-    auto ent = i.second;
-		x = ent->get_position().x;
-		y = ent->get_position().y;
-		size = ent->get_size();
-		type = ent->getEntityType();
+    for (auto &i : EntityManager::Instance()->getEntites())
+    {
+        auto ent = i.second;
+        x = ent->get_position().x;
+        y = ent->get_position().y;
+        size = ent->get_size();
+        type = ent->getEntityType();
 
-		sf::CircleShape circle(size);
-		sf::RectangleShape rect;
-		circle.setFillColor(sf::Color(0,0,0,0));
-		sf::Sprite sprite;
+        sf::CircleShape circle(size);
+        circle.setFillColor(sf::Color(255, 255, 255, 125));
 
-		sf::Texture playerTexture = resources.GetTexture("playerTexture");
-
-		//if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
-		if (type == Player::entityType) rect.setFillColor(sf::Color(0, 255, 0, 125));
-		if (type == Projectile::entityType) circle.setFillColor(sf::Color(255, 255, 255));
-        if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0));
-		rect.setSize( sf::Vector2f(size , size));
-		rect.setOrigin(sf::Vector2f(size/2.0, size/2.0));
-		circle.setOrigin(sf::Vector2f(size, size));
-		sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width /2.0, sprite.getLocalBounds().height /2.0 + 15.0 ));
-		sprite.setPosition(x,y);
-		circle.setPosition(x, y);
-		rect.setPosition(x,y);
-
-		target.draw(sprite, states);
-		if (circle.getFillColor() != sf::Color(0,0,0,0))
-			  target.draw(circle, states);
-		    target.draw(rect, states);
-
+        //if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
+        if (type == Player::entityType) circle.setFillColor(sf::Color(0, 255, 0, 125));
+        if (type == Projectile::entityType) circle.setFillColor(sf::Color(255, 255, 255, 125));
+        if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0, 125));
+        circle.setOrigin(sf::Vector2f(size, size));
+        circle.setPosition(x, y);
+        target.draw(circle, states);
     }
 
     sf::Sprite s;
     for (auto i : spriteManager.getAnimations())
     {
-      auto animation = i.second->getSprite();
-      target.draw(animation, states);
+        auto animation = i.second->getSprite();
+        target.draw(animation, states);
     }
 
     camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
