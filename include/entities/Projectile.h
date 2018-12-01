@@ -28,7 +28,6 @@ protected:
 
 public:
     Projectile(float x, float y);
-    ~Projectile();
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
 

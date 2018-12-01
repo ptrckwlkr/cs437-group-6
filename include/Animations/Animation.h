@@ -2,35 +2,30 @@
 #define CSCI437_ANIMATION_H
 
 #include <SFML/Graphics.hpp>
+#include "ResourceManager.h"
 #include "vector2d.h"
 
 
-enum Direction{
-    WALK_UP = 8,
-    WALK_LEFT = 9,
-    WALK_DOWN = 10,
-    WALK_RIGHT = 11,
-
-};
-
 class Animation 
 {
-    private:
+    public:
         sf::Vector2u imageCount;
         sf::Vector2u currentImage;
 
         float totalTime;
         float switchTime;
-    public:
         sf::IntRect uvRect;
         sf::Sprite sprite;
+        sf::Texture texture;
 
     public:
-        Animation();
-        void init(sf::Texture &texture, sf::Vector2u imageCount, float switchTime);
-        ~Animation();
-        void Update(Vector2D dir, int imageCount, float delta);
+        Animation() = default;
+        ~Animation() = default;
+        virtual void update(float delta) = 0;
         sf::Sprite &getSprite(){ return sprite;}
 };
+
+//global access to resource manager
+extern ResourceManager resources;
 
 #endif //CSCI437_ANIMATION_H

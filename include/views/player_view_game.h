@@ -17,8 +17,8 @@ public:
     void update(float delta) override;
     void draw(float delta) override;
     //to be used to update sprite movement 
-    Animation animation_player;
-    Animation animation_skeleton;
+//    Animation animation_player;
+//    Animation animation_skeleton;
 
     bool getMapMode() {return map_mode;}
 

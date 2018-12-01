@@ -3,8 +3,8 @@
 void ViewManager::init(GameLogic *s)
 {
   state = s;
-  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &handleEntityRemoval);
-  EventManager::Instance()->registerListener(EventEntityCreated::eventType, this, &handleEntityCreation);
+  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, & ViewManager::handleEntityRemoval);
+  EventManager::Instance()->registerListener(EventEntityCreated::eventType, this, & ViewManager::handleEntityCreation);
 }
 
 ViewManager *ViewManager::Instance()
@@ -15,7 +15,8 @@ ViewManager *ViewManager::Instance()
 
 void ViewManager::handleEntityRemoval(const EventEntityDestroyed &event)
 {
-  views.erase(event.getEntityID());
+  auto i = views.find(event.getEntityID());
+  if (i != views.end()) views.erase(i);
 }
 
 void ViewManager::update_views(float delta)

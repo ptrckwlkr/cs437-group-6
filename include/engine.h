@@ -14,6 +14,7 @@ enum GameMode
 		MODE_LEVEL_SELECT,
 		MODE_SHOP,
 		MODE_PLAY,
+		MODE_VICTORY,
 };
 
 /**

@@ -1,6 +1,7 @@
 #include "EntityManager.h"
 #include "entities/Projectile.h"
 #include "entities/skeleton.h"
+#include "entities/blood.h"
 
 Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
     obstructible = true;
@@ -13,11 +14,7 @@ Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
     //uses normal skeleton by default
     setType("white");
 
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
-}
-
-Skeleton::~Skeleton() {
-
+    EventManager::Instance()->registerListener(EventCollision::eventType, this, & Skeleton::handleCollision);
 }
 
 void Skeleton::handleCollision(const EventCollision &event)
@@ -25,7 +22,10 @@ void Skeleton::handleCollision(const EventCollision &event)
     if (event.getSelf().id == id && event.getOther().getEntityType() == Projectile::entityType)
     {
         health -= 3;
-        if (health <= 0) EntityManager::Instance()->removeEntity(id);
+        if (health <= 0) {
+            EntityManager::Instance()->removeEntity(id);
+            EntityManager::Instance()->createEntity<Blood>(pos.x, pos.y);
+        }
     }
 }
 

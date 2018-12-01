@@ -9,6 +9,7 @@ MenuGraphics::MenuGraphics(MenuView *view) : Graphics(), view(view)
 	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
 	buffer = resources.GetXMLBuffer("text");
 	root_node = (*doc).first_node("Root")->first_node("Menu");
+	//change first node to be the new class to be created in xml chart
 	storeStaticText();
 }
 

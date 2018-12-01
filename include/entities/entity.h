@@ -34,7 +34,6 @@ public:
       mana = 0;   //TODO
       speed = 0;
       obstructible = false;
-      alive = true;
       hostile = false;
     }
     ~Entity() {
@@ -47,14 +46,14 @@ public:
     void set_mana(int m) {mana = m;}
     void takedamage(int damage) {health -= damage;}
 
-    const Vector2D &get_position() {return pos;}
-    const Vector2D &get_old_position() {return old_pos;}
-    const float get_size() {return size;}
-    const bool is_obstructible() {return obstructible;}
-    const bool is_dead() {return !alive;}
-    const bool is_hostile() {return hostile;}
-    const int get_health() {return health;}
-    const int get_mana() {return mana;}
+=
+    const Vector2D &get_position() const {return pos;}
+    const Vector2D &get_old_position() const {return old_pos;}
+    const float get_size() const {return size;}
+    const bool is_obstructible() const {return obstructible;}
+    const bool is_hostile() const {return hostile;}
+    const int get_health() const {return health;}
+    const int get_mana() const {return mana;}
     const int get_speed() {return speed;}
     long long id;
 
@@ -79,7 +78,6 @@ protected:
     int health;
     int mana;
     bool obstructible;
-    bool alive;
     bool hostile;
 
     //ensures the xml file text does not go out of scope

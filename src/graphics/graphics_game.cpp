@@ -1,14 +1,17 @@
-#include "entities/skeleton.h"
-#include "entities/gold.h"
+#include <entities/skeleton.h>
+#include <entities/gold.h>
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
-#include "Animation.h"
 #include "EntityManager.h"
+#include "Animations/Animation.h"
 #include "entities/Projectile.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
+
+#define VISIBLE_RANGE_X     (WINDOW_WIDTH / (2 * ZOOM_SCALAR) + 100)
+#define VISIBLE_RANGE_Y     (WINDOW_HEIGHT / (2 * ZOOM_SCALAR) + 100)
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view) {
     storeLevel();
@@ -24,64 +27,84 @@ GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view) {
 
 void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	// This must always be the first line of every draw method
-	states.transform *= getTransform();
+    // This must always be the first line of every draw method
+    states.transform *= getTransform();
 
-  sf::View camera;
-  camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  Vector2D playerPos = view->get_state().get_level().get_player().get_position();
-  camera.zoom(1 / ZOOM_SCALAR);
-  camera.setCenter(playerPos.x, playerPos.y);
-  target.setView(camera);
-  target.clear(sf::Color::Black);
-	drawLevel(target, states);
-
-	float x;
-	float y;
-	float size;
-	EntityType type;
-	for (auto &i : EntityManager::Instance()->getEntites())
-	{
-    auto ent = i.second;
-		x = ent->get_position().x;
-		y = ent->get_position().y;
-		size = ent->get_size();
-		type = ent->getEntityType();
-
-		sf::CircleShape circle(size);
-		sf::RectangleShape rect;
-		circle.setFillColor(sf::Color(0,0,0,0));
-		sf::Sprite sprite;
-
-		if (type == Skeleton::entityType) sprite = view->animation_skeleton.getSprite();
-		if (type == Player::entityType) rect.setFillColor(sf::Color(0, 255, 0, 125));
-		if (type == Player::entityType) sprite = view->animation_player.getSprite();
-		if (type == Projectile::entityType)
-            circle.setFillColor(sf::Color(255, 140, 0)), drawProjectileMotionBlur(target, states, circle, ent->trail);
-    if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0));
-		rect.setSize( sf::Vector2f(size , size));
-		rect.setOrigin(sf::Vector2f(size/2.0, size/2.0));
-		circle.setOrigin(sf::Vector2f(size, size));
-		sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width /2.0, sprite.getLocalBounds().height /2.0 + 15.0 ));
-		sprite.setPosition(x,y);
-		circle.setPosition(x, y);
-		rect.setPosition(x,y);
-
-		target.draw(sprite, states);
-		if ( circle.getFillColor() != sf::Color(0,0,0,0))
-			  target.draw(circle, states);
-		    //target.draw(rect, states);
-
-    }
-
+    sf::View camera;
     camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    camera.zoom(1 / ZOOM_SCALAR);
     camera.setCenter(playerPos.x, playerPos.y);
     target.setView(camera);
-    drawUI(target, states, playerPos.x, playerPos.y);
+    target.clear(sf::Color::Black);
+    drawLevel(target, states);
+
+    float x;
+    float y;
+    float size;
+    EntityType type;
+
+    //TODO This entire loop can probably ultimately be removed entirely
+    for (auto &i : EntityManager::Instance()->getEntites())
+    {
+        auto ent = i.second;
+        x = ent->get_position().x;
+        y = ent->get_position().y;
+        size = ent->get_size();
+        type = ent->getEntityType();
+
+        sf::CircleShape circle(size);
+        circle.setFillColor(sf::Color(0, 0, 0, 0));
+        if (type == Projectile::entityType)
+            circle.setFillColor(sf::Color(255, 140, 0)), drawProjectileMotionBlur(target, states, circle, ent->trail);
+        if (type == Gold::entityType)
+            circle.setFillColor(sf::Color(255, 255, 0, 125));
+        circle.setOrigin(sf::Vector2f(size, size));
+        circle.setPosition(x, y);
+        target.draw(circle, states);
+    }
+
+    drawSprites(target, states);
+    drawUI(target, states);
+}
+
+void GameGraphics::drawSprites(sf::RenderTarget &target, sf::RenderStates states) const
+{
+    float x, y;
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    std::priority_queue<sf::Sprite*, std::vector<sf::Sprite*>, ComparatorY> spriteQueue;
+
+    // Add the sprites within visible range in Y-order
+    for (auto &i : spriteManager.getAnimations())
+    {
+        x = i.second->getSprite().getPosition().x;
+        y = i.second->getSprite().getPosition().y;
+        if (x >= playerPos.x - VISIBLE_RANGE_X && x <= playerPos.x + VISIBLE_RANGE_X &&
+            y >= playerPos.y - VISIBLE_RANGE_Y && y <= playerPos.y + VISIBLE_RANGE_Y)
+        {
+            spriteQueue.push(&i.second->getSprite());
+        }
+    }
+
+    // Draw the all the sprites
+    while (!spriteQueue.empty())
+    {
+        auto sprite = spriteQueue.top();
+        target.draw(*sprite, states);
+        spriteQueue.pop();
+    }
 }
 
 
-void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const {
+void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) const {
+
+    sf::View camera;
+    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    float x = playerPos.x;
+    float y = playerPos.y;
+    camera.setCenter(playerPos.x, playerPos.y);
+    target.setView(camera);
 
     sf::Sprite sprite;
     sprite.setTexture(resources.GetTexture("fog"));
@@ -118,9 +141,7 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
     // This must always be the first line of every draw method
     states.transform *= getTransform();
     states.texture = &tileTexture;
-
     target.draw(vertices, states);
-
 }
 
 
@@ -146,11 +167,10 @@ void GameGraphics::drawProjectileMotionBlur(sf::RenderTarget &target, sf::Render
         trail_shape.setPosition(trail[i].x, trail[i].y);
         target.draw(trail_shape, states);
     }
-
 }
 
-void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) const
-{
+void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) const {
+    states.transform *= getTransform();
     //TODO this can be heavily optimized, theoretically the tiles one must draw should only need to be computed once
     //TODO unless we want to have a "visited" or "seen" kind of cell attribute?
     //TODO also, there's got to be a better way to do the camera for everything
@@ -180,5 +200,5 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
 
 void GameGraphics::update(float delta)
 {
-
+    spriteManager.updateAnimations(delta);
 }

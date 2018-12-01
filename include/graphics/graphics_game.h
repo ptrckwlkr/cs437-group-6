@@ -5,6 +5,7 @@
 #include "graphics.h"
 #include "views/player_view.h"
 #include "tile_map.h"
+#include "sprite_manager.h"
 
 class GameView;
 
@@ -20,7 +21,9 @@ private:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-    void drawUI(sf::RenderTarget &target, sf::RenderStates states, float x, float y) const;
+    void drawSprites(sf::RenderTarget &target, sf::RenderStates states) const;
+
+    void drawUI(sf::RenderTarget &target, sf::RenderStates states) const;
 
     void drawLevel(sf::RenderTarget &target, sf::RenderStates states) const;
 
@@ -36,6 +39,14 @@ private:
 
     std::vector<sf::RectangleShape> levelShapes;
     sf::Font font;
+
+    SpriteManager spriteManager;
+
+    struct ComparatorY {
+        bool operator()(const sf::Sprite* lhs, const sf::Sprite* rhs) const {
+          return lhs->getPosition().y > rhs->getPosition().y;
+        }
+    };
 
 };
 

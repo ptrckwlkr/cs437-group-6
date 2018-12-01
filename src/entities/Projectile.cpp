@@ -11,13 +11,8 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     for (int i = 0; i < 5; i++)
         trail.emplace_back(pos);
 
-    EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &handleWallCollision);
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, &handleCollision);
-}
-
-Projectile::~Projectile()
-{
-
+    EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &Projectile::handleWallCollision);
+    EventManager::Instance()->registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
 }
 
 void Projectile::move(Vector2D &dir, float delta) {
