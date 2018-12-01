@@ -2,6 +2,7 @@
 #define CSCI437_ENTITY_H
 
 #include <vector>
+#include <array>
 #include "vector2d.h"
 #include "listener.h"
 #include "EventManager.h"
