@@ -20,7 +20,11 @@ void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)
 
 void SoundManager::handleEntityDamaged(const EventEntityDamaged &event)
 {
-
+	if (event.getType() == Skeleton::entityType) {
+		this->curSound = resources.GetSound("bonebreak");
+		this->curSound.setVolume(70.0);
+		this->curSound.play();
+	}
 }
 
 void SoundManager::handleGoldCollection(const EventGoldCollection &event)
