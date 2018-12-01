@@ -7,12 +7,12 @@
     </skeleton-white>
     <skeleton-red>
         <health>40</health>
-        <speed>75</speed>
+        <speed>60</speed>
         <aggro-dist>450</aggro-dist>
     </skeleton-red>
     <skeleton-gold>
         <health>55</health>
-        <speed>100</speed>
+        <speed>70</speed>
         <aggro-dist>600</aggro-dist>
     </skeleton-gold>
 

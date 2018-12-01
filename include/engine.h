@@ -7,6 +7,7 @@
 #include "game_logic.h"
 #include "ResourceManager.h"
 #include "MusicManager.h"
+#include "sound_manager.h"
 
 enum GameMode
 {
@@ -45,7 +46,8 @@ private:
     GameLogic state;
     sf::RenderWindow *App;
     sf::Clock time;
-		GameMode curr_game_mode;
+    GameMode curr_game_mode;
+    SoundManager soundmanager = SoundManager();
 };
 
 //global access to resource manager

@@ -26,9 +26,10 @@ void Skeleton::handleCollision(const EventCollision &event)
             EntityManager::Instance()->removeEntity(id);
             EntityManager::Instance()->createEntity<Blood>(pos.x, pos.y);
         }
+	EventEntityDamaged postDamaged = EventEntityDamaged(id, entityType);
+	EventManager::Instance()->sendEvent(postDamaged);
     }
 }
-
 
 void Skeleton::updateAttributes() {
     rapidxml::xml_node<> *main_node = root_node->first_node(type.c_str());
@@ -36,7 +37,6 @@ void Skeleton::updateAttributes() {
     speed = std::stoi(main_node->first_node("speed")->value());
     aggro_dist = std::stoi(main_node->first_node("aggro-dist")->value());
 }
-
 
 void Skeleton::setType(std::string param_type) {
     type.assign("skeleton-" + param_type);

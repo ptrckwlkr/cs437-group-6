@@ -4,10 +4,12 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <views/player_view_level_select.h>
+#include <views/player_view_inventory.h>
 #include "graphics.h"
 #include "views/player_view.h"
 
-class InventoryView;
+
 class InventoryGraphics : public Graphics
 {
 

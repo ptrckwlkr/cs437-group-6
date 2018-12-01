@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include <SFML/Graphics.hpp>
+#include  "engine.h"
 
 enum EquipSlot { Head, Chest, Shoulders, Legs, Feet, Hands, Ring };
 

@@ -30,6 +30,7 @@ void Engine::init(sf::RenderWindow *app)
  	resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
   }
   resources.LoadXML("enemies", "../data/xml/enemies.xml");
+  resources.LoadSound("coins", "../data/Sounds/Coins 1.wav");
 
   App = app;
   curr_game_mode = MODE_MENU;

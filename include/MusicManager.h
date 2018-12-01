@@ -5,20 +5,22 @@
 #include <string>
 #include "engine.h"
 
-class MusicManager
-{
-	private:
-		std::shared_ptr<sf::Music> bg_music;
-		bool initialized = false;
+class MusicManager {
+private:
+    std::shared_ptr<sf::Music> bg_music;
+    bool initialized = false;
 
-	protected:
+protected:
 
 
-	public:
-		void setMusic(std::string);
-		void setVolume(float);
-		void playMusic();
-		void stopMusic();
+public:
+    void setMusic(std::string);
+
+    void setVolume(float);
+
+    void playMusic();
+
+    void stopMusic();
 };
 
 extern MusicManager music;

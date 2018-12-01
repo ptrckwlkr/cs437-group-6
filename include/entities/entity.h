@@ -53,6 +53,7 @@ public:
     const bool is_hostile() const {return hostile;}
     const int get_health() const {return health;}
     const int get_mana() const {return mana;}
+    const int get_speed() {return speed;}
     long long id;
 
     virtual const EntityType& getEntityType() const = 0;

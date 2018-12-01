@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include "map.h"
+#include "macros.h"
 
 Map::Map(std::vector<std::vector<char>> &grid)
 {
@@ -43,4 +44,18 @@ void Map::print_map()
 Cell& Map::get_cell(int m, int n)
 {
   return cells[m][n];
+}
+
+
+void Map::updatePlayerRecentCells(const Vector2D &pos)
+{
+  player_recent_cells.push(pos);
+  if (player_recent_cells.size() > recent_cells_max) player_recent_cells.pop();
+
+  Vector2D int_vect = Vector2D(((int) pos.x / CELL_SIZE) * CELL_SIZE + CELL_SIZE/2, ((int) pos.y / CELL_SIZE) * CELL_SIZE + CELL_SIZE/2);
+  if (std::find(path_nodes.begin(), path_nodes.end(), int_vect) != path_nodes.end())
+  {
+    player_recent_path_nodes.push(int_vect);
+    if (player_recent_path_nodes.size() > recent_nodes_max) player_recent_path_nodes.pop();
+  }
 }

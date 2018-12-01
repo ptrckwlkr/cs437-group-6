@@ -124,6 +124,7 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
     }
 
+
     width = (max_x - min_x) + 3;
     height = (max_y - min_y) + 3;
     std::vector<std::vector<char>> optimized_grid(height, std::vector<char>(width));
@@ -144,8 +145,14 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
         if (level_grid[it->y + 1][it->x] == '0' && level_grid[it->y - 1][it->x] == '0'
             && level_grid[it->y][it->x + 1] == '0' && level_grid[it->y][it->x - 1] == '0')
             it = path_nodes.erase(it);
-        else
+        else {
+            //TODO COMMENT OUT BELOW LINE ONLY USED TO SEE PATH NODES FOR TESTING
+            //level_grid[it->y][it->x] = 'E';
+            //convert path nodes to pixel coords in center of cell
+            it->x = (it->x * CELL_SIZE) + CELL_SIZE / 2;
+            it->y = (it->y * CELL_SIZE) + CELL_SIZE / 2;
             it++;
+        }
     }
 
     for (int i = 0; i < rooms.size(); i++) {
@@ -155,8 +162,6 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
     avg_i -= (min_x - 1);
     avg_j -= (min_y - 1);
 
-//    for (auto e : path_nodes)
-//        level_grid[e.y][e.x] = '9';
 
     placeEntities(num_enemies);
     placeTreasure(50);
@@ -234,6 +239,7 @@ void AgentBasedGenerator::placeEntities(int num_enemies) {
 
     //mark exit cell
     level_grid[exit_y][exit_x] = 'E';
+    //TODO CHANGE BACK TO ABOVE
 
     //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
     for (int e = 0; e < num_enemies; e++) {
@@ -264,7 +270,7 @@ void AgentBasedGenerator::placeEntities(int num_enemies) {
 
     }
     // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
-    player_x *= CELL_SIZE, player_y *= CELL_SIZE;
+    player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
     exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
 }
 

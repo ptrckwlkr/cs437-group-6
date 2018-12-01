@@ -17,6 +17,7 @@ class Animation
         sf::IntRect uvRect;
         sf::Sprite sprite;
         sf::Texture texture;
+        Vector2D prev_pos;
 
     public:
         Animation() = default;
