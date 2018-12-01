@@ -17,7 +17,7 @@ void SpriteManager::updateAnimations(float delta)
 {
   for (auto &animation : animations)
   {
-    animation.second->Update(delta);
+    animation.second->update(delta);
   }
 }
 

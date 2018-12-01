@@ -21,9 +21,7 @@ class Animation
     public:
         Animation();
         ~Animation();
-        void initSprite(sf::Texture &texture, sf::Vector2u imageCount, float switchTime);
         virtual void update(float delta) = 0;
-        //void Update(Vector2D dir, int imageCount, float delta);
         sf::Sprite &getSprite(){ return sprite;}
 };
 

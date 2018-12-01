@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "entities/entity.h"
-#include "Animation.h"
+#include "Animations/Animation.h"
 
 namespace AnimationFactory
 {

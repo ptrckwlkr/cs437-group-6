@@ -11,7 +11,7 @@ public:
     PlayerAnimation(Player &entity);
     ~PlayerAnimation();
     //void initSprite(sf::Texture &texture, sf::Vector2u imageCount, float switchTime);
-    virtual void update(float delta) = 0;
+    void update(float delta);
 
 private:
     Player *player;

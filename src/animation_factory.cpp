@@ -1,4 +1,6 @@
 #include <unordered_map>
+#include <entities/Player.h>
+#include <Animations/PlayerAnimation.h>
 #include "animation_factory.h"
 #include "entities/entity.h"
 
@@ -7,7 +9,7 @@ using namespace AnimationFactory;
 /**
  * Function pointer to a createInstance<Animation> function
  */
-typedef std::shared_ptr<Animation> (* Factory)();
+typedef std::shared_ptr<Animation> (* Factory)(Entity &);
 
 /**
  * Animation creation method
@@ -36,8 +38,7 @@ std::shared_ptr<Animation> AnimationFactory::createAnimation(Entity *entity)
    * ADD AN ENTRY WITH AN ENTITY'S CORRESPONDING VIEW TO AUTOMATE VIEW CREATION
    */
   static const std::unordered_map<EntityType, Factory> map {
-          //{Skeleton::entityType,      (Factory)createInstance<Skeleton, SkeletonView>},
-          //{Projectile::entityType,    (Factory)createInstance<Projectile, ProjectileView>}
+          {Player::entityType,          (Factory)createInstance<Player, PlayerAnimation>}
   };
 
   std::shared_ptr<Animation> view = nullptr;
@@ -45,7 +46,7 @@ std::shared_ptr<Animation> AnimationFactory::createAnimation(Entity *entity)
   if (i != map.end())
   {
     Factory f = i->second;
-    view = f();
+    view = f(*entity);
   }
   return view;
 }

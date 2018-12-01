@@ -6,7 +6,7 @@
 #include "events/event_entity_created.h"
 #include "events/event_entity_destroyed.h"
 #include "listener.h"
-#include "Animation.h"
+#include "Animations/Animation.h"
 #include "animation_factory.h"
 
 class SpriteManager : public Listener
@@ -17,7 +17,7 @@ public:
     ~SpriteManager();
     Animation &getAnimation(long long entity_id) {return *animations[entity_id];}
     void updateAnimations(float delta);
-    std::unordered_map<long long, std::shared_ptr<Animation>> &getAnimations() {return animations;}
+    const std::unordered_map<long long int, std::shared_ptr<Animation>> &getAnimations() const {return animations;}
 
 
 private:

@@ -3,7 +3,9 @@
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
-#include "Animation.h"
+#include "EntityManager.h"
+#include "Animations/Animation.h"
+#include "entities/Projectile.h"
 
 #define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
 #define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)) + 1)
@@ -38,6 +40,7 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	float y;
 	float size;
 	EntityType type;
+
 	for (auto &i : EntityManager::Instance()->getEntites())
 	{
     auto ent = i.second;
@@ -55,12 +58,6 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 		//if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
 		if (type == Player::entityType) rect.setFillColor(sf::Color(0, 255, 0, 125));
-		if (type == Player::entityType) {
-
-			//PlayerAnimation(&ent, &playerTexture, sf::Vector2u(13, 21), 3/60.f);
-
-			//sprite = view->getPlayerAnimation().getSprite();
-		}
 		if (type == Projectile::entityType) circle.setFillColor(sf::Color(255, 255, 255));
         if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0));
 		rect.setSize( sf::Vector2f(size , size));
@@ -72,10 +69,17 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		rect.setPosition(x,y);
 
 		target.draw(sprite, states);
-		if ( circle.getFillColor() != sf::Color(0,0,0,0))
+		if (circle.getFillColor() != sf::Color(0,0,0,0))
 			  target.draw(circle, states);
-		    //target.draw(rect, states);
+		    target.draw(rect, states);
 
+    }
+
+    sf::Sprite s;
+    for (auto i : spriteManager.getAnimations())
+    {
+      auto animation = i.second->getSprite();
+      target.draw(animation, states);
     }
 
     camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
