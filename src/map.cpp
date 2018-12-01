@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include "macros.h"
 #include "map.h"
 
 Map::Map(std::vector<std::vector<char>> &grid)
@@ -43,4 +44,9 @@ void Map::print_map()
 Cell& Map::get_cell(int m, int n)
 {
   return cells[m][n];
+}
+
+Cell& Map::get_cell_at(float x, float y)
+{
+  return cells[(int)y / CELL_SIZE][(int)x / CELL_SIZE];
 }

@@ -21,6 +21,7 @@ public:
     int get_height() {return height;}
     int get_width() {return width;}
     Cell& get_cell(int m, int n);
+    Cell& get_cell_at(float x, float y);
 
 private:
     CellMap cells;
