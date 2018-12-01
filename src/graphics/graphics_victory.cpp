@@ -14,25 +14,6 @@ VictoryGraphics::VictoryGraphics(VictoryView *view) : Graphics(), view(view)
 
 void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    // This must always be the first line of every draw method
-    states.transform *= getTransform();
-
-    if (view->screenIndex == 0)		//draw elements for title screen
-    {
-        drawTitleScreenDynamicText(target, states, view->selectionIndex);
-        target.draw(title, states);
-    }
-    else if (view->screenIndex == 1)  //draw elements for controls screen
-    {
-        for (unsigned int i = 0; i < controls.size(); i++)
-            target.draw(controls[i], states);
-    }
-    else if (view->screenIndex == 2)	//draw elements for about screen
-        target.draw(aboutText, states);
-
-    //always draws the menu instructions so the player is not confused about how to operate the menu
-    for (unsigned int i = 0; i < menuInstructions.size(); i++)
-        target.draw(menuInstructions[i], states);
 }
 
 

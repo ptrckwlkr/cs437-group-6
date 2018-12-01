@@ -18,7 +18,7 @@ public:
     PlayerView(GameLogic *state, sf::RenderWindow *App) : View(state), app(App) {}
     virtual void draw() = 0;
     //to be used to update sprite movement 
-    Animation animation;
+    //Animation animation;
 
 protected:
     virtual void process_input(float delta) = 0;

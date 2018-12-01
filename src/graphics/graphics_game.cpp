@@ -47,13 +47,13 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 		sf::Texture playerTexture = resources.GetTexture("playerTexture");
 
-		if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
+		//if (type == Skeleton::entityType) sprite = view->getSkeletonAnimation().getSprite();
 		if (type == Player::entityType) rect.setFillColor(sf::Color(0, 255, 0, 125));
 		if (type == Player::entityType) {
 
-			PlayerAnimation(&ent, &playerTexture, sf::Vector2u(13, 21), 3/60.f);
+			//PlayerAnimation(&ent, &playerTexture, sf::Vector2u(13, 21), 3/60.f);
 
-			sprite = view->getPlayerAnimation().getSprite();
+			//sprite = view->getPlayerAnimation().getSprite();
 		}
 		if (type == Projectile::entityType) circle.setFillColor(sf::Color(255, 255, 255));
         if (type == Gold::entityType) circle.setFillColor(sf::Color(255, 255, 0));

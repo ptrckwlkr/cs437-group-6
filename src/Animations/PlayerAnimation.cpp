@@ -1,9 +1,9 @@
 
 #include "Animations/PlayerAnimation.h"
 
-PlayerAnimation::PlayerAnimation(Player &entity, sf::Texture &texture, sf::Vector2u imageCount, float switchTime ){
+PlayerAnimation::PlayerAnimation(Player &entity) : Animation() {
     this->player = &entity;
-    Animation::initSprite(texture, imageCount, switchTime);
+    //Animation::initSprite(texture, imageCount, switchTime);
 
 }
 PlayerAnimation::~PlayerAnimation(){}
@@ -17,7 +17,7 @@ void PlayerAnimation::update(float delta){
     //imageCount is the specific value for the number of animation
     //for a certain movement base on the sprite sheet
     int imageCount = 9;
-    Vector2D oldpos = player.get_old_position();
+    Vector2D oldpos = player->get_old_position();
     //Vector2D currpos = player.get_position();
 //    if ( dir.y == -1)
     if (oldpos.y = -1)

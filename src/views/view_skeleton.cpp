@@ -14,7 +14,6 @@ void SkeletonView::update(float delta)
   if (dir.length < ENEMY_ACTIVE_DISTANCE && hypo * hypo < dir.length * dir.length)
   {
     skeleton->move(dir, delta);
-    animation_skeleton.Update(dir, 9, delta);
   }
   if (skeleton->is_dead())
   {

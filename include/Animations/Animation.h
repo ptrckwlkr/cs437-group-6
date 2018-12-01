@@ -2,6 +2,7 @@
 #define CSCI437_ANIMATION_H
 
 #include <SFML/Graphics.hpp>
+#include "ResourceManager.h"
 #include "vector2d.h"
 
 
