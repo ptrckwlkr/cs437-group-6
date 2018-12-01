@@ -18,6 +18,7 @@ public:
     friend Vector2D operator+ (const Vector2D &v1, const Vector2D &v2) {return {v1.x + v2.x, v1.y + v2.y};}
     friend Vector2D operator- (const Vector2D &v1, const Vector2D &v2) {return {v1.x - v2.x, v1.y - v2.y};}
     friend Vector2D operator- (const Vector2D &v) {return {-v.x, -v.y};}
+    friend bool operator== (const Vector2D &v1, const Vector2D &v2) {return (v1.x == v2.x && v1.y == v2.y);}
     Vector2D normal()
     {
       Vector2D v = length > 0 ? Vector2D(x / length, y / length) : Vector2D(0, 0);

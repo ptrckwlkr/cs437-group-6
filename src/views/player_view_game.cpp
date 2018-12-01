@@ -10,6 +10,7 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
     if (MUSIC) {
         bg_music = resources.GetMusic("vanquisher");
         bg_music->setVolume(35.0);
+        bg_music->setLoop(true);
         bg_music->play();
     }
     //animation_player.init(player_text, sf::Vector2u(13, 21), 3 / 60.f);

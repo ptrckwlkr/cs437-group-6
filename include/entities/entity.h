@@ -46,7 +46,6 @@ public:
     void set_mana(int m) {mana = m;}
     void takedamage(int damage) {health -= damage;}
 
-=
     const Vector2D &get_position() const {return pos;}
     const Vector2D &get_old_position() const {return old_pos;}
     const float get_size() const {return size;}

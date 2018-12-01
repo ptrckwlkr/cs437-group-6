@@ -14,7 +14,7 @@ class Level
 public:
     Level(std::shared_ptr<Map> &map);
     void update();
-    void set_player(Player *p) {player = p;}
+    void set_player(Player *p);
     Map &get_map() {return *map;}
     Player &get_player() {return *player;}
 

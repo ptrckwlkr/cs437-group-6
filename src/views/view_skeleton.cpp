@@ -12,12 +12,12 @@ void SkeletonView::update(float delta) {
     //get player position
     Vector2D dir = state->get_level().get_player().get_position() - skeleton->get_position();
     float hypo = state->get_level().get_player().get_size() + skeleton->get_size();
-    if (dir.length < skeleton->aggro_dist && hypo * hypo < dir.length * dir.length) {
-        if (type == "skeleton_white")
+    if (cur_state == AGGRO || (dir.length < skeleton->aggro_dist && hypo * hypo < dir.length * dir.length)) {
+        if (type == "skeleton-white")
             updateWhite(delta, dir);
-        else if (type == "skeleton_red")
+        else if (type == "skeleton-red")
             updateRed(delta, dir);
-        else if (type == "skeleton_gold")
+        else if (type == "skeleton-gold")
             updateGold(delta, dir);
     }
 }
@@ -64,5 +64,14 @@ void SkeletonView::updateRed(float delta, Vector2D dir)
     }
     else
         cur_state = PASSIVE;
+
+}
+
+/*
+ * Gold skeletons are the smartest; they know the most recent cells the player has visited
+ * They will chase the player but if their next move puts them into a wall, they
+ * change their target to the player's recent path
+ */
+void SkeletonView::updateGold(float delta, Vector2D dir) {
 
 }

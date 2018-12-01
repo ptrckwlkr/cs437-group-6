@@ -23,7 +23,7 @@ public:
     int get_width() {return width;}
     Cell& get_cell(int m, int n);
     void givePathNodes(std::vector<Vector2D> &path_nodes) {this->path_nodes = path_nodes;}
-    void updatePlayerRecentCells(Vector2D pos);
+    void updatePlayerRecentCells(const Vector2D &pos);
 
 private:
     CellMap cells;
