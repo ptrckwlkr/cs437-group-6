@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "graphics.h"
-#include "player_view.h"
+#include "views/player_view.h"
 
 class VictoryView;
 class VictoryGraphics : public Graphics

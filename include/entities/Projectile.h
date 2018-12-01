@@ -1,15 +1,13 @@
 #ifndef CSCI437_PROJECTILE_H
 #define CSCI437_PROJECTILE_H
 
-#include <events/event_wall_collision.h>
-#include <events/event_collision.h>
-#include "entity.h"
-#include "event.h"
-#include "math.h"
+#include <cmath>
+#include "events/event_wall_collision.h"
+#include "events/event_collision.h"
+#include "entities/entity.h"
 #include "SFML/System.hpp"
-#include "vector2d.h"
 
-#define PROJECTILE_SPEED_DEFAULT        75
+#define PROJECTILE_SPEED_DEFAULT        150
 #define PROJECTILE_SIZE_DEFAULT         5
 
 class Projectile: public Entity
@@ -44,13 +42,16 @@ public:
 
     void set_direction(Vector2D vec) {direction = vec;}
 
-    float get_travaled() {return traveled;}
+    float get_traveled() {return traveled;}
 
     int get_maxRange() {return maxRange;}
 
     Vector2D  get_direciton(){ return direction;}
 
     void move(Vector2D &dir, float delta) override;
+
+    //The trail logic should probably be moved to ProjectileView but it can't be accessed from game graphics
+    void updateTrail();
 
 }; 
 

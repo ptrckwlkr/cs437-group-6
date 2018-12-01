@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <math.h>
 #include <random>
+#include "vector2d.h"
 
 
 
@@ -24,9 +25,15 @@ public:
 	void placeEntities(int num_enemies);
 	void placeTreasure(int num_treasures);
 	void printLevelGrid();
+	std::vector<Vector2D> &getPathNodes() { return path_nodes;};
 
 	int width;
 	int height;
+
+
+
+	//extreme points to cut down size of map
+	int min_x, max_x, min_y, max_y;
 
 	//player's initial coordinates
 	int player_x;
@@ -49,9 +56,13 @@ private:
 	{ return ((i < width - 2) && (j < height - 2) && (i > 1) && (j > 1)); }
 	
 	float euclideanDistance(int x1, int y1, int x2, int y2) { return sqrtf((float)(x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2)); }
+	void updateExtremeCoords(int cur_x, int cur_y);
 
 	//stores information about each room in the level
 	std::vector<std::vector<int>> rooms;
+
+	//vector for enemy movement
+	std::vector<Vector2D> path_nodes;
 
 	//indices in the above vector that correspond to the player's starting room and exit rooms
 	int player_room_index;

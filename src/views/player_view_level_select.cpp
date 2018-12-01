@@ -1,6 +1,6 @@
-#include <engine.h>
 #include "graphics/graphics_level_select.h"
 #include "views/player_view_level_select.h"
+#include "engine.h"
 
 LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
@@ -49,7 +49,7 @@ void LevelSelectView::update(float delta)
   process_input(delta);
 }
 
-void LevelSelectView::draw()
+void LevelSelectView::draw(float delta)
 {
   app->clear(sf::Color::Black);
   app->draw(*graphics);

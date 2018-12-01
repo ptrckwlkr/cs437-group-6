@@ -14,6 +14,7 @@ VictoryGraphics::VictoryGraphics(VictoryView *view) : Graphics(), view(view)
 
 void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+
     // This must always be the first line of every draw method
     states.transform *= getTransform();
 
@@ -22,6 +23,7 @@ void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
         drawTitleScreenDynamicText(target, states, view->selectionIndex);
         target.draw(title, states);
     }
+
 }
 
 

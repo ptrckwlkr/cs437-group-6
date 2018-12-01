@@ -6,7 +6,7 @@ EventManager* EventManager::Instance(){
   return &instance;
 }
 
-void EventManager::shutdown()
+void EventManager::reset()
 {
   clearEvents();
   processUnregisters();

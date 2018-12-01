@@ -1,7 +1,7 @@
-#include "tile_map.h"
 #include <time.h>
-#include "macros.h"
 #include <cstdlib>
+#include "tile_map.h"
+#include "macros.h"
 
 //Seeds random generator engine
 TileMap::TileMap(): generator((std::random_device())()) {}

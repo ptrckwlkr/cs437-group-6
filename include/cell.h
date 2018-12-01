@@ -4,14 +4,14 @@
 #include <vector>
 #include <memory>
 #include <set>
-#include "entity.h"
+#include "entities/entity.h"
 
 enum CellType
 {
     WALL,
     FLOOR,
-	EXIT,
-	ORNAMENT	//floor cell with decorative texture on itself and wall above
+		EXIT,
+		ORNAMENT	//floor cell with decorative texture on itself and wall above
 };
 
 /**

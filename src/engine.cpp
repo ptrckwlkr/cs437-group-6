@@ -1,10 +1,10 @@
 #include <SFML/Window/Event.hpp>
-#include "views/view_skeleton.h"
+#include "engine.h"
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
-#include "engine.h"
-#include "view_manager.h"
+#include "views/view_manager.h"
+#include "EntityManager.h"
 
 Engine &Engine::getInstance()
 {
@@ -22,7 +22,9 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
   resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
   resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
-  if (MUSIC) resources.LoadSound("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+  if (MUSIC) resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+  resources.LoadXML("enemies", "../data/xml/enemies.xml");
+
   App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();
@@ -38,12 +40,7 @@ void Engine::init(sf::RenderWindow *app)
  */
 void Engine::update_views(float delta)
 {
-  auto views = ViewManager::Instance()->get_views();
-  auto iter = views.begin();
-  while (iter != views.end()){
-    (*iter)->update(delta);
-    iter++;
-  }
+  ViewManager::Instance()->update_views(delta);
 }
 
 /**
@@ -58,9 +55,9 @@ void Engine::update_state(float delta)
   }
 }
 
-void Engine::update_graphics()
+void Engine::update_graphics(float delta)
 {
-  ViewManager::Instance()->get_player_view()->draw();
+  ViewManager::Instance()->get_player_view()->draw(delta);
 }
 
 /**
@@ -87,7 +84,7 @@ void Engine::switch_mode()
   if (curr_game_mode != old_mode)
   {
     old_mode = curr_game_mode;
-    ViewManager::Instance()->clear();
+    ViewManager::Instance()->reset();
 
     //places the primary controller and view for the mode at the 0th index of each vector
     switch (curr_game_mode)
@@ -110,4 +107,12 @@ void Engine::switch_mode()
 
     }
   }
+}
+
+void Engine::shutdown()
+{
+  ViewManager::Instance()->reset();
+  EntityManager::Instance()->reset();
+  EventManager::Instance()->reset();
+  App->close();
 }
