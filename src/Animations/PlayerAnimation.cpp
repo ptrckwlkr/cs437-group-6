@@ -3,9 +3,8 @@
 
 PlayerAnimation::PlayerAnimation(Player &entity) : Animation(), player(&entity) {
     texture = resources.GetTexture("playerTexture");
-    //sprite.setTextureRect(uvRect);
     imageCount = sf::Vector2u(13, 21);
-    switchTime = 3/60.f;
+    switchTime = 10/60.f;
     totalTime = 0.0f;
     currentImage.x = 0;
     currentImage.y = 10;
@@ -49,6 +48,5 @@ void PlayerAnimation::update(float delta){
     }
 
     sprite.setTextureRect(uvRect);
-    sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2 + 15));
     sprite.setPosition(player->get_position().x, player->get_position().y);
 }
