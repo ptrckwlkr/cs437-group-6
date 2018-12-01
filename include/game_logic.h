@@ -1,10 +1,11 @@
 #ifndef CSCI437_LOGIC_H
 #define CSCI437_LOGIC_H
 
+#include <memory>
 #include "level.h"
 #include "level_factory.h"
 #include "player_data.h"
-#include "EventManager.h"
+#include "collision_engine.h"
 
 /**
  * Organize and coordinate the game state.

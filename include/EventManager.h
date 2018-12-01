@@ -8,7 +8,7 @@
 #include <functional>
 #include <events/event_gold_collection.h>
 #include <queue>
-#include "event.h"
+#include "events/event.h"
 #include "listener.h"
 
 typedef void (Listener::* Callback)(const Event&);
@@ -20,7 +20,7 @@ public:
     //returns an instance of event manager
     static EventManager* Instance();
 
-    void shutdown();
+    void reset();
     void processEvents();
     void unregisterListener(EventType type, Listener *listener);
     void unregisterAll(Listener *listener);

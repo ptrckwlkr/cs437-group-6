@@ -1,13 +1,14 @@
 #include <vector>
+#include "collision_engine.h"
+#include "events/event_wall_collision.h"
+#include "events/event_collision.h"
 #include "macros.h"
 #include "EventManager.h"
-#include "events/event_collision.h"
-#include "collision_engine.h"
 
 /**
  * Given a pointer to a level's Map, check for collisions among all entities using the Map's optimized data structure
  */
-void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
+void CollisionEngine::check_collisions(Map &level_map)
 {
   int num_entities;
   int i;
@@ -30,16 +31,19 @@ void CollisionEngine::check_collisions(Map &level_map, std::vector<std::shared_p
         // Handle the collision
         if (entity_collision(*entity1, *entity2))
         {
-          EventCollision collision1(entity1.get(), entity2.get());
-          EventCollision collision2(entity2.get(), entity1.get());
-          EventManager::Instance()->sendEvent(collision1);
-          EventManager::Instance()->sendEvent(collision2);
+          EventItem item = {EventCollision::eventType, entity1.get(), entity2.get()};
+          event_set.insert(item);
           if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
         }
       }
-      check_wall_collision(level_map, *entity1);
+      if (wall_collision(level_map, *entity1))
+      {
+        EventItem item = {EventWallCollision::eventType, entity1.get(), nullptr};
+        event_set.insert(item);
+      }
     }
   }
+  dispatchEvents();
 }
 
 /**
@@ -55,7 +59,7 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 /**
  * Sort a list of pointers to game entities into the map's cells, according to the entities' positions
  */
-void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<Entity>> entities)
+void CollisionEngine::hash_entities(Map &level_map, std::unordered_map<long long, std::shared_ptr<Entity>> entities)
 {
   // TODO will probably ultimately accept the EntityManager& as a parameter, instead of a raw vector of pointers
   float radius;
@@ -66,9 +70,10 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
   Cell *cell;
 
   // Sort every entity into one or more of the game grid's cells
-  clear_cells(level_map);
-  for (auto &ent : entities)
+  clear_cells();
+  for (auto &i : entities)
   {
+    auto ent = i.second;
     Vector2D pos = ent->get_position();
     radius  = ent->get_size();
     top     = pos.y - radius - COLLISION_BUFFER;
@@ -95,9 +100,9 @@ void CollisionEngine::hash_entities(Map &level_map, std::vector<std::shared_ptr<
 /**
  * Clear every cell of its registered entities
  */
-void CollisionEngine::clear_cells(Map &level_map)
+void CollisionEngine::clear_cells()
 {
-  for (auto cell : occupied_cells)
+  for (auto &cell : occupied_cells)
   {
     cell->clear_entities();
   }
@@ -107,7 +112,7 @@ void CollisionEngine::clear_cells(Map &level_map)
 /**
  * For a given entity, check for and correct all collisions with obstructed tiles.
  */
-void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
+bool CollisionEngine::wall_collision(Map &level_map, Entity &entity)
 {
   float size = entity.get_size();
   Vector2D curr = entity.get_position();
@@ -127,7 +132,7 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
   if (top_blocked + left_blocked + bot_blocked + right_blocked > 2)
   {
     entity.set_position(entity.get_old_position());
-    return;
+    return true;
   }
 
   if (left_blocked)
@@ -150,6 +155,8 @@ void CollisionEngine::check_wall_collision(Map &level_map, Entity &entity)
     Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
     entity.set_position(entity.get_position() + penetration);
   }
+
+  return left_blocked || right_blocked || top_blocked || bot_blocked;
 }
 
 void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
@@ -161,4 +168,25 @@ void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
   float dy = correction.y / 2;
   entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
   entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
+}
+
+void CollisionEngine::dispatchEvents()
+{
+  for (auto &item : event_set)
+  {
+    if (item.type == EventCollision::eventType)
+    {
+      EventCollision collision1(item.entity1, item.entity2);
+      EventCollision collision2(item.entity2, item.entity1);
+      EventManager::Instance()->sendEvent(collision1);
+      EventManager::Instance()->sendEvent(collision2);
+
+    }
+    else if (item.type == EventWallCollision::eventType)
+    {
+      EventWallCollision collision(item.entity1);
+      EventManager::Instance()->sendEvent(collision);
+    }
+  }
+  event_set.clear();
 }

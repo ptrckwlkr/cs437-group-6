@@ -5,9 +5,7 @@
 #include <memory>
 #include <chrono>
 #include "game_logic.h"
-#include "view.h"
 #include "ResourceManager.h"
-#include "player_view.h"
 
 
 enum GameMode
@@ -16,6 +14,7 @@ enum GameMode
 		MODE_LEVEL_SELECT,
 		MODE_SHOP,
 		MODE_PLAY,
+		MODE_VICTORY,
 };
 
 /**
@@ -28,8 +27,9 @@ public:
     void init(sf::RenderWindow *app);
 		void update_views(float delta);
     void update_state(float delta);
-		void update_graphics();
+		void update_graphics(float delta);
     void set_mode(GameMode mode);
+		void shutdown();
     float clock();
 	
 

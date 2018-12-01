@@ -1,8 +1,10 @@
+#include "level_factory.h"
 #include "views/view_skeleton.h"
 #include "alg_agent_based.h"
-#include "view_manager.h"
+#include "views/view_manager.h"
 #include "entities/gold.h"
-#include "entities/skeleton.h"
+#include "EntityManager.h"
+#include "level.h"
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
@@ -26,18 +28,16 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 	    break;
 	case AGENT_BASED:
 
-		AgentBasedGenerator gen = AgentBasedGenerator(128, 106, 1, 10, 0);
-		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 32.0));
+		AgentBasedGenerator gen = AgentBasedGenerator(64, 64, 1, 10, 0);
+		map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 64.0));
 		//gen.printLevelGrid();
 
     std::shared_ptr<Player> player = EntityManager::Instance()->createEntity<Player>(gen.player_x, gen.player_y);
     EntityManager::Instance()->set_player(player);
-//		EntityManager::Instance()->createEntity<Gold>(3750, 2750);
 		//TEMP method to place enemies
 		for (int i = 0; i < gen.enemy_coords.size(); i++)
 		{
       auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
-      ViewManager::Instance()->add_view<Skeleton, SkeletonView>(ent);
 		}
     for (int i = 0; i < gen.treasure_coords.size(); i++)
     {
@@ -49,7 +49,7 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 
   // Create the actual level
   level = std::make_shared<Level>(map);
-  level->set_player(EntityManager::Instance()->getPlayer());
+  level->set_player(EntityManager::Instance()->getPlayer().get());
 
   return level;
 }

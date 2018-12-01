@@ -1,7 +1,6 @@
 #ifndef CSCI437_VIEW_MENU_H
 #define CSCI437_VIEW_MENU_H
 
-#include "view.h"
 #include "player_view.h"
 
 class MenuView : public PlayerView
@@ -10,7 +9,7 @@ class MenuView : public PlayerView
 public:
     MenuView(GameLogic *state, sf::RenderWindow *App);
     void update(float delta) override;
-    void draw() override;
+    void draw(float delta) override;
     int selectionIndex;	//represents current highlighted option on screen
     int screenIndex;	//represents current menu screen to display
 

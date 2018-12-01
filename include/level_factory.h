@@ -3,7 +3,9 @@
 
 #include <fstream>
 #include <string>
+#include <memory>
 #include "level.h"
+#include "map.h"
 
 enum Generator
 {
