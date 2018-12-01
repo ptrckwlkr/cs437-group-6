@@ -31,6 +31,7 @@ void Engine::init(sf::RenderWindow *app)
   }
   resources.LoadXML("enemies", "../data/xml/enemies.xml");
   resources.LoadSound("coins", "../data/Sounds/Coins 1.wav");
+  resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
 
   App = app;
   curr_game_mode = MODE_MENU;

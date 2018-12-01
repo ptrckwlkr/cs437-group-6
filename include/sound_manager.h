@@ -7,6 +7,7 @@
 #include "events/event_gold_collection.h"
 #include <SFML/Audio.hpp>
 #include "listener.h"
+#include "entities/skeleton.h"
 
 class SoundManager : public Listener
 {
