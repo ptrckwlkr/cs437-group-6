@@ -16,6 +16,22 @@
       <b>255</b>
     </mana>
   </UI>
+  <Victory>
+    <winText>
+      <text>Congratulations!You won! </text>
+      <size>40</size>
+      <r>180</r>
+      <g>150</g>
+      <b>200</b>
+    </winText>
+    <playAgainButton>
+      <text>Play Again</text>
+      <size>28</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </playAgainButton>
+  </Victory>
   <Menu>
     <title>
       <text>POWER HOUR</text>

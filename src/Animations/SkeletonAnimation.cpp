@@ -2,9 +2,8 @@
 
 SkeletonAnimation::SkeletonAnimation(Skeleton &entity) : Animation(), skeleton(&entity) {
     texture = resources.GetTexture("skeletonTexture");
-    //sprite.setTextureRect(uvRect);
     imageCount = sf::Vector2u(13, 21);
-    switchTime = 3/60.f;
+    switchTime = 10/60.f;
     totalTime = 0.0f;
     currentImage.x = 0;
     currentImage.y = 10;
@@ -48,6 +47,5 @@ void SkeletonAnimation::update(float delta){
     }
 
     sprite.setTextureRect(uvRect);
-    sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2 + 15));
     sprite.setPosition(skeleton->get_position().x, skeleton->get_position().y);
 }

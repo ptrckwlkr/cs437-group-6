@@ -12,8 +12,6 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
         bg_music->setVolume(35.0);
         bg_music->play();
     }
-    //animation_player.init(player_text, sf::Vector2u(13, 21), 3 / 60.f);
-    //animation_skeleton.init(skeleton_text, sf::Vector2u(13, 21), 3 / 60.f);
 }
 
 GameView::~GameView() {
