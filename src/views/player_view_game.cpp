@@ -8,9 +8,10 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
     player_text = resources.GetTexture("playerTexture");
     skeleton_text = resources.GetTexture("skeletonTexture");
     if (MUSIC) {
-        bg_music = resources.GetMusic("vanquisher");
-        bg_music->setVolume(35.0);
-        bg_music->play();
+	music.stopMusic();
+    	music.setMusic("vanquisher");
+	music.setVolume(35.0);
+	music.playMusic();
     }
     //animation_player.init(player_text, sf::Vector2u(13, 21), 3 / 60.f);
     //animation_skeleton.init(skeleton_text, sf::Vector2u(13, 21), 3 / 60.f);

@@ -1,5 +1,5 @@
 #include "macros.h"
-#include "entities/player.h"
+#include "entities/Player.h"
 #include "entities/Projectile.h"
 #include "EntityManager.h"
 
