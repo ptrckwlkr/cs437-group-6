@@ -1,9 +1,9 @@
 #ifndef CSCI437_VIEW_GAME_H
 #define CSCI437_VIEW_GAME_H
 
-#include "view.h"
-#include "player_view.h"
 #include <SFML/Audio.hpp>
+#include <memory>
+#include "player_view.h"
 
 /**
 * Controller class for Stu Dent
@@ -15,17 +15,20 @@ public:
     GameView(GameLogic *state, sf::RenderWindow *App);
     ~GameView();
     void update(float delta) override;
-    void draw() override;
+    void draw(float delta) override;
     //to be used to update sprite movement 
 //    Animation animation_player;
 //    Animation animation_skeleton;
+
+    bool getMapMode() {return map_mode;}
 
 private:
     void process_input(float delta) override;
     void handle_event(sf::Event event) override;
     sf::Texture skeleton_text;
     sf::Texture player_text;
-    sf::Sound bg_music;
+    std::shared_ptr<sf::Music> bg_music;
+    bool map_mode = false;
 
 };
 

@@ -1,10 +1,9 @@
 #ifndef CSCI437_GOLD_H
 #define CSCI437_GOLD_H
 
-#include <events/event_gold_collection.h>
-#include <events/event_collision.h>
-#include "entity.h"
-#include "listener.h"
+#include "entities/entity.h"
+#include "events/event_gold_collection.h"
+#include "events/event_collision.h"
 
 #define GOLD_SIZE 10
 

@@ -1,9 +1,11 @@
 #ifndef CSCI437_ENTITY_H
 #define CSCI437_ENTITY_H
 
-#include "event.h"
+#include <vector>
 #include "vector2d.h"
 #include "listener.h"
+#include "EventManager.h"
+#include "ResourceManager.h"
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -34,6 +36,9 @@ public:
       alive = true;
       hostile = false;
     }
+    ~Entity() {
+      EventManager::Instance()->unregisterAll(this);
+    };
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
     void set_position(Vector2D new_pos) {pos = new_pos;}
@@ -52,6 +57,11 @@ public:
     long long id;
 
     virtual const EntityType& getEntityType() const = 0;
+
+    //trail behind the a circle projectile, helps show ball speed
+    std::vector<Vector2D> trail;
+    bool trail_enabled = false;
+
     virtual void move(Vector2D &dir, float delta)
     {
       old_pos = pos;
@@ -70,6 +80,13 @@ protected:
     bool alive;
     bool hostile;
 
+    //ensures the xml file text does not go out of scope
+    rapidxml::xml_node<> *root_node;
+    std::shared_ptr <std::vector<char>> buffer;
+
 };
+
+//global access to resource manager
+extern ResourceManager resources;
 
 #endif //CSCI437_ENTITY_H

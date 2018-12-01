@@ -1,7 +1,6 @@
 #ifndef CSCI437_EVENT_GOLD_COLLECTION_H
 #define CSCI437_EVENT_GOLD_COLLECTION_H
 
-
 #include "event.h"
 
 class Gold;

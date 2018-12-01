@@ -1,20 +1,23 @@
-#ifndef CSCI437_EVENT_WALL_COLLISION_H
-#define CSCI437_EVENT_WALL_COLLISION_H
+#ifndef CSCI437_EVENT_ENTITY_CREATED_H
+#define CSCI437_EVENT_ENTITY_CREATED_H
+
 
 #include "entities/entity.h"
 #include "event.h"
 
-class EventWallCollision : public Event
+class EventEntityCreated : public Event
 {
+
 public:
-    explicit EventWallCollision(Entity *entity) : Event(), entity(entity) {};
+    explicit EventEntityCreated(Entity *entity) : Event(), entity(entity) {};
     static const EventType eventType;
     const EventType& getEventType() const override {return eventType;}
     Entity &getEntity() const {return *entity;}
 
 private:
     Entity *entity;
+
 };
 
 
-#endif //CSCI437_EVENT_WALL_COLLISION_H
+#endif //CSCI437_EVENT_ENTITY_CREATED_H
