@@ -38,7 +38,8 @@ std::shared_ptr<Level> LevelFactory::generate_level()
 		//TEMP method to place enemies
 		for (int i = 0; i < gen.enemy_coords.size(); i++)
 		{
-      auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
+         auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0], (float) gen.enemy_coords[i][1]);
+         ent->setType("red");
 		}
     for (int i = 0; i < gen.treasure_coords.size(); i++)
     {

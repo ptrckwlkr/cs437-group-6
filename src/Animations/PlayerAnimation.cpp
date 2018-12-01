@@ -17,6 +17,7 @@ PlayerAnimation::PlayerAnimation(Player &entity) : Animation(), player(&entity) 
     sprite.setTextureRect(uvRect);
     sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.0, sprite.getLocalBounds().height / 2.0 + 15.0 ));
     sprite.setPosition(player->get_position().x, player->get_position().y);
+    prev_pos = player->get_position();
 }
 PlayerAnimation::~PlayerAnimation(){}
 
@@ -38,8 +39,7 @@ void PlayerAnimation::update(float delta){
     this->imageCount.x = imageCount;
     totalTime += delta;
 
-    if ( totalTime >= switchTime){
-        totalTime = 0.0f;
+    if ( totalTime >= switchTime && !(prev_pos == player->get_position())) {
         currentImage.x++;
         if (currentImage.x >= this->imageCount.x){
             currentImage.x =0;
@@ -51,4 +51,5 @@ void PlayerAnimation::update(float delta){
     sprite.setTextureRect(uvRect);
     sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2 + 15));
     sprite.setPosition(player->get_position().x, player->get_position().y);
+    prev_pos = player->get_position();
 }

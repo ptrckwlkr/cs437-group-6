@@ -16,6 +16,12 @@ SkeletonAnimation::SkeletonAnimation(Skeleton &entity) : Animation(), skeleton(&
     sprite.setTextureRect(uvRect);
     sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.0, sprite.getLocalBounds().height / 2.0 + 15.0 ));
     sprite.setPosition(skeleton->get_position().x, skeleton->get_position().y);
+    prev_pos = skeleton->get_position();
+
+    if (skeleton->type == "skeleton-red")
+        sprite.setColor(sf::Color(255,128,128));
+    else if (skeleton->type == "skeleton-gold")
+        sprite.setColor(sf::Color(255,215,0));
 }
 SkeletonAnimation::~SkeletonAnimation(){}
 
@@ -37,7 +43,7 @@ void SkeletonAnimation::update(float delta){
     this->imageCount.x = imageCount;
     totalTime += delta;
 
-    if ( totalTime >= switchTime){
+    if ( totalTime >= switchTime && !(prev_pos == skeleton->get_position())){
         totalTime = 0.0f;
         currentImage.x++;
         if (currentImage.x >= this->imageCount.x){
@@ -50,4 +56,5 @@ void SkeletonAnimation::update(float delta){
     sprite.setTextureRect(uvRect);
     sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2 + 15));
     sprite.setPosition(skeleton->get_position().x, skeleton->get_position().y);
+    prev_pos = skeleton->get_position();
 }
