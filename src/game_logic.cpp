@@ -32,7 +32,7 @@ void GameLogic::update_state(float delta)
   {
     f_new_game = false;
     reset();
-    create_new_level(AGENT_BASED);
+    create_new_level(AGENT_BASED, current_level);
     Engine::getInstance().switch_mode(MODE_PLAY);
   }
 }
@@ -42,7 +42,6 @@ void GameLogic::update_state(float delta)
  */
 void GameLogic::create_new_level(Generator g, int level_num)
 {
-  // TODO Should probably load level parameters from an XML file and set the Level Factory accordingly
   level_factory.set_algorithm(g, level_num);
   level = level_factory.generate_level();
   current_level = level_num;

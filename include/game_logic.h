@@ -11,35 +11,41 @@
 /**
  * Organize and coordinate the game state.
  */
-class GameLogic : public Listener
-{
+class GameLogic : public Listener {
 public:
     GameLogic();
+
     ~GameLogic();
 
     void update_state(float delta);
-    void create_new_level(Generator g, int level);
 
-    void toggle_pause() {f_paused = !f_paused;}
-    bool is_paused() {return f_paused;}
-		void reset();
-		Level &get_level() {return *level;}
-		PlayerData &get_player_data() {return player_data;}
+    void create_new_level(Generator g, int level_num);
 
-	int get_level_num() {return current_level;}
+    void toggle_pause() { f_paused = !f_paused; }
+
+    bool is_paused() { return f_paused; }
+
+    void reset();
+
+    Level &get_level() { return *level; }
+
+    PlayerData &get_player_data() { return player_data; }
+
+    int get_level_num() { return current_level; }
 
 private:
-		LevelFactory level_factory;
+    LevelFactory level_factory;
     PlayerData player_data;
-		CollisionEngine collision_engine;
-		std::shared_ptr<Level> level;
+    CollisionEngine collision_engine;
+    std::shared_ptr<Level> level;
 
     int current_level;
 
     bool f_paused = false;
     bool f_new_game = false;
-		void handleExitReached(const EventExitReached &event);
-		
+
+    void handleExitReached(const EventExitReached &event);
+
 };
 
 #endif //CSCI437_LOGIC_H
