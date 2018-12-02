@@ -10,7 +10,7 @@ GameLogic::GameLogic() : Listener()
   collision_engine = CollisionEngine();
   f_paused = false;
 
-  EventManager::Instance()->registerListener(EventExitReached::eventType, this, &handleExitReached);
+  EventManager::Instance()->registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
 }
 
 GameLogic::~GameLogic()

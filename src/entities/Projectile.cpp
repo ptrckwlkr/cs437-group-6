@@ -1,5 +1,6 @@
 #include "entities/Projectile.h"
 #include "EntityManager.h"
+#include "events/event_projectile_fired.h"
 
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT) {
     speed = PROJECTILE_SPEED_DEFAULT;
@@ -10,6 +11,9 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     trail_enabled = true;
     for (int i = 0; i < 5; i++)
         trail.emplace_back(pos);
+
+    EventProjectileFired postFired = EventProjectileFired(id);
+    EventManager::Instance()->sendEvent(postFired);
 
     EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &Projectile::handleWallCollision);
     EventManager::Instance()->registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
