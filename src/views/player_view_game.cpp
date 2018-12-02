@@ -55,7 +55,9 @@ void GameView::process_input(float delta) {
 void GameView::handle_event(sf::Event event) {
     if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
     else if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
-    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::getInstance().set_mode(MODE_INVENTORY);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) {
+	    Engine::getInstance().set_mode(MODE_INVENTORY);
+    }
 }
 
 void GameView::update(float delta) {
