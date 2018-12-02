@@ -24,6 +24,7 @@ public:
 
 private:
     std::shared_ptr<Map> load(std::string filename);
+    void placeEnemies();
     Generator algorithm;
     AgentBasedGenerator gen;
     int level_num;

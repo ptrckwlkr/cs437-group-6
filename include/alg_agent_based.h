@@ -2,6 +2,7 @@
 #define CSCI437_ALG_AGENT_BASED_H
 
 #include <vector>
+#include <unordered_map>
 #include "macros.h"
 #include <cstdlib>
 #include <math.h>
@@ -24,7 +25,7 @@ public:
 
 	std::vector<std::vector<char>> &createLevelGrid();
 	bool placeRoom(int i, int j);
-	void placeEntities();
+	void placeEntities(std::string type, int quantity);
 	void placeTreasure();
 	void printLevelGrid();
 	std::vector<Vector2D> &getPathNodes() { return path_nodes;}
@@ -32,6 +33,11 @@ public:
 	//current level and floor number
 	int level;
 	int floor;
+
+	//enemy position vectors grouped by type
+    std::unordered_map<std::string,std::vector<std::vector<int>>> enemy_type_coords;
+
+
 
 	//level parameters, read from level-parameters.xml
 	int width;
@@ -63,15 +69,14 @@ public:
 	int exit_x;
 	int exit_y;
 
-	//vector of enemy initial coordinates
-	std::vector<std::vector<int>> enemy_coords;
+
 	std::vector<std::vector<int>> treasure_coords;
 	std::vector<std::vector<char>> level_grid;
 
 private:
 	void SetLevelParams();
 	int chooseRandomDirection(int cur_dir, bool orthogonal);
-	int createStartAndExit();
+	void createStartAndExit();
 
 	bool checkPointInBounds(int i, int j)
 	{ return ((i < width - 2) && (j < height - 2) && (i > 1) && (j > 1)); }
@@ -85,7 +90,10 @@ private:
 	//vector for enemy movement
 	std::vector<Vector2D> path_nodes;
 
-	//indices in the above vector that correspond to the player's starting room and exit rooms
+    //vector of enemy initial coordinates, used to make sure two different kinds of enemies don't occupy the same location
+    std::vector<std::vector<int>> enemy_coords;
+
+	//indices that correspond to the player's starting room and exit rooms
 	int player_room_index;
 	int exit_room_index;
 

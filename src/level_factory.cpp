@@ -5,6 +5,7 @@
 #include "entities/exit.h"
 #include "EntityManager.h"
 #include "level.h"
+#include <unordered_map>
 
 
 
@@ -46,12 +47,10 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
             std::shared_ptr<Player> player = EntityManager::Instance()->createEntity<Player>(gen.player_x,
                                                                                              gen.player_y);
             EntityManager::Instance()->set_player(player);
-            //TEMP method to place enemies
-            for (int i = 0; i < gen.enemy_coords.size(); i++) {
-                auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0],
-                                                                             (float) gen.enemy_coords[i][1]);
-                ent->setType("red");
-            }
+
+            placeEnemies();
+
+
             for (int i = 0; i < gen.treasure_coords.size(); i++) {
                 auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0],
                                                                          (float) gen.treasure_coords[i][1]);
@@ -86,4 +85,28 @@ std::shared_ptr<Map> LevelFactory::load(std::string filename) {
 
     fin.close();
     return std::make_shared<Map>(grid);
+}
+
+
+void LevelFactory::placeEnemies()
+{
+    //places all enemies using an unordered map made by the call to createLevelGrid()
+    for (const auto it : gen.enemy_type_coords) {
+        for (const auto v : it.second) {
+            if (it.first == "skeleton-white" || it.first == "skeleton-red" || it.first == "skeleton-gold")
+            {
+                auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) v[0], (float) v[1]);
+                ent->setType(it.first);
+            }
+            else if (it.first == "ghost-white" || it.first == "ghost-red" || it.first == "ghost-gold")
+            {
+                //TODO implement after ghosts exist
+            }
+            else if (it.first == "orc-green" || it.first == "orc-red" || it.first == "orc-gold")
+            {
+                //TODO implement after orc exist
+            }
+        }
+    }
+
 }

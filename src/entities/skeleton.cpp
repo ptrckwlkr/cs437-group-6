@@ -12,7 +12,7 @@ Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
     root_node = (*doc).first_node("Root");
 
     //uses normal skeleton by default
-    setType("white");
+    setType("skeleton-white");
 
     EventManager::Instance()->registerListener(EventCollision::eventType, this, & Skeleton::handleCollision);
 }
@@ -39,6 +39,6 @@ void Skeleton::updateAttributes() {
 }
 
 void Skeleton::setType(std::string param_type) {
-    type.assign("skeleton-" + param_type);
+    type.assign(param_type);
     updateAttributes();
 }

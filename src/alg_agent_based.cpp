@@ -16,7 +16,7 @@ AgentBasedGenerator::AgentBasedGenerator(int level) {
 
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
     auto seed = (unsigned int) time(nullptr);
-    srand(1543614554);
+    srand(1543785219);
     printf("Seed: %d\n", seed);
 
     //load xml document that contains the appropriate parameters for each level
@@ -48,7 +48,10 @@ AgentBasedGenerator::createLevelGrid() {
     //sets the member variables based on the selected level
     SetLevelParams();
 
-
+    //reset all data structures
+    enemy_coords.resize(0);
+    enemy_type_coords.clear();
+    treasure_coords.resize(0);
     std::vector<std::vector<char>> grid(height, std::vector<char>(width, '-'));
     this->level_grid = grid;
 
@@ -162,15 +165,24 @@ AgentBasedGenerator::createLevelGrid() {
         }
     }
 
-    for (int i = 0; i < rooms.size(); i++) {
-        rooms[i][0] -= (min_x - 1);
-        rooms[i][1] -= (min_y - 1);
+    for (auto &room : rooms) {
+        room[0] -= (min_x - 1);
+        room[1] -= (min_y - 1);
     }
     avg_i -= (min_x - 1);
     avg_j -= (min_y - 1);
 
-
-    placeEntities();
+    //places all special entities and tiles
+    createStartAndExit();
+    placeEntities("skeleton-white", num_skeleton_white);
+    placeEntities("skeleton-red", num_skeleton_red);
+    placeEntities("skeleton-gold", num_skeleton_gold);
+    placeEntities("ghost-white", num_ghost_white);
+    placeEntities("ghost-red", num_ghost_red);
+    placeEntities("ghost-gold", num_ghost_gold);
+    placeEntities("orc-green", num_orc_green);
+    placeEntities("orc-red", num_orc_red);
+    placeEntities("orc-gold", num_orc_gold);
     placeTreasure();
 
 
@@ -241,20 +253,17 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
 	Places specified number of enemies randomly within a random room that is not where the player starts.
 	Additionally converts all coordinates to pixel space so that everything is drawn to the screen correctly later
 */
-void AgentBasedGenerator::placeEntities() {
-    int player_room = createStartAndExit();
+void AgentBasedGenerator::placeEntities(std::string type, int quantity) {
+    //makes a default vector in the map at type.
+    enemy_type_coords[type];
 
-    //mark exit cell
-    level_grid[exit_y][exit_x] = 'E';
-    //TODO CHANGE BACK TO ABOVE
-
-    //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
-    for (int e = 0; e < num_enemies; e++) {
+    //iterate through kinds of enemies and add to map
+    for (int e = 0; e < quantity; e++) {
         //randomly choose a room that isn't the player's starting point
         int room;
         do {
             room = rand() % num_rooms;
-        } while (room == player_room || euclideanDistance(player_x, player_y, rooms[room][0] + rooms[room][2] / 2,
+        } while (room == player_room_index || euclideanDistance(player_x, player_y, rooms[room][0] + rooms[room][2] / 2,
                                                           rooms[room][1] + rooms[room][3] / 2) < 12);
 
         std::vector<int> enemy_pos;
@@ -274,11 +283,10 @@ void AgentBasedGenerator::placeEntities() {
 
 
         enemy_coords.emplace_back(enemy_pos_pixels);
+        enemy_type_coords.at(type).emplace_back(enemy_pos_pixels);
 
     }
-    // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
-    player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
-    exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
+
 }
 
 
@@ -286,7 +294,7 @@ void AgentBasedGenerator::placeEntities() {
 	Determines the player's starting location and the exit's location using logic with the rooms
 	returns the index of the player's starting room within the rooms vector for use in placeEntities
 */
-int AgentBasedGenerator::createStartAndExit() {
+void AgentBasedGenerator::createStartAndExit() {
     //finds the average room coordinates for the starting values
     avg_i = avg_i / num_rooms, avg_j = avg_j / num_rooms;
 
@@ -359,7 +367,8 @@ int AgentBasedGenerator::createStartAndExit() {
     exit_x = (rooms[exit_room_index][0] + rooms[exit_room_index][2] / 2);
     exit_y = (rooms[exit_room_index][1] + rooms[exit_room_index][3] / 2);
 
-    return player_room_index;
+    //mark exit cell
+    level_grid[exit_y][exit_x] = 'E';
 }
 
 
@@ -399,6 +408,11 @@ void AgentBasedGenerator::printLevelGrid() {
 }
 
 void AgentBasedGenerator::placeTreasure() {
+    // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
+    player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
+    exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
+
+
     //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
     for (int e = 0; e < num_gold; e++) {
         //randomly choose a room that isn't the player's starting point
@@ -422,6 +436,7 @@ void AgentBasedGenerator::placeTreasure() {
 
         treasure_coords.emplace_back(treasure_pos_pixels);
     }
+
 }
 
 
