@@ -45,8 +45,8 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
                 auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0],
                                                                          (float) gen.treasure_coords[i][1]);
             }
-            EntityManager::Instance()->createEntity<Exit>(gen.exit_x, gen.exit_y);
-            printf("Place at %d %d\n", gen.exit_x, gen.exit_y);
+            EntityManager::Instance()->createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
+            printf("Place at %d %d\n", gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
 
             break;
     }
