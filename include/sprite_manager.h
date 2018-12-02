@@ -13,14 +13,15 @@ class SpriteManager : public Listener
 {
 
 public:
-    SpriteManager();
-    ~SpriteManager();
+    static SpriteManager &Instance();
     Animation &getAnimation(long long entity_id) {return *animations[entity_id];}
     void updateAnimations(float delta);
     const std::unordered_map<long long int, std::shared_ptr<Animation>> &getAnimations() const {return animations;}
 
 
 private:
+    SpriteManager();
+    ~SpriteManager();
     std::unordered_map<long long, std::shared_ptr<Animation>> animations;
     void handleEntityRemoval(const EventEntityDestroyed &event);
     void handleEntityCreation(const EventEntityCreated &event);

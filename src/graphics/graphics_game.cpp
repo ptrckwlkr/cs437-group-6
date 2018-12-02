@@ -14,6 +14,7 @@
 #define VISIBLE_RANGE_Y     (WINDOW_HEIGHT / (2 * ZOOM_SCALAR) + 100)
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view) {
+    SpriteManager::Instance();
     storeLevel();
     this->view = view;
 
@@ -75,7 +76,7 @@ void GameGraphics::drawSprites(sf::RenderTarget &target, sf::RenderStates states
     std::priority_queue<sf::Sprite*, std::vector<sf::Sprite*>, ComparatorY> spriteQueue;
 
     // Add the sprites within visible range in Y-order
-    for (auto &i : spriteManager.getAnimations())
+    for (auto &i : SpriteManager::Instance().getAnimations())
     {
         x = i.second->getSprite().getPosition().x;
         y = i.second->getSprite().getPosition().y;
@@ -200,5 +201,5 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
 
 void GameGraphics::update(float delta)
 {
-    spriteManager.updateAnimations(delta);
+    SpriteManager::Instance().updateAnimations(delta);
 }

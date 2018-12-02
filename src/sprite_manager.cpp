@@ -1,6 +1,11 @@
 #include <events/event_entity_destroyed.h>
 #include "sprite_manager.h"
 
+SpriteManager &SpriteManager::Instance(){
+  static SpriteManager instance;
+  return instance;
+}
+
 SpriteManager::SpriteManager()
 {
   EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, & SpriteManager::handleEntityRemoval);

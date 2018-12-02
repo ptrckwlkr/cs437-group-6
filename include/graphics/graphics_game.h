@@ -40,8 +40,6 @@ private:
     std::vector<sf::RectangleShape> levelShapes;
     sf::Font font;
 
-    SpriteManager spriteManager;
-
     struct ComparatorY {
         bool operator()(const sf::Sprite* lhs, const sf::Sprite* rhs) const {
           return lhs->getPosition().y > rhs->getPosition().y;
