@@ -5,6 +5,7 @@
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
+#include "views/player_view_shop.h"
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
@@ -82,7 +83,7 @@ float Engine::clock()
 */
 void Engine::set_mode(GameMode mode)
 {
-  curr_game_mode = mode;
+  curr_game_mode = MODE_SHOP;
 }
 
 void Engine::switch_mode()
@@ -104,6 +105,7 @@ void Engine::switch_mode()
           ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
 	      break;
       case MODE_SHOP:
+        ViewManager::Instance()->set_player_view<ShopView>(&state, App);
         break;
       case MODE_PLAY:
         state.create_new_level(AGENT_BASED);

@@ -16,6 +16,29 @@
       <b>255</b>
     </mana>
   </UI>
+  <Shop>
+    <ManaText>
+      <text>Buy Mana</text>
+      <size>16</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </ManaText>
+    <AbilitiesText>
+      <text>Buy Abilities</text>
+      <size>16</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </AbilitiesText>
+    <ExitText>
+      <text>Exit</text>
+      <size>16</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </ExitText>
+  </Shop>
   <Victory>
     <winText>
       <text>Congratulations!You won! </text>

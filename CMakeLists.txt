@@ -110,7 +110,7 @@ endif()
 # executables (any CPP file in 'bin' dir)
 foreach(EXEC ${EXECLIST})
   get_filename_component(EXECNAME ${EXEC} NAME_WE)
-  add_executable(${EXECNAME} ${EXEC})
+  add_executable(${EXECNAME} ${EXEC} src/graphics/graphics_shop.cpp include/graphics/graphics_shop.h src/views/player_view_shop.cpp include/views/player_view_shop.h)
 
   if(NOT SRC STREQUAL "")
     target_link_libraries(${EXECNAME} LINK_PUBLIC ${LIBNAME})
