@@ -6,15 +6,16 @@
 #include "level_factory.h"
 #include "player_data.h"
 #include "collision_engine.h"
+#include "events/event_exit_reached.h"
 
 /**
  * Organize and coordinate the game state.
  */
-class GameLogic
+class GameLogic : public Listener
 {
 public:
     GameLogic();
-    ~GameLogic() = default;
+    ~GameLogic();
 
     void update_state();
     void create_new_level(Generator g);
@@ -30,6 +31,8 @@ private:
 		CollisionEngine collision_engine;
 		std::shared_ptr<Level> level;
     bool f_paused;
+		void handleExitReached(const EventExitReached &event);
+
 };
 
 #endif //CSCI437_LOGIC_H

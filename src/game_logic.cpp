@@ -2,12 +2,19 @@
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
-GameLogic::GameLogic()
+GameLogic::GameLogic() : Listener()
 {
   level_factory = LevelFactory();
   player_data = PlayerData();
   collision_engine = CollisionEngine();
   f_paused = false;
+
+  EventManager::Instance()->registerListener(EventExitReached::eventType, this, &handleExitReached);
+}
+
+GameLogic::~GameLogic()
+{
+  EventManager::Instance()->unregisterAll(this);
 }
 
 /**
@@ -15,7 +22,6 @@ GameLogic::GameLogic()
  */
 void GameLogic::update_state()
 {
-  EventManager::Instance()->processEvents(); // Process all other events
   collision_engine.hash_entities(level->get_map(), EntityManager::Instance()->getEntites());
   level->update();
   collision_engine.check_collisions(level->get_map());
@@ -38,4 +44,12 @@ void GameLogic::reset()
   ViewManager::Instance()->reset();
   EntityManager::Instance()->reset();
   EventManager::Instance()->reset();
+}
+
+void GameLogic::handleExitReached(const EventExitReached &event)
+{
+  collision_engine.reset();
+  ViewManager::Instance()->reset();
+  EntityManager::Instance()->reset();
+  create_new_level(AGENT_BASED);
 }
