@@ -71,10 +71,10 @@ bool CollisionEngine::wall_collision(Map &level_map, Entity &entity)
   float right = x + size;
   float bot = y + size;
 
-  bool NW_blocked  = level_map.get_cell((int)((y - size) / CELL_SIZE), (int)((x - size) / CELL_SIZE)).get_cell_type() == WALL;
-  bool NE_blocked  = level_map.get_cell((int)((y - size) / CELL_SIZE), (int)((x + size) / CELL_SIZE)).get_cell_type() == WALL;
-  bool SE_blocked  = level_map.get_cell((int)((y + size) / CELL_SIZE), (int)((x + size) / CELL_SIZE)).get_cell_type() == WALL;
-  bool SW_blocked  = level_map.get_cell((int)((y + size) / CELL_SIZE), (int)((x - size) / CELL_SIZE)).get_cell_type() == WALL;
+  bool NW_blocked  = level_map.get_cell((int)((top) / CELL_SIZE), (int)((left) / CELL_SIZE)).get_cell_type() == WALL;
+  bool NE_blocked  = level_map.get_cell((int)((top) / CELL_SIZE), (int)((right) / CELL_SIZE)).get_cell_type() == WALL;
+  bool SE_blocked  = level_map.get_cell((int)((bot) / CELL_SIZE), (int)((right) / CELL_SIZE)).get_cell_type() == WALL;
+  bool SW_blocked  = level_map.get_cell((int)((bot) / CELL_SIZE), (int)((left) / CELL_SIZE)).get_cell_type() == WALL;
 
   // If mid is blocked, you are too far into the wall, just go back to the old position
   if (level_map.get_cell((int)(y / CELL_SIZE), (int)(x / CELL_SIZE)).get_cell_type() == WALL)
@@ -83,90 +83,65 @@ bool CollisionEngine::wall_collision(Map &level_map, Entity &entity)
     return true;
   }
 
+  // Entity is colliding in one corner
   if (NW_blocked + NE_blocked + SE_blocked + SW_blocked == 1)
   {
+    Vector2D penetration;
     if (NW_blocked)
     {
-      Vector2D NW = Vector2D(x - size, y - size);
-      Vector2D p1 = Vector2D(0, (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE);
-      Vector2D p2 = Vector2D(100000, (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE);
-      Vector2D inter1 = intersection(curr, NW, p1, p2); // Horizontal line
-      Vector2D q1 = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE, 0);
-      Vector2D q2 = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE, 100000);
-      Vector2D inter2 = intersection(curr, NW, q1, q2); // Vertical line
-      if ((NW - inter1).length < (NW - inter2).length)
-      {
-        Vector2D penetration = Vector2D(0, (int) (top / CELL_SIZE) * CELL_SIZE + CELL_SIZE - top);
-        entity.set_position(entity.get_position() + penetration);
-      }
+      Vector2D NW = Vector2D(left, top);
+      float top_border = (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE;
+      float left_border = (int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE;
+      Line horizontal = {0, top_border, 100000, top_border};
+      Line vertical = {left_border, 0, left_border, 100000};
+      Line path = {x, y, NW.x, NW.y};
+      if ((NW - intersection(path, horizontal)).length < (NW - intersection(path, vertical)).length)
+        penetration = Vector2D(0, top_border - top);
       else
-      {
-        Vector2D penetration = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE - left, 0);
-        entity.set_position(entity.get_position() + penetration);
-      }
+        penetration = Vector2D(left_border - left, 0);
     }
-    else if (NE_blocked)
+    else if (NE_blocked) // Top-right corner
     {
-      Vector2D NE = Vector2D(x + size, y - size);
-      Vector2D p1 = Vector2D(0, (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE);
-      Vector2D p2 = Vector2D(100000, (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE);
-      Vector2D inter1 = intersection(curr, NE, p1, p2); // Horizontal line
-      Vector2D q1 = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE, 0);
-      Vector2D q2 = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE, 100000);
-      Vector2D inter2 = intersection(curr, NE, q1, q2); // Vertical line
-      if ((NE - inter1).length < (NE - inter2).length)
-      {
-        Vector2D penetration = Vector2D(0, (int) (top / CELL_SIZE) * CELL_SIZE + CELL_SIZE - top);
-        entity.set_position(entity.get_position() + penetration);
-      }
+      Vector2D NE = Vector2D(right, top);
+      float top_border = (int)(top / CELL_SIZE) * CELL_SIZE + CELL_SIZE;
+      float right_border = (int)(right / CELL_SIZE) * CELL_SIZE;
+      Line horizontal = {0, top_border, 100000, top_border};
+      Line vertical = {right_border, 0, right_border, 100000};
+      Line path = {x, y, NE.x, NE.y};
+      if ((NE - intersection(path, horizontal)).length < (NE - intersection(path, vertical)).length)
+        penetration = Vector2D(0, top_border - top);
       else
-      {
-        Vector2D penetration = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE - right, 0);
-        entity.set_position(entity.get_position() + penetration);
-      }
+        penetration = Vector2D(right_border - right, 0);
     }
-    else if (SE_blocked)
+    else if (SE_blocked) // Bottom-right corner
     {
-      Vector2D SE = Vector2D(x + size, y + size);
-      Vector2D p1 = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE);
-      Vector2D p2 = Vector2D(100000, (int)(bot / CELL_SIZE) * CELL_SIZE);
-      Vector2D inter1 = intersection(curr, SE, p1, p2); // Horizontal line
-      Vector2D q1 = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE, 0);
-      Vector2D q2 = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE, 100000);
-      Vector2D inter2 = intersection(curr, SE, q1, q2); // Vertical line
-      if ((SE - inter1).length < (SE - inter2).length)
-      {
-        Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
-        entity.set_position(entity.get_position() + penetration);
-      }
+      Vector2D SE = Vector2D(right, bot);
+      float bot_border = (int)(bot / CELL_SIZE) * CELL_SIZE;
+      float right_border = (int)(right / CELL_SIZE) * CELL_SIZE;
+      Line horizontal = {0, bot_border, 100000, bot_border};
+      Line vertical = {right_border, 0, right_border, 100000};
+      Line path = {x, y, SE.x, SE.y};
+      if ((SE - intersection(path, horizontal)).length < (SE - intersection(path, vertical)).length)
+        penetration = Vector2D(0, bot_border - bot);
       else
-      {
-        Vector2D penetration = Vector2D((int)(right / CELL_SIZE) * CELL_SIZE - right, 0);
-        entity.set_position(entity.get_position() + penetration);
-      }
+        penetration = Vector2D(right_border - right, 0);
     }
-    else
+    else // Bottom-left corner
     {
-      Vector2D SW = Vector2D(x - size, y + size);
-      Vector2D p1 = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE);
-      Vector2D p2 = Vector2D(100000, (int)(bot / CELL_SIZE) * CELL_SIZE);
-      Vector2D inter1 = intersection(curr, SW, p1, p2); // Horizontal line
-      Vector2D q1 = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE, 0);
-      Vector2D q2 = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE, 100000);
-      Vector2D inter2 = intersection(curr, SW, q1, q2); // Vertical line
-      if ((SW - inter1).length < (SW - inter2).length)
-      {
-        Vector2D penetration = Vector2D(0, (int)(bot / CELL_SIZE) * CELL_SIZE - bot);
-        entity.set_position(entity.get_position() + penetration);
-      }
+      Vector2D SW = Vector2D(left, bot);
+      float bot_border = (int)(bot / CELL_SIZE) * CELL_SIZE;
+      float left_border = (int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE;
+      Line horizontal = {0, bot_border, 100000, bot_border};
+      Line vertical = {left_border, 0, left_border, 100000};
+      Line path = {x, y, SW.x, SW.y};
+      if ((SW - intersection(path, horizontal)).length < (SW - intersection(path, vertical)).length)
+        penetration = Vector2D(0, bot_border - bot);
       else
-      {
-        Vector2D penetration = Vector2D((int)(left / CELL_SIZE) * CELL_SIZE + CELL_SIZE - left, 0);
-        entity.set_position(entity.get_position() + penetration);
-      }
+        penetration = Vector2D(left_border - left, 0);
     }
+    entity.set_position(entity.get_position() + penetration);
   }
-  else
+  else // Regular cases of colliding with the walls
   {
     Vector2D correction = VEC_NONE;
     if (NW_blocked && NE_blocked)
@@ -279,12 +254,13 @@ void CollisionEngine::dispatchEvents()
   event_set.clear();
 }
 
-Vector2D CollisionEngine::intersection(Vector2D &p1, Vector2D &p2, Vector2D &q1, Vector2D &q2)
+Vector2D CollisionEngine::intersection(CollisionEngine::Line line1, CollisionEngine::Line line2)
 {
-  float a = p1.x * p2.y - p1.y * p2.x;
-  float b = q1.x * q2.y - q2.x * q1.y;
-  float d = (p1.x - p2.x) * (q1.y - q2.y) - (p1.y - p2.y) * (q1.x - q2.x);
-  float x = (a * (q1.x - q2.x) - b * (p1.x - p2.x)) / d;
-  float y = (a * (q1.y - q2.y) - b * (p1.y - p2.y)) / d;
+  float a = line1.x1 * line1.y2 - line1.y1 * line1.x2;
+  float b = line2.x1 * line2.y2 - line2.x2 * line2.y1;
+  float d = (line1.x1 - line1.x2) * (line2.y1 - line2.y2) - (line1.y1 - line1.y2) * (line2.x1 - line2.x2);
+  float x = (a * (line2.x1 - line2.x2) - b * (line1.x1 - line1.x2)) / d;
+  float y = (a * (line2.y1 - line2.y2) - b * (line1.y1 - line1.y2)) / d;
   return {x, y};
 }
+

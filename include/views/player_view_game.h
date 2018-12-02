@@ -15,17 +15,11 @@ public:
     ~GameView();
     void update(float delta) override;
     void draw(float delta) override;
-    //to be used to update sprite movement 
-//    Animation animation_player;
-//    Animation animation_skeleton;
-
     bool getMapMode() {return map_mode;}
 
 private:
     void process_input(float delta) override;
     void handle_event(sf::Event event) override;
-    sf::Texture skeleton_text;
-    sf::Texture player_text;
     bool map_mode = false;
 
 };

@@ -1,3 +1,4 @@
+#include <macros.h>
 #include "ResourceManager.h"
 
 // declare instance of ResourceManager to be used by other classes
@@ -88,4 +89,27 @@ std::shared_ptr<rapidxml::xml_document<>> &ResourceManager::GetXMLDoc(std::strin
 
 std::shared_ptr<std::vector<char>> &ResourceManager::GetXMLBuffer(std::string name) {
     return this->_xmlbuffers.at(name);
+}
+
+void ResourceManager::LoadAllResources()
+{
+    resources.LoadFont("old_school", "../data/Fonts/Old-School-Adventures.ttf");
+    resources.LoadXML("text", "../data/xml/game-text.xml");
+    resources.LoadTexture("map", "../data/Images/map.png");
+    resources.LoadTexture("fog", "../data/Images/vignette.png");
+    resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
+    resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
+    resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
+    resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
+    resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");
+    resources.LoadTexture("renegade_armor", "../data/Sprites/sets/renegade/transparent/ren_a_t_01.png");
+    resources.LoadTexture("renegade_shoulders", "../data/Sprites/sets/renegade/transparent/ren_sh_t_01.png");
+    resources.LoadTexture("renegade_pants", "../data/Sprites/sets/renegade/transparent/ren_pn_t_01.png");
+    resources.LoadTexture("renegade_boots", "../data/Sprites/sets/renegade/transparent/ren_bt_t_01.png");
+    resources.LoadTexture("renegade_gloves", "../data/Sprites/sets/renegade/transparent/ren_gl_t_01.png");
+    resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
+    resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
+    resources.LoadXML("enemies", "../data/xml/enemies.xml");
+    resources.LoadSound("coins", "../data/Sounds/Coins 1.wav");
+    resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
 }

@@ -33,6 +33,7 @@ void LevelSelectView::handle_event(sf::Event event)
     if (selected_level && selected_level == clicked_node(event.mouseButton.x, event.mouseButton.y))
     {
       printf("Level %d selected\n", selected_level);
+			Engine::getInstance().start_new_game(selected_level);
       Engine::getInstance().set_mode(MODE_PLAY);
     }
   }

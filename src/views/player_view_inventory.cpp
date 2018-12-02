@@ -10,17 +10,18 @@ InventoryView::InventoryView(GameLogic *state, sf::RenderWindow *App) : PlayerVi
  
 void InventoryView::process_input(float delta)
 {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+	state->reset();
+	Engine::getInstance().set_mode(MODE_MENU);
+  }
 }
 
 void InventoryView::handle_event(sf::Event event)
 {
-  if (event.type == sf::Event::EventType::MouseButtonPressed)
-  {
-
-  } else if (event.type == sf::Event::EventType::MouseButtonReleased)
-  {
-  	
+  if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Tab) {
+	Engine::getInstance().set_mode(MODE_PLAY);
+  } else if (event.type == sf::Event::Closed) {
+	Engine::getInstance().shutdown();
   }
 }
 
