@@ -7,6 +7,7 @@
 #include "EntityManager.h"
 #include "level.h"
 
+
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
  * methods

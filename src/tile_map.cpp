@@ -280,6 +280,8 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
             tile_sheet_index = 8;
         else if (above_cell_type != WALL && below_cell_type == WALL && down_right != WALL)
             tile_sheet_index = 10;
+        else if (above_cell_type == WALL && below_cell_type == WALL && up_right != WALL && down_right != WALL)
+            tile_sheet_index = 13;
         else //if (above_cell_type != WALL && below_cell_type != WALL)
         {
             tile_sheet_index = RandomWallIndex();
@@ -302,6 +304,8 @@ int TileMap::WallLogic(int i, int j, Map &map, CellType above_cell_type, CellTyp
             tile_sheet_index = 9;
         else if (above_cell_type != WALL && below_cell_type == WALL && down_left != WALL)
             tile_sheet_index = 10;
+        else if (above_cell_type == WALL && below_cell_type == WALL && up_left != WALL && down_left != WALL)
+            tile_sheet_index = 13;
         else //if (above_cell_type != WALL && below_cell_type != WALL)
         {
             tile_sheet_index = RandomWallIndex();

@@ -7,6 +7,7 @@
 #include <math.h>
 #include <random>
 #include "vector2d.h"
+#include "ResourceManager.h"
 
 
 
@@ -17,19 +18,36 @@
 class AgentBasedGenerator
 {
 public:
-	AgentBasedGenerator(int width, int height, float prob_room, float prob_turn, int room_size_modifier);
+	AgentBasedGenerator();
 	~AgentBasedGenerator() = default;
 
-	std::vector<std::vector<char>> &createLevelGrid(int max_rooms, int num_enemies, float fraction_total_size);
+	std::vector<std::vector<char>> &createLevelGrid(int level);
 	bool placeRoom(int i, int j);
 	void placeEntities(int num_enemies);
 	void placeTreasure(int num_treasures);
 	void printLevelGrid();
-	std::vector<Vector2D> &getPathNodes() { return path_nodes;};
+	std::vector<Vector2D> &getPathNodes() { return path_nodes;}
 
+	//current floor number
+	int floor;
+
+	//level parameters, read from level-parameters.xml
 	int width;
 	int height;
-
+	float prob_room;
+	float prob_turn;
+	int min_rooms;
+	float fraction_total_size;
+	int num_gold;
+	int num_skeleton_white;
+	int num_skeleton_red;
+	int num_skeleton_gold;
+	int num_ghost_white;
+	int num_ghost_red;
+	int num_ghost_gold;
+	int num_orc_green;
+	int num_orc_red;
+	int num_orc_gold;
 
 
 	//extreme points to cut down size of map
@@ -49,6 +67,7 @@ public:
 	std::vector<std::vector<char>> level_grid;
 
 private:
+	void SetLevelParams(int level);
 	int chooseRandomDirection(int cur_dir, bool orthogonal);
 	int createStartAndExit();
 
@@ -70,18 +89,26 @@ private:
 
 	int max_room_size;
 	int min_room_size;
-	
-	float prob_room;
-	float prob_turn;
+
 
 	int direction_x;
 	int direction_y;
 
 	int num_rooms;
+	int num_enemies;
 	int avg_i;
 	int avg_j;
 
+	//xml stuff for loading levels
+	//ensures the xml file text does not go out of scope
+	rapidxml::xml_node<> *root_node;
+	std::shared_ptr <std::vector<char>> buffer;
+
+
 };
+
+//global access to resource manager
+extern ResourceManager resources;
 
 
 #endif //CSCI437_ALG_AGENT_BASED_H

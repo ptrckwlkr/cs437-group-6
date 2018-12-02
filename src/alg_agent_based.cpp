@@ -12,22 +12,19 @@
 	float prob_turn : how much the probability that the digger will turn increases
 	int room_size_modifier : increases min and max room size by this value
 */
-AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room, float prob_turn,
-                                         int room_size_modifier) {
-    this->width = width;
-    this->height = height;
-    this->prob_room = prob_room;
-    this->prob_turn = prob_turn;
-
-    max_room_size = 9 + room_size_modifier;
-    min_room_size = 3 + room_size_modifier;
+AgentBasedGenerator::AgentBasedGenerator() {
 
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
-    //srand(123456789);
     auto seed = (unsigned int) time(nullptr);
-    srand(seed);
+    srand(1543614554);
     printf("Seed: %d\n", seed);
-    //TODO change to C++ random library if time permits for more robust generation
+
+    //load xml document that contains the appropriate parameters for each level
+    std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("level-params");
+    buffer = resources.GetXMLBuffer("level-params");
+    root_node = (*doc).first_node("Root");
+
+    this->floor = 0;
 }
 
 
@@ -42,9 +39,16 @@ AgentBasedGenerator::AgentBasedGenerator(int width, int height, float prob_room,
 	since it is a denominator, larger values == smaller size level
 */
 std::vector<std::vector<char>> &
-AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fraction_total_size) {
-    std::vector<std::vector<char>> grid(height, std::vector<char>(width, '-'));
-    this->level_grid = grid;
+AgentBasedGenerator::createLevelGrid(int level) {
+
+    //increment floor # since this method is called whenever a player starts a new floor
+    floor += 1;
+
+    //sets the member variables based on the selected level
+    SetLevelParams(level);
+
+
+    std::vector<std::vector<char>> level_grid(height, std::vector<char>(width, '-'));
 
     //clears the vector of stored room information
     this->rooms.shrink_to_fit();
@@ -66,7 +70,8 @@ AgentBasedGenerator::createLevelGrid(int max_rooms, int num_enemies, float fract
 
     int cur_dir = chooseRandomDirection(-1, false);
 
-    while (num_rooms < max_rooms || distance_traveled < (width * height) / fraction_total_size) {
+    //continue until number of rooms exceeds min number of rooms and distance traveled is larger than thhe fraction of total size
+    while (num_rooms < min_rooms || distance_traveled < (width * height) / fraction_total_size) {
         //move digger by 1 unit in random direction until the end of the room is reached
         while (level_grid[digger_y][digger_x] == '0') {
             digger_x += direction_x;
@@ -424,4 +429,39 @@ void AgentBasedGenerator::updateExtremeCoords(int cur_x, int cur_y) {
 
     if (cur_y > max_y) max_y = cur_y;
     if (cur_y < min_y) min_y = cur_y;
+}
+
+
+/*
+ * Parses level-parameters.xml and sets member variables based on current floor and level
+ */
+void AgentBasedGenerator::SetLevelParams(int level)
+{
+    rapidxml::xml_node<> *main_node = root_node->first_node(("level-"+std::to_string(level)).c_str())->first_node(("floor-"+std::to_string(floor)).c_str());
+
+    this->width = std::stoi(main_node->first_node("width")->value());
+    this->height =  std::stoi(main_node->first_node("height")->value());
+    this->prob_room =  std::stof(main_node->first_node("prob-room")->value());
+    this->prob_turn =  std::stof(main_node->first_node("prob-turn")->value());
+    this->min_rooms =  std::stoi(main_node->first_node("min-rooms")->value());
+    this->fraction_total_size =  std::stof(main_node->first_node("fraction-total-size")->value());
+    this->num_gold =  std::stoi(main_node->first_node("num-gold")->value());
+    this->num_skeleton_white =  std::stoi(main_node->first_node("num-skeleton-white")->value());
+    this->num_skeleton_red =  std::stoi(main_node->first_node("num-skeleton-red")->value());
+    this->num_skeleton_gold =  std::stoi(main_node->first_node("num-skeleton-gold")->value());
+    this->num_ghost_white =  std::stoi(main_node->first_node("num-ghost-white")->value());
+    this->num_ghost_red =  std::stoi(main_node->first_node("num-ghost-red")->value());
+    this->num_ghost_gold =  std::stoi(main_node->first_node("num-ghost-gold")->value());
+    this->num_orc_green =  std::stoi(main_node->first_node("num-orc-white")->value());
+    this->num_orc_red =  std::stoi(main_node->first_node("num-orc-red")->value());
+    this->num_orc_gold =  std::stoi(main_node->first_node("num-orc-gold")->value());
+    this->num_enemies = num_skeleton_white + num_skeleton_red + num_skeleton_gold + num_ghost_white + num_ghost_red + num_ghost_gold + num_orc_green + num_orc_red + num_orc_gold;
+
+    int room_size_offset =  std::stoi(main_node->first_node("room-size-offset")->value());
+    max_room_size = 9 + room_size_offset;
+    min_room_size = 3 + room_size_offset;
+
+    int min_rooms;
+    int num_enemies;
+    float fraction_total_size;
 }
