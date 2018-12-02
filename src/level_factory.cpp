@@ -3,6 +3,7 @@
 #include "alg_agent_based.h"
 #include "views/view_manager.h"
 #include "entities/gold.h"
+#include "entities/exit.h"
 #include "EntityManager.h"
 #include "level.h"
 
@@ -44,6 +45,8 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
                 auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0],
                                                                          (float) gen.treasure_coords[i][1]);
             }
+            EntityManager::Instance()->createEntity<Exit>(gen.exit_x, gen.exit_y);
+            printf("Place at %d %d\n", gen.exit_x, gen.exit_y);
 
             break;
     }
