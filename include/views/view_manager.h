@@ -26,6 +26,7 @@ public:
     static ViewManager* Instance();
     void init(GameLogic *s);
     void update_views(float delta);
+    void update_player_view(float delta);
     View &get_view(long long entity_id);
     PlayerView &get_curr_player_view() {return *curr_player_view;}
     std::shared_ptr<PlayerView> &get_player_view(){return curr_player_view;}
@@ -35,8 +36,9 @@ public:
     template <class T>
     void set_player_view(GameLogic *state, sf::RenderWindow *App)
     {
-      curr_player_view = std::make_shared<T>(state, App);
+      view_switch = std::make_shared<T>(state, App);
     }
+    std::shared_ptr<PlayerView> view_switch;
 };
 
 
