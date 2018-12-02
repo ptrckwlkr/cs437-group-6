@@ -461,7 +461,4 @@ void AgentBasedGenerator::SetLevelParams(int level)
     max_room_size = 9 + room_size_offset;
     min_room_size = 3 + room_size_offset;
 
-    int min_rooms;
-    int num_enemies;
-    float fraction_total_size;
 }
