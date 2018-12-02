@@ -9,7 +9,6 @@
 
 
 
-
 void LevelFactory::set_algorithm(Generator algorithm, int level)
 {
     this->algorithm = algorithm;

@@ -19,7 +19,7 @@ LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : Play
 
 void LevelSelectView::process_input(float delta)
 {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().switch_mode(MODE_MENU);
 }
 
 void LevelSelectView::handle_event(sf::Event event)
@@ -34,7 +34,7 @@ void LevelSelectView::handle_event(sf::Event event)
     {
       printf("Level %d selected\n", selected_level);
 			Engine::getInstance().start_new_game(selected_level);
-      Engine::getInstance().set_mode(MODE_PLAY);
+      Engine::getInstance().switch_mode(MODE_PLAY);
     }
   }
 }

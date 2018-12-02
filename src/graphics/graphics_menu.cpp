@@ -15,6 +15,9 @@ MenuGraphics::MenuGraphics(MenuView *view) : Graphics(), view(view)
 
 void MenuGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+	sf::View camera;
+	camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+	target.setView(camera);
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
 

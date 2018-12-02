@@ -15,23 +15,30 @@ SoundManager::~SoundManager()
 
 void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)
 {
-
+	if (event.getType() == Skeleton::entityType) {
+		float randPitch =((float)(rand() % 401) - 200) / 1000;
+		this->skelDthSound = resources.GetSound("monsterdeath");
+		this->skelDthSound.setVolume(70.0);
+		this->skelDthSound.setPitch(1 + randPitch);
+		this->skelDthSound.play();
+	}
 }
 
 void SoundManager::handleEntityDamaged(const EventEntityDamaged &event)
 {
 	if (event.getType() == Skeleton::entityType) {
-		this->curSound = resources.GetSound("bonebreak");
-		this->curSound.setVolume(70.0);
-		this->curSound.play();
+		this->skelDmgSound[curSkelDmgSound] = resources.GetSound("bonebreak");
+		this->skelDmgSound[curSkelDmgSound].setVolume(70.0);
+		this->skelDmgSound[curSkelDmgSound].play();
+		curSkelDmgSound = (curSkelDmgSound + 1) % 10;
 	}
 }
 
 void SoundManager::handleGoldCollection(const EventGoldCollection &event)
 {
 	float randPitch =((float)(rand() % 401) - 200) / 1000;
-	this->curSound = resources.GetSound("coins");
-	this->curSound.setVolume(70.0);
-	this->curSound.setPitch(1 + randPitch);
-	this->curSound.play();
+	this->coinSound = resources.GetSound("coins");
+	this->coinSound.setVolume(70.0);
+	this->coinSound.setPitch(1 + randPitch);
+	this->coinSound.play();
 }
