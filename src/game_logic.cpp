@@ -1,4 +1,5 @@
 #include "game_logic.h"
+#include "engine.h"
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
@@ -20,12 +21,20 @@ GameLogic::~GameLogic()
 /**
  * Update the game state
  */
-void GameLogic::update_state()
+void GameLogic::update_state(float delta)
 {
   collision_engine.hash_entities(level->get_map(), EntityManager::Instance()->getEntites());
   level->update();
   collision_engine.check_collisions(level->get_map());
   EventManager::Instance()->processEvents(); // Process collisions
+
+  if (f_new_game)
+  {
+    f_new_game = false;
+    reset();
+    create_new_level(AGENT_BASED);
+    Engine::getInstance().switch_mode(MODE_PLAY);
+  }
 }
 
 /**
@@ -48,8 +57,5 @@ void GameLogic::reset()
 
 void GameLogic::handleExitReached(const EventExitReached &event)
 {
-  collision_engine.reset();
-  ViewManager::Instance()->reset();
-  EntityManager::Instance()->reset();
-  create_new_level(AGENT_BASED);
+  f_new_game = true;
 }

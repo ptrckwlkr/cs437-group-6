@@ -19,14 +19,14 @@ void VictoryView::process_input(float delta)
 
 void VictoryView::handle_event(sf::Event event)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().switch_mode(MODE_MENU);
 
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
     if (event.type == sf::Event::EventType::MouseButtonPressed)
     {
         if (340 < mouse_pos.x  && mouse_pos.x <= 451)
         {
-            Engine::getInstance().set_mode(MODE_MENU);
+          Engine::getInstance().switch_mode(MODE_MENU);
             printf( "play again pressed");
         }
     }

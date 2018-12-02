@@ -21,11 +21,16 @@ void ViewManager::handleEntityRemoval(const EventEntityDestroyed &event)
 
 void ViewManager::update_views(float delta)
 {
-  curr_player_view->update(delta);
   for (auto &view : views)
   {
     view.second->update(delta);
   }
+}
+
+void ViewManager::update_player_view(float delta)
+{
+  curr_player_view = view_switch;
+  curr_player_view->update(delta);
 }
 
 View &ViewManager::get_view(long long entity_id)

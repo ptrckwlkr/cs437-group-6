@@ -30,8 +30,8 @@ public:
 		void update_views(float delta);
     void update_state(float delta);
 		void update_graphics(float delta);
-    void set_mode(GameMode mode);
 		void start_new_game(int level);
+		void switch_mode(GameMode mode);
 		void shutdown();
     float clock();
 	
@@ -43,7 +43,6 @@ private:
     Engine& operator=(const Engine&) = delete;
     Engine(Engine&&) = delete;
     Engine& operator=(Engine&&) = delete;
-    void switch_mode();
 
     GameLogic state;
     sf::RenderWindow *App;

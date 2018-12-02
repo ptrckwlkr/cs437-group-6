@@ -17,7 +17,7 @@ public:
     GameLogic();
     ~GameLogic();
 
-    void update_state();
+    void update_state(float delta);
     void create_new_level(Generator g);
     void toggle_pause() {f_paused = !f_paused;}
     bool is_paused() {return f_paused;}
@@ -30,7 +30,8 @@ private:
     PlayerData player_data;
 		CollisionEngine collision_engine;
 		std::shared_ptr<Level> level;
-    bool f_paused;
+    bool f_paused = false;
+    bool f_new_game = false;
 		void handleExitReached(const EventExitReached &event);
 
 };

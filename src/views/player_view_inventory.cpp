@@ -1,5 +1,5 @@
-#include "graphics/graphics_inventory.h"
 #include "views/player_view_inventory.h"
+#include "graphics/graphics_inventory.h"
 #include "engine.h"
 
 InventoryView::InventoryView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
@@ -10,7 +10,7 @@ InventoryView::InventoryView(GameLogic *state, sf::RenderWindow *App) : PlayerVi
  
 void InventoryView::process_input(float delta)
 {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().switch_mode(MODE_MENU);
 }
 
 void InventoryView::handle_event(sf::Event event)
@@ -22,6 +22,8 @@ void InventoryView::handle_event(sf::Event event)
   {
   	
   }
+  else if (event.key.code == sf::Keyboard::I && event.type == sf::Event::KeyReleased)
+    Engine::getInstance().switch_mode(MODE_PLAY);
 }
 
 void InventoryView::update(float delta)
