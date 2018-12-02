@@ -1,6 +1,7 @@
 #include <SFML/Window/Event.hpp>
-#include <views/player_view_victory.h>
-#include <views/player_view_level_select.h>
+#include "views/player_view_victory.h"
+#include "views/player_view_level_select.h"
+#include "views/player_view_inventory.h"
 #include "engine.h"
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
@@ -18,29 +19,7 @@ Engine &Engine::getInstance()
 void Engine::init(sf::RenderWindow *app)
 {
   //loads necessary resources to the resource manager
-  resources.LoadFont("old_school", "../data/Fonts/Old-School-Adventures.ttf");
-  resources.LoadXML("text", "../data/xml/game-text.xml");
-  resources.LoadTexture("map", "../data/Images/map.png");
-  resources.LoadTexture("fog", "../data/Images/vignette.png");
-  resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
-  resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
-  resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
-  resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
-  resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");
-  resources.LoadTexture("renegade_armor", "../data/Sprites/sets/renegade/transparent/ren_a_t_01.png");
-  resources.LoadTexture("renegade_shoulders", "../data/Sprites/sets/renegade/transparent/ren_sh_t_01.png");
-  resources.LoadTexture("renegade_pants", "../data/Sprites/sets/renegade/transparent/ren_pn_t_01.png");
-  resources.LoadTexture("renegade_boots", "../data/Sprites/sets/renegade/transparent/ren_bt_t_01.png");
-  resources.LoadTexture("renegade_gloves", "../data/Sprites/sets/renegade/transparent/ren_gl_t_01.png");
-  if (MUSIC) {
-	resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
- 	resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
-  }
-  resources.LoadXML("enemies", "../data/xml/enemies.xml");
-  resources.LoadSound("coins", "../data/Sounds/Coins 1.wav");
-  resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
-
-  App = app;
+  resources.LoadAllResources();
   curr_game_mode = MODE_MENU;
   state = GameLogic();
   ViewManager::Instance()->init(&state);
@@ -113,16 +92,14 @@ void Engine::switch_mode()
       case MODE_SHOP:
         break;
       case MODE_PLAY:
-        state.create_new_level(AGENT_BASED);
         ViewManager::Instance()->set_player_view<GameView>(&state, App);
         break;
       case MODE_VICTORY:
         ViewManager::Instance()->set_player_view<VictoryView>(&state, App);
         break;
       case MODE_INVENTORY:
-	ViewManager::Instance()->set_player_view<InventoryView>(&state, App);
-	break;
-
+        ViewManager::Instance()->set_player_view<InventoryView>(&state, App);
+        break;
     }
   }
 }
@@ -133,4 +110,9 @@ void Engine::shutdown()
   EntityManager::Instance()->reset();
   EventManager::Instance()->reset();
   App->close();
+}
+
+void Engine::start_new_game(int level)
+{
+  state.create_new_level(AGENT_BASED);
 }
