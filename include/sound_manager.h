@@ -17,7 +17,10 @@ public:
     ~SoundManager();
 
 private:
-    sf::Sound curSound;
+    sf::Sound coinSound;
+    sf::Sound skelDmgSound[10];
+    int curSkelDmgSound = 0;
+    sf::Sound skelDthSound;
 
     void handleEntityDamaged(const EventEntityDamaged &event);
     void handleEntityDestroyed(const EventEntityDestroyed &event);

@@ -25,7 +25,7 @@ void Engine::init(sf::RenderWindow *app)
   state = GameLogic();
   ViewManager::Instance()->init(&state);
   ViewManager::Instance()->set_player_view<MenuView>(&state, App);
-
+  
   //starts clock
   time.restart();
 }
