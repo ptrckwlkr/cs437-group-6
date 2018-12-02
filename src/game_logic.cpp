@@ -25,11 +25,12 @@ void GameLogic::update_state()
 /**
  * Start a new level.
  */
-void GameLogic::create_new_level(Generator g)
+void GameLogic::create_new_level(Generator g, int level_num)
 {
   // TODO Should probably load level parameters from an XML file and set the Level Factory accordingly
-  level_factory.set_algorithm(g);
+  level_factory.set_algorithm(g, level_num);
   level = level_factory.generate_level();
+  current_level = level_num;
 }
 
 void GameLogic::reset()

@@ -12,7 +12,7 @@
 	float prob_turn : how much the probability that the digger will turn increases
 	int room_size_modifier : increases min and max room size by this value
 */
-AgentBasedGenerator::AgentBasedGenerator() {
+AgentBasedGenerator::AgentBasedGenerator(int level) {
 
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
     auto seed = (unsigned int) time(nullptr);
@@ -24,6 +24,7 @@ AgentBasedGenerator::AgentBasedGenerator() {
     buffer = resources.GetXMLBuffer("level-params");
     root_node = (*doc).first_node("Root");
 
+    this->level = level;
     this->floor = 0;
 }
 
@@ -39,16 +40,17 @@ AgentBasedGenerator::AgentBasedGenerator() {
 	since it is a denominator, larger values == smaller size level
 */
 std::vector<std::vector<char>> &
-AgentBasedGenerator::createLevelGrid(int level) {
+AgentBasedGenerator::createLevelGrid() {
 
     //increment floor # since this method is called whenever a player starts a new floor
     floor += 1;
 
     //sets the member variables based on the selected level
-    SetLevelParams(level);
+    SetLevelParams();
 
 
-    std::vector<std::vector<char>> level_grid(height, std::vector<char>(width, '-'));
+    std::vector<std::vector<char>> grid(height, std::vector<char>(width, '-'));
+    this->level_grid = grid;
 
     //clears the vector of stored room information
     this->rooms.shrink_to_fit();
@@ -168,8 +170,8 @@ AgentBasedGenerator::createLevelGrid(int level) {
     avg_j -= (min_y - 1);
 
 
-    placeEntities(num_enemies);
-    placeTreasure(50);
+    placeEntities();
+    placeTreasure();
 
 
     return level_grid;
@@ -239,7 +241,7 @@ bool AgentBasedGenerator::placeRoom(int i, int j) {
 	Places specified number of enemies randomly within a random room that is not where the player starts.
 	Additionally converts all coordinates to pixel space so that everything is drawn to the screen correctly later
 */
-void AgentBasedGenerator::placeEntities(int num_enemies) {
+void AgentBasedGenerator::placeEntities() {
     int player_room = createStartAndExit();
 
     //mark exit cell
@@ -396,9 +398,9 @@ void AgentBasedGenerator::printLevelGrid() {
     }
 }
 
-void AgentBasedGenerator::placeTreasure(int num_treasures) {
+void AgentBasedGenerator::placeTreasure() {
     //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
-    for (int e = 0; e < num_treasures; e++) {
+    for (int e = 0; e < num_gold; e++) {
         //randomly choose a room that isn't the player's starting point
         int room;
         room = rand() % num_rooms;
@@ -435,8 +437,10 @@ void AgentBasedGenerator::updateExtremeCoords(int cur_x, int cur_y) {
 /*
  * Parses level-parameters.xml and sets member variables based on current floor and level
  */
-void AgentBasedGenerator::SetLevelParams(int level)
+void AgentBasedGenerator::SetLevelParams()
 {
+    auto temp = ("level-"+std::to_string(level)).c_str();
+    auto other_temp = ("floor-"+std::to_string(floor)).c_str();
     rapidxml::xml_node<> *main_node = root_node->first_node(("level-"+std::to_string(level)).c_str())->first_node(("floor-"+std::to_string(floor)).c_str());
 
     this->width = std::stoi(main_node->first_node("width")->value());
@@ -452,7 +456,7 @@ void AgentBasedGenerator::SetLevelParams(int level)
     this->num_ghost_white =  std::stoi(main_node->first_node("num-ghost-white")->value());
     this->num_ghost_red =  std::stoi(main_node->first_node("num-ghost-red")->value());
     this->num_ghost_gold =  std::stoi(main_node->first_node("num-ghost-gold")->value());
-    this->num_orc_green =  std::stoi(main_node->first_node("num-orc-white")->value());
+    this->num_orc_green =  std::stoi(main_node->first_node("num-orc-green")->value());
     this->num_orc_red =  std::stoi(main_node->first_node("num-orc-red")->value());
     this->num_orc_gold =  std::stoi(main_node->first_node("num-orc-gold")->value());
     this->num_enemies = num_skeleton_white + num_skeleton_red + num_skeleton_gold + num_ghost_white + num_ghost_red + num_ghost_gold + num_orc_green + num_orc_red + num_orc_gold;

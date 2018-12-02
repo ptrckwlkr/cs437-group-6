@@ -17,12 +17,14 @@ public:
     ~GameLogic() = default;
 
     void update_state();
-    void create_new_level(Generator g);
+    void create_new_level(Generator g, int level);
     void toggle_pause() {f_paused = !f_paused;}
     bool is_paused() {return f_paused;}
 		void reset();
 		Level &get_level() {return *level;}
 		PlayerData &get_player_data() {return player_data;}
+
+	int get_level_num() {return current_level;}
 
 private:
 		LevelFactory level_factory;
@@ -30,6 +32,7 @@ private:
 		CollisionEngine collision_engine;
 		std::shared_ptr<Level> level;
     bool f_paused;
+    int current_level;
 };
 
 #endif //CSCI437_LOGIC_H

@@ -16,6 +16,7 @@ enum GameMode
 		MODE_SHOP,
 		MODE_PLAY,
 		MODE_VICTORY,
+		MODE_INVENTORY,
 };
 
 /**
@@ -30,6 +31,7 @@ public:
     void update_state(float delta);
 		void update_graphics(float delta);
     void set_mode(GameMode mode);
+		void start_new_game(int level);
 		void shutdown();
     float clock();
 	

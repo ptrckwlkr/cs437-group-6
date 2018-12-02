@@ -18,17 +18,19 @@
 class AgentBasedGenerator
 {
 public:
-	AgentBasedGenerator();
+	AgentBasedGenerator() = default;
 	~AgentBasedGenerator() = default;
+	AgentBasedGenerator(int level);
 
-	std::vector<std::vector<char>> &createLevelGrid(int level);
+	std::vector<std::vector<char>> &createLevelGrid();
 	bool placeRoom(int i, int j);
-	void placeEntities(int num_enemies);
-	void placeTreasure(int num_treasures);
+	void placeEntities();
+	void placeTreasure();
 	void printLevelGrid();
 	std::vector<Vector2D> &getPathNodes() { return path_nodes;}
 
-	//current floor number
+	//current level and floor number
+	int level;
 	int floor;
 
 	//level parameters, read from level-parameters.xml
@@ -67,7 +69,7 @@ public:
 	std::vector<std::vector<char>> level_grid;
 
 private:
-	void SetLevelParams(int level);
+	void SetLevelParams();
 	int chooseRandomDirection(int cur_dir, bool orthogonal);
 	int createStartAndExit();
 

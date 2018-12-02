@@ -1,11 +1,21 @@
 #include "level_factory.h"
 #include "views/view_skeleton.h"
-#include "alg_agent_based.h"
 #include "views/view_manager.h"
 #include "entities/gold.h"
 #include "entities/exit.h"
 #include "EntityManager.h"
 #include "level.h"
+
+
+
+
+void LevelFactory::set_algorithm(Generator algorithm, int level)
+{
+    this->algorithm = algorithm;
+    level_num = level;
+    gen = AgentBasedGenerator(level);
+}
+
 
 
 /**
@@ -28,8 +38,8 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
             break;
         case AGENT_BASED:
 
-            AgentBasedGenerator gen = AgentBasedGenerator(64, 64, 1, 10, 0);
-            map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 64.0));
+            gen.createLevelGrid();
+            map = std::make_shared<Map>(gen.level_grid);
             map->givePathNodes(gen.getPathNodes());
             //gen.printLevelGrid();
 
@@ -46,8 +56,8 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
                 auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0],
                                                                          (float) gen.treasure_coords[i][1]);
             }
-            EntityManager::Instance()->createEntity<Exit>(gen.exit_x, gen.exit_y);
-            printf("Place at %d %d\n", gen.exit_x, gen.exit_y);
+            EntityManager::Instance()->createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
+            printf("Place at %d %d\n", gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
 
             break;
     }
