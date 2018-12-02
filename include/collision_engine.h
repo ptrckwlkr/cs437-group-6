@@ -28,7 +28,14 @@ private:
     void clear_cells();
     void adjust_positions(Entity &entity1, Entity &entity2);
     void dispatchEvents();
-    Vector2D intersection(Vector2D &p1, Vector2D &p2, Vector2D &q1, Vector2D &q2);
+    struct Line
+    {
+        float x1;
+        float y1;
+        float x2;
+        float y2;
+    };
+    Vector2D intersection(Line line1, Line line2);
 
     struct EventItem
     {
@@ -45,7 +52,6 @@ private:
 
     std::set<Cell*> occupied_cells;
     std::set<EventItem> event_set;
-
 };
 
 
