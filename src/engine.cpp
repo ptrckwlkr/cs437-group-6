@@ -18,6 +18,7 @@ Engine &Engine::getInstance()
 
 void Engine::init(sf::RenderWindow *app)
 {
+  App = app;
   //loads necessary resources to the resource manager
   resources.LoadAllResources();
   curr_game_mode = MODE_MENU;
