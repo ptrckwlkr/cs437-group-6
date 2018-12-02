@@ -8,7 +8,7 @@
 #include <views/player_view_inventory.h>
 #include "graphics.h"
 #include "views/player_view.h"
-
+#include "GearSet.h"
 
 class InventoryGraphics : public Graphics
 {

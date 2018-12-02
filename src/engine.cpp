@@ -5,6 +5,7 @@
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
+#include "views/player_view_inventory.h"
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
@@ -25,6 +26,12 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
   resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
   resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
+  resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");
+  resources.LoadTexture("renegade_armor", "../data/Sprites/sets/renegade/transparent/ren_a_t_01.png");
+  resources.LoadTexture("renegade_shoulders", "../data/Sprites/sets/renegade/transparent/ren_sh_t_01.png");
+  resources.LoadTexture("renegade_pants", "../data/Sprites/sets/renegade/transparent/ren_pn_t_01.png");
+  resources.LoadTexture("renegade_boots", "../data/Sprites/sets/renegade/transparent/ren_bt_t_01.png");
+  resources.LoadTexture("renegade_gloves", "../data/Sprites/sets/renegade/transparent/ren_gl_t_01.png");
   if (MUSIC) {
 	resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
  	resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
@@ -101,17 +108,20 @@ void Engine::switch_mode()
         ViewManager::Instance()->set_player_view<MenuView>(&state, App);
         break;
       case MODE_LEVEL_SELECT:
-          ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
-	      break;
+        ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
+	break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:
         state.create_new_level(AGENT_BASED);
         ViewManager::Instance()->set_player_view<GameView>(&state, App);
         break;
-        case MODE_VICTORY:
-            ViewManager::Instance()->set_player_view<VictoryView>(&state, App);
-          break;
+      case MODE_VICTORY:
+        ViewManager::Instance()->set_player_view<VictoryView>(&state, App);
+        break;
+      case MODE_INVENTORY:
+	ViewManager::Instance()->set_player_view<InventoryView>(&state, App);
+	break;
 
     }
   }
