@@ -6,6 +6,7 @@
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
+#include "views/player_view_inventory.h"
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
@@ -17,10 +18,9 @@ Engine &Engine::getInstance()
 
 void Engine::init(sf::RenderWindow *app)
 {
+  App = app;
   //loads necessary resources to the resource manager
   resources.LoadAllResources();
-
-  App = app;
   curr_game_mode = MODE_MENU;
   state = GameLogic();
   ViewManager::Instance()->init(&state);
@@ -89,7 +89,7 @@ void Engine::switch_mode()
         break;
       case MODE_LEVEL_SELECT:
         ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
-	      break;
+	break;
       case MODE_SHOP:
         break;
       case MODE_PLAY:

@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 #include "MusicManager.h"
 #include "sound_manager.h"
+#include "GearSet.h"
 
 enum GameMode
 {
