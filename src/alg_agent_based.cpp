@@ -49,14 +49,15 @@ AgentBasedGenerator::createLevelGrid() {
     SetLevelParams();
 
     //reset all data structures
-    enemy_coords.resize(0);
+    enemy_coords.clear();
     enemy_type_coords.clear();
-    treasure_coords.resize(0);
+    treasure_coords.clear();
+    path_nodes.clear();
     std::vector<std::vector<char>> grid(height, std::vector<char>(width, '-'));
     this->level_grid = grid;
 
     //clears the vector of stored room information
-    this->rooms.shrink_to_fit();
+    this->rooms.clear();
 
     num_rooms = 0;
     avg_i = 0, avg_j = 0;
@@ -139,7 +140,6 @@ AgentBasedGenerator::createLevelGrid() {
     height = (max_y - min_y) + 3;
     std::vector<std::vector<char>> optimized_grid(height, std::vector<char>(width));
 
-    std::vector<char> tmp(width);
     int grid_row = 0;
     for (int y = min_y - 1; y <= max_y + 1; y++) {
         std::copy(level_grid[y].begin() + min_x - 1, level_grid[y].begin() + min_x - 1 + width,
@@ -169,8 +169,8 @@ AgentBasedGenerator::createLevelGrid() {
         room[0] -= (min_x - 1);
         room[1] -= (min_y - 1);
     }
-    avg_i -= (min_x - 1);
-    avg_j -= (min_y - 1);
+    avg_i -= (min_x - 1) * num_rooms;
+    avg_j -= (min_y - 1) * num_rooms;
 
     //places all special entities and tiles
     createStartAndExit();
@@ -184,7 +184,6 @@ AgentBasedGenerator::createLevelGrid() {
     placeEntities("orc-red", num_orc_red);
     placeEntities("orc-gold", num_orc_gold);
     placeTreasure();
-
 
     return level_grid;
 }
@@ -342,7 +341,7 @@ void AgentBasedGenerator::createStartAndExit() {
         for (int b = a + 1; b < 8; b++) {
             if (extreme_rooms[a] == -1 || extreme_rooms[b] == -1) continue;
 
-            float dist = euclideanDistance(rooms[extreme_rooms[a]][0], rooms[extreme_rooms[a]][1],
+            float dist = diagonalDistance(rooms[extreme_rooms[a]][0], rooms[extreme_rooms[a]][1],
                                            rooms[extreme_rooms[b]][0], rooms[extreme_rooms[b]][1]);
 
             if (dist >= max_dist) {
@@ -474,7 +473,6 @@ void AgentBasedGenerator::SetLevelParams()
     this->num_orc_green =  std::stoi(main_node->first_node("num-orc-green")->value());
     this->num_orc_red =  std::stoi(main_node->first_node("num-orc-red")->value());
     this->num_orc_gold =  std::stoi(main_node->first_node("num-orc-gold")->value());
-    this->num_enemies = num_skeleton_white + num_skeleton_red + num_skeleton_gold + num_ghost_white + num_ghost_red + num_ghost_gold + num_orc_green + num_orc_red + num_orc_gold;
 
     int room_size_offset =  std::stoi(main_node->first_node("room-size-offset")->value());
     max_room_size = 9 + room_size_offset;

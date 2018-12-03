@@ -82,6 +82,8 @@ private:
 	{ return ((i < width - 2) && (j < height - 2) && (i > 1) && (j > 1)); }
 	
 	float euclideanDistance(int x1, int y1, int x2, int y2) { return sqrtf((float)(x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2)); }
+    float diagonalDistance(int x1, int y1, int x2, int y2) { return fmaxf(fabs(x1 - x2), fabs(y1 - y2)); }
+
 	void updateExtremeCoords(int cur_x, int cur_y);
 
 	//stores information about each room in the level
@@ -105,7 +107,6 @@ private:
 	int direction_y;
 
 	int num_rooms;
-	int num_enemies;
 	int avg_i;
 	int avg_j;
 

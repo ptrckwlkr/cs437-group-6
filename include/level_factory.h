@@ -27,7 +27,7 @@ private:
     void placeEnemies();
     Generator algorithm;
     AgentBasedGenerator gen;
-    int level_num;
+    int level_num = -1;
 
 };
 

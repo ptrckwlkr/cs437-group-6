@@ -12,8 +12,11 @@
 void LevelFactory::set_algorithm(Generator algorithm, int level)
 {
     this->algorithm = algorithm;
+
+    if (level_num != level)
+        gen = AgentBasedGenerator(level);
+
     level_num = level;
-    gen = AgentBasedGenerator(level);
 }
 
 
