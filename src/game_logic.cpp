@@ -12,6 +12,7 @@ GameLogic::GameLogic() : Listener()
   f_paused = false;
 
   EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
+  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
 }
 
 GameLogic::~GameLogic()
@@ -25,21 +26,14 @@ GameLogic::~GameLogic()
 void GameLogic::update_state(float delta)
 {
   EventManager::Instance().processEvents(); // Pre-collision event processing
-  if (f_new_game)
-  {
-    f_new_game = false;
-    reset();
-
-    create_new_level(AGENT_BASED, current_level);
-    Engine::Instance().switch_mode(MODE_PLAY);
-  }
-  else
+  if (!check_flags())
   {
     collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
     level->update();
     collision_engine.check_collisions(level->get_map());
   }
   EventManager::Instance().processEvents(); // Post-collision event processing
+  player_data.update();
 }
 
 /**
@@ -50,6 +44,7 @@ void GameLogic::create_new_level(Generator g, int level_num)
   level_factory.set_algorithm(g, level_num);
   level = level_factory.generate_level();
   current_level = level_num;
+  player_data.set_player(EntityManager::Instance().getPlayer().get());
 }
 
 void GameLogic::reset()
@@ -61,7 +56,39 @@ void GameLogic::reset()
   EventManager::Instance().reset();
 }
 
+bool GameLogic::check_flags()
+{
+  if (f_floor_complete)
+  {
+    f_floor_complete = false;
+    reset();
+    create_new_level(AGENT_BASED, current_level);
+    Engine::Instance().switch_mode(MODE_PLAY);
+    return true;
+  }
+  else if (f_defeat)
+  {
+    f_defeat = false;
+    reset();
+    Engine::Instance().switch_mode(MODE_VICTORY);
+    return true;
+  }
+  else if (f_victory)
+  {
+    f_victory = false;
+    reset();
+    Engine::Instance().switch_mode(MODE_VICTORY);
+    return true;
+  }
+  return false;
+}
+
 void GameLogic::handleExitReached(const EventExitReached &event)
 {
-  f_new_game = true;
+  f_floor_complete = true;
+}
+
+void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
+{
+  f_defeat = true;
 }

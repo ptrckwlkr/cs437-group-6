@@ -14,7 +14,6 @@ class Projectile: public Entity
 {
 
 private:
-    int damage;
     int maxRange;
     float traveled;
     bool hit;
@@ -31,23 +30,10 @@ public:
     Projectile(float x, float y);
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
-
-    virtual void update(double deltaMs) {};
-
-    void set_damage(int mD) {damage = mD;}
-
     void set_maxRange(int mD) {maxRange = mD;}
-
-    void set_speed (int s) {speed = s;}
-
     void set_direction(Vector2D vec) {direction = vec;}
-
-    float get_traveled() {return traveled;}
-
     int get_maxRange() {return maxRange;}
-
-    Vector2D  get_direciton(){ return direction;}
-
+    Vector2D  get_direction(){ return direction;}
     void move(Vector2D &dir, float delta) override;
 
     //The trail logic should probably be moved to ProjectileView but it can't be accessed from game graphics

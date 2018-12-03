@@ -5,9 +5,9 @@
 
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT) {
     speed = PROJECTILE_SPEED_DEFAULT;
+    hostile = false;
     maxRange = 500;
     traveled = 0;
-    damage = 5;
     hit = false;
     obstructible = true; // TODO?
     trail_enabled = true;
