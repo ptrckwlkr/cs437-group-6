@@ -7,6 +7,7 @@ SoundManager::SoundManager()
   EventManager::Instance().registerListener(EventEntityDamaged::eventType, this, & SoundManager::handleEntityDamaged);
   EventManager::Instance().registerListener(EventGoldCollection::eventType, this, & SoundManager::handleGoldCollection);
   EventManager::Instance().registerListener(EventProjectileFired::eventType, this, & SoundManager::handleProjectileFired);
+  EventManager::Instance().registerListener(EventMeleeAttack::eventType, this, & SoundManager::handleMeleeAttack);
 }
 
 SoundManager::~SoundManager()
@@ -50,4 +51,13 @@ void SoundManager::handleProjectileFired(const EventProjectileFired &event)
 		this->spellSound[curSpellSound].setVolume(50.0);
 		this->spellSound[curSpellSound].play();
 		curSpellSound = (curSpellSound + 1) % 10;
+}
+
+void SoundManager::handleMeleeAttack(const EventMeleeAttack &event)
+{
+	float randPitch =((float)(rand() % 401) - 200) / 1000;
+	this->meleeSound = resources.GetSound("swordswing");
+	this->meleeSound.setVolume(50.0);
+	this->meleeSound.setPitch(1 + randPitch);
+	this->meleeSound.play();
 }
