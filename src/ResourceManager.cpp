@@ -110,6 +110,7 @@ void ResourceManager::LoadAllResources()
     resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
     resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
     resources.LoadXML("enemies", "../data/xml/enemies.xml");
+    resources.LoadXML("level-params", "../data/xml/level-parameters.xml");
     resources.LoadSound("coins", "../data/Sounds/Coins 1.wav");
     resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
     resources.LoadSound("monsterdeath", "../data/Sounds/dsbgdth1.wav");

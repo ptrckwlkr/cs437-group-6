@@ -74,7 +74,7 @@ void Engine::shutdown()
 void Engine::start_new_game(int level)
 {
   state.reset();
-  state.create_new_level(AGENT_BASED);
+  state.create_new_level(AGENT_BASED, level);
 }
 
 void Engine::switch_mode(GameMode mode)

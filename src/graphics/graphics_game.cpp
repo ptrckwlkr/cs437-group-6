@@ -156,7 +156,7 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
 */
 void GameGraphics::storeLevel() {
     tile_map.SetTexture();
-    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), 2);
+    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), view->get_state().get_level_num() - 1);
     vertices = tile_map.GetVertices();
 }
 

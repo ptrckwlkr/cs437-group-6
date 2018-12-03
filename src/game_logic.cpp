@@ -38,10 +38,11 @@ void GameLogic::update_state(float delta)
 /**
  * Start a new level.
  */
-void GameLogic::create_new_level(Generator g)
+void GameLogic::create_new_level(Generator g, int level_num)
 {
-  level_factory.set_algorithm(g);
+  level_factory.set_algorithm(g, level_num);
   level = level_factory.generate_level();
+  current_level = level_num;
 }
 
 void GameLogic::reset()
@@ -59,7 +60,7 @@ bool GameLogic::check_flags()
   {
     f_new_game = false;
     reset();
-    create_new_level(AGENT_BASED);
+    create_new_level(AGENT_BASED, current_level);
     Engine::Instance().switch_mode(MODE_PLAY);
     return true;
   }
