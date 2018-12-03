@@ -24,21 +24,21 @@
 
     <ghost-white>
         <health>40</health>
-        <speed>65</speed>
+        <speed>35</speed>
         <contact-damage>12</contact-damage>
         <aggro-dist>600</aggro-dist>
     </ghost-white>
 
     <ghost-red>
         <health>60</health>
-        <speed>75</speed>
+        <speed>45</speed>
         <contact-damage>24</contact-damage>
         <aggro-dist>850</aggro-dist>
     </ghost-red>
 
     <ghost-gold>
         <health>80</health>
-        <speed>85</speed>
+        <speed>55</speed>
         <contact-damage>36</contact-damage>
         <aggro-dist>1000</aggro-dist>
     </ghost-gold>
