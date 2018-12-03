@@ -27,6 +27,7 @@ private:
     std::vector<sf::Text> menuInstructions;
     std::vector<sf::Text> controls;
     sf::Text aboutText;
+    sf::Text storyText;
 
 };
 

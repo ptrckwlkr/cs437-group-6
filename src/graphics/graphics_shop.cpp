@@ -16,9 +16,15 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     states.transform *= getTransform();
     sf::Text manaText = prepareText("ManaText", font);
     sf::Text aText = prepareText("AbilitiesText", font);
+    //need health text
     sf::Text exitText = prepareText("ExitText", font);
+
+    sf::Texture shop = resources.GetTexture("shop");
+    sf::Sprite sprite;
     sf::RectangleShape rectangle;
     sf::RectangleShape rectangle2;
+
+
     rectangle.setSize(sf::Vector2f(400, 200));
     rectangle2.setSize(sf::Vector2f(250, 200));
     rectangle.setFillColor(sf::Color::Black);
@@ -27,8 +33,13 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     rectangle2.setOutlineColor(sf::Color::Red);
     rectangle2.setOutlineThickness(9);
     rectangle.setOutlineThickness(9);
-    rectangle.setPosition(WINDOW_WIDTH/ 10, 350);
-    rectangle2.setPosition(rectangle.getPosition().x + 400, 350);
+    rectangle.setPosition(WINDOW_WIDTH/ 13, 370);
+    rectangle2.setPosition(rectangle.getPosition().x + 400, 370);
+
+    sprite.setTexture(shop);
+    sprite.setOrigin(shop.getSize().x, shop.getSize().y);
+    sprite.setPosition(WINDOW_WIDTH,WINDOW_HEIGHT - 250);
+    sprite.setColor(sf::Color(255, 255, 255, 160));
     //centers text
     manaText.setPosition(rectangle2.getPosition().x + 80,rectangle2.getPosition().y + 50);
     aText.setPosition(manaText.getPosition().x + 20, manaText.getPosition().y + 50);
@@ -39,5 +50,6 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(exitText, states);
     target.draw(rectangle, states);
     target.draw(rectangle2, states);
+    target.draw(sprite, states);
 
 }

@@ -101,12 +101,14 @@ void ResourceManager::LoadAllResources()
     resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
     resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
     resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
+    resources.LoadTexture("shop", "../data/Sprites/shop.png");
     resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");
     resources.LoadTexture("renegade_armor", "../data/Sprites/sets/renegade/transparent/ren_a_t_01.png");
     resources.LoadTexture("renegade_shoulders", "../data/Sprites/sets/renegade/transparent/ren_sh_t_01.png");
     resources.LoadTexture("renegade_pants", "../data/Sprites/sets/renegade/transparent/ren_pn_t_01.png");
     resources.LoadTexture("renegade_boots", "../data/Sprites/sets/renegade/transparent/ren_bt_t_01.png");
     resources.LoadTexture("renegade_gloves", "../data/Sprites/sets/renegade/transparent/ren_gl_t_01.png");
+    resources.LoadTexture("mountains","../data/Images/mountain_world.png" );
     resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
     resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
     resources.LoadXML("enemies", "../data/xml/enemies.xml");

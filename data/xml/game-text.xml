@@ -16,6 +16,48 @@
       <b>255</b>
     </mana>
   </UI>
+  <Story>
+    <StoryText>
+      <text>
+        In  the  faraway  land  of  Erivion, the  Dark  Lord  Sreep
+        has  risen  to  ruthless  power  and  is  spreading  his
+        reign  of  terror and  destruction  whenever  he  sets  his  gaze.
+        In  the midst  of  the  chaos  you,  an  intrepid  albeit
+        young  mercenary  mage by  the  name  of  Stuart  Dent,
+        have  arrived  on  scene  to  put  an  end  to
+        the  Dark  Lord’s  reign, and  acquire  the  fortune
+        and  glory  of  heroism.
+        It  is  up  to  you  to  save  the  world!  Good  Luck!
+      </text>
+      <size>15</size>
+      <r>255</r>
+      <g>250</g>
+      <b>250</b>
+    </StoryText>
+    <ReplayText>
+      <text>Continue</text>
+      <size>28</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </ReplayText>
+  </Story>
+  <Lost>
+    <LostText>
+      <text>You lost!</text>
+      <size>40</size>
+      <r>100</r>
+      <g>255</g>
+      <b>200</b>
+    </LostText>
+    <ReplayText>
+      <text>Play again</text>
+      <size>28</size>
+      <r>255</r>
+      <g>255</g>
+      <b>255</b>
+    </ReplayText>
+  </Lost>
   <Shop>
     <ManaText>
       <text>Buy Mana</text>

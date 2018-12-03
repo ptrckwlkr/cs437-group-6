@@ -42,6 +42,7 @@ public:
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
     void set_position(Vector2D new_pos) {pos = new_pos;}
+    void set_speed( float s) {speed = s;}
     void set_health(int h) {health = h;}
     void set_mana(int m) {mana = m;}
     void takedamage(int damage) {health -= damage;}
@@ -49,11 +50,11 @@ public:
     const Vector2D &get_position() const {return pos;}
     const Vector2D &get_old_position() const {return old_pos;}
     const float get_size() const {return size;}
+    const float get_speed() const {return speed;}
     const bool is_obstructible() const {return obstructible;}
     const bool is_hostile() const {return hostile;}
     const int get_health() const {return health;}
     const int get_mana() const {return mana;}
-    const int get_speed() {return speed;}
     long long id;
 
     virtual const EntityType& getEntityType() const = 0;

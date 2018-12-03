@@ -1,7 +1,7 @@
 #ifndef CSCI437_GRAPHICS_VICTORY_H
 #define CSCI437_GRAPHICS_VICTORY_H
 
-#include <vector>
+
 #include <string>
 #include "graphics.h"
 #include "views/player_view.h"

@@ -29,6 +29,8 @@ void MenuGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 			target.draw(controls[i], states);
 	}
 	else if (view->screenIndex == 2)	//draw elements for about screen
+		target.draw(storyText, states);
+	else if (view->screenIndex == 3)	//draw elements for about screen
 		target.draw(aboutText, states);
 
 	//always draws the menu instructions so the player is not confused about how to operate the menu
@@ -90,7 +92,6 @@ void MenuGraphics::drawTitleScreenDynamicText(sf::RenderTarget &target, sf::Rend
 		controlsButton.setFillColor(sf::Color::Cyan);
 	else
 		controlsButton.setFillColor(sf::Color::White);
-	
 	//exit button's color is updated properly
 	aboutButton.setPosition(WINDOW_WIDTH / 2.0, 400);
 	if (index == 2)

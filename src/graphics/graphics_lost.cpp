@@ -1,22 +1,22 @@
-#include "graphics/graphics_victory.h"
+#include "graphics/graphics_lost.h"
 #include "macros.h"
 
-VictoryGraphics::VictoryGraphics(VictoryView *view) : Graphics(), view(view)
+LostGraphics::LostGraphics(LostView *view) : Graphics(), view(view)
 {
     // get all necessary resources from resource manager
     font = resources.GetFont("old_school");
     std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
     buffer = resources.GetXMLBuffer("text");
-    root_node = (*doc).first_node("Root")->first_node("Victory");
+    root_node = (*doc).first_node("Root")->first_node("Lost");
 
 }
 
-void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void LostGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
     // This must always be the first line of every draw method
     states.transform *= getTransform();
-    sf::Text title = prepareText("winText", font);
-    sf::Text playAgain = prepareText("playAgainButton", font);
+    sf::Text title = prepareText("LostText", font);
+    sf::Text playAgain = prepareText("ReplayText", font);
     //centers text
     title.setOrigin(title.getLocalBounds().width / 2.0, title.getLocalBounds().height / 2.0);
     title.setPosition(WINDOW_WIDTH / 2.0, 200);

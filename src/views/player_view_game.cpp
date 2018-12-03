@@ -50,12 +50,18 @@ void GameView::process_input(float delta) {
         state->get_level().get_player().attack(direction, delta);
     }
 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)){
+        state->get_level().get_player().set_speed(200);
+    }
+
 }
 
 void GameView::handle_event(sf::Event event) {
     if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
     else if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
     else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::getInstance().set_mode(MODE_INVENTORY);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F) Engine::getInstance().set_mode(MODE_SHOP);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::V) Engine::getInstance().set_mode(MODE_VICTORY);
 }
 
 void GameView::update(float delta) {
