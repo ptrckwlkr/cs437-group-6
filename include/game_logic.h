@@ -7,6 +7,7 @@
 #include "player_data.h"
 #include "collision_engine.h"
 #include "events/event_exit_reached.h"
+#include "events/event_player_died.h"
 
 /**
  * Organize and coordinate the game state.
@@ -32,7 +33,11 @@ private:
 		std::shared_ptr<Level> level;
     bool f_paused = false;
     bool f_new_game = false;
+    bool f_victory = false;
+    bool f_defeat = false;
+    bool check_flags();
 		void handleExitReached(const EventExitReached &event);
+		void handlePlayerDeath(const EventPlayerDied &event);
 
 };
 

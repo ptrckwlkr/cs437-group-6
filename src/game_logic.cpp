@@ -12,6 +12,7 @@ GameLogic::GameLogic() : Listener()
   f_paused = false;
 
   EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
+  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
 }
 
 GameLogic::~GameLogic()
@@ -25,14 +26,7 @@ GameLogic::~GameLogic()
 void GameLogic::update_state(float delta)
 {
   EventManager::Instance().processEvents(); // Pre-collision event processing
-  if (f_new_game)
-  {
-    f_new_game = false;
-    reset();
-    create_new_level(AGENT_BASED);
-    Engine::Instance().switch_mode(MODE_PLAY);
-  }
-  else
+  if (!check_flags())
   {
     collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
     level->update();
@@ -46,7 +40,6 @@ void GameLogic::update_state(float delta)
  */
 void GameLogic::create_new_level(Generator g)
 {
-  // TODO Should probably load level parameters from an XML file and set the Level Factory accordingly
   level_factory.set_algorithm(g);
   level = level_factory.generate_level();
 }
@@ -60,7 +53,39 @@ void GameLogic::reset()
   EventManager::Instance().reset();
 }
 
+bool GameLogic::check_flags()
+{
+  if (f_new_game)
+  {
+    f_new_game = false;
+    reset();
+    create_new_level(AGENT_BASED);
+    Engine::Instance().switch_mode(MODE_PLAY);
+    return true;
+  }
+  else if (f_defeat)
+  {
+    f_defeat = false;
+    reset();
+    Engine::Instance().switch_mode(MODE_VICTORY);
+    return true;
+  }
+  else if (f_victory)
+  {
+    f_victory = false;
+    reset();
+    Engine::Instance().switch_mode(MODE_VICTORY);
+    return true;
+  }
+  return false;
+}
+
 void GameLogic::handleExitReached(const EventExitReached &event)
 {
   f_new_game = true;
+}
+
+void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
+{
+  f_defeat = true;
 }

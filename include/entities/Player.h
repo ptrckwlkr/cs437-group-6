@@ -11,6 +11,7 @@ class Player: public Entity
 
 private:
     float mana;
+    float max_health;
     //std::shared_ptr<PlayerData> PlayerData;
 
 public:
@@ -20,8 +21,10 @@ public:
 
     void set_mana(float m) {mana = m;}
     const float get_mana() const {return mana;}
+    const float get_max_health() const {return max_health;}
 
     void attack(Vector2D &dir, float delta);
+    void die() override;
 
     //used to prevent more than one projectile firing each frame (assuming 60fps)
     //NOTE THIS CAN BE CHANGED TO SIMULATE DIFFERENT WEAPON SPEED

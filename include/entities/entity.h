@@ -7,6 +7,7 @@
 #include "listener.h"
 #include "EventManager.h"
 #include "ResourceManager.h"
+#include "events/event_entity_damaged.h"
 
 #define VEC_NONE         Vector2D(0, 0)
 #define VEC_NORTH        Vector2D(0, -1)
@@ -43,7 +44,14 @@ public:
     void set_speed(float s) {speed = s;}
     void set_damage(float d) {damage = d;}
     void set_defence(float d) {defence = d;}
-    void take_damage(float damage) {health -= damage / defence; if (health < 0) die();}
+    void take_damage(float damage) {
+      health -= damage / defence;
+      if (health < 0) die();
+      else {
+        EventEntityDamaged e(id, getEntityType());
+        EventManager::Instance().sendEvent(e);
+      }
+    }
     //virtual void set_attributes(rapidxml::xml_node<> *root_node) {}
     virtual void die() {};
 

@@ -16,6 +16,8 @@ void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
     // This must always be the first line of every draw method
     states.transform *= getTransform();
 
+    camera_reset(target);
+
     //title text
     sf::Text title = prepareText("winText", font);
     sf::Text playAgain = prepareText("playAgainButton", font);

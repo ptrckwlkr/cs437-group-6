@@ -11,6 +11,7 @@ void LevelSelectGraphics::draw(sf::RenderTarget &target, sf::RenderStates states
 
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
+  camera_reset(target);
 
   sf::Sprite sprite;
   sprite.setTexture(resources.GetTexture("map"));

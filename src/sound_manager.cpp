@@ -27,7 +27,7 @@ void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)
 
 void SoundManager::handleEntityDamaged(const EventEntityDamaged &event)
 {
-	if (event.getType() == Skeleton::entityType) {
+	if (event.getEntityType() == Skeleton::entityType) {
 		this->skelDmgSound[curSkelDmgSound] = resources.GetSound("bonebreak");
 		this->skelDmgSound[curSkelDmgSound].setVolume(70.0);
 		this->skelDmgSound[curSkelDmgSound].play();

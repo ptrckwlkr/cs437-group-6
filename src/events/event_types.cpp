@@ -3,6 +3,7 @@
 #include "events/event_entity_damaged.h"
 #include "events/event_entity_destroyed.h"
 #include "events/event_exit_reached.h"
+#include "events/event_player_died.h"
 #include "events/event_projectile_fired.h"
 #include "events/event_wall_collision.h"
 
@@ -12,5 +13,6 @@ const EventType EventEntityDamaged::eventType     = (EventType)(&EventEntityDama
 const EventType EventEntityDestroyed::eventType   = (EventType)(&EventEntityDestroyed::eventType);
 const EventType EventExitReached::eventType       = (EventType)(&EventExitReached::eventType);
 const EventType EventGoldCollection::eventType    = (EventType)(&EventGoldCollection::eventType);
+const EventType EventPlayerDied::eventType        = (EventType)(&EventPlayerDied::eventType);
 const EventType EventProjectileFired::eventType   = (EventType)(&EventProjectileFired::eventType);
 const EventType EventWallCollision::eventType     = (EventType)(&EventWallCollision::eventType);

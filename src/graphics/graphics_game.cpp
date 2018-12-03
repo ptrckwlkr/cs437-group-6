@@ -104,7 +104,7 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     Vector2D playerPos = view->get_state().get_level().get_player().get_position();
     float x = playerPos.x;
     float y = playerPos.y;
-    camera.setCenter(playerPos.x, playerPos.y);
+    camera.setCenter(x, y);
     target.setView(camera);
 
     sf::Sprite sprite;
@@ -116,12 +116,17 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     // updates hpBar
     sf::RectangleShape hpBar, manaBar;
     hpBar.setFillColor(sf::Color(255, 0, 0, 190));
-    hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
+    hpBar.setSize(sf::Vector2f(250, 30));
     hpBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 10));
     target.draw(hpBar, states);
+    hpBar.setFillColor(sf::Color(0, 255, 0, 190));
+    hpBar.setSize(sf::Vector2f(250 * view->get_state().get_level().get_player().get_health()
+            / view->get_state().get_level().get_player().get_max_health(), 30));
+    target.draw(hpBar, states);
+
     //updates mana bar
-    manaBar.setFillColor(sf::Color(0, 255, 0, 190));
-    manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
+    manaBar.setFillColor(sf::Color(0, 0, 255, 190));
+    manaBar.setSize(sf::Vector2f(250, 30));
     manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
     target.draw(manaBar, states);
 
