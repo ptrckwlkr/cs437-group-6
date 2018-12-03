@@ -10,6 +10,7 @@
 #include <SFML/Audio.hpp>
 #include "listener.h"
 #include "entities/skeleton.h"
+#include "entities/ghost.h"
 
 class SoundManager : public Listener
 {
@@ -26,6 +27,9 @@ private:
     sf::Sound spellSound[10];
     int curSpellSound = 0;
     sf::Sound meleeSound;
+    sf::Sound ghstDmgSound[10];
+    int curGhstDmgSound = 0;
+    sf::Sound ghstDthSound;
 
     void handleEntityDamaged(const EventEntityDamaged &event);
     void handleEntityDestroyed(const EventEntityDestroyed &event);
