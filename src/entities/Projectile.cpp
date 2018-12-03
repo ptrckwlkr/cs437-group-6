@@ -13,10 +13,10 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
         trail.emplace_back(pos);
 
     EventProjectileFired postFired = EventProjectileFired(id);
-    EventManager::Instance()->sendEvent(postFired);
+    EventManager::Instance().sendEvent(postFired);
 
-    EventManager::Instance()->registerListener(EventWallCollision::eventType, this, &Projectile::handleWallCollision);
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
+    EventManager::Instance().registerListener(EventWallCollision::eventType, this, &Projectile::handleWallCollision);
+    EventManager::Instance().registerListener(EventCollision::eventType, this, &Projectile::handleCollision);
 }
 
 void Projectile::move(Vector2D &dir, float delta) {
@@ -31,11 +31,11 @@ void Projectile::move(Vector2D &dir, float delta) {
 }
 
 void Projectile::handleWallCollision(const EventWallCollision &event) {
-    if (event.getEntity().id == id) EntityManager::Instance()->removeEntity(id);
+    if (event.getEntity().id == id) EntityManager::Instance().removeEntity(id);
 }
 
 void Projectile::handleCollision(const EventCollision &event) {
-    if (event.getSelf().id == id && event.getOther().is_hostile()) EntityManager::Instance()->removeEntity(id);
+    if (event.getSelf().id == id && event.getOther().is_hostile()) EntityManager::Instance().removeEntity(id);
 }
 
 

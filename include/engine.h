@@ -26,7 +26,7 @@ enum GameMode
 class Engine
 {
 public:
-    static Engine &getInstance();
+    static Engine &Instance();
     void init(sf::RenderWindow *app);
 		void update_views(float delta);
     void update_state(float delta);

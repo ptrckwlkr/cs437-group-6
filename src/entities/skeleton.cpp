@@ -14,7 +14,7 @@ Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
     //uses normal skeleton by default
     setType("white");
 
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, & Skeleton::handleCollision);
+    EventManager::Instance().registerListener(EventCollision::eventType, this, & Skeleton::handleCollision);
 }
 
 void Skeleton::handleCollision(const EventCollision &event)
@@ -23,11 +23,11 @@ void Skeleton::handleCollision(const EventCollision &event)
     {
         health -= 3;
         if (health <= 0) {
-            EntityManager::Instance()->removeEntity(id);
-            EntityManager::Instance()->createEntity<Blood>(pos.x, pos.y);
+            EntityManager::Instance().removeEntity(id);
+            EntityManager::Instance().createEntity<Blood>(pos.x, pos.y);
         }
 	EventEntityDamaged postDamaged = EventEntityDamaged(id, entityType);
-	EventManager::Instance()->sendEvent(postDamaged);
+	EventManager::Instance().sendEvent(postDamaged);
     }
 }
 

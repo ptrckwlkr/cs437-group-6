@@ -37,7 +37,7 @@ public:
       hostile = false;
     }
     ~Entity() {
-      EventManager::Instance()->unregisterAll(this);
+      EventManager::Instance().unregisterAll(this);
     };
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}

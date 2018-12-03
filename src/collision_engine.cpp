@@ -241,14 +241,14 @@ void CollisionEngine::dispatchEvents()
     {
       EventCollision collision1(item.entity1, item.entity2);
       EventCollision collision2(item.entity2, item.entity1);
-      EventManager::Instance()->sendEvent(collision1);
-      EventManager::Instance()->sendEvent(collision2);
+      EventManager::Instance().sendEvent(collision1);
+      EventManager::Instance().sendEvent(collision2);
 
     }
     else if (item.type == EventWallCollision::eventType)
     {
       EventWallCollision collision(item.entity1);
-      EventManager::Instance()->sendEvent(collision);
+      EventManager::Instance().sendEvent(collision);
     }
   }
   event_set.clear();

@@ -15,7 +15,7 @@ void Player::attack(Vector2D &dir, float delta) {
     if (delta_sum >= delta_threshold) {
         float x = pos.x;
         float y = pos.y;
-        auto projectile = EntityManager::Instance()->createEntity<Projectile>(x, y);
+        auto projectile = EntityManager::Instance().createEntity<Projectile>(x, y);
         projectile->set_direction(dir);
         delta_sum = 0;
     }

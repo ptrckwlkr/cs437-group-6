@@ -17,6 +17,7 @@ public:
     Animation &getAnimation(long long entity_id) {return *animations[entity_id];}
     void updateAnimations(float delta);
     const std::unordered_map<long long int, std::shared_ptr<Animation>> &getAnimations() const {return animations;}
+    void reset() {animations.clear();}
 
 
 private:

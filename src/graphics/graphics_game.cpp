@@ -46,7 +46,7 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     EntityType type;
 
     //TODO This entire loop can probably ultimately be removed entirely
-    for (auto &i : EntityManager::Instance()->getEntites())
+    for (auto &i : EntityManager::Instance().getEntites())
     {
         auto ent = i.second;
         x = ent->get_position().x;

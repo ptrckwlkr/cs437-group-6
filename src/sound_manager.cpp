@@ -3,15 +3,15 @@
 
 SoundManager::SoundManager()
 {
-  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, & SoundManager::handleEntityDestroyed);
-  EventManager::Instance()->registerListener(EventEntityDamaged::eventType, this, & SoundManager::handleEntityDamaged);
-  EventManager::Instance()->registerListener(EventGoldCollection::eventType, this, & SoundManager::handleGoldCollection);
-  EventManager::Instance()->registerListener(EventProjectileFired::eventType, this, & SoundManager::handleProjectileFired);
+  EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, & SoundManager::handleEntityDestroyed);
+  EventManager::Instance().registerListener(EventEntityDamaged::eventType, this, & SoundManager::handleEntityDamaged);
+  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, & SoundManager::handleGoldCollection);
+  EventManager::Instance().registerListener(EventProjectileFired::eventType, this, & SoundManager::handleProjectileFired);
 }
 
 SoundManager::~SoundManager()
 {
-  EventManager::Instance()->unregisterAll(this);
+  EventManager::Instance().unregisterAll(this);
 }
 
 void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)

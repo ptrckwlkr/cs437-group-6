@@ -20,7 +20,7 @@ GameView::~GameView() {
 void GameView::process_input(float delta) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
         state->reset();
-        Engine::getInstance().switch_mode(MODE_MENU);
+      Engine::Instance().switch_mode(MODE_MENU);
     }
 
     // TODO check that game has started (not in menu)
@@ -53,9 +53,9 @@ void GameView::process_input(float delta) {
 }
 
 void GameView::handle_event(sf::Event event) {
-    if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
+    if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
     else if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
-    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::getInstance().switch_mode(MODE_INVENTORY);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::Instance().switch_mode(MODE_INVENTORY);
 }
 
 void GameView::update(float delta) {

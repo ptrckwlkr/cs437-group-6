@@ -23,7 +23,7 @@ private:
 
 
 public:
-    static ViewManager* Instance();
+    static ViewManager &Instance();
     void init(GameLogic *s);
     void update_views(float delta);
     void update_player_view(float delta);
