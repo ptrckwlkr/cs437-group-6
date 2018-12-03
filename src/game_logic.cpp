@@ -53,6 +53,7 @@ void GameLogic::create_new_level(Generator g, int level_num)
 void GameLogic::reset()
 {
   collision_engine.reset();
+  level_factory.reset();
   SpriteManager::Instance().reset();
   ViewManager::Instance().reset();
   EntityManager::Instance().reset();
