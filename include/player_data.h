@@ -3,8 +3,8 @@
 
 #include <memory>
 #include "Weapon.h"
-#include "ability.h"
 #include "inventory.h"
+#include "entities/Player.h"
 
 /**
  * Class to store persistent player data, such as currency, weapons, etc.
@@ -14,17 +14,41 @@ class PlayerData
 
 public:
     PlayerData();
-    void add_gold(int amount) {gold += amount;}
-    int get_gold() {return gold;}
+    void set_player(Player *p);
+    void reset();
+    void update();
+
     Weapon &get_curr_weapon() {return *curr_weapon;}
-    Ability &get_curr_ability() {return *curr_ability;}
     Inventory &get_inventory() {return inventory;}
 
+    int get_gold() {return gold;}
+
 private:
+    Player *player;
     int gold;
     std::shared_ptr<Weapon> curr_weapon;
-    std::shared_ptr<Ability> curr_ability;
     Inventory inventory;
+
+    float health;
+    float mana;
+
+    float base_health;
+    float base_mana;
+    float base_damage;
+    float base_defence;
+    float base_speed;
+    float base_max_health;
+    float base_max_mana;
+    float base_mana_regen;
+
+    void set_health();
+    void set_mana();
+    void set_speed();
+    void set_damage();
+    void set_defence();
+    void set_max_health();
+    void set_max_mana();
+    void set_mana_regen();
 
 };
 

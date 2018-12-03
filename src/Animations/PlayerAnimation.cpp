@@ -4,7 +4,7 @@
 PlayerAnimation::PlayerAnimation(Player &entity) : Animation(), player(&entity) {
     texture = resources.GetTexture("playerTexture");
     imageCount = sf::Vector2u(13, 21);
-    switchTime = 20/60.f;
+    switchTime = 4/60.f;
     totalTime = 0.0f;
     currentImage.x = 0;
     currentImage.y = 10;
@@ -39,6 +39,7 @@ void PlayerAnimation::update(float delta){
     totalTime += delta;
 
     if ( totalTime >= switchTime && !(prev_pos == player->get_position())) {
+        totalTime = 0.0f;
         currentImage.x++;
         if (currentImage.x >= this->imageCount.x){
             currentImage.x =0;

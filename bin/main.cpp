@@ -10,18 +10,18 @@ int main(int argc, char** argv)
 
   // Initialize the game engine
 //  Engine engine(&App);
-  Engine::getInstance().init(&App);
+  Engine::Instance().init(&App);
 
   // start main loop
   while (App.isOpen())
   {
-    float delta = Engine::getInstance().clock();
+    float delta = Engine::Instance().clock();
 //    if (delta > 0.5)
 //      delta = 0.0336380005;
 
-    Engine::getInstance().update_views(delta);
-    Engine::getInstance().update_state(delta);
-    Engine::getInstance().update_graphics(delta);
+    Engine::Instance().update_views(delta);
+    Engine::Instance().update_state(delta);
+    Engine::Instance().update_graphics(delta);
   }
 
   // Done.

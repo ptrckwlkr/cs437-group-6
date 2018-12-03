@@ -1,9 +1,9 @@
 #include "EventManager.h"
 
 // returns an instance of event manager
-EventManager* EventManager::Instance(){
+EventManager &EventManager::Instance(){
   static EventManager instance;
-  return &instance;
+  return instance;
 }
 
 void EventManager::reset()

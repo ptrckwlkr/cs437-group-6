@@ -109,9 +109,13 @@ void ResourceManager::LoadAllResources()
     resources.LoadTexture("renegade_boots", "../data/Sprites/sets/renegade/transparent/ren_bt_t_01.png");
     resources.LoadTexture("renegade_gloves", "../data/Sprites/sets/renegade/transparent/ren_gl_t_01.png");
     resources.LoadTexture("mountains","../data/Images/mountain_world.png" );
+    resources.LoadTexture("marker","../data/Images/marker.png" );
     resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
     resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
     resources.LoadXML("enemies", "../data/xml/enemies.xml");
+    resources.LoadXML("level-params", "../data/xml/level-parameters.xml");
     resources.LoadSound("coins", "../data/Sounds/Coins 1.wav");
     resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
+    resources.LoadSound("monsterdeath", "../data/Sounds/dsbgdth1.wav");
+    resources.LoadSound("fireball", "../data/Sounds/Spell - Fireball 1.wav");
 }

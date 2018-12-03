@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "views/view_projectile.h"
+#include "engine.h"
 
 ProjectileView::ProjectileView(GameLogic *state, Projectile &entity) : View(state)
 {
@@ -8,6 +9,6 @@ ProjectileView::ProjectileView(GameLogic *state, Projectile &entity) : View(stat
 
 void ProjectileView::update(float delta)
 {
-  Vector2D dir = projectile->get_direciton();
+  Vector2D dir = projectile->get_direction();
   projectile->move(dir, delta);
 }

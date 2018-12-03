@@ -14,6 +14,7 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
     // This must always be the first line of every draw method
     states.transform *= getTransform();
+    camera_reset(target);
     sf::Text manaText = prepareText("ManaText", font);
     sf::Text aText = prepareText("AbilitiesText", font);
     //need health text

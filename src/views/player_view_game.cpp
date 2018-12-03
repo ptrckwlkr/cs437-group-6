@@ -20,48 +20,53 @@ GameView::~GameView() {
 void GameView::process_input(float delta) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
         state->reset();
-        Engine::getInstance().set_mode(MODE_MENU);
+      Engine::Instance().switch_mode(MODE_MENU);
     }
+    if (!state->is_paused())
+    {
+        // TODO check that game has started (not in menu)
+        int x_dir = 0, y_dir = 0;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) y_dir++;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) y_dir--;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) x_dir--;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) x_dir++;
 
-    // TODO check that game has started (not in menu)
-    int x_dir = 0, y_dir = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	y_dir++;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))	y_dir--;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	x_dir--;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	x_dir++;
+        if (x_dir != 0 || y_dir != 0)
+        {
+            auto dir = VEC_NONE;
+            if (x_dir == 1 && y_dir == 1) dir = VEC_NORTHEAST;
+            else if (x_dir == 1 && y_dir == 0) dir = VEC_EAST;
+            else if (x_dir == 1 && y_dir == -1) dir = VEC_SOUTHEAST;
+            else if (x_dir == 0 && y_dir == 1) dir = VEC_NORTH;
+            else if (x_dir == 0 && y_dir == -1) dir = VEC_SOUTH;
+            else if (x_dir == -1 && y_dir == 1) dir = VEC_NORTHWEST;
+            else if (x_dir == -1 && y_dir == 0) dir = VEC_WEST;
+            else if (x_dir == -1 && y_dir == -1) dir = VEC_SOUTHWEST;
+            state->get_level().get_player().move(dir, delta);
+        }
 
-    if (x_dir != 0 || y_dir != 0) {
-        auto dir = VEC_NONE;
-        if (x_dir == 1 && y_dir == 1) dir = VEC_NORTHEAST;
-        else if (x_dir == 1 && y_dir == 0) dir = VEC_EAST;
-        else if (x_dir == 1 && y_dir == -1) dir = VEC_SOUTHEAST;
-        else if (x_dir == 0 && y_dir == 1) dir = VEC_NORTH;
-        else if (x_dir == 0 && y_dir == -1) dir = VEC_SOUTH;
-        else if (x_dir == -1 && y_dir == 1) dir = VEC_NORTHWEST;
-        else if (x_dir == -1 && y_dir == 0) dir = VEC_WEST;
-        else if (x_dir == -1 && y_dir == -1) dir = VEC_SOUTHWEST;
-        state->get_level().get_player().move(dir, delta);
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
+            Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
+            Vector2D direction = mouse_pos - state->get_level().get_player().get_position();
+            state->get_level().get_player().attack(direction, delta);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)){
+            state->get_level().get_player().set_speed(200);
+        }
+
     }
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
-        Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
-        Vector2D direction = mouse_pos - state->get_level().get_player().get_position();
-        state->get_level().get_player().attack(direction, delta);
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)){
-        state->get_level().get_player().set_speed(200);
-    }
-
 }
 
 void GameView::handle_event(sf::Event event) {
-    if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
+    if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
     else if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
-    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::getInstance().set_mode(MODE_INVENTORY);
-    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F) Engine::getInstance().set_mode(MODE_SHOP);
-    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::V) Engine::getInstance().set_mode(MODE_VICTORY);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::Instance().switch_mode(MODE_INVENTORY);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F) Engine::Instance().switch_mode(MODE_SHOP);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::V) Engine::Instance().switch_mode(MODE_VICTORY);
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::L) Engine::Instance().switch_mode(MODE_LOST);
+    else if (event.key.code == sf::Keyboard::P && event.type == sf::Event::KeyReleased) state->toggle_pause();
 }
 
 void GameView::update(float delta) {

@@ -16,17 +16,17 @@ void StoryView::process_input(float delta)
 
 void StoryView::handle_event(sf::Event event)
 {
-    if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
+    if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
 
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q) Engine::getInstance().set_mode(MODE_MENU);
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::K) Engine::getInstance().set_mode(MODE_PLAY);
+    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q) Engine::Instance().switch_mode(MODE_MENU);
+    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::K) Engine::Instance().switch_mode(MODE_PLAY);
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
     if (260 < mouse_pos.x  && mouse_pos.x <= 460)
     {
         if (event.type == sf::Event::EventType::MouseButtonPressed && sf::Event::EventType::MouseButtonReleased)
         {
             printf( "play again pressed");
-            Engine::getInstance().set_mode(MODE_LEVEL_SELECT);
+            Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
         }
     }
 }

@@ -13,8 +13,7 @@ void ShopView::process_input(float delta)
 {
     //sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        state->reset();
-        Engine::getInstance().set_mode(MODE_MENU);
+        Engine::Instance().switch_mode(MODE_MENU);
     }
 
 }
@@ -23,18 +22,9 @@ void ShopView::handle_event(sf::Event event)
 {
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
 
-    if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::getInstance().set_mode(MODE_MENU);
-
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::F) Engine::getInstance().set_mode(MODE_PLAY);
-//    if (event.type == sf::Event::EventType::MouseButtonPressed)
-//    {
-//        if (340 < mouse_pos.x  && mouse_pos.x <= 451)
-//        {
-//            Engine::getInstance().set_mode(MODE_MENU);
-//            printf( "play again pressed");
-//        }
-
+    if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
+    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::F) Engine::Instance().switch_mode(MODE_PLAY);
 }
 
 void ShopView::update(float delta)

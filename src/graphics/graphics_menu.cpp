@@ -1,3 +1,4 @@
+
 #include "graphics/graphics_menu.h"
 #include "views/player_view_menu.h"
 #include "macros.h"
@@ -17,6 +18,8 @@ void MenuGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
+
+	camera_reset(target);
 
 	if (view->screenIndex == 0)		//draw elements for title screen
 	{

@@ -2,7 +2,7 @@
 #define CSCI437_GRAPHICS_LOST_H
 
 #include "graphics.h"
-#include "views/player_view_lost.h"
+#include "views/player_view.h"
 #include <string>
 
 class LostView;

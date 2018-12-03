@@ -1,4 +1,5 @@
 #include "graphics/graphics_lost.h"
+
 #include "macros.h"
 
 LostGraphics::LostGraphics(LostView *view) : Graphics(), view(view)
@@ -15,6 +16,7 @@ void LostGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
     // This must always be the first line of every draw method
     states.transform *= getTransform();
+    camera_reset(target);
     sf::Text title = prepareText("LostText", font);
     sf::Text playAgain = prepareText("ReplayText", font);
     //centers text

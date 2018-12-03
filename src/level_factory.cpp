@@ -1,11 +1,25 @@
 #include "level_factory.h"
 #include "views/view_skeleton.h"
-#include "alg_agent_based.h"
 #include "views/view_manager.h"
 #include "entities/gold.h"
 #include "entities/exit.h"
 #include "EntityManager.h"
 #include "level.h"
+#include <unordered_map>
+
+
+
+void LevelFactory::set_algorithm(Generator algorithm, int level)
+{
+    this->algorithm = algorithm;
+
+    if (level_num != level)
+        gen = AgentBasedGenerator(level);
+
+    level_num = level;
+}
+
+
 
 /**
  * Returns a pointer to a newly created level, which is built according to the parameters specified through the setter
@@ -20,32 +34,30 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
     switch (algorithm) {
         case LEVEL_FILE:
 
-            EntityManager::Instance()->getPlayer()->set_position(150, 150);
+            EntityManager::Instance().getPlayer()->set_position(150, 150);
             //player->set_position(150, 150);
 
             map = load("../data/test2.txt");
             break;
         case AGENT_BASED:
 
-            AgentBasedGenerator gen = AgentBasedGenerator(64, 64, 1, 10, 0);
-            map = std::make_shared<Map>(gen.createLevelGrid(15, 40, 64.0));
+            gen.createLevelGrid();
+            map = std::make_shared<Map>(gen.level_grid);
             map->givePathNodes(gen.getPathNodes());
             //gen.printLevelGrid();
 
-            std::shared_ptr<Player> player = EntityManager::Instance()->createEntity<Player>(gen.player_x,
+            std::shared_ptr<Player> player = EntityManager::Instance().createEntity<Player>(gen.player_x,
                                                                                              gen.player_y);
-            EntityManager::Instance()->set_player(player);
-            //TEMP method to place enemies
-            for (int i = 0; i < gen.enemy_coords.size(); i++) {
-                auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) gen.enemy_coords[i][0],
-                                                                             (float) gen.enemy_coords[i][1]);
-                ent->setType("red");
-            }
+            EntityManager::Instance().set_player(player);
+
+            placeEnemies();
+
+
             for (int i = 0; i < gen.treasure_coords.size(); i++) {
-                auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0],
+                auto ent = EntityManager::Instance().createEntity<Gold>((float) gen.treasure_coords[i][0],
                                                                          (float) gen.treasure_coords[i][1]);
             }
-            EntityManager::Instance()->createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
+            EntityManager::Instance().createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
             printf("Place at %d %d\n", gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
 
             break;
@@ -53,7 +65,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
 
     // Create the actual level
     level = std::make_shared<Level>(map);
-    level->set_player(EntityManager::Instance()->getPlayer().get());
+    level->set_player(EntityManager::Instance().getPlayer().get());
 
     return level;
 }
@@ -75,4 +87,28 @@ std::shared_ptr<Map> LevelFactory::load(std::string filename) {
 
     fin.close();
     return std::make_shared<Map>(grid);
+}
+
+
+void LevelFactory::placeEnemies()
+{
+    //places all enemies using an unordered map made by the call to createLevelGrid()
+    for (const auto it : gen.enemy_type_coords) {
+        for (const auto v : it.second) {
+            if (it.first == "skeleton-white" || it.first == "skeleton-red" || it.first == "skeleton-gold")
+            {
+                auto ent = EntityManager::Instance().createEntity<Skeleton>((float) v[0], (float) v[1]);
+                ent->setType(it.first);
+            }
+            else if (it.first == "ghost-white" || it.first == "ghost-red" || it.first == "ghost-gold")
+            {
+                //TODO implement after ghosts exist
+            }
+            else if (it.first == "orc-green" || it.first == "orc-red" || it.first == "orc-gold")
+            {
+                //TODO implement after orc exist
+            }
+        }
+    }
+
 }

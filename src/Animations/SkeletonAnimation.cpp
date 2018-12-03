@@ -3,7 +3,7 @@
 SkeletonAnimation::SkeletonAnimation(Skeleton &entity) : Animation(), skeleton(&entity) {
     texture = resources.GetTexture("skeletonTexture");
     imageCount = sf::Vector2u(13, 21);
-    switchTime = 10/60.f;
+    switchTime = 8/60.f;
     totalTime = 0.0f;
     currentImage.x = 0;
     currentImage.y = 10;
@@ -18,7 +18,10 @@ SkeletonAnimation::SkeletonAnimation(Skeleton &entity) : Animation(), skeleton(&
     prev_pos = skeleton->get_position();
 
     if (skeleton->type == "skeleton-red")
+    {
         sprite.setColor(sf::Color(255,128,128));
+        switchTime =  7/60.f;
+    }
     else if (skeleton->type == "skeleton-gold")
         sprite.setColor(sf::Color(255,215,0));
 }

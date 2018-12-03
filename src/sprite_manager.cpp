@@ -1,17 +1,21 @@
 #include <events/event_entity_destroyed.h>
 #include "sprite_manager.h"
 
+SpriteManager &SpriteManager::Instance(){
+  static SpriteManager instance;
+  return instance;
+}
+
 SpriteManager::SpriteManager()
 {
-
-  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, &SpriteManager::handleEntityRemoval);
-  EventManager::Instance()->registerListener(EventEntityCreated::eventType, this, &SpriteManager::handleEntityCreation);
+  EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, & SpriteManager::handleEntityRemoval);
+  EventManager::Instance().registerListener(EventEntityCreated::eventType, this, & SpriteManager::handleEntityCreation);
 
 }
 
 SpriteManager::~SpriteManager()
 {
-  EventManager::Instance()->unregisterAll(this);
+  EventManager::Instance().unregisterAll(this);
   animations.clear();
 }
 

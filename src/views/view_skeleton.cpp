@@ -1,6 +1,7 @@
 #include "views/view_skeleton.h"
 #include "macros.h"
 #include "EntityManager.h"
+#include "engine.h"
 
 SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state) {
     skeleton = &s;
@@ -9,7 +10,7 @@ SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state) {
 }
 
 void SkeletonView::update(float delta) {
-    //get player position
+	//get player position
     Vector2D dir = state->get_level().get_player().get_position() - skeleton->get_position();
     float hypo = state->get_level().get_player().get_size() + skeleton->get_size();
     if (cur_state != PASSIVE || (dir.length < skeleton->aggro_dist && hypo * hypo < dir.length * dir.length)) {

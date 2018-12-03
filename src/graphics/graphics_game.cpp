@@ -14,6 +14,7 @@
 #define VISIBLE_RANGE_Y     (WINDOW_HEIGHT / (2 * ZOOM_SCALAR) + 100)
 
 GameGraphics::GameGraphics(GameView *view) : Graphics(), view(view) {
+    SpriteManager::Instance();
     storeLevel();
     this->view = view;
 
@@ -45,7 +46,7 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     EntityType type;
 
     //TODO This entire loop can probably ultimately be removed entirely
-    for (auto &i : EntityManager::Instance()->getEntites())
+    for (auto &i : EntityManager::Instance().getEntites())
     {
         auto ent = i.second;
         x = ent->get_position().x;
@@ -75,7 +76,7 @@ void GameGraphics::drawSprites(sf::RenderTarget &target, sf::RenderStates states
     std::priority_queue<sf::Sprite*, std::vector<sf::Sprite*>, ComparatorY> spriteQueue;
 
     // Add the sprites within visible range in Y-order
-    for (auto &i : spriteManager.getAnimations())
+    for (auto &i : SpriteManager::Instance().getAnimations())
     {
         x = i.second->getSprite().getPosition().x;
         y = i.second->getSprite().getPosition().y;
@@ -103,7 +104,7 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     Vector2D playerPos = view->get_state().get_level().get_player().get_position();
     float x = playerPos.x;
     float y = playerPos.y;
-    camera.setCenter(playerPos.x, playerPos.y);
+    camera.setCenter(x, y);
     target.setView(camera);
 
     sf::Sprite sprite;
@@ -115,12 +116,17 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     // updates hpBar
     sf::RectangleShape hpBar, manaBar;
     hpBar.setFillColor(sf::Color(255, 0, 0, 190));
-    hpBar.setSize(sf::Vector2f(2.5f * 100, 30));
+    hpBar.setSize(sf::Vector2f(250, 30));
     hpBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 10));
     target.draw(hpBar, states);
+    hpBar.setFillColor(sf::Color(0, 255, 0, 190));
+    hpBar.setSize(sf::Vector2f(250 * view->get_state().get_level().get_player().get_health()
+            / view->get_state().get_level().get_player().get_max_health(), 30));
+    target.draw(hpBar, states);
+
     //updates mana bar
-    manaBar.setFillColor(sf::Color(0, 255, 0, 190));
-    manaBar.setSize(sf::Vector2f(2.5f * 100, 30));
+    manaBar.setFillColor(sf::Color(0, 0, 255, 190));
+    manaBar.setSize(sf::Vector2f(250, 30));
     manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
     target.draw(manaBar, states);
 
@@ -150,7 +156,7 @@ void GameGraphics::drawLevel(sf::RenderTarget &target, sf::RenderStates states) 
 */
 void GameGraphics::storeLevel() {
     tile_map.SetTexture();
-    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), 2);
+    tile_map.PopulateVertexArray(view->get_state().get_level().get_map(), view->get_state().get_level_num() - 1);
     vertices = tile_map.GetVertices();
 }
 
@@ -200,5 +206,5 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
 
 void GameGraphics::update(float delta)
 {
-    spriteManager.updateAnimations(delta);
+    SpriteManager::Instance().updateAnimations(delta);
 }

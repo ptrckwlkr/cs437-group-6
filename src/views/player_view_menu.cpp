@@ -42,7 +42,7 @@ void MenuView::process_input(float delta)
 void MenuView::handle_event(sf::Event event)
 {
 
-  if (event.type == sf::Event::Closed) Engine::getInstance().shutdown();
+  if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
 	//gets mode object
 	//ensures menu mode selection index is within proper range
 
@@ -61,8 +61,7 @@ void MenuView::handle_event(sf::Event event)
 	{
 		//changes the game mode when player selects play
 		if (makeSelection())
-      //Engine::getInstance().set_mode(MODE_PLAY);
-      Engine::getInstance().set_mode(MODE_STORY);
+      Engine::Instance().switch_mode(MODE_STORY);
 	}
 		
 

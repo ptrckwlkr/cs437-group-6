@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include "../../rapidxml/rapidxml.hpp"
 #include "ResourceManager.h"
+#include "macros.h"
 #include <memory>
 #include <string>
 
@@ -49,6 +50,12 @@ protected:
 	//ensures the xml file text does not go out of scope
 	rapidxml::xml_node<> *root_node;
 	std::shared_ptr <std::vector<char>> buffer;
+	const void camera_reset(sf::RenderTarget &target) const
+	{
+		sf::View camera;
+		camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+		target.setView(camera);
+	}
 
 };
 

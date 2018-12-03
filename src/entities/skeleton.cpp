@@ -6,28 +6,24 @@
 Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
     obstructible = true;
     hostile = true;
+    defence = 1;
+    damage = 1;
 
     std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("enemies");
     buffer = resources.GetXMLBuffer("enemies");
     root_node = (*doc).first_node("Root");
 
     //uses normal skeleton by default
-    setType("white");
+    setType("skeleton-white");
 
-    EventManager::Instance()->registerListener(EventCollision::eventType, this, &Skeleton::handleCollision);
+    EventManager::Instance().registerListener(EventCollision::eventType, this, & Skeleton::handleCollision);
 }
 
 void Skeleton::handleCollision(const EventCollision &event)
 {
-    if (event.getSelf().id == id && event.getOther().getEntityType() == Projectile::entityType)
+    if (event.getSelf().id == id && event.getOther().getEntityType() == Player::entityType)
     {
-        health -= 3;
-        if (health <= 0) {
-            EntityManager::Instance()->removeEntity(id);
-            EntityManager::Instance()->createEntity<Blood>(pos.x, pos.y);
-        }
-	EventEntityDamaged postDamaged = EventEntityDamaged(id, entityType);
-	EventManager::Instance()->sendEvent(postDamaged);
+        event.getOther().take_damage(damage);
     }
 }
 
@@ -39,6 +35,12 @@ void Skeleton::updateAttributes() {
 }
 
 void Skeleton::setType(std::string param_type) {
-    type.assign("skeleton-" + param_type);
+    type.assign(param_type);
     updateAttributes();
+}
+
+void Skeleton::die()
+{
+    EntityManager::Instance().removeEntity(id);
+    EntityManager::Instance().createEntity<Blood>(pos.x, pos.y);
 }
