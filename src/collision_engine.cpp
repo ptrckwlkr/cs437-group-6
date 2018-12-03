@@ -37,7 +37,7 @@ void CollisionEngine::check_collisions(Map &level_map)
             adjust_positions(*entity1, *entity2);
         }
       }
-      if (!entity1->is_immovable() && wall_collision(level_map, *entity1))
+      if (!entity1->is_immovable() && wall_collision(level_map, *entity1) && entity1->is_wall_collidable())
       {
         EventItem item = {EventWallCollision::eventType, entity1.get(), nullptr};
         event_set.insert(item);

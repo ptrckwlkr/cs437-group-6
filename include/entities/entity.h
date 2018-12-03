@@ -62,6 +62,7 @@ public:
     const float get_size() const {return size;}
     const bool is_obstructible() const {return obstructible;}
     const bool is_immovable() const {return immovable;}
+    const bool is_wall_collidable() const {return wall_collidable;}
     const bool is_hostile() const {return hostile;}
     const float get_health() const {return health;}
     //const int get_mana() const {return mana;}
@@ -94,6 +95,7 @@ protected:
     bool obstructible = false;
     bool immovable = false;
     bool hostile = false;
+    bool wall_collidable = true;
 
     //ensures the xml file text does not go out of scope
     rapidxml::xml_node<> *root_node = nullptr;

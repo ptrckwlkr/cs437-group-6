@@ -8,6 +8,8 @@ Ghost::Ghost(float x, float y) : Enemy(x, y, GHOST_SIZE) {
     obstructible = false;
     hostile = true;
     defence = 1;
+    immovable = false;
+    wall_collidable = false;
 
     //uses normal ghost by default
     setType("ghost-white");
