@@ -18,10 +18,8 @@ void VictoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) co
     sf::Text title = prepareText("winText", font);
     sf::Text playAgain = prepareText("playAgainButton", font);
     //centers text
-    title.setOrigin(title.getLocalBounds().width / 2.0, title.getLocalBounds().height / 2.0);
     title.setPosition(WINDOW_WIDTH / 2.0, 200);
-    playAgain.setOrigin(title.getLocalBounds().width / 8.0, title.getLocalBounds().height / 8.0);
-    playAgain.setPosition(WINDOW_WIDTH / 2.3, 300);
+    playAgain.setPosition(WINDOW_WIDTH / 2.0, 300);
 
     target.draw(title, states);
     target.draw(playAgain, states);

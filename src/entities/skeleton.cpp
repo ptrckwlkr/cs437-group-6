@@ -22,18 +22,6 @@ void Skeleton::handleCollision(const EventCollision &event)
     }
 }
 
-void Skeleton::updateAttributes() {
-    rapidxml::xml_node<> *main_node = root_node->first_node(type.c_str());
-    health = std::stoi(main_node->first_node("health")->value());
-    speed = std::stoi(main_node->first_node("speed")->value());
-    damage = std::stoi(main_node->first_node("contact-damage")->value());
-    aggro_dist = std::stoi(main_node->first_node("aggro-dist")->value());
-}
-
-void Skeleton::setType(std::string param_type) {
-    type.assign(param_type);
-    updateAttributes();
-}
 
 void Skeleton::die()
 {

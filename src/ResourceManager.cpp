@@ -97,9 +97,10 @@ void ResourceManager::LoadAllResources()
     resources.LoadXML("text", "../data/xml/game-text.xml");
     resources.LoadTexture("map", "../data/Images/map.png");
     resources.LoadTexture("fog", "../data/Images/vignette.png");
-    resources.LoadTexture("tileset", "../data/Tiles/tilesheet.png");
+    resources.LoadTexture("tileset", "../data/Tiles/tilesheet(variation).png");
     resources.LoadTexture("playerTexture", "../data/Sprites/playerSprite.png");
     resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
+    resources.LoadTexture("ghostTexture", "../data/Sprites/ghost.png");
     resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
     resources.LoadTexture("shop", "../data/Sprites/shop.png");
     resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");
@@ -118,4 +119,5 @@ void ResourceManager::LoadAllResources()
     resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
     resources.LoadSound("monsterdeath", "../data/Sounds/dsbgdth1.wav");
     resources.LoadSound("fireball", "../data/Sounds/Spell - Fireball 1.wav");
+
 }

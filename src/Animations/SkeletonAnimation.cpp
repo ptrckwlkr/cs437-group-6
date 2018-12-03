@@ -13,18 +13,23 @@ SkeletonAnimation::SkeletonAnimation(Skeleton &entity) : Animation(), skeleton(&
     uvRect.top = currentImage.y * uvRect.height;
     sprite.setTexture(texture);
     sprite.setTextureRect(uvRect);
-    sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.0, sprite.getLocalBounds().height / 2.0 + 15.0 ));
+    sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f + 15.f ));
     sprite.setPosition(skeleton->get_position().x, skeleton->get_position().y);
     prev_pos = skeleton->get_position();
 
     if (skeleton->type == "skeleton-red")
     {
         sprite.setColor(sf::Color(255,128,128));
-        switchTime =  7/60.f;
+        switchTime =  7.1f/60.f;
     }
     else if (skeleton->type == "skeleton-gold")
+    {
         sprite.setColor(sf::Color(255,215,0));
+        switchTime = 6.2f/60.f;
+    }
 }
+
+
 SkeletonAnimation::~SkeletonAnimation(){}
 
 void SkeletonAnimation::update(float delta){

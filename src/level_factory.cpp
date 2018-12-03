@@ -6,6 +6,7 @@
 #include "EntityManager.h"
 #include "level.h"
 #include <unordered_map>
+#include "entities/ghost.h"
 
 
 
@@ -101,7 +102,8 @@ void LevelFactory::placeEnemies()
             }
             else if (it.first == "ghost-white" || it.first == "ghost-red" || it.first == "ghost-gold")
             {
-                //TODO implement after ghosts exist
+                auto ent = EntityManager::Instance().createEntity<Ghost>((float) v[0], (float) v[1]);
+                ent->setType(it.first);
             }
             else if (it.first == "orc-green" || it.first == "orc-red" || it.first == "orc-gold")
             {

@@ -111,7 +111,7 @@ endif()
 foreach(EXEC ${EXECLIST})
   get_filename_component(EXECNAME ${EXEC} NAME_WE)
 
-  add_executable(${EXECNAME} ${EXEC} src/graphics/graphics_shop.cpp include/graphics/graphics_shop.h src/views/player_view_shop.cpp include/views/player_view_shop.h src/graphics/graphics_lost.cpp include/graphics/graphics_lost.h src/views/player_view_lost.cpp include/views/player_view_lost.h src/graphics/graphics_story.cpp include/graphics/graphics_story.h src/views/player_view_story.cpp include/views/player_view_story.h include/entities/enemy.h)
+  add_executable(${EXECNAME} ${EXEC} src/graphics/graphics_shop.cpp include/graphics/graphics_shop.h src/views/player_view_shop.cpp include/views/player_view_shop.h src/graphics/graphics_lost.cpp include/graphics/graphics_lost.h src/views/player_view_lost.cpp include/views/player_view_lost.h src/graphics/graphics_story.cpp include/graphics/graphics_story.h src/views/player_view_story.cpp include/views/player_view_story.h include/entities/enemy.h include/entities/ghost.h src/entities/ghost.cpp include/views/view_ghost.h src/views/view_ghost.cpp include/Animations/GhostAnimation.h src/Animations/GhostAnimation.cpp)
 
   if(NOT SRC STREQUAL "")
     target_link_libraries(${EXECNAME} LINK_PUBLIC ${LIBNAME})

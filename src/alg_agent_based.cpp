@@ -16,7 +16,7 @@ AgentBasedGenerator::AgentBasedGenerator(int level) {
 
     //seeds random generator for testing purposes, using time(NULL) makes the level random every time
     auto seed = (unsigned int) time(nullptr);
-    srand(1543851800);
+    srand(seed);
     printf("Seed: %d\n", seed);
 
     //load xml document that contains the appropriate parameters for each level

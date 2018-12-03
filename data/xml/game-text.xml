@@ -1,256 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <UI>
-    <health>
-      <text>Health</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </health>
-    <mana>
-      <text>Mana</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </mana>
-  </UI>
-  <Story>
-    <StoryText>
-      <text>
-        In  the  faraway  land  of  Erivion, the  Dark  Lord  Sreep
-        has  risen  to  ruthless  power  and  is  spreading  his
-        reign  of  terror and  destruction  whenever  he  sets  his  gaze.
-        In  the midst  of  the  chaos  you,  an  intrepid  albeit
-        young  mercenary  mage by  the  name  of  Stuart  Dent,
-        have  arrived  on  scene  to  put  an  end  to
-        the  Dark  Lord’s  reign, and  acquire  the  fortune
-        and  glory  of  heroism.
-        It  is  up  to  you  to  save  the  world!  Good  Luck!
-      </text>
-      <size>15</size>
-      <r>255</r>
-      <g>250</g>
-      <b>250</b>
-    </StoryText>
-    <ReplayText>
-      <text>Continue</text>
-      <size>28</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </ReplayText>
-  </Story>
-  <Lost>
-    <LostText>
-      <text>You lost!</text>
-      <size>40</size>
-      <r>100</r>
-      <g>255</g>
-      <b>200</b>
-    </LostText>
-    <ReplayText>
-      <text>Play again</text>
-      <size>28</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </ReplayText>
-  </Lost>
-  <Shop>
-    <ManaText>
-      <text>Buy Mana</text>
-      <size>16</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </ManaText>
-    <AbilitiesText>
-      <text>Buy Abilities</text>
-      <size>16</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </AbilitiesText>
-    <ExitText>
-      <text>Exit</text>
-      <size>16</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </ExitText>
-  </Shop>
-  <Victory>
-    <winText>
-      <text>Congratulations!You won! </text>
-      <size>40</size>
-      <r>180</r>
-      <g>150</g>
-      <b>200</b>
-    </winText>
-    <playAgainButton>
-      <text>Play Again</text>
-      <size>28</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </playAgainButton>
-  </Victory>
-  <Menu>
-    <title>
-      <text>POWER HOUR</text>
-      <size>60</size>
-      <r>0</r>
-      <g>255</g>
-      <b>0</b>
-    </title>
-    <navigation>
-      <text>Navigation: [W] and [S] or Mouse</text>
-      <size>15</size>
-      <r>180</r>
-      <g>180</g>
-      <b>180</b>
-    </navigation>
-    <accept>
-      <text>Accept: [E] or L-Click</text>
-      <size>15</size>
-      <r>180</r>
-      <g>180</g>
-      <b>180</b>
-    </accept>
-    <back>
-      <text>Back: [Q] or R-Click</text>
-      <size>15</size>
-      <r>180</r>
-      <g>180</g>
-      <b>180</b>
-    </back>
+    <UI>
+        <health>
+            <text>Health</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </health>
+        <mana>
+            <text>Mana</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </mana>
+    </UI>
+    <Story>
+        <StoryText>
+            <text>
+In  the  faraway  land  of  Erivion,  the  Dark  Lord  Sreep
+has  risen  to  ruthless  power  and  is  spreading  his  reign
+of  terror and  destruction  whenever  he  sets  his  gaze.
+In  the midst  of  the  chaos  you,  an  intrepid  albeit
+young  mercenary  mage by  the  name  of  Stuart  Dent,
+have  arrived  on  scene  to  put  an  end  to
+the  Dark  Lord's  reign, and  acquire  the  fortune
+and  glory  of  heroism.
+It  is  up  to  you  to  save  the  world!  Good  Luck!
+            </text>
+            <size>15</size>
+            <r>255</r>
+            <g>250</g>
+            <b>250</b>
+        </StoryText>
+        <ReplayText>
+            <text>Continue</text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ReplayText>
+    </Story>
+    <Lost>
+        <LostText>
+            <text>You lost!</text>
+            <size>40</size>
+            <r>100</r>
+            <g>255</g>
+            <b>200</b>
+        </LostText>
+        <ReplayText>
+            <text>Play again</text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ReplayText>
+    </Lost>
+    <Shop>
+        <ManaText>
+            <text>Buy Mana</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ManaText>
+        <AbilitiesText>
+            <text>Buy Abilities</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </AbilitiesText>
+        <ExitText>
+            <text>Exit</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ExitText>
+    </Shop>
+    <Victory>
+        <winText>
+            <text>Congratulations!You won!</text>
+            <size>40</size>
+            <r>180</r>
+            <g>150</g>
+            <b>200</b>
+        </winText>
+        <playAgainButton>
+            <text>Play Again</text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </playAgainButton>
+    </Victory>
+    <Menu>
+        <title>
+            <text>POWER HOUR</text>
+            <size>60</size>
+            <r>0</r>
+            <g>255</g>
+            <b>0</b>
+        </title>
+        <navigation>
+            <text>Navigation: [W] and [S] or Mouse</text>
+            <size>15</size>
+            <r>180</r>
+            <g>180</g>
+            <b>180</b>
+        </navigation>
+        <accept>
+            <text>Accept: [E] or L-Click</text>
+            <size>15</size>
+            <r>180</r>
+            <g>180</g>
+            <b>180</b>
+        </accept>
+        <back>
+            <text>Back: [Q] or R-Click</text>
+            <size>15</size>
+            <r>180</r>
+            <g>180</g>
+            <b>180</b>
+        </back>
 
-    <control-movement-lhs>
-      <text>Movement:</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-movement-lhs>
-    <control-movement-rhs>
-      <text>[W] [A] [S] [D]</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-movement-rhs>
-    <control-aim-lhs>
-      <text>Aiming:</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-aim-lhs>
-    <control-aim-rhs>
-      <text>Mouse</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-aim-rhs>
-    <control-lweapon-lhs>
-      <text>Use 1st Weapon:</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-lweapon-lhs>
-    <control-lweapon-rhs>
-      <text>Left Click</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-lweapon-rhs>
-    <control-rweapon-lhs>
-      <text>Use 2nd Weapon:</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-rweapon-lhs>
-    <control-rweapon-rhs>
-      <text>Right Click</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-rweapon-rhs>
-    <control-inventory-lhs>
-      <text>Inventory:</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-inventory-lhs>
-    <control-inventory-rhs>
-      <text>[TAB]</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-inventory-rhs>
-    <control-interact-lhs>
-      <text>Interact:</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-interact-lhs>
-    <control-interact-rhs>
-      <text>[E]</text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </control-interact-rhs>
-    
-    <about-page>
-      <text>
-        This game was made using SFML for CSCI-437
-      Game Design at the College of William and Mary.
-      
-         The members of our team are Olivia Leon, 
-       Rane Squire, Patrick Walker, and Ian Wright.
-      
-       We hope that you enjoy playing Power Hour!
-      </text>
-      <size>20</size>
-      <r>255</r>
-      <g>255</g>
-      <b>255</b>
-    </about-page>
-    
-    <buttons>
-      <play>
-        <text>Play</text>
-        <size>30</size>
-        <r>255</r>
-        <g>255</g>
-        <b>255</b>
-      </play>
-      <controls>
-        <text>Controls</text>
-        <size>30</size>
-        <r>255</r>
-        <g>255</g>
-        <b>255</b>
-      </controls>
-      <about>
-        <text>About</text>
-        <size>30</size>
-        <r>255</r>
-        <g>255</g>
-        <b>255</b>
-      </about>
-    </buttons>
-    
-  </Menu>
+        <control-movement-lhs>
+            <text>Movement:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-movement-lhs>
+        <control-movement-rhs>
+            <text>[W] [A] [S] [D]</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-movement-rhs>
+        <control-aim-lhs>
+            <text>Aiming:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-aim-lhs>
+        <control-aim-rhs>
+            <text>Mouse</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-aim-rhs>
+        <control-lweapon-lhs>
+            <text>Use 1st Weapon:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-lweapon-lhs>
+        <control-lweapon-rhs>
+            <text>Left Click</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-lweapon-rhs>
+        <control-rweapon-lhs>
+            <text>Use 2nd Weapon:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-rweapon-lhs>
+        <control-rweapon-rhs>
+            <text>Right Click</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-rweapon-rhs>
+        <control-inventory-lhs>
+            <text>Inventory:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-inventory-lhs>
+        <control-inventory-rhs>
+            <text>[TAB]</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-inventory-rhs>
+        <control-interact-lhs>
+            <text>Interact:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-interact-lhs>
+        <control-interact-rhs>
+            <text>[E]</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-interact-rhs>
+
+        <about-page>
+            <text>
+                This game was made using SFML for CSCI-437
+                Game Design at the College of William and Mary.
+
+                The members of our team are Olivia Leon,
+                Rane Squire, Patrick Walker, and Ian Wright.
+
+                We hope that you enjoy playing Power Hour!
+            </text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </about-page>
+
+        <buttons>
+            <play>
+                <text>Play</text>
+                <size>30</size>
+                <r>255</r>
+                <g>255</g>
+                <b>255</b>
+            </play>
+            <controls>
+                <text>Controls</text>
+                <size>30</size>
+                <r>255</r>
+                <g>255</g>
+                <b>255</b>
+            </controls>
+            <about>
+                <text>About</text>
+                <size>30</size>
+                <r>255</r>
+                <g>255</g>
+                <b>255</b>
+            </about>
+        </buttons>
+
+    </Menu>
 </Root>

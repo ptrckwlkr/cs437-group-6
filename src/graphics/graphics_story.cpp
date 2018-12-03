@@ -23,20 +23,19 @@ void StoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) cons
     sf::RectangleShape rectangle;
 
     sprite.setTexture(mountains);
-    sprite.setOrigin(mountains.getSize().x, mountains.getSize().y);
+    sprite.setOrigin(sprite.getLocalBounds().width/2.f, sprite.getLocalBounds().height/2.f);
     sprite.setColor(sf::Color(255, 255, 255, 200));
-    sprite.setPosition(WINDOW_WIDTH-100,WINDOW_HEIGHT -300);
+    sprite.setPosition(WINDOW_WIDTH/2.f, (WINDOW_HEIGHT - 300) - mountains.getSize().y/2.f );
     //centers text
-    title.setOrigin(title.getLocalBounds().width / 2.0, title.getLocalBounds().height / 2.0);
-    title.setPosition(WINDOW_WIDTH -400, 400);
-    playAgain.setOrigin(title.getLocalBounds().width / 8.0, title.getLocalBounds().height / 8.0);
-    playAgain.setPosition(WINDOW_WIDTH / 2.3, 550);
+    title.setPosition(WINDOW_WIDTH / 2.f, 400);
+    playAgain.setPosition(WINDOW_WIDTH / 2.f, 550);
 
-    rectangle.setSize(sf::Vector2f(sprite.getGlobalBounds().width,sprite.getGlobalBounds().height-25));
+    rectangle.setSize(sf::Vector2f(sprite.getLocalBounds().width,sprite.getLocalBounds().height));
     rectangle.setFillColor(sf::Color::Transparent);
     rectangle.setOutlineColor(sf::Color::Blue);
     rectangle.setOutlineThickness(9);
-    rectangle.setPosition(sprite.getPosition().x - sprite.getGlobalBounds().width, sprite.getPosition().y -sprite.getGlobalBounds().height+27);
+    rectangle.setOrigin(rectangle.getLocalBounds().width / 2.f, rectangle.getLocalBounds().height / 2.f );
+    rectangle.setPosition(WINDOW_WIDTH/2.f+9, (WINDOW_HEIGHT - 300) - mountains.getSize().y/2.f);
 
     target.draw(title, states);
     target.draw(sprite, states);

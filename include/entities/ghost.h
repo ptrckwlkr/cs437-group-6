@@ -1,27 +1,23 @@
-#ifndef CSCI437_SKELETON_H
-#define CSCI437_SKELETON_H
-
+#ifndef CSCI437_GHOST_H
+#define CSCI437_GHOST_H
 
 #include "events/event_collision.h"
 #include "events/event_entity_damaged.h"
 #include "entity.h"
 #include "enemy.h"
 
-#define SKELETON_SIZE  15
 
+#define GHOST_SIZE  25
 
-
-class Skeleton : public Enemy
+class Ghost : public Enemy
 {
-
 public:
-    Skeleton(float x, float y);
+    Ghost(float x, float y);
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
-    void givePathNodes(std::vector<Vector2D> &path) {path_nodes = path;}
     void die();
 
-    std::vector<Vector2D> path_nodes;
+
 
 private:
     void handleCollision(const EventCollision &event);
@@ -29,4 +25,4 @@ private:
 };
 
 
-#endif //CSCI437_SKELETON_H
+#endif //CSCI437_GHOST_H
