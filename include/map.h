@@ -54,13 +54,14 @@ private:
 
     //cost of every cell relative to the player's position
     std::vector<std::vector<int>> cell_cost;
+    std::vector<std::vector<int>> init_cell_cost;
 
     std::vector<Vector2D> path_nodes;
 
     //used to help smarter enemies chase/shoot the player
     iterable_queue<Vector2D> player_recent_path_nodes;
     //maximum size of above data structures
-    const int recent_nodes_max = 5;
+    const int recent_nodes_max = 8;
 
 };
 

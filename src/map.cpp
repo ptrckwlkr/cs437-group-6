@@ -16,13 +16,13 @@ Map::Map(std::vector<std::vector<char>> &grid)
     for (const auto &ch : row)
     {
       if (ch == '-') temp.emplace_back(WALL), cost_temp.emplace_back(-1);
-      else if (ch == '0' || ch == '1') temp.emplace_back(FLOOR), cost_temp.emplace_back(1);
+      else if (ch == '0' || ch == '1') temp.emplace_back(FLOOR), cost_temp.emplace_back(height*width);
 	  else if (ch == 'E') temp.emplace_back(EXIT), cost_temp.emplace_back(-1);
-	  else if (ch == 'o') temp.emplace_back(ORNAMENT), cost_temp.emplace_back(1);
+	  else if (ch == 'o') temp.emplace_back(ORNAMENT), cost_temp.emplace_back(height*width);
 
     }
     cells.push_back(temp);
-    cell_cost.emplace_back(cost_temp);
+    init_cell_cost.emplace_back(cost_temp);
   }
 }
 
@@ -74,22 +74,50 @@ void Map::updateCellCosts(const Vector2D &pos)
   int player_y = (int)pos.y / CELL_SIZE;
 
   std::vector<std::vector<bool>> closedList(height, std::vector<bool>(width, false));
-  costRecursion(closedList, player_x, player_y, -1);
+  cell_cost = init_cell_cost;
+
+  cell_cost[player_y][player_x] = 0;
+  costRecursion(closedList, player_x, player_y, 0);
+
+//  for (auto i : cell_cost)
+//  {
+//      for (auto j : i)
+//          printf("%4d", j);
+//      printf("\n");
+//  }
+
+
 
 }
 
 
 void Map::costRecursion(std::vector<std::vector<bool>> &closedList, int x, int y, int parent_cost)
 {
-  if (x >= width || y >= height || closedList[y][x] || cell_cost[y][x] == -1)
-    return;
+  if (x < 1 || y < 1 || x >= width || y >= height || cell_cost[y][x] == -1)
+      return;
 
-  cell_cost[y][x] = parent_cost + 1;
+  if (cell_cost[y][x+1] != -1)
+      cell_cost[y][x+1] = (parent_cost + 1) < cell_cost[y][x+1] ? parent_cost + 1 :  cell_cost[y][x+1];
+
+  if (cell_cost[y][x-1] != -1)
+      cell_cost[y][x-1] = (parent_cost + 1) < cell_cost[y][x-1] ? parent_cost + 1 :  cell_cost[y][x-1];
+
+  if (cell_cost[y+1][x] != -1)
+      cell_cost[y+1][x] = (parent_cost + 1) < cell_cost[y+1][x] ? parent_cost + 1 :  cell_cost[y+1][x];
+
+  if (cell_cost[y-1][x] != -1)
+      cell_cost[y-1][x] = (parent_cost + 1) < cell_cost[y-1][x] ? parent_cost + 1 :  cell_cost[y-1][x];
+
+
+  if (closedList[y][x])
+      return;
+
   closedList[y][x] = true;
 
   //repeat for the 4 adjacent cells
-  costRecursion(closedList, x + 1, y, parent_cost + 1);
-  costRecursion(closedList, x - 1, y, parent_cost + 1);
-  costRecursion(closedList, x, y + 1, parent_cost + 1);
-  costRecursion(closedList, x, y - 1, parent_cost + 1);
+  costRecursion(closedList, x + 1, y, cell_cost[y][x+1]);
+  costRecursion(closedList, x - 1, y, cell_cost[y][x-1]);
+  costRecursion(closedList, x, y + 1, cell_cost[y+1][x]);
+  costRecursion(closedList, x, y - 1, cell_cost[y-1][x]);
 }
+

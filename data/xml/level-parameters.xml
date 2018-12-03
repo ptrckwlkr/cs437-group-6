@@ -10,9 +10,9 @@
             <room-size-offset>0</room-size-offset>
             <fraction-total-size>80.0</fraction-total-size>
             <num-gold>30</num-gold>
-            <num-skeleton-white>10</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>2</num-skeleton-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
+            <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
