@@ -3,6 +3,7 @@
 #include "views/view_manager.h"
 #include "sprite_manager.h"
 #include "EntityManager.h"
+#include "events/event_cycle_complete.h"
 
 GameLogic::GameLogic() : Listener()
 {
@@ -26,6 +27,8 @@ GameLogic::~GameLogic()
 void GameLogic::update_state(float delta)
 {
   EventManager::Instance().processEvents(); // Pre-collision event processing
+  EventCycleComplete e(delta);
+  EventManager::Instance().sendEvent(e);
   if (!check_flags())
   {
     collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
