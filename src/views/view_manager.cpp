@@ -3,14 +3,14 @@
 void ViewManager::init(GameLogic *s)
 {
   state = s;
-  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, & ViewManager::handleEntityRemoval);
-  EventManager::Instance()->registerListener(EventEntityCreated::eventType, this, & ViewManager::handleEntityCreation);
+  EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, & ViewManager::handleEntityRemoval);
+  EventManager::Instance().registerListener(EventEntityCreated::eventType, this, & ViewManager::handleEntityCreation);
 }
 
-ViewManager *ViewManager::Instance()
+ViewManager &ViewManager::Instance()
 {
   static ViewManager instance;
-  return &instance;
+  return instance;
 }
 
 void ViewManager::handleEntityRemoval(const EventEntityDestroyed &event)

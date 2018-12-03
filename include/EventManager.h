@@ -18,7 +18,7 @@ class EventManager
 
 public:
     //returns an instance of event manager
-    static EventManager* Instance();
+    static EventManager &Instance();
 
     void reset();
     void processEvents();

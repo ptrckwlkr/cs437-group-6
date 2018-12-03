@@ -19,7 +19,7 @@ private:
     std::shared_ptr<Player> player;
 
 public:
-    static EntityManager* Instance();
+    static EntityManager &Instance();
     void set_player(std::shared_ptr<Player> p) {player = p;}
     void removeEntity(long long entity_id);
     std::shared_ptr<Player> &getPlayer(){return player;}
@@ -33,9 +33,8 @@ public:
         std::shared_ptr<T> entity = std::make_shared<T>(x, y);
         std::shared_ptr<Entity> ent = entity;
         entity_set.insert(std::pair<long long, std::shared_ptr<Entity>>(ent->id, entity));
-        //ViewManager::Instance()->add_view(entity.get());
         EventEntityCreated event(entity.get());
-        EventManager::Instance()->sendEvent(event);
+        EventManager::Instance().sendEvent(event);
         return entity;
     }
 

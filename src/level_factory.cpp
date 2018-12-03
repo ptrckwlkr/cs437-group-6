@@ -34,7 +34,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
     switch (algorithm) {
         case LEVEL_FILE:
 
-            EntityManager::Instance()->getPlayer()->set_position(150, 150);
+            EntityManager::Instance().getPlayer()->set_position(150, 150);
             //player->set_position(150, 150);
 
             map = load("../data/test2.txt");
@@ -46,18 +46,18 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
             map->givePathNodes(gen.getPathNodes());
             //gen.printLevelGrid();
 
-            std::shared_ptr<Player> player = EntityManager::Instance()->createEntity<Player>(gen.player_x,
+            std::shared_ptr<Player> player = EntityManager::Instance().createEntity<Player>(gen.player_x,
                                                                                              gen.player_y);
-            EntityManager::Instance()->set_player(player);
+            EntityManager::Instance().set_player(player);
 
             placeEnemies();
 
 
             for (int i = 0; i < gen.treasure_coords.size(); i++) {
-                auto ent = EntityManager::Instance()->createEntity<Gold>((float) gen.treasure_coords[i][0],
+                auto ent = EntityManager::Instance().createEntity<Gold>((float) gen.treasure_coords[i][0],
                                                                          (float) gen.treasure_coords[i][1]);
             }
-            EntityManager::Instance()->createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
+            EntityManager::Instance().createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
             printf("Place at %d %d\n", gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
 
             break;
@@ -65,7 +65,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
 
     // Create the actual level
     level = std::make_shared<Level>(map);
-    level->set_player(EntityManager::Instance()->getPlayer().get());
+    level->set_player(EntityManager::Instance().getPlayer().get());
 
     return level;
 }
@@ -97,7 +97,7 @@ void LevelFactory::placeEnemies()
         for (const auto v : it.second) {
             if (it.first == "skeleton-white" || it.first == "skeleton-red" || it.first == "skeleton-gold")
             {
-                auto ent = EntityManager::Instance()->createEntity<Skeleton>((float) v[0], (float) v[1]);
+                auto ent = EntityManager::Instance().createEntity<Skeleton>((float) v[0], (float) v[1]);
                 ent->setType(it.first);
             }
             else if (it.first == "ghost-white" || it.first == "ghost-red" || it.first == "ghost-gold")

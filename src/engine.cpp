@@ -10,7 +10,7 @@
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
-Engine &Engine::getInstance()
+Engine &Engine::Instance()
 {
   static Engine instance;
   return instance;
@@ -23,8 +23,8 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadAllResources();
   curr_game_mode = MODE_MENU;
   state = GameLogic();
-  ViewManager::Instance()->init(&state);
-  ViewManager::Instance()->set_player_view<MenuView>(&state, App);
+  ViewManager::Instance().init(&state);
+  ViewManager::Instance().set_player_view<MenuView>(&state, App);
   
   //starts clock
   time.restart();
@@ -35,8 +35,8 @@ void Engine::init(sf::RenderWindow *app)
  */
 void Engine::update_views(float delta)
 {
-  ViewManager::Instance()->update_player_view(delta);
-  if (curr_game_mode == MODE_PLAY) ViewManager::Instance()->update_views(delta);
+  ViewManager::Instance().update_player_view(delta);
+  if (curr_game_mode == MODE_PLAY && !state.is_paused()) ViewManager::Instance().update_views(delta);
 }
 
 /**
@@ -52,7 +52,7 @@ void Engine::update_state(float delta)
 
 void Engine::update_graphics(float delta)
 {
-  ViewManager::Instance()->get_player_view()->draw(delta);
+  ViewManager::Instance().get_player_view()->draw(delta);
 }
 
 /**
@@ -65,9 +65,9 @@ float Engine::clock()
 
 void Engine::shutdown()
 {
-  ViewManager::Instance()->reset();
-  EntityManager::Instance()->reset();
-  EventManager::Instance()->reset();
+  ViewManager::Instance().reset();
+  EntityManager::Instance().reset();
+  EventManager::Instance().reset();
   App->close();
 }
 
@@ -82,21 +82,21 @@ void Engine::switch_mode(GameMode mode)
   switch (mode)
   {
     case MODE_MENU:
-      ViewManager::Instance()->set_player_view<MenuView>(&state, App);
+      ViewManager::Instance().set_player_view<MenuView>(&state, App);
       break;
     case MODE_LEVEL_SELECT:
-      ViewManager::Instance()->set_player_view<LevelSelectView>(&state, App);
+      ViewManager::Instance().set_player_view<LevelSelectView>(&state, App);
       break;
     case MODE_SHOP:
       break;
     case MODE_PLAY:
-      ViewManager::Instance()->set_player_view<GameView>(&state, App);
+      ViewManager::Instance().set_player_view<GameView>(&state, App);
       break;
     case MODE_VICTORY:
-      ViewManager::Instance()->set_player_view<VictoryView>(&state, App);
+      ViewManager::Instance().set_player_view<VictoryView>(&state, App);
       break;
     case MODE_INVENTORY:
-      ViewManager::Instance()->set_player_view<InventoryView>(&state, App);
+      ViewManager::Instance().set_player_view<InventoryView>(&state, App);
       break;
   }
 }

@@ -30,6 +30,6 @@ void BloodAnimation::update(float delta)
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.top = currentImage.y * uvRect.height;
   }
-  if (slide == 14) EntityManager::Instance()->removeEntity(blood->id);
+  if (slide == 14) EntityManager::Instance().removeEntity(blood->id);
   sprite.setTextureRect(uvRect);
 }

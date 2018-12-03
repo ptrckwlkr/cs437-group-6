@@ -1,6 +1,7 @@
 #include "game_logic.h"
 #include "engine.h"
 #include "views/view_manager.h"
+#include "sprite_manager.h"
 #include "EntityManager.h"
 
 GameLogic::GameLogic() : Listener()
@@ -10,12 +11,12 @@ GameLogic::GameLogic() : Listener()
   collision_engine = CollisionEngine();
   f_paused = false;
 
-  EventManager::Instance()->registerListener(EventExitReached::eventType, this, &handleExitReached);
+  EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
 }
 
 GameLogic::~GameLogic()
 {
-  EventManager::Instance()->unregisterAll(this);
+  EventManager::Instance().unregisterAll(this);
 }
 
 /**
@@ -23,18 +24,22 @@ GameLogic::~GameLogic()
  */
 void GameLogic::update_state(float delta)
 {
-  collision_engine.hash_entities(level->get_map(), EntityManager::Instance()->getEntites());
-  level->update();
-  collision_engine.check_collisions(level->get_map());
-  EventManager::Instance()->processEvents(); // Process collisions
-
+  EventManager::Instance().processEvents(); // Pre-collision event processing
   if (f_new_game)
   {
     f_new_game = false;
     reset();
+
     create_new_level(AGENT_BASED, current_level);
-    Engine::getInstance().switch_mode(MODE_PLAY);
+    Engine::Instance().switch_mode(MODE_PLAY);
   }
+  else
+  {
+    collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
+    level->update();
+    collision_engine.check_collisions(level->get_map());
+  }
+  EventManager::Instance().processEvents(); // Post-collision event processing
 }
 
 /**
@@ -50,9 +55,10 @@ void GameLogic::create_new_level(Generator g, int level_num)
 void GameLogic::reset()
 {
   collision_engine.reset();
-  ViewManager::Instance()->reset();
-  EntityManager::Instance()->reset();
-  EventManager::Instance()->reset();
+  SpriteManager::Instance().reset();
+  ViewManager::Instance().reset();
+  EntityManager::Instance().reset();
+  EventManager::Instance().reset();
 }
 
 void GameLogic::handleExitReached(const EventExitReached &event)

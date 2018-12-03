@@ -3,14 +3,15 @@
 
 SoundManager::SoundManager()
 {
-  EventManager::Instance()->registerListener(EventEntityDestroyed::eventType, this, & SoundManager::handleEntityDestroyed);
-  EventManager::Instance()->registerListener(EventEntityDamaged::eventType, this, & SoundManager::handleEntityDamaged);
-  EventManager::Instance()->registerListener(EventGoldCollection::eventType, this, & SoundManager::handleGoldCollection);
+  EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, & SoundManager::handleEntityDestroyed);
+  EventManager::Instance().registerListener(EventEntityDamaged::eventType, this, & SoundManager::handleEntityDamaged);
+  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, & SoundManager::handleGoldCollection);
+  EventManager::Instance().registerListener(EventProjectileFired::eventType, this, & SoundManager::handleProjectileFired);
 }
 
 SoundManager::~SoundManager()
 {
-  EventManager::Instance()->unregisterAll(this);
+  EventManager::Instance().unregisterAll(this);
 }
 
 void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)
@@ -41,4 +42,12 @@ void SoundManager::handleGoldCollection(const EventGoldCollection &event)
 	this->coinSound.setVolume(70.0);
 	this->coinSound.setPitch(1 + randPitch);
 	this->coinSound.play();
+}
+
+void SoundManager::handleProjectileFired(const EventProjectileFired &event)
+{
+		this->spellSound[curSpellSound] = resources.GetSound("fireball");
+		this->spellSound[curSpellSound].setVolume(70.0);
+		this->spellSound[curSpellSound].play();
+		curSpellSound = (curSpellSound + 1) % 10;
 }
