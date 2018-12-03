@@ -20,6 +20,7 @@ public:
     void updateAttributes();
     void givePathNodes(std::vector<Vector2D> &path) {path_nodes = path;};
     void setType(std::string param_type);
+    void die();
 
     int aggro_dist;
 

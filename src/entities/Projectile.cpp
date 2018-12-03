@@ -1,12 +1,14 @@
 #include "entities/Projectile.h"
 #include "EntityManager.h"
 #include "events/event_projectile_fired.h"
+#include "events/event_entity_damaged.h"
 
 Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT) {
     speed = PROJECTILE_SPEED_DEFAULT;
     maxRange = 500;
     traveled = 0;
-    damage = 0;
+    damage = 5;
+    hit = false;
     obstructible = true; // TODO?
     trail_enabled = true;
     for (int i = 0; i < 5; i++)
@@ -35,7 +37,14 @@ void Projectile::handleWallCollision(const EventWallCollision &event) {
 }
 
 void Projectile::handleCollision(const EventCollision &event) {
-    if (event.getSelf().id == id && event.getOther().is_hostile()) EntityManager::Instance().removeEntity(id);
+    if (event.getSelf().id == id && event.getOther().is_hostile() && !hit)
+    {
+        hit = true;
+        EntityManager::Instance().removeEntity(id);
+        event.getOther().take_damage(damage);
+        EventEntityDamaged postDamaged = EventEntityDamaged(event.getOther().id, event.getOther().getEntityType());
+        EventManager::Instance().sendEvent(postDamaged);
+    }
 }
 
 

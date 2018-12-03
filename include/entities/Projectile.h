@@ -17,6 +17,7 @@ private:
     int damage;
     int maxRange;
     float traveled;
+    bool hit;
 
     void handleWallCollision(const EventWallCollision &event);
     void handleCollision(const EventCollision &event);
