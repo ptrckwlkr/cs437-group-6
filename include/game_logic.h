@@ -43,7 +43,7 @@ private:
     int current_level;
 
     bool f_paused = false;
-    bool f_new_game = false;
+    bool f_floor_complete = false;
     bool f_victory = false;
     bool f_defeat = false;
     bool check_flags();

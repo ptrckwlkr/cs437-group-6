@@ -10,18 +10,25 @@ class Player: public Entity
 {
 
 private:
-    float mana;
     float max_health;
-    //std::shared_ptr<PlayerData> PlayerData;
+    float mana;
+    float max_mana;
+    float mana_regen;
 
 public:
 		Player(float x, float y);
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
 
+    void set_max_health(float max) {max_health = max;}
     void set_mana(float m) {mana = m;}
-    const float get_mana() const {return mana;}
+    void set_max_mana(float max) {max_mana = max;}
+    void set_mana_regen(float rate) {mana_regen = rate;}
+
     const float get_max_health() const {return max_health;}
+    const float get_mana() const {return mana;}
+    const float get_max_mana() const {return max_health;}
+    const float get_mana_regen() const {return mana;}
 
     void attack(Vector2D &dir, float delta);
     void die() override;

@@ -33,6 +33,7 @@ void GameLogic::update_state(float delta)
     collision_engine.check_collisions(level->get_map());
   }
   EventManager::Instance().processEvents(); // Post-collision event processing
+  player_data.update();
 }
 
 /**
@@ -43,6 +44,7 @@ void GameLogic::create_new_level(Generator g, int level_num)
   level_factory.set_algorithm(g, level_num);
   level = level_factory.generate_level();
   current_level = level_num;
+  player_data.set_player(EntityManager::Instance().getPlayer().get());
 }
 
 void GameLogic::reset()
@@ -56,9 +58,9 @@ void GameLogic::reset()
 
 bool GameLogic::check_flags()
 {
-  if (f_new_game)
+  if (f_floor_complete)
   {
-    f_new_game = false;
+    f_floor_complete = false;
     reset();
     create_new_level(AGENT_BASED, current_level);
     Engine::Instance().switch_mode(MODE_PLAY);
@@ -83,7 +85,7 @@ bool GameLogic::check_flags()
 
 void GameLogic::handleExitReached(const EventExitReached &event)
 {
-  f_new_game = true;
+  f_floor_complete = true;
 }
 
 void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
