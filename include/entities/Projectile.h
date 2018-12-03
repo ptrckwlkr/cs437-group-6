@@ -5,7 +5,6 @@
 #include "events/event_wall_collision.h"
 #include "events/event_collision.h"
 #include "entities/entity.h"
-#include "SFML/System.hpp"
 
 #define PROJECTILE_SPEED_DEFAULT        150
 #define PROJECTILE_SIZE_DEFAULT         5

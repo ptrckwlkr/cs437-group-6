@@ -33,10 +33,11 @@ void CollisionEngine::check_collisions(Map &level_map)
         {
           EventItem item = {EventCollision::eventType, entity1.get(), entity2.get()};
           event_set.insert(item);
-          if (entity1->is_obstructible() && entity2->is_obstructible()) adjust_positions(*entity1, *entity2);
+          if (entity1->is_obstructible() && entity2->is_obstructible() && (entity1->is_hostile() || entity2->is_hostile()))
+            adjust_positions(*entity1, *entity2);
         }
       }
-      if (wall_collision(level_map, *entity1))
+      if (!entity1->is_immovable() && wall_collision(level_map, *entity1))
       {
         EventItem item = {EventWallCollision::eventType, entity1.get(), nullptr};
         event_set.insert(item);
@@ -53,7 +54,7 @@ bool CollisionEngine::entity_collision(Entity &entity1, Entity &entity2)
 {
   float hypo = entity1.get_size() + entity2.get_size();
   Vector2D vec = entity1.get_position() - entity2.get_position();
-  return (hypo * hypo > vec.x * vec.x + vec.y * vec.y);
+  return (hypo > vec.length);
 }
 
 /**
@@ -207,6 +208,9 @@ void CollisionEngine::hash_entities(Map &level_map, std::unordered_map<long long
     cell = &level_map.get_cell((int)bot / CELL_SIZE, (int)right / CELL_SIZE);
     cell->insert_entity(ent);
     occupied_cells.insert(cell);
+    cell = &level_map.get_cell((int)pos.y / CELL_SIZE, (int)pos.x / CELL_SIZE);
+    cell->insert_entity(ent);
+    occupied_cells.insert(cell);
   }
 }
 
@@ -229,8 +233,14 @@ void CollisionEngine::adjust_positions(Entity &entity1, Entity &entity2)
   Vector2D correction = theo - actual;
   float dx = correction.x / 2;
   float dy = correction.y / 2;
-  entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
-  entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
+  if (entity1.is_immovable())
+    entity1.set_position(entity1.get_old_position());
+  else
+    entity1.set_position(entity1.get_position().x + dx, entity1.get_position().y + dy);
+  if (entity2.is_immovable())
+    entity2.set_position(entity2.get_old_position());
+  else
+    entity2.set_position(entity2.get_position().x - dx, entity2.get_position().y - dy);
 }
 
 void CollisionEngine::dispatchEvents()

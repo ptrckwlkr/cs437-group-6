@@ -61,8 +61,9 @@ public:
     const Vector2D &get_old_position() const {return old_pos;}
     const float get_size() const {return size;}
     const bool is_obstructible() const {return obstructible;}
+    const bool is_immovable() const {return immovable;}
     const bool is_hostile() const {return hostile;}
-    const int get_health() const {return health;}
+    const float get_health() const {return health;}
     //const int get_mana() const {return mana;}
     const float get_speed() const {return speed;}
     const float get_damage() const {return damage;}
@@ -91,10 +92,11 @@ protected:
     float damage = 0;
     float defence = 1;
     bool obstructible = false;
+    bool immovable = false;
     bool hostile = false;
 
     //ensures the xml file text does not go out of scope
-    rapidxml::xml_node<> *root_node;
+    rapidxml::xml_node<> *root_node = nullptr;
     std::shared_ptr<std::vector<char>> buffer;
 
 };
