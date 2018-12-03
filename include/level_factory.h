@@ -29,6 +29,8 @@ private:
     AgentBasedGenerator gen;
     int level_num = -1;
 
+    int floors_per_level[9] = {-1, 4, 4, 4, 4, 4, 4, 4, 4};
+
 };
 
 #endif //CSCI437_LEVEL_FACTORY_H

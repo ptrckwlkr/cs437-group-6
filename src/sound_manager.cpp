@@ -29,7 +29,7 @@ void SoundManager::handleEntityDamaged(const EventEntityDamaged &event)
 {
 	if (event.getType() == Skeleton::entityType) {
 		this->skelDmgSound[curSkelDmgSound] = resources.GetSound("bonebreak");
-		this->skelDmgSound[curSkelDmgSound].setVolume(70.0);
+		this->skelDmgSound[curSkelDmgSound].setVolume(60.0);
 		this->skelDmgSound[curSkelDmgSound].play();
 		curSkelDmgSound = (curSkelDmgSound + 1) % 10;
 	}
@@ -39,7 +39,7 @@ void SoundManager::handleGoldCollection(const EventGoldCollection &event)
 {
 	float randPitch =((float)(rand() % 401) - 200) / 1000;
 	this->coinSound = resources.GetSound("coins");
-	this->coinSound.setVolume(70.0);
+	this->coinSound.setVolume(50.0);
 	this->coinSound.setPitch(1 + randPitch);
 	this->coinSound.play();
 }
@@ -47,7 +47,7 @@ void SoundManager::handleGoldCollection(const EventGoldCollection &event)
 void SoundManager::handleProjectileFired(const EventProjectileFired &event)
 {
 		this->spellSound[curSpellSound] = resources.GetSound("fireball");
-		this->spellSound[curSpellSound].setVolume(70.0);
+		this->spellSound[curSpellSound].setVolume(50.0);
 		this->spellSound[curSpellSound].play();
 		curSpellSound = (curSpellSound + 1) % 10;
 }
