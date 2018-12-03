@@ -1,20 +1,20 @@
-#include "views/player_view_victory.h"
-#include "graphics/graphics_victory.h"
+#include "graphics/graphics_lost.h"
+#include "views/player_view_lost.h"
 #include "engine.h"
 
-VictoryView::VictoryView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
+LostView::LostView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App)
 {
-    graphics = std::make_shared<VictoryGraphics>(this);
+    graphics = std::make_shared<LostGraphics>(this);
     App->setView(App->getDefaultView());
 }
 
-void VictoryView::process_input(float delta)
+void LostView::process_input(float delta)
 {
 
 
 }
 
-void VictoryView::handle_event(sf::Event event)
+void LostView::handle_event(sf::Event event)
 {
 
     if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
@@ -29,12 +29,12 @@ void VictoryView::handle_event(sf::Event event)
         if (event.type == sf::Event::EventType::MouseButtonPressed && sf::Event::EventType::MouseButtonReleased)
         {
             printf( "play again pressed");
-          Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
+            Engine::Instance().switch_mode(MODE_MENU);
         }
     }
 }
 
-void VictoryView::update(float delta)
+void LostView::update(float delta)
 {
     //Process input
     sf::Event event;
@@ -45,7 +45,7 @@ void VictoryView::update(float delta)
     process_input(delta);
 }
 
-void VictoryView::draw(float delta)
+void LostView::draw(float delta)
 {
     app->clear(sf::Color::Black);
     app->draw(*graphics);

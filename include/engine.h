@@ -18,6 +18,8 @@ enum GameMode
 		MODE_PLAY,
 		MODE_VICTORY,
 		MODE_INVENTORY,
+		MODE_LOST,
+		MODE_STORY,
 };
 
 /**

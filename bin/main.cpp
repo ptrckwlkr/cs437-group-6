@@ -16,8 +16,8 @@ int main(int argc, char** argv)
   while (App.isOpen())
   {
     float delta = Engine::Instance().clock();
-    if (delta > 0.5)
-      delta = 0.0336380005;
+//    if (delta > 0.5)
+//      delta = 0.0336380005;
 
     Engine::Instance().update_views(delta);
     Engine::Instance().update_state(delta);

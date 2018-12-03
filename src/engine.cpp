@@ -1,4 +1,5 @@
 #include <SFML/Window/Event.hpp>
+#include <views/player_view_story.h>
 #include "views/player_view_victory.h"
 #include "views/player_view_level_select.h"
 #include "views/player_view_inventory.h"
@@ -6,7 +7,8 @@
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
 #include "views/player_view_level_select.h"
-#include "views/player_view_inventory.h"
+#include "views/player_view_shop.h"
+#include "views/player_view_lost.h"
 #include "views/view_manager.h"
 #include "EntityManager.h"
 
@@ -83,22 +85,29 @@ void Engine::switch_mode(GameMode mode)
   curr_game_mode = mode;
   switch (mode)
   {
-    case MODE_MENU:
-      ViewManager::Instance().set_player_view<MenuView>(&state, App);
-      break;
-    case MODE_LEVEL_SELECT:
-      ViewManager::Instance().set_player_view<LevelSelectView>(&state, App);
-      break;
-    case MODE_SHOP:
-      break;
-    case MODE_PLAY:
-      ViewManager::Instance().set_player_view<GameView>(&state, App);
-      break;
-    case MODE_VICTORY:
-      ViewManager::Instance().set_player_view<VictoryView>(&state, App);
-      break;
-    case MODE_INVENTORY:
-      ViewManager::Instance().set_player_view<InventoryView>(&state, App);
-      break;
-  }
+      case MODE_MENU:
+        ViewManager::Instance().set_player_view<MenuView>(&state, App);
+            break;
+      case MODE_LEVEL_SELECT:
+        ViewManager::Instance().set_player_view<LevelSelectView>(&state, App);
+            break;
+      case MODE_SHOP:
+        ViewManager::Instance().set_player_view<ShopView>(&state, App);
+            break;
+      case MODE_PLAY:
+        ViewManager::Instance().set_player_view<GameView>(&state, App);
+            break;
+      case MODE_VICTORY:
+        ViewManager::Instance().set_player_view<VictoryView>(&state, App);
+            break;
+      case MODE_LOST:
+        ViewManager::Instance().set_player_view<LostView>(&state, App);
+      case MODE_STORY:
+        ViewManager::Instance().set_player_view<StoryView>(&state, App);
+            break;
+      case MODE_INVENTORY:
+        ViewManager::Instance().set_player_view<InventoryView>(&state, App);
+            break;
+    }
 }
+

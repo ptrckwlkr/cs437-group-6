@@ -1,20 +1,19 @@
-#ifndef CSCI437_GRAPHICS_VICTORY_H
-#define CSCI437_GRAPHICS_VICTORY_H
+#ifndef CSCI437_GRAPHICS_LOST_H
+#define CSCI437_GRAPHICS_LOST_H
 
-
-#include <string>
 #include "graphics.h"
 #include "views/player_view.h"
+#include <string>
 
-class VictoryView;
-class VictoryGraphics : public Graphics
+class LostView;
+class LostGraphics : public Graphics
 {
 
 public:
-    explicit VictoryGraphics(VictoryView *view);
+    explicit LostGraphics(LostView *view);
 
 private:
-    VictoryView *view;
+    LostView *view;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -27,4 +26,4 @@ private:
 };
 
 
-#endif //CSCI437_GRAPHICS_VICTORY_H
+#endif //CSCI437_GRAPHICS_LOST_H

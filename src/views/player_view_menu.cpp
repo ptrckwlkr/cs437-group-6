@@ -61,7 +61,7 @@ void MenuView::handle_event(sf::Event event)
 	{
 		//changes the game mode when player selects play
 		if (makeSelection())
-      Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
+      Engine::Instance().switch_mode(MODE_STORY);
 	}
 		
 

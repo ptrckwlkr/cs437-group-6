@@ -8,13 +8,14 @@ LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : Play
   graphics = std::make_shared<LevelSelectGraphics>(this);
   App->setView(App->getDefaultView());
 
-	nodes[0] = {298, 403, 10};
-	nodes[1] = {47, 321, 10};
-	nodes[2] = {718, 442, 10};
-	nodes[3] = {526, 320, 10};
-	nodes[4] = {358, 223, 10};
-	nodes[5] = {317, 84, 10};
-	nodes[6] = {622, 103, 10};
+  // Positions of the levels
+	nodes[0] = {298, 403, 20};
+	nodes[1] = {47, 321, 20};
+	nodes[2] = {718, 442, 20};
+	nodes[3] = {526, 320, 20};
+	nodes[4] = {358, 223, 20};
+	nodes[5] = {317, 84, 20};
+	nodes[6] = {622, 103, 20};
 }
 
 void LevelSelectView::process_input(float delta)
