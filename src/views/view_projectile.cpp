@@ -9,6 +9,6 @@ ProjectileView::ProjectileView(GameLogic *state, Projectile &entity) : View(stat
 
 void ProjectileView::update(float delta)
 {
-  Vector2D dir = projectile->get_direciton();
+  Vector2D dir = projectile->get_direction();
   projectile->move(dir, delta);
 }

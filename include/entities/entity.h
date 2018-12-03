@@ -24,16 +24,14 @@ class Entity : public Listener
 {
 
 public:
-    Entity(float x, float y, float s) : Listener(), pos(Vector2D(x, y)), old_pos(Vector2D(x, y))
+    Entity(float x, float y, float s) : Listener()
     {
       static long long entity_id = 0;
 
       id = entity_id++;
       size = s;
-      health = 0; //TODO
-      speed = 0;
-      obstructible = false;
-      hostile = false;
+      pos = Vector2D(x, y);
+      old_pos = Vector2D(x, y);
     }
     ~Entity() {
       EventManager::Instance().unregisterAll(this);
@@ -46,6 +44,7 @@ public:
     void set_damage(float d) {damage = d;}
     void set_defence(float d) {defence = d;}
     void take_damage(float damage) {health -= damage / defence; if (health < 0) die();}
+    //virtual void set_attributes(rapidxml::xml_node<> *root_node) {}
     virtual void die() {};
 
     const Vector2D &get_position() const {return pos;}
@@ -76,12 +75,12 @@ protected:
     Vector2D pos;
     Vector2D old_pos;
     float size;
-    float health;
-    float speed;
-    float damage;
-    float defence;
-    bool obstructible;
-    bool hostile;
+    float health = 1;
+    float speed = 0;
+    float damage = 0;
+    float defence = 1;
+    bool obstructible = false;
+    bool hostile = false;
 
     //ensures the xml file text does not go out of scope
     rapidxml::xml_node<> *root_node;

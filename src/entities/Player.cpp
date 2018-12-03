@@ -5,8 +5,12 @@
 
 Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
 {
-  speed = PLAYER_SPEED;
-  delta_sum = 0.0;
+    speed = PLAYER_SPEED;
+    delta_sum = 0.0;
+    health = 500;
+    mana = 500;
+    defence = 10;
+    damage = 5;
 }
 
 void Player::attack(Vector2D &dir, float delta) {
@@ -17,6 +21,7 @@ void Player::attack(Vector2D &dir, float delta) {
         float y = pos.y;
         auto projectile = EntityManager::Instance().createEntity<Projectile>(x, y);
         projectile->set_direction(dir);
+        projectile->set_damage(damage);
         delta_sum = 0;
     }
 }

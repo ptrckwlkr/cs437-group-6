@@ -10,15 +10,17 @@ class Player: public Entity
 {
 
 private:
-    int health = 20;
-    int mana;
+    float mana;
     //std::shared_ptr<PlayerData> PlayerData;
 
 public:
 		Player(float x, float y);
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
-    void update(double delta) {};
+
+    void set_mana(float m) {mana = m;}
+    const float get_mana() const {return mana;}
+
     void attack(Vector2D &dir, float delta);
 
     //used to prevent more than one projectile firing each frame (assuming 60fps)

@@ -21,7 +21,10 @@ Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
 
 void Skeleton::handleCollision(const EventCollision &event)
 {
-
+    if (event.getSelf().id == id && event.getOther().getEntityType() == Player::entityType)
+    {
+        event.getOther().take_damage(damage);
+    }
 }
 
 void Skeleton::updateAttributes() {
