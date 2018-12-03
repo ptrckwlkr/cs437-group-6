@@ -6,7 +6,7 @@
 #include "events/event_entity_damaged.h"
 #include "entity.h"
 
-#define SKELETON_SIZE  20
+#define SKELETON_SIZE  15
 
 
 

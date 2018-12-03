@@ -36,7 +36,7 @@ void Engine::init(sf::RenderWindow *app)
 void Engine::update_views(float delta)
 {
   ViewManager::Instance().update_player_view(delta);
-  if (curr_game_mode == MODE_PLAY) ViewManager::Instance().update_views(delta);
+  if (curr_game_mode == MODE_PLAY && !state.is_paused()) ViewManager::Instance().update_views(delta);
 }
 
 /**
