@@ -7,7 +7,7 @@
 #include "enemy.h"
 
 
-#define GHOST_SIZE  25
+#define GHOST_SIZE  15
 
 class Ghost : public Enemy
 {

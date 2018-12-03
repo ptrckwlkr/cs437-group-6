@@ -14,9 +14,8 @@ GhostAnimation::GhostAnimation(Ghost &entity) : Animation(), ghost(&entity) {
     uvRect.top = currentImage.y * uvRect.height;
     sprite.setTexture(texture);
     sprite.setTextureRect(uvRect);
-    sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f ));
+    sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f + 15.f));
     sprite.setPosition(ghost->get_position().x, ghost->get_position().y);
-    prev_pos = ghost->get_position();
 
     if (ghost->type == "ghost-red")
     {
@@ -49,7 +48,7 @@ void GhostAnimation::update(float delta){
     this->imageCount.x = imageCount;
     totalTime += delta;
 
-    if ( totalTime >= switchTime && !(prev_pos == ghost->get_position())){
+    if ( totalTime >= switchTime){
         totalTime = 0.0f;
         currentImage.x++;
         if (currentImage.x >= this->imageCount.x){

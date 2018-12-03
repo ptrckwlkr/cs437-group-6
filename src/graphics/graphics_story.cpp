@@ -30,12 +30,12 @@ void StoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) cons
     title.setPosition(WINDOW_WIDTH / 2.f, 400);
     playAgain.setPosition(WINDOW_WIDTH / 2.f, 550);
 
-    rectangle.setSize(sf::Vector2f(sprite.getLocalBounds().width,sprite.getLocalBounds().height));
+    rectangle.setSize(sf::Vector2f(sprite.getLocalBounds().width,sprite.getLocalBounds().height - 28));
     rectangle.setFillColor(sf::Color::Transparent);
     rectangle.setOutlineColor(sf::Color::Blue);
     rectangle.setOutlineThickness(9);
     rectangle.setOrigin(rectangle.getLocalBounds().width / 2.f, rectangle.getLocalBounds().height / 2.f );
-    rectangle.setPosition(WINDOW_WIDTH/2.f+9, (WINDOW_HEIGHT - 300) - mountains.getSize().y/2.f);
+    rectangle.setPosition(WINDOW_WIDTH/2.f+8.5, (WINDOW_HEIGHT - 300) - mountains.getSize().y/2.f + 22);
 
     target.draw(title, states);
     target.draw(sprite, states);
