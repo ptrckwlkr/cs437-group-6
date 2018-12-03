@@ -41,21 +41,25 @@ public:
     };
 
     iterable_queue<Vector2D> &getRecentNodes() {return player_recent_path_nodes;}
-    iterable_queue<Vector2D> &getRecentCells() {return player_recent_cells;}
+    std::vector<std::vector<int>> &getCellCost() {return cell_cost;}
 
 private:
     CellMap cells;
     int width;
     int height;
 
+    void updateCellCosts(const Vector2D &pos);
+
+    void costRecursion(std::vector<std::vector<bool>> &closedList, int x, int y, int parent_cost);
+
+    //cost of every cell relative to the player's position
+    std::vector<std::vector<int>> cell_cost;
+
     std::vector<Vector2D> path_nodes;
 
     //used to help smarter enemies chase/shoot the player
     iterable_queue<Vector2D> player_recent_path_nodes;
-    iterable_queue<Vector2D> player_recent_cells;
-
     //maximum size of above data structures
-    const int recent_cells_max = 20;
     const int recent_nodes_max = 5;
 
 };

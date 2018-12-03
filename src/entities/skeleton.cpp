@@ -3,15 +3,10 @@
 #include "entities/skeleton.h"
 #include "entities/blood.h"
 
-Skeleton::Skeleton(float x, float y) : Entity(x, y, SKELETON_SIZE) {
+Skeleton::Skeleton(float x, float y) : Enemy(x, y, SKELETON_SIZE) {
     obstructible = true;
     hostile = true;
     defence = 1;
-    damage = 1;
-
-    std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("enemies");
-    buffer = resources.GetXMLBuffer("enemies");
-    root_node = (*doc).first_node("Root");
 
     //uses normal skeleton by default
     setType("skeleton-white");
@@ -28,6 +23,7 @@ void Skeleton::updateAttributes() {
     rapidxml::xml_node<> *main_node = root_node->first_node(type.c_str());
     health = std::stoi(main_node->first_node("health")->value());
     speed = std::stoi(main_node->first_node("speed")->value());
+    damage = std::stoi(main_node->first_node("contact-damage")->value());
     aggro_dist = std::stoi(main_node->first_node("aggro-dist")->value());
 }
 

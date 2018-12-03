@@ -5,12 +5,13 @@
 #include "events/event_collision.h"
 #include "events/event_entity_damaged.h"
 #include "entity.h"
+#include "enemy.h"
 
 #define SKELETON_SIZE  15
 
 
 
-class Skeleton : public Entity
+class Skeleton : public Enemy
 {
 
 public:

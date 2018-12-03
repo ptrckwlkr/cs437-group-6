@@ -29,6 +29,7 @@ private:
     AgentBasedGenerator gen;
     int level_num = -1;
 
+    //TODO move elsewhere
     int floors_per_level[9] = {-1, 4, 4, 4, 4, 4, 4, 4, 4};
 
 };

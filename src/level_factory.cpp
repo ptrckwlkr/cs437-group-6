@@ -35,7 +35,6 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
         case LEVEL_FILE:
 
             EntityManager::Instance().getPlayer()->set_position(150, 150);
-            //player->set_position(150, 150);
 
             map = load("../data/test2.txt");
             break;

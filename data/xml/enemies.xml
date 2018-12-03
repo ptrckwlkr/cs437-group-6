@@ -3,16 +3,19 @@
     <skeleton-white>
         <health>25</health>
         <speed>50</speed>
+        <contact-damage>10</contact-damage>
         <aggro-dist>300</aggro-dist>
     </skeleton-white>
     <skeleton-red>
         <health>40</health>
         <speed>60</speed>
+        <contact-damage>20</contact-damage>
         <aggro-dist>450</aggro-dist>
     </skeleton-red>
     <skeleton-gold>
         <health>55</health>
         <speed>70</speed>
+        <contact-damage>30</contact-damage>
         <aggro-dist>600</aggro-dist>
     </skeleton-gold>
 

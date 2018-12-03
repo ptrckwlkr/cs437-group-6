@@ -55,10 +55,6 @@ void SkeletonView::updateRed(float delta, Vector2D dir) {
     if (dir.length < 1.5 * skeleton->aggro_dist) {
         Vector2D future_pos = skeleton->get_position() + (target - skeleton->get_position()).normal() * CELL_SIZE;
 
-        int temp1 = (int) future_pos.y / CELL_SIZE, temp2 = (int) future_pos.x / CELL_SIZE;
-        CellType temp3 = state->get_level().get_map().get_cell((int) future_pos.y / CELL_SIZE,
-                                                               (int) future_pos.x / CELL_SIZE).get_cell_type();
-
         //if chasing the player does not result in collision with a wall then do that
         if (cur_state == AGGRO && state->get_level().get_map().get_cell((int) future_pos.y / CELL_SIZE,
                                                                         (int) future_pos.x /
@@ -120,5 +116,47 @@ void SkeletonView::updateRed(float delta, Vector2D dir) {
  * change their target to the player's recent path
  */
 void SkeletonView::updateGold(float delta, Vector2D dir) {
+    if (cur_state == PASSIVE)
+        cur_state = SEARCH;
+
+    //note threshold for going from aggro to passive is larger than going from passive to aggro
+    if (dir.length < 1.5 * skeleton->aggro_dist) {
+        std::vector<std::vector<int>> cell_cost = state->get_level().get_map().getCellCost();
+
+        int min_cost = INT_MAX;
+        int skeleton_i = (int) skeleton->get_position().x / CELL_SIZE;
+        int skeleton_j = (int) skeleton->get_position().y / CELL_SIZE;
+
+        int target_i, target_j;
+
+        //iterate through 8 adjacent cells and target one with minimum cost
+        for (int a = -1; a < 2; a++)
+        {
+            for (int b = -1; b < 2; b++)
+            {
+                if (a == 0 && b == 0) continue;
+                if (cell_cost[skeleton_j + a][skeleton_i + b] > -1 && cell_cost[skeleton_j + a][skeleton_i + b] < min_cost)
+                {
+                    min_cost = cell_cost[skeleton_j + a][skeleton_i + b];
+                    target_i = skeleton_i + b, target_j = skeleton_j + a;
+                }
+            }
+        }
+
+        Vector2D target;
+        if (min_cost > 0)
+             target = Vector2D(target_i*CELL_SIZE + CELL_SIZE/2, target_j*CELL_SIZE + CELL_SIZE/2)
+                            - skeleton->get_position();
+        else
+        {
+
+        }
+
+        skeleton->move(target, delta);
+    }
+    else
+        cur_state = PASSIVE;
+
+
 
 }
