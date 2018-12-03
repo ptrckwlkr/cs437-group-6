@@ -11,15 +11,7 @@ class Equipment
 {
 	private:
 		bool equipped;
-		std::unordered_map<std::string, int> statData = {
-			{"Head",0},
-			{"Chest",0},
-			{"Shoulders",0},
-			{"Legs",0},
-			{"Feet",0},
-			{"Hands",0},
-			{"Ring1",0},
-			{"Ring2",0} };
+		std::unordered_map<std::string, int> statData;
 		std::string icon;
 
 	protected:

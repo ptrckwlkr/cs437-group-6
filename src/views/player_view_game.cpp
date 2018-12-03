@@ -5,7 +5,7 @@
 
 GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, App) {
     graphics = std::make_shared<GameGraphics>(this);
-    if (MUSIC) {
+    if (MUSIC && music.getCurrentTrack() != "vanquisher") {
         music.stopMusic();
         music.setMusic("vanquisher");
         music.setVolume(35.0);
