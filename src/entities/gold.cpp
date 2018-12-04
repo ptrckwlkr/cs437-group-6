@@ -1,19 +1,10 @@
 #include "entities/gold.h"
+#include "entities/money.h"
 #include "EntityManager.h"
 
 Gold::Gold(float x, float y) : Entity(x, y, GOLD_SIZE)
 {
-  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &Gold::handleGoldCollection);
   EventManager::Instance().registerListener(EventCollision::eventType, this, &Gold::handleCollision);
-}
-
-
-void Gold::handleGoldCollection(const EventGoldCollection &event)
-{
-  if (event.getGold().id == id)
-  {
-    EntityManager::Instance().removeEntity(id);
-  }
 }
 
 void Gold::handleCollision(const EventCollision &event)
@@ -22,5 +13,7 @@ void Gold::handleCollision(const EventCollision &event)
   {
     auto e = EventGoldCollection(this);
     EventManager::Instance().sendEvent(e);
+    EntityManager::Instance().removeEntity(id);
+    EntityManager::Instance().createEntity<Money>(pos.x, pos.y);
   }
 }
