@@ -212,11 +212,45 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
     {
         for (int n = 1; n < map.get_width() - 1; ++n)
         {
-            auto type = map.get_cell(m, n).get_cell_type();
-            if (type == FLOOR || type == ORNAMENT || type == EXIT)
+            auto cell = map.get_cell(m, n);
+            auto type = cell.get_cell_type();
+            if (cell.is_visited() && (type == FLOOR || type == ORNAMENT || type == EXIT))
             {
                 rect.setPosition(n * CELL_SIZE, m * CELL_SIZE);
                 target.draw(rect, states);
+                sf::Color color(255, 255, 255, 96);
+                if (map.get_cell(m - 1, n).get_cell_type() == WALL)
+                {
+                  sf::Vertex line[] = {
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE, m * CELL_SIZE), color),
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE + CELL_SIZE, m * CELL_SIZE), color)
+                  };
+                  target.draw(line, 2, sf::Lines);
+                }
+                if (map.get_cell(m, n + 1).get_cell_type() == WALL)
+                {
+                  sf::Vertex line[] = {
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE + CELL_SIZE, m * CELL_SIZE), color),
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE + CELL_SIZE, m * CELL_SIZE + CELL_SIZE), color)
+                  };
+                  target.draw(line, 2, sf::Lines);
+                }
+                if (map.get_cell(m + 1, n).get_cell_type() == WALL)
+                {
+                  sf::Vertex line[] = {
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE + CELL_SIZE, m * CELL_SIZE + CELL_SIZE), color),
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE, m * CELL_SIZE + CELL_SIZE), color)
+                  };
+                  target.draw(line, 2, sf::Lines);
+                }
+                if (map.get_cell(m, n - 1).get_cell_type() == WALL)
+                {
+                  sf::Vertex line[] = {
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE, m * CELL_SIZE + CELL_SIZE), color),
+                          sf::Vertex(sf::Vector2f(n * CELL_SIZE, m * CELL_SIZE), color)
+                  };
+                  target.draw(line, 2, sf::Lines);
+                }
             }
         }
     }

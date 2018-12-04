@@ -26,6 +26,7 @@ public:
     Cell& get_cell_at(float x, float y);
     void givePathNodes(std::vector<Vector2D> &path_nodes) {this->path_nodes = path_nodes;}
     void updatePlayerRecentCells(const Vector2D &pos);
+    void updateVisited(Vector2D pos);
 
     template<typename T, typename Container=std::deque<T> >
     class iterable_queue : public std::queue<T,Container>

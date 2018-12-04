@@ -24,4 +24,6 @@ void Level::update()
 
     player_prev_x = new_x;
     player_prev_y = new_y;
+
+    map->updateVisited(player->get_position());
 }

@@ -3,6 +3,9 @@
 #include "map.h"
 #include "macros.h"
 
+#define IDX_BOUND_X   ((WINDOW_WIDTH / (2 * CELL_SIZE * ZOOM_SCALAR)))
+#define IDX_BOUND_Y   ((WINDOW_HEIGHT / (2 * CELL_SIZE * ZOOM_SCALAR)))
+
 Map::Map(std::vector<std::vector<char>> &grid)
 {
   height = (int)grid.size();
@@ -118,5 +121,22 @@ void Map::costRecursion(std::vector<std::vector<bool>> &closedList, int x, int y
   costRecursion(closedList, x - 1, y, cell_cost[y][x-1]);
   costRecursion(closedList, x, y + 1, cell_cost[y+1][x]);
   costRecursion(closedList, x, y - 1, cell_cost[y-1][x]);
+}
+
+void Map::updateVisited(Vector2D pos)
+{
+  // Calculate the index bounds, to update draw the cells within view of the player
+  int bound_top   = std::max((int)(pos.y / CELL_SIZE - IDX_BOUND_Y), 0);
+  int bound_bot   = std::min((int)(pos.y / CELL_SIZE + IDX_BOUND_Y), height - 1);
+  int bound_left  = std::max((int)(pos.x / CELL_SIZE - IDX_BOUND_X), 0);
+  int bound_right = std::min((int)(pos.x / CELL_SIZE + IDX_BOUND_X), width - 1);
+  int i, j;
+  for (i = bound_top; i < bound_bot; ++i)
+  {
+    for (j = bound_left; j < bound_right; ++j)
+    {
+      cells[i][j].visited = true;
+    }
+  }
 }
 
