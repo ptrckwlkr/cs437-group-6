@@ -21,9 +21,9 @@ void LostGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     sf::Text playAgain = prepareText("ReplayText", font);
     //centers text
     title.setOrigin(title.getLocalBounds().width / 2.0, title.getLocalBounds().height / 2.0);
-    title.setPosition(WINDOW_WIDTH / 2.0, 200);
+    title.setPosition(WINDOW_WIDTH / 2, 250);
     playAgain.setOrigin(title.getLocalBounds().width / 8.0, title.getLocalBounds().height / 8.0);
-    playAgain.setPosition(WINDOW_WIDTH / 2.3, 300);
+    playAgain.setPosition(WINDOW_WIDTH / 2.3, 400);
 
     target.draw(title, states);
     target.draw(playAgain, states);

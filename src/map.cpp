@@ -2,7 +2,6 @@
 #include <iostream>
 #include "map.h"
 #include "macros.h"
-#include <bits/stdc++.h>
 
 Map::Map(std::vector<std::vector<char>> &grid)
 {

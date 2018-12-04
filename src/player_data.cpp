@@ -1,5 +1,7 @@
 #include "macros.h"
 #include "player_data.h"
+#include "EntityManager.h"
+#include "entities/Player.h"
 
 PlayerData::PlayerData()
 {
@@ -12,6 +14,12 @@ PlayerData::PlayerData()
   gold = STARTING_GOLD;
   health = base_health;
   mana = base_mana;
+  //EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleCollision);
+}
+
+void PlayerData::handleCollision(const EventGoldCollection &event)
+{
+    gold +=10;
 }
 
 void PlayerData::set_player(Player *p)
@@ -79,4 +87,7 @@ void PlayerData::set_max_mana()
 void PlayerData::set_mana_regen()
 {
   player->set_mana_regen(base_mana_regen);
+}
+void PlayerData::update_gold() {
+    gold +=10;
 }

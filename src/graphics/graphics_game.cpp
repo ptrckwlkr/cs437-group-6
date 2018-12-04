@@ -133,14 +133,21 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     target.draw(manaBar, states);
 
     // update and draw text for health and mana, must be drawn after the corresponding bars
-    sf::Text hpText, manaText;
+    sf::Text hpText, manaText, goldText, goldAmount;
     hpText = prepareText("health", font);
     //note that y position of text is relative to bar size but x position is fixed so that bar can change width without moving text
     hpText.setPosition(x - WINDOW_WIDTH / 2.f + 135, hpBar.getPosition().y + hpBar.getLocalBounds().height / 2.f);
     manaText = prepareText("mana", font);
     manaText.setPosition(x - WINDOW_WIDTH / 2.f + 135, manaBar.getPosition().y + manaBar.getLocalBounds().height / 2.f);
+    goldText = prepareText("gold", font);
+    goldText.setPosition(x - WINDOW_WIDTH / 2.f + 115, manaBar.getPosition().y + 60);
+    goldAmount = prepareText("amount", font);
+    goldAmount.setString(std::to_string(view->get_state().get_player_data().get_gold()));
+    goldAmount.setPosition(goldText.getPosition().x +100, goldText.getPosition().y);
     target.draw(hpText, states);
     target.draw(manaText, states);
+    target.draw(goldText, states);
+    target.draw(goldAmount,states);
 
     if (view->getMapMode()) drawMap(target, states);
 }

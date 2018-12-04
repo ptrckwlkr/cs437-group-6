@@ -14,6 +14,7 @@ GameLogic::GameLogic() : Listener()
 
   EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
   EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
+  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &GameLogic::handleGoldUpdate);
 }
 
 GameLogic::~GameLogic()
@@ -73,7 +74,7 @@ bool GameLogic::check_flags()
   {
     f_defeat = false;
     reset();
-    Engine::Instance().switch_mode(MODE_VICTORY);
+    Engine::Instance().switch_mode(MODE_LOST);
     return true;
   }
   else if (f_victory)
@@ -94,4 +95,9 @@ void GameLogic::handleExitReached(const EventExitReached &event)
 void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
 {
   f_defeat = true;
+}
+
+void GameLogic::handleGoldUpdate(const EventGoldCollection &event){
+  player_data.update_gold();
+
 }
