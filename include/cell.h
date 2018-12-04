@@ -22,16 +22,19 @@ class Cell
 {
 
 public:
+		friend class Map;
     explicit Cell(CellType cell_type) : cell_type(cell_type) {}
     void insert_entity(std::shared_ptr<Entity> &entity);
     void clear_entities();
     std::vector<std::shared_ptr<Entity>> get_entities();
     bool is_occupied() {return !entities.empty();}
+		bool is_visited() {return visited;}
     CellType get_cell_type() {return cell_type;}
 
 private:
     std::set<std::shared_ptr<Entity>> entities;
     CellType cell_type;
+		bool visited = false;
 
 };
 
