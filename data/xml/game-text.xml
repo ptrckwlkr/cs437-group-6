@@ -253,4 +253,48 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
         </buttons>
 
     </Menu>
+    <Inventory>
+        <Header>
+	    <text>Inventory</text>
+	    <size>30</size>
+	    <r>255</r>
+	    <g>255</g>
+	    <b>255</b>
+        </Header>
+        <Attack>
+	    <text>ATK</text>
+	    <size>15</size>
+	    <r>255</r>
+	    <g>255</g>
+	    <b>255</b>
+        </Attack>
+        <Magic>
+	    <text>MAG</text>
+	    <size>15</size>
+	    <r>255</r>
+	    <g>255</g>
+	    <b>255</b>
+        </Magic>
+        <Defense>
+	    <text>DEF</text>
+	    <size>15</size>
+	    <r>255</r>
+	    <g>255</g>
+	    <b>255</b>
+        </Defense>
+        <Health>
+	    <text>HP</text>
+	    <size>15</size>
+	    <r>255</r>
+	    <g>255</g>
+	    <b>255</b>
+        </Health>
+        <Mana>
+	    <text>MP</text>
+	    <size>15</size>
+	    <r>255</r>
+	    <g>255</g>
+	    <b>255</b>
+        </Mana>
+    </Inventory>
 </Root>

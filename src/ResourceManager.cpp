@@ -103,7 +103,9 @@ void ResourceManager::LoadAllResources()
     resources.LoadTexture("ghostTexture", "../data/Sprites/ghost.png");
     resources.LoadTexture("orcTexture", "../data/Sprites/orcSprite.png");
     resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
+    resources.LoadTexture("goldTexture", "../data/Sprites/treasure.png");
     resources.LoadTexture("swordTexture", "../data/Sprites/sword.png");
+    resources.LoadTexture("moneyTexture", "../data/Sprites/dollar.png");
     resources.LoadTexture("shop", "../data/Sprites/shop.png");
     resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");
     resources.LoadTexture("renegade_armor", "../data/Sprites/sets/renegade/transparent/ren_a_t_01.png");
@@ -121,5 +123,6 @@ void ResourceManager::LoadAllResources()
     resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
     resources.LoadSound("monsterdeath", "../data/Sounds/dsbgdth1.wav");
     resources.LoadSound("fireball", "../data/Sounds/Spell - Fireball 1.wav");
+    resources.LoadSound("swordswing", "../data/Sounds/sword_swing_fast_001.wav");
 
 }

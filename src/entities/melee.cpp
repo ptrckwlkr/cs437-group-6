@@ -1,9 +1,14 @@
 #include "entities/melee.h"
 #include "EntityManager.h"
+#include "events/event_melee_attack.h"
 
 Melee::Melee(float x, float y) : Entity(x, y, 1)
 {
     immovable = true;
+
+    EventMeleeAttack postAttack = EventMeleeAttack(id);
+    EventManager::Instance().sendEvent(postAttack);
+
     EventManager::Instance().registerListener(EventCollision::eventType, this, &Melee::handleCollision);
     EventManager::Instance().registerListener(EventCycleComplete::eventType, this, &Melee::handleCycleComplete);
     sword = EntityManager::Instance().createEntity<Sword>(x, y).get();

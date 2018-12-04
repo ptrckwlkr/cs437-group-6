@@ -13,16 +13,17 @@
 class InventoryGraphics : public Graphics
 {
 
-public:
-    explicit InventoryGraphics(InventoryView *view);
+    public:
+        explicit InventoryGraphics(InventoryView *view);
 
-private:
-		InventoryView *view;
+    private:
+        InventoryView *view;
 
-	  void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-	  std::vector<sf::Drawable> menuObjects;
-	  sf::Font font;
+	std::vector<sf::Drawable> menuObjects;
+	
+	sf::Font font;
 };
 
 

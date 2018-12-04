@@ -40,12 +40,12 @@ public:
 
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
     void set_position(Vector2D new_pos) {pos = new_pos;}
-    //void set_mana(int m) {mana = m;}
     void takedamage(int damage) {health -= damage;}
     void set_health(float h) {health = h;}
     void set_speed(float s) {speed = s;}
     void set_damage(float d) {damage = d;}
     void set_defence(float d) {defence = d;}
+    void set_attack_speed(float s) {attack_speed = s;}
     void take_damage(float damage) {
       health -= damage / defence;
       if (health < 0) die();
@@ -65,10 +65,10 @@ public:
     const bool is_wall_collidable() const {return wall_collidable;}
     const bool is_hostile() const {return hostile;}
     const float get_health() const {return health;}
-    //const int get_mana() const {return mana;}
     const float get_speed() const {return speed;}
     const float get_damage() const {return damage;}
     const float get_defence() const {return defence;}
+    const float get_attack_speed() const {return attack_speed;}
     long long id;
 
     virtual const EntityType& getEntityType() const = 0;
@@ -92,6 +92,7 @@ protected:
     float speed = 0;
     float damage = 0;
     float defence = 1;
+    float attack_speed = 1;
     bool obstructible = false;
     bool immovable = false;
     bool hostile = false;

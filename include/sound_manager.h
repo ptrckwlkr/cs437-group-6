@@ -6,6 +6,7 @@
 #include "events/event_entity_damaged.h"
 #include "events/event_gold_collection.h"
 #include "events/event_projectile_fired.h"
+#include "events/event_melee_attack.h"
 #include <SFML/Audio.hpp>
 #include "listener.h"
 #include "entities/skeleton.h"
@@ -24,11 +25,13 @@ private:
     sf::Sound skelDthSound;
     sf::Sound spellSound[10];
     int curSpellSound = 0;
+    sf::Sound meleeSound;
 
     void handleEntityDamaged(const EventEntityDamaged &event);
     void handleEntityDestroyed(const EventEntityDestroyed &event);
     void handleGoldCollection(const EventGoldCollection &event);
     void handleProjectileFired(const EventProjectileFired &event);
+    void handleMeleeAttack(const EventMeleeAttack &event);
 
 };
 
