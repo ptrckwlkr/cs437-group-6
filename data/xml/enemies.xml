@@ -36,7 +36,7 @@
     <ghost-red>
         <health>60</health>
         <speed>45</speed>
-        <contact-damage>24</contact-damage>
+        <contact-damage>18</contact-damage>
         <projectile-damage>0</projectile-damage>
         <aggro-dist>850</aggro-dist>
     </ghost-red>
@@ -44,7 +44,7 @@
     <ghost-gold>
         <health>80</health>
         <speed>55</speed>
-        <contact-damage>36</contact-damage>
+        <contact-damage>24</contact-damage>
         <projectile-damage>0</projectile-damage>
         <aggro-dist>1000</aggro-dist>
     </ghost-gold>
@@ -61,7 +61,7 @@
     <orc-red>
         <health>60</health>
         <speed>50</speed>
-        <contact-damage>20</contact-damage>
+        <contact-damage>15</contact-damage>
         <projectile-damage>45</projectile-damage>
         <aggro-dist>850</aggro-dist>
     </orc-red>
@@ -69,7 +69,7 @@
     <orc-gold>
         <health>80</health>
         <speed>60</speed>
-        <contact-damage>30</contact-damage>
+        <contact-damage>20</contact-damage>
         <projectile-damage>55</projectile-damage>
         <aggro-dist>1000</aggro-dist>
     </orc-gold>

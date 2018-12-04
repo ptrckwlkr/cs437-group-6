@@ -93,7 +93,7 @@
             <num-skeleton-white>5</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>8</num-ghost-white>
+            <num-ghost-white>5</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
@@ -101,18 +101,18 @@
             <num-orc-gold>0</num-orc-gold>
         </floor-1>
         <floor-2>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>7</min-rooms>
-            <room-size-offset>0</room-size-offset>
-            <fraction-total-size>75.0</fraction-total-size>
-            <num-gold>35</num-gold>
-            <num-skeleton-white>12</num-skeleton-white>
+            <width>72</width>
+            <height>72</height>
+            <prob-room>4</prob-room>
+            <prob-turn>6</prob-turn>
+            <min-rooms>9</min-rooms>
+            <room-size-offset>1</room-size-offset>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>40</num-gold>
+            <num-skeleton-white>5</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-white>8</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
@@ -120,18 +120,18 @@
             <num-orc-gold>0</num-orc-gold>
         </floor-2>
         <floor-3>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>8</min-rooms>
-            <room-size-offset>0</room-size-offset>
+            <width>80</width>
+            <height>80</height>
+            <prob-room>4</prob-room>
+            <prob-turn>6</prob-turn>
+            <min-rooms>10</min-rooms>
+            <room-size-offset>1</room-size-offset>
             <fraction-total-size>64.0</fraction-total-size>
             <num-gold>40</num-gold>
-            <num-skeleton-white>15</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <num-skeleton-white>4</num-skeleton-white>
+            <num-skeleton-red>3</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-white>5</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
@@ -139,20 +139,20 @@
             <num-orc-gold>0</num-orc-gold>
         </floor-3>
         <floor-4>
-            <width>70</width>
-            <height>70</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
+            <width>85</width>
+            <height>85</height>
+            <prob-room>4</prob-room>
+            <prob-turn>6</prob-turn>
             <min-rooms>10</min-rooms>
-            <room-size-offset>0</room-size-offset>
+            <room-size-offset>1</room-size-offset>
             <fraction-total-size>58.0</fraction-total-size>
             <num-gold>50</num-gold>
-            <num-skeleton-white>20</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <num-skeleton-white>5</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
+            <num-ghost-white>4</num-ghost-white>
+            <num-ghost-red>2</num-ghost-red>
+            <num-ghost-gold></num-ghost-gold>
             <num-orc-green>0</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
@@ -162,321 +162,397 @@
 
     <level-3>
         <floor-1>
-            <width>64</width>
+            <width>100</width>
             <height>64</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>6</min-rooms>
+            <prob-room>0.5</prob-room>
+            <prob-turn>5</prob-turn>
+            <min-rooms>8</min-rooms>
             <room-size-offset>0</room-size-offset>
             <fraction-total-size>80.0</fraction-total-size>
-            <num-gold>30</num-gold>
+            <num-gold>45</num-gold>
+            <num-skeleton-white>6</num-skeleton-white>
+            <num-skeleton-red>0</num-skeleton-red>
+            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-gold>0</num-ghost-gold>
+            <num-orc-green>6</num-orc-green>
+            <num-orc-red>0</num-orc-red>
+            <num-orc-gold>0</num-orc-gold>
+        </floor-1>
+        <floor-2>
+            <width>100</width>
+            <height>64</height>
+            <prob-room>0.5</prob-room>
+            <prob-turn>5</prob-turn>
+            <min-rooms>8</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>55</num-gold>
+            <num-skeleton-white>4</num-skeleton-white>
+            <num-skeleton-red>2</num-skeleton-red>
+            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-gold>0</num-ghost-gold>
+            <num-orc-green>8</num-orc-green>
+            <num-orc-red>0</num-orc-red>
+            <num-orc-gold>0</num-orc-gold>
+        </floor-2>
+        <floor-3>
+            <width>110</width>
+            <height>72</height>
+            <prob-room>0.5</prob-room>
+            <prob-turn>5</prob-turn>
+            <min-rooms>10</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>65</num-gold>
+            <num-skeleton-white>4</num-skeleton-white>
+            <num-skeleton-red>0</num-skeleton-red>
+            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-gold>0</num-ghost-gold>
+            <num-orc-green>10</num-orc-green>
+            <num-orc-red>4</num-orc-red>
+            <num-orc-gold>0</num-orc-gold>
+        </floor-3>
+        <floor-4>
+            <width>110</width>
+            <height>72</height>
+            <prob-room>0.5</prob-room>
+            <prob-turn>5</prob-turn>
+            <min-rooms>10</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>70</num-gold>
             <num-skeleton-white>0</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>1</num-orc-green>
-            <num-orc-red>3</num-orc-red>
-            <num-orc-gold>1</num-orc-gold>
-        </floor-1>
-        <floor-2>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>7</min-rooms>
-            <room-size-offset>0</room-size-offset>
-            <fraction-total-size>75.0</fraction-total-size>
-            <num-gold>35</num-gold>
-            <num-skeleton-white>12</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
-            <num-orc-gold>0</num-orc-gold>
-        </floor-2>
-        <floor-3>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>8</min-rooms>
-            <room-size-offset>0</room-size-offset>
-            <fraction-total-size>64.0</fraction-total-size>
-            <num-gold>40</num-gold>
-            <num-skeleton-white>15</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
-            <num-orc-gold>0</num-orc-gold>
-        </floor-3>
-        <floor-4>
-            <width>70</width>
-            <height>70</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>10</min-rooms>
-            <room-size-offset>0</room-size-offset>
-            <fraction-total-size>58.0</fraction-total-size>
-            <num-gold>50</num-gold>
-            <num-skeleton-white>20</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
+            <num-orc-green>12</num-orc-green>
+            <num-orc-red>6</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-4>
+        <floor-5>
+            <width>110</width>
+            <height>72</height>
+            <prob-room>0.5</prob-room>
+            <prob-turn>5</prob-turn>
+            <min-rooms>10</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>48.0</fraction-total-size>
+            <num-gold>80</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>0</num-skeleton-red>
+            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-gold>0</num-ghost-gold>
+            <num-orc-green>10</num-orc-green>
+            <num-orc-red>8</num-orc-red>
+            <num-orc-gold>2</num-orc-gold>
+        </floor-5>
     </level-3>
 
 
     <level-4>
         <floor-1>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
+            <width>80</width>
+            <height>80</height>
+            <prob-room>2</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>6</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>80.0</fraction-total-size>
-            <num-gold>30</num-gold>
-            <num-skeleton-white>10</num-skeleton-white>
+            <fraction-total-size>72.0</fraction-total-size>
+            <num-gold>45</num-gold>
+            <num-skeleton-white>5</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-white>6</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
+            <num-orc-green>6</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-1>
         <floor-2>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
+            <width>80</width>
+            <height>80</height>
+            <prob-room>2</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>7</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>75.0</fraction-total-size>
-            <num-gold>35</num-gold>
-            <num-skeleton-white>12</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <fraction-total-size>72.0</fraction-total-size>
+            <num-gold>55</num-gold>
+            <num-skeleton-white>2</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-white>2</num-ghost-white>
+            <num-ghost-red>2</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
+            <num-orc-green>6</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-2>
         <floor-3>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
+            <width>90</width>
+            <height>90</height>
+            <prob-room>2</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>8</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
             <fraction-total-size>64.0</fraction-total-size>
-            <num-gold>40</num-gold>
-            <num-skeleton-white>15</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <num-gold>65</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>4</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
+            <num-orc-green>6</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-3>
         <floor-4>
-            <width>70</width>
-            <height>70</height>
-            <prob-room>1</prob-room>
+            <width>90</width>
+            <height>90</height>
+            <prob-room>2</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>10</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
             <fraction-total-size>58.0</fraction-total-size>
-            <num-gold>50</num-gold>
-            <num-skeleton-white>20</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <num-gold>70</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>5</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>4</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
+            <num-orc-green>6</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-4>
+        <floor-5>
+            <width>90</width>
+            <height>90</height>
+            <prob-room>2</prob-room>
+            <prob-turn>10</prob-turn>
+            <min-rooms>9</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>52.0</fraction-total-size>
+            <num-gold>75</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
+            <num-skeleton-gold>2</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-gold>3</num-ghost-gold>
+            <num-orc-green>4</num-orc-green>
+            <num-orc-red>0</num-orc-red>
+            <num-orc-gold>2</num-orc-gold>
+        </floor-5>
     </level-4>
 
 
     <level-5>
         <floor-1>
-            <width>64</width>
-            <height>64</height>
+            <width>85</width>
+            <height>85</height>
             <prob-room>1</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>6</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>80.0</fraction-total-size>
-            <num-gold>30</num-gold>
-            <num-skeleton-white>10</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>55</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>3</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
+            <num-orc-red>6</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-1>
         <floor-2>
-            <width>64</width>
-            <height>64</height>
+            <width>85</width>
+            <height>85</height>
             <prob-room>1</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>7</min-rooms>
+            <min-rooms>10</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>75.0</fraction-total-size>
-            <num-gold>35</num-gold>
-            <num-skeleton-white>12</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>65</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>6</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>4</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
+            <num-orc-red>6</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-2>
         <floor-3>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
-            <prob-turn>10</prob-turn>
-            <min-rooms>8</min-rooms>
-            <room-size-offset>0</room-size-offset>
-            <fraction-total-size>64.0</fraction-total-size>
-            <num-gold>40</num-gold>
-            <num-skeleton-white>15</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
-            <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
-            <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
-            <num-orc-gold>0</num-orc-gold>
-        </floor-3>
-        <floor-4>
-            <width>70</width>
-            <height>70</height>
+            <width>90</width>
+            <height>90</height>
             <prob-room>1</prob-room>
             <prob-turn>10</prob-turn>
             <min-rooms>10</min-rooms>
             <room-size-offset>0</room-size-offset>
             <fraction-total-size>58.0</fraction-total-size>
-            <num-gold>50</num-gold>
-            <num-skeleton-white>20</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
+            <num-gold>70</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>8</num-skeleton-red>
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>6</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
+            <num-orc-red>4</num-orc-red>
+            <num-orc-gold>0</num-orc-gold>
+        </floor-3>
+        <floor-4>
+            <width>90</width>
+            <height>90</height>
+            <prob-room>1</prob-room>
+            <prob-turn>10</prob-turn>
+            <min-rooms>10</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>58.0</fraction-total-size>
+            <num-gold>75</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>6</num-skeleton-red>
+            <num-skeleton-gold>2</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>2</num-ghost-red>
+            <num-ghost-gold>2</num-ghost-gold>
+            <num-orc-green>0</num-orc-green>
+            <num-orc-red>6</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-4>
+        <floor-5>
+            <width>90</width>
+            <height>90</height>
+            <prob-room>1</prob-room>
+            <prob-turn>10</prob-turn>
+            <min-rooms>10</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>58.0</fraction-total-size>
+            <num-gold>85</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
+            <num-skeleton-gold>4</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>2</num-ghost-red>
+            <num-ghost-gold>2</num-ghost-gold>
+            <num-orc-green>0</num-orc-green>
+            <num-orc-red>0</num-orc-red>
+            <num-orc-gold>4</num-orc-gold>
+        </floor-5>
     </level-5>
 
 
     <level-6>
         <floor-1>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
+            <width>72</width>
+            <height>90</height>
+            <prob-room>0.25</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>6</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>80.0</fraction-total-size>
-            <num-gold>30</num-gold>
-            <num-skeleton-white>10</num-skeleton-white>
-            <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
+            <fraction-total-size>64.0</fraction-total-size>
+            <num-gold>55</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>4</num-skeleton-red>
+            <num-skeleton-gold>4</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>4</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
-            <num-orc-red>0</num-orc-red>
+            <num-orc-red>4</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-1>
         <floor-2>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
+            <width>72</width>
+            <height>90</height>
+            <prob-room>0.25</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>7</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>75.0</fraction-total-size>
-            <num-gold>35</num-gold>
-            <num-skeleton-white>12</num-skeleton-white>
+            <fraction-total-size>60.0</fraction-total-size>
+            <num-gold>60</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-skeleton-gold>6</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-red>4</num-ghost-red>
             <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
             <num-orc-red>0</num-orc-red>
-            <num-orc-gold>0</num-orc-gold>
+            <num-orc-gold>4</num-orc-gold>
         </floor-2>
         <floor-3>
-            <width>64</width>
-            <height>64</height>
-            <prob-room>1</prob-room>
+            <width>76</width>
+            <height>112</height>
+            <prob-room>0.25</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>8</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>64.0</fraction-total-size>
-            <num-gold>40</num-gold>
-            <num-skeleton-white>15</num-skeleton-white>
+            <fraction-total-size>60.0</fraction-total-size>
+            <num-gold>65</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-skeleton-gold>8</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
-            <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
+            <num-ghost-red>2</num-ghost-red>
+            <num-ghost-gold>4</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>
         </floor-3>
         <floor-4>
-            <width>70</width>
-            <height>70</height>
-            <prob-room>1</prob-room>
+            <width>76</width>
+            <height>112</height>
+            <prob-room>0.25</prob-room>
             <prob-turn>10</prob-turn>
-            <min-rooms>10</min-rooms>
+            <min-rooms>9</min-rooms>
             <room-size-offset>0</room-size-offset>
-            <fraction-total-size>58.0</fraction-total-size>
-            <num-gold>50</num-gold>
-            <num-skeleton-white>20</num-skeleton-white>
+            <fraction-total-size>54.0</fraction-total-size>
+            <num-gold>70</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
             <num-skeleton-red>0</num-skeleton-red>
-            <num-skeleton-gold>0</num-skeleton-gold>
+            <num-skeleton-gold>6</num-skeleton-gold>
             <num-ghost-white>0</num-ghost-white>
             <num-ghost-red>0</num-ghost-red>
-            <num-ghost-gold>0</num-ghost-gold>
+            <num-ghost-gold>4</num-ghost-gold>
+            <num-orc-green>0</num-orc-green>
+            <num-orc-red>4</num-orc-red>
+            <num-orc-gold>4</num-orc-gold>
+        </floor-4>
+        <floor-5>
+            <width>76</width>
+            <height>112</height>
+            <prob-room>0.25</prob-room>
+            <prob-turn>10</prob-turn>
+            <min-rooms>11</min-rooms>
+            <room-size-offset>0</room-size-offset>
+            <fraction-total-size>48.0</fraction-total-size>
+            <num-gold>80</num-gold>
+            <num-skeleton-white>0</num-skeleton-white>
+            <num-skeleton-red>0</num-skeleton-red>
+            <num-skeleton-gold>10</num-skeleton-gold>
+            <num-ghost-white>0</num-ghost-white>
+            <num-ghost-red>0</num-ghost-red>
+            <num-ghost-gold>4</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
             <num-orc-red>0</num-orc-red>
-            <num-orc-gold>0</num-orc-gold>
-        </floor-4>
+            <num-orc-gold>6</num-orc-gold>
+        </floor-5>
     </level-6>
 
 
