@@ -11,6 +11,7 @@
 #include "listener.h"
 #include "entities/skeleton.h"
 #include "entities/ghost.h"
+#include "entities/orc.h"
 
 class SoundManager : public Listener
 {
@@ -30,6 +31,8 @@ private:
     sf::Sound ghstDmgSound[10];
     int curGhstDmgSound = 0;
     sf::Sound ghstDthSound;
+    sf::Sound orcDmgSound[10];
+    int curOrcDmgSound = 0;
 
     void handleEntityDamaged(const EventEntityDamaged &event);
     void handleEntityDestroyed(const EventEntityDestroyed &event);

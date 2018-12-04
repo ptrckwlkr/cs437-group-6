@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include "view.h"
-#include "entities/Orc.h"
+#include "entities/orc.h"
 
 
 class OrcView : public View

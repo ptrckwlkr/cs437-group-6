@@ -17,7 +17,7 @@ SoundManager::~SoundManager()
 
 void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)
 {
-	if (event.getType() == Skeleton::entityType) {
+	if (event.getType() == Skeleton::entityType || event.getType() == Orc::entityType) {
 		float randPitch =((float)(rand() % 401) - 200) / 1000;
 		this->skelDthSound = resources.GetSound("monsterdeath");
 		this->skelDthSound.setVolume(70.0);
@@ -47,6 +47,14 @@ void SoundManager::handleEntityDamaged(const EventEntityDamaged &event)
 		this->ghstDmgSound[curGhstDmgSound].setPitch(1 + randPitch);
 		this->ghstDmgSound[curGhstDmgSound].play();
 		curGhstDmgSound = (curGhstDmgSound + 1) % 10;
+	} else if (event.getEntityType() == Orc::entityType) {
+		float randPitch =((float)(rand() % 401) - 200) / 1000;
+		this->orcDmgSound[curOrcDmgSound] = resources.GetSound("orcinjured");
+		this->orcDmgSound[curOrcDmgSound].setVolume(40.0);
+		this->orcDmgSound[curOrcDmgSound].play();
+		this->orcDmgSound[curOrcDmgSound].setPitch(1 + randPitch);
+		this->orcDmgSound[curOrcDmgSound].play();
+		curOrcDmgSound = (curOrcDmgSound + 1) % 10;
 	}
 }
 

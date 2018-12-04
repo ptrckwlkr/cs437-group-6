@@ -127,5 +127,6 @@ void ResourceManager::LoadAllResources()
     resources.LoadSound("swordswing", "../data/Sounds/sword_swing_fast_001.wav");
     resources.LoadSound("ghostdisappate", "../data/Sounds/Wind 8 (fast).wav");
     resources.LoadSound("ghosthiss", "../data/Sounds/Insect Wounded 2.wav");
+    resources.LoadSound("orcinjured", "../data/Sounds/Orc Wounded 4.wav");
 
 }
