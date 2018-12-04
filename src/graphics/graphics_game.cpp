@@ -136,9 +136,13 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     target.draw(hpBar, states);
 
     //updates mana bar
-    manaBar.setFillColor(sf::Color(0, 0, 255, 190));
+    manaBar.setFillColor(sf::Color(0, 255, 255, 190));
     manaBar.setSize(sf::Vector2f(250, 30));
     manaBar.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f + 10, y - WINDOW_HEIGHT / 2.f + 50));
+    target.draw(manaBar, states);
+    manaBar.setFillColor(sf::Color(0, 0, 255, 190));
+    manaBar.setSize(sf::Vector2f(250 * view->get_state().get_level().get_player().get_mana()
+                               / view->get_state().get_level().get_player().get_max_mana(), 30));
     target.draw(manaBar, states);
 
     // update and draw text for health and mana, must be drawn after the corresponding bars

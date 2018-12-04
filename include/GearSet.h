@@ -35,6 +35,4 @@ class GearSet
 		int getSetStat(std::string);
 };
 
-extern GearSet gear;
-
 #endif //CSCI431_GEARSET_H

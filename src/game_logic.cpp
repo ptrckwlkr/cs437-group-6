@@ -28,12 +28,12 @@ void GameLogic::update_state(float delta) {
     EventCycleComplete e(delta);
     EventManager::Instance().sendEvent(e);
     if (!check_flags()) {
+        EntityManager::Instance().getPlayer()->update(delta);
         collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
         level->update();
         collision_engine.check_collisions(level->get_map());
     }
     EventManager::Instance().processEvents(); // Post-collision event processing
-    player_data.update();
 }
 
 /**
@@ -43,7 +43,8 @@ void GameLogic::create_new_level(Generator g, int level_num) {
     level_factory.set_algorithm(g, level_num);
     level = level_factory.generate_level();
     current_level = level_num;
-    player_data.set_player(EntityManager::Instance().getPlayer().get());
+    //player_data.set_player(EntityManager::Instance().getPlayer().get());
+    EntityManager::Instance().getPlayer()->set_player_data(&player_data);
 }
 
 void GameLogic::reset() {

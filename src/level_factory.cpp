@@ -52,7 +52,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
 
             std::shared_ptr<Player> player = EntityManager::Instance().createEntity<Player>(gen.player_x,
                                                                                              gen.player_y);
-            EntityManager::Instance().set_player(player);
+        EntityManager::Instance().setPlayer(player);
 
             placeEnemies();
 
