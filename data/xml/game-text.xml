@@ -15,6 +15,20 @@
             <g>255</g>
             <b>255</b>
         </mana>
+        <gold>
+            <text>Gold Amount: </text>
+            <size>18</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </gold>
+        <amount>
+            <text>: </text>
+            <size>18</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </amount>
     </UI>
     <Story>
         <StoryText>
@@ -45,13 +59,13 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
     <Lost>
         <LostText>
             <text>You lost!</text>
-            <size>40</size>
+            <size>50</size>
             <r>100</r>
             <g>255</g>
             <b>200</b>
         </LostText>
         <ReplayText>
-            <text>Play again</text>
+            <text>Try again</text>
             <size>28</size>
             <r>255</r>
             <g>255</g>
@@ -59,6 +73,15 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
         </ReplayText>
     </Lost>
     <Shop>
+        <ShopKeeperText>
+            <text>
+                Hello, Stu Dent!
+                How can I can help you?</text>
+            <size>18</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ShopKeeperText>
         <ManaText>
             <text>Buy Mana</text>
             <size>16</size>
@@ -66,6 +89,13 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </ManaText>
+        <HealthText>
+            <text>Buy Health</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </HealthText>
         <AbilitiesText>
             <text>Buy Abilities</text>
             <size>16</size>
@@ -80,6 +110,13 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </ExitText>
+        <GoldText>
+            <text>Total: </text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </GoldText>
     </Shop>
     <Victory>
         <winText>

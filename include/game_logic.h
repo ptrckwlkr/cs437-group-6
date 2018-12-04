@@ -49,6 +49,7 @@ private:
     bool check_flags();
 		void handleExitReached(const EventExitReached &event);
 		void handlePlayerDeath(const EventPlayerDied &event);
+		void handleGoldUpdate(const EventGoldCollection &event);
 
 };
 

@@ -23,6 +23,12 @@ void SoundManager::handleEntityDestroyed(const EventEntityDestroyed &event)
 		this->skelDthSound.setVolume(70.0);
 		this->skelDthSound.setPitch(1 + randPitch);
 		this->skelDthSound.play();
+	} else if (event.getType() == Ghost::entityType) {
+		float randPitch =((float)(rand() % 401) - 200) / 1000;
+		this->ghstDthSound = resources.GetSound("ghostdisappate");
+		this->ghstDthSound.setVolume(70.0);
+		this->ghstDthSound.setPitch(1 + randPitch);
+		this->ghstDthSound.play();
 	}
 }
 
@@ -33,6 +39,14 @@ void SoundManager::handleEntityDamaged(const EventEntityDamaged &event)
 		this->skelDmgSound[curSkelDmgSound].setVolume(60.0);
 		this->skelDmgSound[curSkelDmgSound].play();
 		curSkelDmgSound = (curSkelDmgSound + 1) % 10;
+	} else if (event.getEntityType() == Ghost::entityType) {
+		float randPitch =((float)(rand() % 401) - 200) / 1000;
+		this->ghstDmgSound[curGhstDmgSound] = resources.GetSound("ghosthiss");
+		this->ghstDmgSound[curGhstDmgSound].setVolume(40.0);
+		this->ghstDmgSound[curGhstDmgSound].play();
+		this->ghstDmgSound[curGhstDmgSound].setPitch(1 + randPitch);
+		this->ghstDmgSound[curGhstDmgSound].play();
+		curGhstDmgSound = (curGhstDmgSound + 1) % 10;
 	}
 }
 

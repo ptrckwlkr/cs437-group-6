@@ -102,6 +102,7 @@ void Engine::switch_mode(GameMode mode)
             break;
       case MODE_LOST:
         ViewManager::Instance().set_player_view<LostView>(&state, App);
+            break;
       case MODE_STORY:
         ViewManager::Instance().set_player_view<StoryView>(&state, App);
             break;

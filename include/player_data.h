@@ -5,6 +5,7 @@
 #include "Weapon.h"
 #include "inventory.h"
 #include "entities/Player.h"
+#include "events/event_gold_collection.h"
 
 /**
  * Class to store persistent player data, such as currency, weapons, etc.
@@ -22,6 +23,8 @@ public:
     Inventory &get_inventory() {return inventory;}
 
     int get_gold() {return gold;}
+    void update_gold();
+    void handleCollision(const EventGoldCollection &event);
 
 private:
     Player *player;
