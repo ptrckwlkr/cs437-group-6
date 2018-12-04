@@ -9,7 +9,7 @@ Projectile::Projectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT)
     maxRange = 500;
     traveled = 0;
     hit = false;
-    obstructible = true; // TODO?
+    obstructible = true;
     trail_enabled = true;
     for (int i = 0; i < 5; i++)
         trail.emplace_back(pos);
@@ -37,7 +37,7 @@ void Projectile::handleWallCollision(const EventWallCollision &event) {
 }
 
 void Projectile::handleCollision(const EventCollision &event) {
-    if (event.getSelf().id == id && (event.getOther().is_hostile() != hostile) && !hit)
+    if (event.getSelf().id == id && event.getOther().is_hostile() && !hit)
     {
         hit = true;
         EntityManager::Instance().removeEntity(id);

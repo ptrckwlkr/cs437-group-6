@@ -9,7 +9,7 @@
 #include "views/player_view_level_select.h"
 #include "views/player_view_shop.h"
 #include "views/player_view_lost.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 #include "EntityManager.h"
 
 Engine &Engine::Instance()

@@ -61,7 +61,7 @@ float PlayerData::get_max_mana()
 
 float PlayerData::get_mana_regen()
 {
-  return base_mana_regen;
+  return base_mana_regen + gear.getSetStat("Magic");
 }
 
 float PlayerData::get_l_cooldown()

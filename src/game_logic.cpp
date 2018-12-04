@@ -1,6 +1,6 @@
 #include "game_logic.h"
 #include "engine.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 #include "sprite_manager.h"
 #include "EntityManager.h"
 #include "events/event_cycle_complete.h"

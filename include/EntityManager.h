@@ -7,7 +7,7 @@
 #include "events/event_entity_created.h"
 #include "entities/entity.h"
 #include "entities/Player.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 
 
 class EntityManager{

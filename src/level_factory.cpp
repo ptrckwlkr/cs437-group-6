@@ -1,6 +1,6 @@
 #include "level_factory.h"
 #include "views/view_skeleton.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 #include "entities/gold.h"
 #include "entities/exit.h"
 #include "EntityManager.h"

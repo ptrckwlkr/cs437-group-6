@@ -1,9 +1,9 @@
-#include <entities/orc.h>
-#include "views/view_projectile.h"
-#include "views/view_skeleton.h"
-#include "views/view_factory.h"
+#include "view_factory.h"
 #include "views/view_ghost.h"
 #include "views/view_orc.h"
+#include "views/view_orc_projectile.h"
+#include "views/view_projectile.h"
+#include "views/view_skeleton.h"
 
 using namespace ViewFactory;
 
@@ -44,7 +44,8 @@ std::shared_ptr<View> ViewFactory::createView(GameLogic *state, Entity *entity)
           {Skeleton::entityType,      (Factory)createInstance<Skeleton, SkeletonView>},
           {Projectile::entityType,    (Factory)createInstance<Projectile, ProjectileView>},
           {Ghost::entityType,         (Factory)createInstance<Ghost, GhostView>},
-          {Orc::entityType,           (Factory)createInstance<Orc, OrcView>}
+          {Orc::entityType,           (Factory)createInstance<Orc, OrcView>},
+          {OrcProjectile::entityType, (Factory)createInstance<OrcProjectile, OrcProjectileView>}
   };
 
   std::shared_ptr<View> view = nullptr;

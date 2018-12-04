@@ -1,5 +1,6 @@
 #include <entities/skeleton.h>
 #include <entities/gold.h>
+#include <entities/orc_projectile.h>
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
@@ -55,18 +56,15 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         type = ent->getEntityType();
 
         sf::CircleShape circle(size);
-
         if (type == Projectile::entityType) {
-            sf::Color trail_col;
-            if (ent->is_hostile()) {
-                circle.setFillColor(sf::Color(255, 255, 0, 125));
-                trail_col = sf::Color(255, 0, 0);
-            }
-            else
-            {
-                circle.setFillColor(sf::Color(0, 255, 125, 125));
-                trail_col = sf::Color(0, 255, 0);
-            }
+            sf::Color trail_col = sf::Color(0, 255, 0);
+            circle.setFillColor(sf::Color(0, 255, 125, 125));
+            drawProjectileMotionBlur(target, states, circle, ent->trail, trail_col);
+        }
+        else if (type == OrcProjectile::entityType)
+        {
+            sf::Color trail_col = sf::Color(255, 0, 0);;
+            circle.setFillColor(sf::Color(255, 255, 0, 125));
             drawProjectileMotionBlur(target, states, circle, ent->trail, trail_col);
         }
         else
