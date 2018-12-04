@@ -18,6 +18,12 @@ class GearSet
 			{"Hands",0},
 			{"Ring1",0},
 			{"Ring2",0} };
+		std::unordered_map<std::string, int> setStats = 
+		{	{"Attack",0},
+			{"Magic",0},
+			{"Defense",0},
+			{"Health",0},
+			{"Mana",0} };
 
 	protected:
 
@@ -26,6 +32,7 @@ class GearSet
 		void equipItem(Equipment*);
 		Equipment* getItem(EquipSlot, int=1);
 		std::string EquipSlotToString(EquipSlot);
+		int getSetStat(std::string);
 };
 
 extern GearSet gear;

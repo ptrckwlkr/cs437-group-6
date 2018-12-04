@@ -33,28 +33,16 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 		target.draw(sprite, states);
 	 };
 
-	sf::Text statHeader = prepareText("Attack", font);
-	statHeader.setOrigin(statHeader.getLocalBounds().width/2.f, statHeader.getLocalBounds().height/2.f);
-	statHeader.setPosition(WINDOW_WIDTH/2.f + 64, 88);
-	target.draw(statHeader, states);
-	statHeader = prepareText("Magic", font);
-	statHeader.setOrigin(statHeader.getLocalBounds().width/2.f, statHeader.getLocalBounds().height/2.f);
-	statHeader.setPosition(WINDOW_WIDTH/2.f + 128, 88);
-	target.draw(statHeader, states);
-	statHeader = prepareText("Defense", font);
-	statHeader.setOrigin(statHeader.getLocalBounds().width/2.f, statHeader.getLocalBounds().height/2.f);
-	statHeader.setPosition(WINDOW_WIDTH/2.f + 192, 88);
-	target.draw(statHeader, states);
-	statHeader = prepareText("Health", font);
-	statHeader.setOrigin(statHeader.getLocalBounds().width/2.f, statHeader.getLocalBounds().height/2.f);
-	statHeader.setPosition(WINDOW_WIDTH/2.f + 256, 88);
-	target.draw(statHeader, states);
-	statHeader = prepareText("Mana", font);
-	statHeader.setOrigin(statHeader.getLocalBounds().width/2.f, statHeader.getLocalBounds().height/2.f);
-	statHeader.setPosition(WINDOW_WIDTH/2.f + 320, 88);
-	target.draw(statHeader, states);
+	std::string stats[5] = {"Attack", "Magic", "Defense", "Health", "Mana"};
+	sf::Text statHeader;
 
-	std::string stats[5] = {"attack", "magic", "defense", "hp", "mp"};
+	for (int i = 0; i < 5; i++) {
+	sf::Text statHeader = prepareText(stats[i], font);
+	statHeader.setOrigin(statHeader.getLocalBounds().width/2.f, statHeader.getLocalBounds().height/2.f);
+	statHeader.setPosition(WINDOW_WIDTH/2.f + (64 * (i+1)), 88);
+	target.draw(statHeader, states);
+	}	
+
 	sf::Text statText;
 	statText.setFont(font);
 	statText.setCharacterSize(20);

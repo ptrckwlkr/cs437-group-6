@@ -2,6 +2,7 @@
 #include "player_data.h"
 #include "EntityManager.h"
 #include "entities/Player.h"
+#include "GearSet.h"
 
 PlayerData::PlayerData()
 {
@@ -36,8 +37,8 @@ void PlayerData::set_player(Player *p)
 
 void PlayerData::reset()
 {
-  health = base_health;
-  mana = base_mana;
+  health = player->get_max_health();
+  mana = player->get_max_mana();
   gold = gold;
   set_health();
   set_mana();
@@ -66,22 +67,22 @@ void PlayerData::set_speed()
 
 void PlayerData::set_damage()
 {
-  player->set_damage(base_damage);
+  player->set_damage(base_damage + gear.getSetStat("Attack"));
 }
 
 void PlayerData::set_defence()
 {
-  player->set_defence(base_defence);
+  player->set_defence(base_defence + gear.getSetStat("Defense"));
 }
 
 void PlayerData::set_max_health()
 {
-  player->set_max_health(base_max_health);
+  player->set_max_health(base_max_health + gear.getSetStat("Health"));
 }
 
 void PlayerData::set_max_mana()
 {
-  player->set_max_mana(base_max_mana);
+  player->set_max_mana(base_max_mana + gear.getSetStat("Mana"));
 }
 
 void PlayerData::set_mana_regen()

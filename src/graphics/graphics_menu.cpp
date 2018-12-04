@@ -61,7 +61,8 @@ void MenuGraphics::storeStaticText()
 
 	//prepares the about page's text
 	aboutText = prepareText("about-page", font);
-	aboutText.setPosition(WINDOW_WIDTH / 2.0, (WINDOW_HEIGHT / 2.0) - 75);
+	aboutText.setOrigin(aboutText.getLocalBounds().width/2.f, aboutText.getLocalBounds().height/2.f);
+	aboutText.setPosition((WINDOW_WIDTH / 2.0) - 32, (WINDOW_HEIGHT / 2.0) - 96);
 
 	storeControlText();
 
