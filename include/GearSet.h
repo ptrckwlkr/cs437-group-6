@@ -5,11 +5,12 @@
 #include <unordered_map>
 #include <utility>
 #include <string>
+#include <memory>
 
 class GearSet
 {
 	private:
-		std::unordered_map<std::string, Equipment*> equippedItems =
+		std::unordered_map<std::string, std::shared_ptr<Equipment>> equippedItems =
 		{	{"Head",0},
 			{"Chest",0},
 			{"Shoulders",0},
@@ -29,8 +30,8 @@ class GearSet
 
 	public:
 		GearSet();
-		void equipItem(Equipment*);
-		Equipment* getItem(EquipSlot, int=1);
+		void equipItem(std::shared_ptr<Equipment>);
+		std::shared_ptr<Equipment> getItem(EquipSlot, int=1);
 		std::string EquipSlotToString(EquipSlot);
 		int getSetStat(std::string);
 };
