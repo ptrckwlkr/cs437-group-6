@@ -9,6 +9,7 @@ class MusicManager {
 private:
     std::shared_ptr<sf::Music> bg_music;
     bool initialized = false;
+    std::string curTrack;
 
 protected:
 
@@ -21,6 +22,8 @@ public:
     void playMusic();
 
     void stopMusic();
+
+    std::string getCurrentTrack();
 };
 
 extern MusicManager music;

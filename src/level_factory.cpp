@@ -14,8 +14,11 @@ void LevelFactory::set_algorithm(Generator algorithm, int level)
 {
     this->algorithm = algorithm;
 
-    if (level_num != level)
+    if (level_num != level || reset_occurred)
+    {
         gen = AgentBasedGenerator(level);
+        reset_occurred = false;
+    }
 
     level_num = level;
 }
@@ -58,8 +61,6 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
                                                                          (float) gen.treasure_coords[i][1]);
             }
             EntityManager::Instance().createEntity<Exit>(gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
-            printf("Place at %d %d\n", gen.exit_x + CELL_SIZE / 2, gen.exit_y + CELL_SIZE / 2);
-
             break;
     }
 

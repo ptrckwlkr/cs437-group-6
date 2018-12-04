@@ -19,6 +19,7 @@ class LevelFactory
 
 public:
     LevelFactory() = default;
+    void reset() {reset_occurred = true;}
     void set_algorithm(Generator algorithm, int level);
     std::shared_ptr<Level> generate_level();
 
@@ -28,6 +29,7 @@ private:
     Generator algorithm;
     AgentBasedGenerator gen;
     int level_num = -1;
+    bool reset_occurred = false;
 
     //TODO move elsewhere
     int floors_per_level[9] = {-1, 4, 4, 4, 4, 4, 4, 4, 4};

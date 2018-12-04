@@ -1,6 +1,8 @@
 #include <unordered_map>
 #include <entities/Player.h>
 #include "Animations/BloodAnimation.h"
+#include "Animations/GoldAnimation.h"
+#include "Animations/MoneyAnimation.h"
 #include "Animations/PlayerAnimation.h"
 #include "Animations/SkeletonAnimation.h"
 #include "Animations/GhostAnimation.h"
@@ -40,10 +42,12 @@ std::shared_ptr<Animation> AnimationFactory::createAnimation(Entity *entity) {
      */
     static const std::unordered_map<EntityType, Factory> map{
             {Blood::entityType,    (Factory) createInstance<Blood, BloodAnimation>},
+            {Ghost::entityType,    (Factory) createInstance<Ghost, GhostAnimation>},
+            {Gold::entityType,     (Factory)createInstance<Gold, GoldAnimation>},
+            {Money::entityType,    (Factory)createInstance<Money, MoneyAnimation>},
             {Sword::entityType,    (Factory)createInstance<Sword, SwordAnimation>},
             {Player::entityType,   (Factory) createInstance<Player, PlayerAnimation>},
             {Skeleton::entityType, (Factory) createInstance<Skeleton, SkeletonAnimation>},
-            {Ghost::entityType,    (Factory) createInstance<Ghost, GhostAnimation>},
     };
 
     std::shared_ptr<Animation> animation = nullptr;
