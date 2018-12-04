@@ -21,6 +21,8 @@ public:
     //represents the kind AI to be used, white (green for orcs) for dumbest AI, red for medium AI, and Gold for best
     std::string type;
 
+    int projectile_damage;
+
     //distance at which AI stops being passive
     int aggro_dist;
 
@@ -30,6 +32,7 @@ public:
         health = std::stoi(main_node->first_node("health")->value());
         speed = std::stoi(main_node->first_node("speed")->value());
         damage = std::stoi(main_node->first_node("contact-damage")->value());
+        projectile_damage = std::stoi(main_node->first_node("projectile-damage")->value());
         aggro_dist = std::stoi(main_node->first_node("aggro-dist")->value());
     }
 

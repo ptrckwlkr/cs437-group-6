@@ -9,7 +9,7 @@ Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
     delta_sum = 0.0;
     obstructible = true;
     l_delta_threshold = (float)(10 / 60.0);
-    r_delta_threshold = (float)(45 / 60.0);
+    r_delta_threshold = (float)(52 / 60.0);
 }
 
 void Player::l_attack(Vector2D &dir, float delta) {

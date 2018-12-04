@@ -29,3 +29,20 @@ void Orc::die()
     EntityManager::Instance().removeEntity(id);
     EntityManager::Instance().createEntity<Blood>(pos.x, pos.y);
 }
+
+
+void Orc::attack(float delta, float delta_threshold, Vector2D dir) {
+    delta_sum += delta;
+
+    if (delta_sum > delta_threshold)
+    {
+        float x = pos.x;
+        float y = pos.y;
+        auto projectile = EntityManager::Instance().createEntity<Projectile>(x, y);
+        projectile->set_direction(dir);
+        projectile->set_damage(projectile_damage);
+        projectile->hostile = true;
+        projectile->trail_enabled = true;
+        delta_sum = 0;
+    }
+}

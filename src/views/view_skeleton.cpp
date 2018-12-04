@@ -81,11 +81,6 @@ void SkeletonView::updateRed(float delta, Vector2D dir) {
                 target = tmp;
             } else {
                 //don't change target so continues following the path
-                if (state->get_level().get_map().get_cell((int) future_pos.y / CELL_SIZE,
-                                                          (int) future_pos.x / CELL_SIZE).get_cell_type() == WALL) {
-
-
-                }
             }
 
         } else //was chasing player but has hit a wall
@@ -104,7 +99,6 @@ void SkeletonView::updateRed(float delta, Vector2D dir) {
                 } else
                     target = nodes.back();
             }
-
         }
 
         dir = target - skeleton->get_position();
@@ -147,6 +141,8 @@ void SkeletonView::updateGold(float delta, Vector2D dir) {
         if (cur_state == SEARCH)
         {
             std::vector<std::vector<int>> cell_cost = state->get_level().get_map().getCellCost();
+            //player has not left starting cell
+            if (cell_cost.size() == 0) return;
 
             int min_cost = INT_MAX;
             int skeleton_i = (int) skeleton->get_position().x / CELL_SIZE;

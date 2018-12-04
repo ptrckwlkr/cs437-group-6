@@ -5,100 +5,87 @@
 #include "EntityManager.h"
 #include "events/event_cycle_complete.h"
 
-GameLogic::GameLogic() : Listener()
-{
-  level_factory = LevelFactory();
-  player_data = PlayerData();
-  collision_engine = CollisionEngine();
-  f_paused = false;
+GameLogic::GameLogic() : Listener() {
+    level_factory = LevelFactory();
+    player_data = PlayerData();
+    collision_engine = CollisionEngine();
+    f_paused = false;
 
-  EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
-  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
-  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &GameLogic::handleGoldUpdate);
+    EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
+    EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
+    EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &GameLogic::handleGoldUpdate);
 }
 
-GameLogic::~GameLogic()
-{
-  EventManager::Instance().unregisterAll(this);
+GameLogic::~GameLogic() {
+    EventManager::Instance().unregisterAll(this);
 }
 
 /**
  * Update the game state
  */
-void GameLogic::update_state(float delta)
-{
-  EventManager::Instance().processEvents(); // Pre-collision event processing
-  EventCycleComplete e(delta);
-  EventManager::Instance().sendEvent(e);
-  if (!check_flags())
-  {
-    collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
-    level->update();
-    collision_engine.check_collisions(level->get_map());
-  }
-  EventManager::Instance().processEvents(); // Post-collision event processing
-  player_data.update();
+void GameLogic::update_state(float delta) {
+    EventManager::Instance().processEvents(); // Pre-collision event processing
+    EventCycleComplete e(delta);
+    EventManager::Instance().sendEvent(e);
+    if (!check_flags()) {
+        collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
+        level->update();
+        collision_engine.check_collisions(level->get_map());
+    }
+    EventManager::Instance().processEvents(); // Post-collision event processing
+    player_data.update();
 }
 
 /**
  * Start a new level.
  */
-void GameLogic::create_new_level(Generator g, int level_num)
-{
-  level_factory.set_algorithm(g, level_num);
-  level = level_factory.generate_level();
-  current_level = level_num;
-  player_data.set_player(EntityManager::Instance().getPlayer().get());
+void GameLogic::create_new_level(Generator g, int level_num) {
+    level_factory.set_algorithm(g, level_num);
+    level = level_factory.generate_level();
+    current_level = level_num;
+    player_data.set_player(EntityManager::Instance().getPlayer().get());
 }
 
-void GameLogic::reset()
-{
-  collision_engine.reset();
-  level_factory.reset();
-  SpriteManager::Instance().reset();
-  ViewManager::Instance().reset();
-  EntityManager::Instance().reset();
-  EventManager::Instance().reset();
+void GameLogic::reset() {
+    collision_engine.reset();
+    SpriteManager::Instance().reset();
+    ViewManager::Instance().reset();
+    EntityManager::Instance().reset();
+    EventManager::Instance().reset();
 }
 
-bool GameLogic::check_flags()
-{
-  if (f_floor_complete)
-  {
-    f_floor_complete = false;
-    reset();
-    create_new_level(AGENT_BASED, current_level);
-    Engine::Instance().switch_mode(MODE_PLAY);
-    return true;
-  }
-  else if (f_defeat)
-  {
-    f_defeat = false;
-    reset();
-    Engine::Instance().switch_mode(MODE_LOST);
-    return true;
-  }
-  else if (f_victory)
-  {
-    f_victory = false;
-    reset();
-    Engine::Instance().switch_mode(MODE_VICTORY);
-    return true;
-  }
-  return false;
+bool GameLogic::check_flags() {
+    if (f_floor_complete) {
+        f_floor_complete = false;
+        reset();
+        create_new_level(AGENT_BASED, current_level);
+        Engine::Instance().switch_mode(MODE_PLAY);
+        return true;
+    } else if (f_defeat) {
+        f_defeat = false;
+        reset();
+        Engine::Instance().switch_mode(MODE_LOST);
+        level_factory.reset();
+        return true;
+    } else if (f_victory) {
+        f_victory = false;
+        reset();
+        Engine::Instance().switch_mode(MODE_VICTORY);
+        level_factory.reset();
+        return true;
+    }
+    return false;
 }
 
-void GameLogic::handleExitReached(const EventExitReached &event)
-{
-  f_floor_complete = true;
+void GameLogic::handleExitReached(const EventExitReached &event) {
+    f_floor_complete = true;
 }
 
-void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
-{
-  f_defeat = true;
+void GameLogic::handlePlayerDeath(const EventPlayerDied &event) {
+    f_defeat = true;
 }
 
-void GameLogic::handleGoldUpdate(const EventGoldCollection &event){
-  player_data.update_gold();
+void GameLogic::handleGoldUpdate(const EventGoldCollection &event) {
+    player_data.update_gold();
 
 }

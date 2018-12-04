@@ -1,7 +1,7 @@
 #include "Animations/OrcAnimation.h"
 
 OrcAnimation::OrcAnimation(Orc &entity) : Animation(), orc(&entity) {
-    texture = resources.GetTexture("OrcTexture");
+    texture = resources.GetTexture("orcTexture");
     imageCount = sf::Vector2u(13, 21);
     switchTime = 8/60.f;
     totalTime = 0.0f;
@@ -17,16 +17,18 @@ OrcAnimation::OrcAnimation(Orc &entity) : Animation(), orc(&entity) {
     sprite.setPosition(orc->get_position().x, orc->get_position().y);
     prev_pos = orc->get_position();
 
-    if (orc->type == "orc-red")
+    if (orc->type == "orc-green")
     {
-        sprite.setColor(sf::Color(255,255,255));
-        sprite.setColor(sf::Color(255,128,128));
+        sprite.setColor(sf::Color(0,255,96));
+    }
+    else if (orc->type == "orc-red")
+    {
+        sprite.setColor(sf::Color(255,50,128));
         switchTime =  7.1f/60.f;
     }
     else if (orc->type == "orc-gold")
     {
-        sprite.setColor(sf::Color(255,255,255));
-        sprite.setColor(sf::Color(255,215,0));
+        sprite.setColor(sf::Color(255,200,0));
         switchTime = 6.2f/60.f;
     }
 }

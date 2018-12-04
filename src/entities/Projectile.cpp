@@ -37,7 +37,7 @@ void Projectile::handleWallCollision(const EventWallCollision &event) {
 }
 
 void Projectile::handleCollision(const EventCollision &event) {
-    if (event.getSelf().id == id && event.getOther().is_hostile() && !hit)
+    if (event.getSelf().id == id && (event.getOther().is_hostile() != hostile) && !hit)
     {
         hit = true;
         EntityManager::Instance().removeEntity(id);

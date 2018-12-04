@@ -4,6 +4,7 @@
         <health>25</health>
         <speed>50</speed>
         <contact-damage>10</contact-damage>
+        <projectile-damage>0</projectile-damage>
         <aggro-dist>300</aggro-dist>
     </skeleton-white>
 
@@ -11,6 +12,7 @@
         <health>40</health>
         <speed>60</speed>
         <contact-damage>20</contact-damage>
+        <projectile-damage>0</projectile-damage>
         <aggro-dist>450</aggro-dist>
     </skeleton-red>
 
@@ -18,6 +20,7 @@
         <health>55</health>
         <speed>70</speed>
         <contact-damage>30</contact-damage>
+        <projectile-damage>0</projectile-damage>
         <aggro-dist>600</aggro-dist>
     </skeleton-gold>
 
@@ -26,6 +29,7 @@
         <health>40</health>
         <speed>35</speed>
         <contact-damage>12</contact-damage>
+        <projectile-damage>0</projectile-damage>
         <aggro-dist>600</aggro-dist>
     </ghost-white>
 
@@ -33,6 +37,7 @@
         <health>60</health>
         <speed>45</speed>
         <contact-damage>24</contact-damage>
+        <projectile-damage>0</projectile-damage>
         <aggro-dist>850</aggro-dist>
     </ghost-red>
 
@@ -40,7 +45,33 @@
         <health>80</health>
         <speed>55</speed>
         <contact-damage>36</contact-damage>
+        <projectile-damage>0</projectile-damage>
         <aggro-dist>1000</aggro-dist>
     </ghost-gold>
+
+
+    <orc-green>
+        <health>40</health>
+        <speed>40</speed>
+        <contact-damage>10</contact-damage>
+        <projectile-damage>35</projectile-damage>
+        <aggro-dist>600</aggro-dist>
+    </orc-green>
+
+    <orc-red>
+        <health>60</health>
+        <speed>50</speed>
+        <contact-damage>20</contact-damage>
+        <projectile-damage>45</projectile-damage>
+        <aggro-dist>850</aggro-dist>
+    </orc-red>
+
+    <orc-gold>
+        <health>80</health>
+        <speed>60</speed>
+        <contact-damage>30</contact-damage>
+        <projectile-damage>55</projectile-damage>
+        <aggro-dist>1000</aggro-dist>
+    </orc-gold>
 
 </Root>

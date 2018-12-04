@@ -16,11 +16,15 @@ public:
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
     void die();
+    void attack(float delta, float delta_threshold, Vector2D dir);
 
 
 
 private:
     void handleCollision(const EventCollision &event);
+
+
+    float delta_sum;
 
 };
 

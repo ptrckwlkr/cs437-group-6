@@ -1,7 +1,9 @@
+#include <entities/orc.h>
 #include "views/view_projectile.h"
 #include "views/view_skeleton.h"
 #include "views/view_factory.h"
 #include "views/view_ghost.h"
+#include "views/view_orc.h"
 
 using namespace ViewFactory;
 
@@ -41,7 +43,8 @@ std::shared_ptr<View> ViewFactory::createView(GameLogic *state, Entity *entity)
   static const std::unordered_map<EntityType, Factory> map {
           {Skeleton::entityType,      (Factory)createInstance<Skeleton, SkeletonView>},
           {Projectile::entityType,    (Factory)createInstance<Projectile, ProjectileView>},
-          {Ghost::entityType,         (Factory)createInstance<Ghost, GhostView>}
+          {Ghost::entityType,         (Factory)createInstance<Ghost, GhostView>},
+          {Orc::entityType,           (Factory)createInstance<Orc, OrcView>}
   };
 
   std::shared_ptr<View> view = nullptr;

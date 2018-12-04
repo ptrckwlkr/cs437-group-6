@@ -27,6 +27,7 @@ public:
     bool is_paused() { return f_paused; }
 
     void reset();
+    void reset_level_factory() {level_factory.reset();}
 
     Level &get_level() { return *level; }
 

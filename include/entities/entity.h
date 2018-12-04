@@ -76,6 +76,7 @@ public:
     //trail behind the a circle projectile, helps show ball speed
     std::vector<Vector2D> trail;
     bool trail_enabled = false;
+    bool hostile = false;
 
     virtual void move(Vector2D &dir, float delta)
     {
@@ -95,7 +96,6 @@ protected:
     float attack_speed = 1;
     bool obstructible = false;
     bool immovable = false;
-    bool hostile = false;
     bool wall_collidable = true;
 
     //ensures the xml file text does not go out of scope

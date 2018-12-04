@@ -8,6 +8,7 @@
 #include "Animations/GhostAnimation.h"
 #include "Animations/SwordAnimation.h"
 #include "animation_factory.h"
+#include "Animations/OrcAnimation.h"
 
 using namespace AnimationFactory;
 
@@ -48,6 +49,7 @@ std::shared_ptr<Animation> AnimationFactory::createAnimation(Entity *entity) {
             {Sword::entityType,    (Factory)createInstance<Sword, SwordAnimation>},
             {Player::entityType,   (Factory) createInstance<Player, PlayerAnimation>},
             {Skeleton::entityType, (Factory) createInstance<Skeleton, SkeletonAnimation>},
+            {Orc::entityType,      (Factory) createInstance<Orc, OrcAnimation>},
     };
 
     std::shared_ptr<Animation> animation = nullptr;

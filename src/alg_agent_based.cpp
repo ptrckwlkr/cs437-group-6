@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <time.h>
 
+#define MAX_ITERATIONS 100
 
 /*
 	params:
@@ -172,6 +173,7 @@ AgentBasedGenerator::createLevelGrid() {
     avg_i -= (min_x - 1) * num_rooms;
     avg_j -= (min_y - 1) * num_rooms;
 
+
     //places all special entities and tiles
     createStartAndExit();
     placeEntities("skeleton-white", num_skeleton_white);
@@ -256,17 +258,22 @@ void AgentBasedGenerator::placeEntities(std::string type, int quantity) {
     //makes a default vector in the map at type.
     enemy_type_coords[type];
 
+    int iterations = 0;
+
     //iterate through kinds of enemies and add to map
     for (int e = 0; e < quantity; e++) {
         //randomly choose a room that isn't the player's starting point
         int room;
         do {
             room = rand() % num_rooms;
+            iterations++;
+            if (iterations > MAX_ITERATIONS) break;
         } while (room == player_room_index || euclideanDistance(player_x, player_y, rooms[room][0] + rooms[room][2] / 2,
-                                                          rooms[room][1] + rooms[room][3] / 2) < 12);
+                                                          rooms[room][1] + rooms[room][3] / 2) < 9);
 
         std::vector<int> enemy_pos;
         std::vector<int> enemy_pos_pixels;
+        iterations = 0;
 
         do {
             enemy_pos = std::vector<int>{(rooms[room][0] + rand() % rooms[room][2]),
@@ -274,6 +281,9 @@ void AgentBasedGenerator::placeEntities(std::string type, int quantity) {
             //multiply by cell size and add small offset to center enemy before pushing to vector
             enemy_pos_pixels = std::vector<int>{enemy_pos[0] * CELL_SIZE + CELL_SIZE / 2,
                                                 enemy_pos[1] * CELL_SIZE + CELL_SIZE / 2};
+
+            iterations++;
+            if (iterations > MAX_ITERATIONS) break;
 
         } //ensure that enemy position is not in a wall, far enough away from the player, and is unique
         while (level_grid[enemy_pos[1]][enemy_pos[0]] != '0' ||
@@ -410,10 +420,12 @@ void AgentBasedGenerator::placeTreasure() {
     // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
     player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
     exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
-
+    int iterations = 0;
 
     //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
     for (int e = 0; e < num_gold; e++) {
+        if (iterations > MAX_ITERATIONS) break;
+
         //randomly choose a room that isn't the player's starting point
         int room;
         room = rand() % num_rooms;
@@ -426,9 +438,11 @@ void AgentBasedGenerator::placeTreasure() {
             //multiply by cell size and add small offset to center enemy before pushing to vector
             treasure_pos_pixels = std::vector<int>{treasure_pos[0] * CELL_SIZE + CELL_SIZE / 2,
                                                    treasure_pos[1] * CELL_SIZE + CELL_SIZE / 2};
+            iterations++;
+            if (iterations > MAX_ITERATIONS) break;
 
         } //ensure that enemy position is not in a wall, far enough away from the player, and is unique
-        while (level_grid[treasure_pos[1]][treasure_pos[0]] != '0' ||
+        while (level_grid[treasure_pos[1]][treasure_pos[0]] == '-' || level_grid[treasure_pos[1]][treasure_pos[0]] == 'o' ||
                euclideanDistance(player_x, player_y, treasure_pos[0], treasure_pos[1]) <= 2 * CELL_SIZE
                || (std::find(treasure_coords.begin(), treasure_coords.end(), treasure_pos_pixels) !=
                    treasure_coords.end()));
