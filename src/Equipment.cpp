@@ -23,6 +23,10 @@ Equipment::~Equipment() {
 
 }
 
+int Equipment::getStat(std::string stat) {
+    return statData.at(stat);
+}
+
 void Equipment::setEquipped(bool equip) {
     this->equipped = equip;
 }

@@ -2,6 +2,7 @@
 #include "macros.h"
 #include "EntityManager.h"
 #include "engine.h"
+#include <climits>
 
 SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state) {
     skeleton = &s;
