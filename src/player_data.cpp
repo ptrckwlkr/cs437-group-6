@@ -14,7 +14,6 @@ PlayerData::PlayerData()
   gold = STARTING_GOLD;
   health = base_health;
   mana = base_mana;
-  //EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleCollision);
 }
 
 void PlayerData::handleCollision(const EventGoldCollection &event)
@@ -39,6 +38,7 @@ void PlayerData::reset()
 {
   health = base_health;
   mana = base_mana;
+  gold = gold;
   set_health();
   set_mana();
 }
@@ -88,6 +88,8 @@ void PlayerData::set_mana_regen()
 {
   player->set_mana_regen(base_mana_regen);
 }
-void PlayerData::update_gold() {
-    gold +=10;
+
+void PlayerData::update_gold( bool defeat) {
+  if (defeat) gold = STARTING_GOLD;
+  else gold +=10;
 }
