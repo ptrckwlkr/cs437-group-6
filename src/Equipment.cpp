@@ -2,20 +2,20 @@
 
 Equipment::Equipment() {
     this->type = EquipSlot::Head;
-    this->statData.insert(std::pair<std::string, int>("attack", 0));
-    this->statData.insert(std::pair<std::string, int>("magic", 0));
-    this->statData.insert(std::pair<std::string, int>("defense", 0));
-    this->statData.insert(std::pair<std::string, int>("hp", 0));
-    this->statData.insert(std::pair<std::string, int>("mp", 0));
+    this->statData.insert(std::pair<std::string, int>("Attack", 0));
+    this->statData.insert(std::pair<std::string, int>("Magic", 0));
+    this->statData.insert(std::pair<std::string, int>("Defense", 0));
+    this->statData.insert(std::pair<std::string, int>("Health", 0));
+    this->statData.insert(std::pair<std::string, int>("Mana", 0));
 }
 
 Equipment::Equipment(EquipSlot slot, int atk, int mag, int def, int health, int mana, std::string sprite) {
     this->type = slot;
-    this->statData.insert(std::pair<std::string, int>("attack", atk));
-    this->statData.insert(std::pair<std::string, int>("magic", mag));
-    this->statData.insert(std::pair<std::string, int>("defense", def));
-    this->statData.insert(std::pair<std::string, int>("hp", health));
-    this->statData.insert(std::pair<std::string, int>("mp", mana));
+    this->statData.insert(std::pair<std::string, int>("Attack", atk));
+    this->statData.insert(std::pair<std::string, int>("Magic", mag));
+    this->statData.insert(std::pair<std::string, int>("Defense", def));
+    this->statData.insert(std::pair<std::string, int>("Health", health));
+    this->statData.insert(std::pair<std::string, int>("Mana", mana));
     this->icon = sprite;
 }
 
