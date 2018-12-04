@@ -121,7 +121,7 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     sf::Sprite sprite;
     sprite.setTexture(resources.GetTexture("fog"));
     sprite.setPosition(sf::Vector2f(x - WINDOW_WIDTH / 2.f, y - WINDOW_HEIGHT / 2.f));
-    //target.draw(sprite, states); // Uncomment me to see a nice effect
+    target.draw(sprite, states); // Uncomment me to see a nice effect
 
     //TODO set size of bar to match player'sactual health/mana
     // updates hpBar

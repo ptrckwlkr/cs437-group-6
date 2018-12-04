@@ -81,11 +81,15 @@ void GameLogic::handleExitReached(const EventExitReached &event) {
     f_floor_complete = true;
 }
 
-void GameLogic::handlePlayerDeath(const EventPlayerDied &event) {
-    f_defeat = true;
+
+void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
+{
+  f_defeat = true;
+  player_data.update_gold(f_defeat);
 }
 
-void GameLogic::handleGoldUpdate(const EventGoldCollection &event) {
-    player_data.update_gold();
+void GameLogic::handleGoldUpdate(const EventGoldCollection &event){
+    f_defeat = false;
+  player_data.update_gold(f_defeat);
 
 }

@@ -1,11 +1,10 @@
 #include "entities/ghost.h"
-#include "entities/Projectile.h"
 #include "EntityManager.h"
-#include "entities/blood.h"
+#include "entities/smoke.h"
 
 
 Ghost::Ghost(float x, float y) : Enemy(x, y, GHOST_SIZE) {
-    obstructible = false;
+    obstructible = true;
     hostile = true;
     defence = 1;
     immovable = false;
@@ -30,5 +29,5 @@ void Ghost::handleCollision(const EventCollision &event)
 void Ghost::die()
 {
     EntityManager::Instance().removeEntity(id);
-    EntityManager::Instance().createEntity<Blood>(pos.x, pos.y);
+    EntityManager::Instance().createEntity<Smoke>(pos.x, pos.y);
 }

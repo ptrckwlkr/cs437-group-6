@@ -23,7 +23,7 @@ public:
     Inventory &get_inventory() {return inventory;}
 
     int get_gold() {return gold;}
-    void update_gold();
+    void update_gold(bool defeat);
     void handleCollision(const EventGoldCollection &event);
 
 private:
