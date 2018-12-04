@@ -30,12 +30,14 @@ public:
     const float get_max_mana() const {return max_health;}
     const float get_mana_regen() const {return mana;}
 
-    void attack(Vector2D &dir, float delta);
+    void l_attack(Vector2D &dir, float delta);
+    void r_attack(Vector2D &dir, float delta);
     void die() override;
 
     //used to prevent more than one projectile firing each frame (assuming 60fps)
     //NOTE THIS CAN BE CHANGED TO SIMULATE DIFFERENT WEAPON SPEED
-    float delta_threshold = (float)(10 / 60.0);
+    float l_delta_threshold;
+    float r_delta_threshold;
     float delta_sum;
 
 };

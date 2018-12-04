@@ -8,28 +8,35 @@ Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
 {
     delta_sum = 0.0;
     obstructible = true;
-    delta_threshold = (float)(60 / 60.0);
+    l_delta_threshold = (float)(10 / 60.0);
+    r_delta_threshold = (float)(45 / 60.0);
 }
 
-void Player::attack(Vector2D &dir, float delta) {
+void Player::l_attack(Vector2D &dir, float delta) {
     delta_sum += delta;
     //prevents projectiles from being spammed
 
-    /*
-    if (delta_sum >= delta_threshold) {
+    if (delta_sum >= l_delta_threshold) {
         float x = pos.x;
         float y = pos.y;
         auto projectile = EntityManager::Instance().createEntity<Projectile>(x, y);
         projectile->set_direction(dir);
         projectile->set_damage(damage);
+        projectile->trail_enabled = true;
         delta_sum = 0;
-    }*/
+    }
+}
 
-    if (delta_sum > delta_threshold)
+void Player::r_attack(Vector2D &dir, float delta) {
+    delta_sum += delta;
+    //prevents projectiles from being spammed
+
+
+    if (delta_sum > r_delta_threshold)
     {
         Vector2D p = pos + dir.normal() * size * 1.5;
         auto melee = EntityManager::Instance().createEntity<Melee>(p.x, p.y);
-        melee->setRadius(30);
+        melee->setRadius(36);
         melee->setDirection(dir);
         melee->set_damage(damage);
         delta_sum = 0;
