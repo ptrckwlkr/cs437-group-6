@@ -20,6 +20,7 @@ void StoryView::handle_event(sf::Event event)
 
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q) Engine::Instance().switch_mode(MODE_MENU);
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::K) Engine::Instance().switch_mode(MODE_PLAY);
+    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::E) Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
     if ((WINDOW_WIDTH / 6.f) < mouse_pos.x  && mouse_pos.x < (5*WINDOW_WIDTH / 6.f) && (500 < mouse_pos.y && mouse_pos.y < 600))
     {
