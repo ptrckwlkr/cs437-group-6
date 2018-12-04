@@ -122,5 +122,6 @@ void ResourceManager::LoadAllResources()
     resources.LoadSound("bonebreak", "../data/Sounds/Impact Bonebreak.wav");
     resources.LoadSound("monsterdeath", "../data/Sounds/dsbgdth1.wav");
     resources.LoadSound("fireball", "../data/Sounds/Spell - Fireball 1.wav");
+    resources.LoadSound("swordswing", "../data/Sounds/sword_swing_fast_001.wav");
 
 }
