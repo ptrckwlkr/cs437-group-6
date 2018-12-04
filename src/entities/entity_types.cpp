@@ -9,6 +9,7 @@
 #include "entities/skeleton.h"
 #include "entities/ghost.h"
 #include "entities/sword.h"
+#include "entities/orc.h"
 
 const EntityType Blood::entityType        = (EntityType)(&Blood::entityType);
 const EntityType Exit::entityType         = (EntityType)(&Exit::entityType);
@@ -20,3 +21,4 @@ const EntityType Projectile::entityType   = (EntityType)(&Projectile::entityType
 const EntityType Skeleton::entityType     = (EntityType)(&Skeleton::entityType);
 const EntityType Ghost::entityType        = (EntityType)(&Ghost::entityType);
 const EntityType Sword::entityType        = (EntityType)(&Sword::entityType);
+const EntityType Orc::entityType          = (EntityType)(&Orc::entityType);

@@ -55,9 +55,22 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         type = ent->getEntityType();
 
         sf::CircleShape circle(size);
-        circle.setFillColor(sf::Color(0, 0, 0, 0));
-        if (type == Projectile::entityType)
-            circle.setFillColor(sf::Color(255, 255, 0, 125));
+
+        if (type == Projectile::entityType) {
+            sf::Color trail_col;
+            if (ent->is_hostile()) {
+                circle.setFillColor(sf::Color(255, 255, 0, 125));
+                trail_col = sf::Color(255, 0, 0);
+            }
+            else
+            {
+                circle.setFillColor(sf::Color(0, 255, 125, 125));
+                trail_col = sf::Color(0, 255, 0);
+            }
+            drawProjectileMotionBlur(target, states, circle, ent->trail, trail_col);
+        }
+        else
+            circle.setFillColor(sf::Color(0, 0, 0, 0));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);
@@ -160,14 +173,14 @@ void GameGraphics::storeLevel() {
 
 
 void GameGraphics::drawProjectileMotionBlur(sf::RenderTarget &target, sf::RenderStates states, sf::CircleShape circle,
-                                            std::vector<Vector2D> &trail) const {
+                                            std::vector<Vector2D> &trail, sf::Color trail_col) const {
     float size = circle.getRadius();
 
     //draws all balls in trail except 0th since it is used to store main ball's location
     for (int i = 1; i < 5; i++) {
         sf::CircleShape trail_shape(size);
         trail_shape.setOrigin(size, size);
-        trail_shape.setFillColor(sf::Color(255, 0, 0, 175 - 30 * i));
+        trail_shape.setFillColor(sf::Color(trail_col.r, trail_col.g, trail_col.b, 175 - 30 * i));
         trail_shape.setPosition(trail[i].x, trail[i].y);
         target.draw(trail_shape, states);
     }

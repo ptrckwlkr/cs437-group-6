@@ -31,7 +31,7 @@ private:
 
     void drawMap(sf::RenderTarget &target, sf::RenderStates states) const;
 
-    void drawProjectileMotionBlur(sf::RenderTarget &target, sf::RenderStates states, sf::CircleShape,  std::vector<Vector2D> &trail) const;
+    void drawProjectileMotionBlur(sf::RenderTarget &target, sf::RenderStates states, sf::CircleShape,  std::vector<Vector2D> &trail, sf::Color trail_col) const;
 
     TileMap tile_map;
     sf::VertexArray vertices;

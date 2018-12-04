@@ -32,8 +32,6 @@ OrcAnimation::OrcAnimation(Orc &entity) : Animation(), orc(&entity) {
 }
 
 
-OrcAnimation::~OrcAnimation(){}
-
 void OrcAnimation::update(float delta){
     //imageCount is the specific value for the number of animation
     //for a certain movement base on the sprite sheet

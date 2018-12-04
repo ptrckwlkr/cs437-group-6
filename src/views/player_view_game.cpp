@@ -45,16 +45,27 @@ void GameView::process_input(float delta) {
             state->get_level().get_player().move(dir, delta);
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
             sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
             Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
             Vector2D direction = mouse_pos - state->get_level().get_player().get_position();
-            state->get_level().get_player().attack(direction, delta);
+            state->get_level().get_player().r_attack(direction, delta);
         }
+        else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            sf::Vector2f mpos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
+            Vector2D mouse_pos = Vector2D(mpos.x, mpos.y);
+            Vector2D direction = mouse_pos - state->get_level().get_player().get_position();
+            state->get_level().get_player().l_attack(direction, delta);
+        }
+
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)){
-            state->get_level().get_player().set_speed(200);
+            state->get_level().get_player().set_speed(125);
         }
+        else
+            state->get_level().get_player().set_speed(85);
 
     }
 }
