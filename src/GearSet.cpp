@@ -1,12 +1,13 @@
 #include "GearSet.h"
+#include <memory>
 
 GearSet::GearSet() {
-	equipItem(std::shared_ptr<Equipment>(new Equipment(EquipSlot::Head, 2, 2, 2, 10, 0, "renegade_head")));
-	equipItem(std::shared_ptr<Equipment>(new Equipment(EquipSlot::Chest, 0, 0, 10, 0, 0, "renegade_armor")));
-	equipItem(std::shared_ptr<Equipment>(new Equipment(EquipSlot::Shoulders, 2, 2, 4, 0, 0, "renegade_shoulders")));
-	equipItem(std::shared_ptr<Equipment>(new Equipment(EquipSlot::Legs, 2, 2, 2, 20, 0, "renegade_pants")));
-	equipItem(std::shared_ptr<Equipment>(new Equipment(EquipSlot::Feet, 3, 3, 2, 0, 10, "renegade_boots")));
-	equipItem(std::shared_ptr<Equipment>(new Equipment(EquipSlot::Hands, 6, 6, 2, 0, 0, "renegade_gloves")));
+	equipItem(std::make_shared<Equipment>(EquipSlot::Head, 2, 2, 2, 10, 0, "renegade_head"));
+	equipItem(std::make_shared<Equipment>(EquipSlot::Chest, 0, 0, 10, 0, 0, "renegade_armor"));
+	equipItem(std::make_shared<Equipment>(EquipSlot::Shoulders, 2, 2, 4, 0, 0, "renegade_shoulders"));
+	equipItem(std::make_shared<Equipment>(EquipSlot::Legs, 2, 2, 2, 20, 0, "renegade_pants"));
+	equipItem(std::make_shared<Equipment>(EquipSlot::Feet, 3, 3, 2, 0, 10, "renegade_boots"));
+	equipItem(std::make_shared<Equipment>(EquipSlot::Hands, 6, 6, 2, 0, 0, "renegade_gloves"));
 }
 
 void GearSet::equipItem(std::shared_ptr<Equipment> item) {
@@ -75,5 +76,3 @@ std::string GearSet::EquipSlotToString(EquipSlot equipslot) {
 int GearSet::getSetStat(std::string stat) {
 	return setStats.at(stat);
 }
-
-GearSet gear = GearSet();
