@@ -102,6 +102,7 @@ void ResourceManager::LoadAllResources()
     resources.LoadTexture("skeletonTexture", "../data/Sprites/skeletonSprite.png");
     resources.LoadTexture("ghostTexture", "../data/Sprites/ghost.png");
     resources.LoadTexture("bloodTexture", "../data/Sprites/blood.png");
+    resources.LoadTexture("goldTexture", "../data/Sprites/treasure.png");
     resources.LoadTexture("swordTexture", "../data/Sprites/sword.png");
     resources.LoadTexture("shop", "../data/Sprites/shop.png");
     resources.LoadTexture("renegade_head", "../data/Sprites/sets/renegade/transparent/ren_hl_t_01.png");

@@ -8,6 +8,7 @@ Player::Player(float x, float y) : Entity(x, y, PLAYER_SIZE)
 {
     delta_sum = 0.0;
     obstructible = true;
+    delta_threshold = (float)(60 / 60.0);
 }
 
 void Player::attack(Vector2D &dir, float delta) {
@@ -24,7 +25,6 @@ void Player::attack(Vector2D &dir, float delta) {
         delta_sum = 0;
     }*/
 
-    delta_threshold = (float)(60 / 60.0);
     if (delta_sum > delta_threshold)
     {
         Vector2D p = pos + dir.normal() * size * 1.5;
