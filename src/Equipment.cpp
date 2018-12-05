@@ -2,14 +2,15 @@
 
 #include <iostream>
 
-Equipment::Equipment(EquipSlot slot, int atk, int mag, int def, int health, int mana, Equip equip) {
-    this->type = slot;
+Equipment::Equipment(EquipSet set, EquipSlot slot, int atk, int mag, int def, int health, int mana)
+{
+    this->slot = slot;
+    this->set = set;
     this->statData.insert(std::pair<std::string, int>("Attack", atk));
     this->statData.insert(std::pair<std::string, int>("Magic", mag));
     this->statData.insert(std::pair<std::string, int>("Defense", def));
     this->statData.insert(std::pair<std::string, int>("Health", health));
     this->statData.insert(std::pair<std::string, int>("Mana", mana));
-    this->item = equip;
     this->statTotal = atk + mag + def + health + mana;
 }
 
@@ -27,8 +28,4 @@ int Equipment::getStatTotal() {
 
 void Equipment::setEquipped(bool equip) {
     this->equipped = equip;
-}
-
-Equip &Equipment::getEquipItem() {
-	  return item;
 }

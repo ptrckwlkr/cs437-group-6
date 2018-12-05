@@ -8,7 +8,6 @@
 #include "ResourceManager.h"
 #include "MusicManager.h"
 #include "sound_manager.h"
-#include "GearSet.h"
 
 enum GameMode
 {
@@ -52,7 +51,7 @@ private:
     sf::RenderWindow *App;
     sf::Clock time;
     GameMode curr_game_mode;
-    SoundManager soundmanager = SoundManager();
+    //SoundManager soundmanager = SoundManager();
 };
 
 //global access to resource manager
