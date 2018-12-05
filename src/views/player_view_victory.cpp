@@ -21,13 +21,11 @@ void VictoryView::handle_event(sf::Event event)
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q) Engine::Instance().switch_mode(MODE_MENU);
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::V) Engine::Instance().switch_mode(MODE_PLAY);
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
-    if (340 < mouse_pos.x  && mouse_pos.x <= 451)
+
+    if (event.type == sf::Event::EventType::MouseButtonPressed && sf::Event::EventType::MouseButtonReleased)
     {
-        if (event.type == sf::Event::EventType::MouseButtonPressed && sf::Event::EventType::MouseButtonReleased)
-        {
-            printf( "play again pressed");
-          Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
-        }
+        printf( "play again pressed");
+      Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
     }
 }
 
