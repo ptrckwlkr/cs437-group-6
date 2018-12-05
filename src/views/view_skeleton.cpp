@@ -97,6 +97,7 @@ void SkeletonView::updateRed(float delta, Vector2D dir) {
                     cur_state = AGGRO;
                     target = state->get_level().get_player().get_position();
                 } else
+                    //target is most recent path node that the player has entered
                     target = nodes.back();
             }
         }

@@ -41,7 +41,7 @@ private:
     CollisionEngine collision_engine;
     std::shared_ptr<Level> level;
 
-    int current_level;
+    int current_level = -1;
 
     bool f_paused = false;
     bool f_floor_complete = false;

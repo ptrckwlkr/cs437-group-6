@@ -53,7 +53,9 @@ protected:
 	const void camera_reset(sf::RenderTarget &target) const
 	{
 		sf::View camera;
+		sf::FloatRect viewport = target.getView().getViewport();
 		camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+		camera.setViewport(viewport);
 		target.setView(camera);
 	}
 

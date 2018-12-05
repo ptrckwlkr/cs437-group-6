@@ -66,12 +66,14 @@ bool GameLogic::check_flags() {
         reset();
         Engine::Instance().switch_mode(MODE_LOST);
         level_factory.reset();
+        current_level = -1;
         return true;
     } else if (f_victory) {
         f_victory = false;
         reset();
         Engine::Instance().switch_mode(MODE_VICTORY);
         level_factory.reset();
+        current_level = -1;
         return true;
     }
     return false;

@@ -22,8 +22,8 @@ void ShopView::handle_event(sf::Event event)
 {
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
 
-    if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::F) Engine::Instance().switch_mode(MODE_PLAY);
 }
 
@@ -34,6 +34,7 @@ void ShopView::update(float delta)
     while (app->pollEvent(event))
     {
         handle_event(event);
+        common_handle_event_tasks(event);
     }
     process_input(delta);
 }

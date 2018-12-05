@@ -269,7 +269,7 @@ void AgentBasedGenerator::placeEntities(std::string type, int quantity) {
             iterations++;
             if (iterations > MAX_ITERATIONS) break;
         } while (room == player_room_index || euclideanDistance(player_x, player_y, rooms[room][0] + rooms[room][2] / 2,
-                                                          rooms[room][1] + rooms[room][3] / 2) < 9);
+                                                          rooms[room][1] + rooms[room][3] / 2) < 12);
 
         std::vector<int> enemy_pos;
         std::vector<int> enemy_pos_pixels;

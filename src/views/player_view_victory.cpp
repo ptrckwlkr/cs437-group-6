@@ -16,9 +16,6 @@ void VictoryView::process_input(float delta)
 
 void VictoryView::handle_event(sf::Event event)
 {
-
-    if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
 
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q) Engine::Instance().switch_mode(MODE_MENU);
@@ -41,6 +38,7 @@ void VictoryView::update(float delta)
     while (app->pollEvent(event))
     {
         handle_event(event);
+        common_handle_event_tasks(event);
     }
     process_input(delta);
 }
