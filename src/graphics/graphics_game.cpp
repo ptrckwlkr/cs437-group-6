@@ -154,7 +154,7 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     goldText = prepareText("gold", font);
     goldText.setPosition(x- WINDOW_WIDTH / 2.f + 660, hpBar.getPosition().y +10);
     goldAmount = prepareText("amount", font);
-    goldAmount.setString(std::to_string(view->get_state().get_player_data().get_gold()));
+    goldAmount.setString(std::to_string(view->get_state().get_player_data().get_level()));
     goldAmount.setPosition(goldText.getPosition().x, goldText.getPosition().y + 25);
 
     sf::Sprite goldImage;
