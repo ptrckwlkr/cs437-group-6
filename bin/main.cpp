@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
   // create main window
-  sf::RenderWindow App(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Tower", sf::Style::Titlebar | sf::Style::Close);
+  sf::RenderWindow App(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Tower");
   App.setVerticalSyncEnabled(true);
 
   // Initialize the game engine

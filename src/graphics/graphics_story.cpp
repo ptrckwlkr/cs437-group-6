@@ -15,6 +15,8 @@ void StoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) cons
 
     // This must always be the first line of every draw method
     states.transform *= getTransform();
+
+    camera_reset(target);
     sf::Text title = prepareText("StoryText", font);
     sf::Text playAgain = prepareText("ReplayText", font);
 
