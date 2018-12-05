@@ -14,8 +14,8 @@ PlayerData::PlayerData() : Listener()
   gold            = STARTING_GOLD;
   level_gold      = 0;
 
-  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &handleGoldCollection);
-  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handlePlayerDeath);
+  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleGoldCollection);
+  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &PlayerData::handlePlayerDeath);
   //EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handleLevelComplete);
 }
 

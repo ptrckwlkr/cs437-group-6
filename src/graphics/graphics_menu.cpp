@@ -1,4 +1,3 @@
-
 #include "graphics/graphics_menu.h"
 #include "views/player_view_menu.h"
 #include "macros.h"
@@ -62,7 +61,7 @@ void MenuGraphics::storeStaticText()
 	//prepares the about page's text
 	aboutText = prepareText("about-page", font);
 	aboutText.setOrigin(aboutText.getLocalBounds().width/2.f, aboutText.getLocalBounds().height/2.f);
-	aboutText.setPosition((WINDOW_WIDTH / 2.0) - 32, (WINDOW_HEIGHT / 2.0) - 96);
+	aboutText.setPosition((WINDOW_WIDTH / 2.0) - 32, (WINDOW_HEIGHT / 2.0) - 64);
 
 	storeControlText();
 

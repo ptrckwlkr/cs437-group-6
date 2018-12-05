@@ -75,7 +75,7 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
     <Shop>
         <ShopKeeperText>
             <text>
-                Hello, Stu Dent!
+                Hello, Stu!
                 How can I can help you?</text>
             <size>18</size>
             <r>255</r>
@@ -97,7 +97,7 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <b>255</b>
         </HealthText>
         <AbilitiesText>
-            <text>Buy Abilities</text>
+            <text>Buy Equipment</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
