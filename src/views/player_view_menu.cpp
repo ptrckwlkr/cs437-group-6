@@ -38,7 +38,6 @@ void MenuView::process_input(float delta)
 	}
 }
 
-
 void MenuView::handle_event(sf::Event event)
 {
 

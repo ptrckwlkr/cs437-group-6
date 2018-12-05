@@ -1,5 +1,6 @@
 #include <SFML/Window/Event.hpp>
 #include <views/player_view_story.h>
+#include <views/player_next_level.h>
 #include "views/player_view_victory.h"
 #include "views/player_view_level_select.h"
 #include "views/player_view_inventory.h"
@@ -109,6 +110,9 @@ void Engine::switch_mode(GameMode mode)
             break;
       case MODE_INVENTORY:
         ViewManager::Instance().set_player_view<InventoryView>(&state, App);
+            break;
+      case MODE_NEXT_LEVEL:
+        ViewManager::Instance().set_player_view<NextLevelView>(&state, App);
             break;
     }
 }

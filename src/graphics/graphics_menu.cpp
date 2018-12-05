@@ -119,6 +119,7 @@ void MenuGraphics::storeControlText()
 	xmlStrings.push_back("rweapon");
 	xmlStrings.push_back("inventory");
 	xmlStrings.push_back("interact");
+	xmlStrings.push_back("map");
 
 
 	//coordinates for each entry
@@ -127,7 +128,7 @@ void MenuGraphics::storeControlText()
 	int y_start = 125;
 	int offset = 50;
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		//reads text from xml file and creates an sf::Text object with a good position position 
 		controls.push_back(prepareText("control-" + xmlStrings[i] + "-lhs", font));		//this 2.0 is to keep the same height from prepareText()

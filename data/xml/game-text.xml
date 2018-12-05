@@ -56,6 +56,22 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <b>255</b>
         </ReplayText>
     </Story>
+    <NextLevel>
+        <NextLevelText>
+            <text>Congrats, you move on to the next level!</text>
+            <size>28</size>
+            <r>255</r>
+            <g>155</g>
+            <b>255</b>
+        </NextLevelText>
+        <Cont>
+            <text>Continue</text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </Cont>
+    </NextLevel>
     <LevelSelect>
         <LevelText>
             <text>Click on any level number to begin playing!</text>
@@ -87,6 +103,34 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </ReplayText>
+        <StatsText>
+            <text>Total Number of Enemies Killed:</text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </StatsText>
+        <NumberText>
+            <text> </text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </NumberText>
+        <GoldStatsText>
+            <text>Total Amount of Gold Lost:</text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </GoldStatsText>
+        <GoldNumText>
+            <text> </text>
+            <size>28</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </GoldNumText>
     </Lost>
     <Shop>
         <ShopKeeperText>
@@ -264,6 +308,20 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </control-interact-rhs>
+        <control-map-lhs>
+            <text>View Dungeon Map:</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-map-lhs>
+        <control-map-rhs>
+            <text>[M]</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </control-map-rhs>
 
         <about-page>
             <text>

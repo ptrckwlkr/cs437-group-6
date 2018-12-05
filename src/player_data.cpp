@@ -13,9 +13,11 @@ PlayerData::PlayerData() : Listener()
   base_mana_regen = 1;
   gold            = STARTING_GOLD;
   level_gold      = 0;
+  level_total_enemies = 0;
 
   EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleGoldCollection);
   EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &PlayerData::handlePlayerDeath);
+  EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, &PlayerData::handleEnemiesCount);
   //EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handleLevelComplete);
 }
 
@@ -92,6 +94,7 @@ void PlayerData::handleGoldCollection(const EventGoldCollection &event)
 
 void PlayerData::handlePlayerDeath(const EventPlayerDied &event)
 {
+  gold_lost =level_gold;
   level_gold = 0;
 }
 
@@ -99,4 +102,11 @@ void PlayerData::handleLevelComplete(const EventPlayerDied &event)
 {
   gold += level_gold;
   level_gold = 0;
+}
+void PlayerData::handleEnemiesCount(const EventEntityDestroyed &event)
+{
+  level_total_enemies +=1;
+//  if (event.getOther().getEntityType() == ::entityType ){
+//    level_total_enemies +=1;
+//  }
 }

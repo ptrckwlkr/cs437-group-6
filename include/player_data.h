@@ -2,6 +2,7 @@
 #define CSCI437_PLAYER_DATA_H
 
 #include <memory>
+#include <events/event_entity_destroyed.h>
 #include "Weapon.h"
 #include "inventory.h"
 #include "events/event_gold_collection.h"
@@ -33,18 +34,24 @@ public:
 
     void set_health(float h) {health = h;}
     void set_mana(float m) {mana = m;}
-    void add_gold(int g) {gold += g;}
+    //void add_gold() {gold += 20;}
+    void add_mana() { mana += 20;}
+    void add_health() {health += 20;}
     GearSet &get_gear() {return gear;}
 
     int get_gold() {return gold + level_gold;}
+    int get_gold_lost(){return gold_lost;}
+    int get_level_total_enemies(){return level_total_enemies;};
     void handleGoldCollection(const EventGoldCollection &event);
     void handlePlayerDeath(const EventPlayerDied &event);
     void handleLevelComplete(const EventPlayerDied &event);
+    void handleEnemiesCount(const EventEntityDestroyed &event);
 
 private:
     int gold;
     int level_gold;
-
+    int level_total_enemies;
+    int gold_lost;
     GearSet gear;
 
     float health;

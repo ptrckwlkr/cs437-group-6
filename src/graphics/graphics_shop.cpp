@@ -17,7 +17,7 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     camera_reset(target);
     sf::Text manaText = prepareText("ManaText", font);
     sf::Text healthText = prepareText("HealthText", font);
-    sf::Text aText = prepareText("AbilitiesText", font);
+    //sf::Text aText = prepareText("AbilitiesText", font);
     sf::Text exitText = prepareText("ExitText", font);
     sf::Text goldText = prepareText("GoldText", font);
     sf::Text shopkeeper = prepareText("ShopKeeperText", font);
@@ -45,11 +45,11 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     shopkeeper.setPosition(rectangle.getPosition().x +120,rectangle.getPosition().y +20);
     manaText.setPosition(rectangle2.getPosition().x + 120,rectangle2.getPosition().y + 20);
     healthText.setPosition(manaText.getPosition().x +10, manaText.getPosition().y + 40);
-    aText.setPosition(healthText.getPosition().x, healthText.getPosition().y + 40);
-    exitText.setPosition(aText.getPosition().x, aText.getPosition().y + 40);
+    //aText.setPosition(healthText.getPosition().x, healthText.getPosition().y + 40);
+    exitText.setPosition(healthText.getPosition().x, healthText.getPosition().y + 40);
     goldText.setPosition(exitText.getPosition().x, exitText.getPosition().y + 40);
 
-    target.draw(aText, states);
+    //target.draw(aText, states);
     target.draw(manaText, states);
     target.draw(exitText, states);
     target.draw(healthText, states);

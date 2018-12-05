@@ -20,6 +20,7 @@ enum GameMode
 		MODE_INVENTORY,
 		MODE_LOST,
 		MODE_STORY,
+		MODE_NEXT_LEVEL,
 };
 
 /**
@@ -37,6 +38,7 @@ public:
 		void switch_mode(GameMode mode);
 		void shutdown();
     float clock();
+    GameLogic& get_state(){return state;}
 	
 
 private:
