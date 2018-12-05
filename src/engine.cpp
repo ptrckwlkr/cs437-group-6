@@ -78,12 +78,14 @@ void Engine::start_new_game(int level)
 {
   state.reset();
   state.get_player_data().reset();
-  if (level < 7) state.create_new_level(AGENT_BASED, level);
+  if (level < 8) state.create_new_level(AGENT_BASED, level);
   else state.create_new_level(LEVEL_FILE, level);
 }
 
 void Engine::switch_mode(GameMode mode)
 {
+  sf::FloatRect viewport = App->getView().getViewport();
+
   curr_game_mode = mode;
   switch (mode)
   {
@@ -115,5 +117,12 @@ void Engine::switch_mode(GameMode mode)
         ViewManager::Instance().set_player_view<NextLevelView>(&state, App);
             break;
     }
+
+    //prevents viewport changes from being discarded when mode is switched
+    sf::View sf_view = App->getView();
+    sf_view.setViewport(viewport);
+    App->setView(sf_view);
+
+
 }
 

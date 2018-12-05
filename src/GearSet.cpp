@@ -2,12 +2,32 @@
 #include <memory>
 
 GearSet::GearSet() {
-	auto head = std::make_shared<Equipment>(EquipSlot::Head, 2, 2, 2, 10, 0, "renegade_head");
-	auto armor = std::make_shared<Equipment>(EquipSlot::Chest, 0, 0, 10, 0, 0, "renegade_armor");
-	auto shoulders = std::make_shared<Equipment>(EquipSlot::Shoulders, 2, 2, 4, 0, 0, "renegade_shoulders");
-	auto pants = std::make_shared<Equipment>(EquipSlot::Legs, 2, 2, 2, 20, 0, "renegade_pants");
-	auto boots = std::make_shared<Equipment>(EquipSlot::Feet, 3, 3, 2, 0, 10, "renegade_boots");
-	auto gloves = std::make_shared<Equipment>(EquipSlot::Hands, 6, 6, 2, 0, 0, "renegade_gloves");
+
+  setStats = {
+    {"Attack",0},
+    {"Magic",0},
+    {"Defense",0},
+    {"Health",0},
+    {"Mana",0}
+  };
+
+  equippedItems = {
+    {"Head",       std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Chest",     std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Shoulders", std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Legs",      std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Feet",      std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Hands",     std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Ring1",     std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+    {"Ring2",     std::make_shared<Equipment>(EquipSlot::Head, 0, 0, 0, 0, 0, empty)},
+  };
+
+	auto head = std::make_shared<Equipment>(EquipSlot::Head, 0, 1, 0, 1, 1, renegade_head);
+	auto armor = std::make_shared<Equipment>(EquipSlot::Chest, 2, 0, 0, 0, 1, renegade_armor);
+	auto shoulders = std::make_shared<Equipment>(EquipSlot::Shoulders, 0, 0, 0, 3, 0, renegade_shoulders);
+	auto pants = std::make_shared<Equipment>(EquipSlot::Legs, 0, 1, 0, 2, 0, renegade_pants);
+	auto boots = std::make_shared<Equipment>(EquipSlot::Feet, 0, 0, 1, 1, 1, renegade_boots);
+	auto gloves = std::make_shared<Equipment>(EquipSlot::Hands, 1, 0, 2, 0, 0, renegade_gloves);
 	equipItem(head);
 	equipItem(armor);
 	equipItem(shoulders);
@@ -72,8 +92,6 @@ std::string GearSet::EquipSlotToString(EquipSlot equipslot) {
 			return "Hands";
 		case EquipSlot::Ring:
 			return "Ring";
-		default:
-			return "";
 	}
 }
 

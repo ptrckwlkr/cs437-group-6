@@ -31,12 +31,13 @@ class Engine
 public:
     static Engine &Instance();
     void init(sf::RenderWindow *app);
-		void update_views(float delta);
+    void update_views(float delta);
     void update_state(float delta);
-		void update_graphics(float delta);
-		void start_new_game(int level);
-		void switch_mode(GameMode mode);
-		void shutdown();
+    void update_graphics(float delta);
+    void start_new_game(int level);
+    void switch_mode(GameMode mode);
+    GameMode get_mode() {return curr_game_mode;}
+    void shutdown();
     float clock();
     GameLogic& get_state(){return state;}
 	
