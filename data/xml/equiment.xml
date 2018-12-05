@@ -57,7 +57,7 @@
 		<mana>.6</mana>
 	</gatekeeper>
 
-	<illusionist>	
+	<illusionist>
 		<attack>75</attack>
 		<magic>.75</magic>
 		<defense>.5</defense>
