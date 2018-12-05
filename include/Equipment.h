@@ -18,13 +18,13 @@ class Equipment
 
 	public:
 		Equipment();
-		Equipment(EquipSlot, int, int, int, int, int, std::string);
+		Equipment(EquipSlot, int, int, int, int, int, const std::string&);
 		~Equipment();
 		EquipSlot type;
 		int getStat(std::string);
 		bool isEquipped(){return this->equipped;};
 		void setEquipped(bool);
-		std::string getSprite();
+		std::string &getSprite();
 };
 
 #endif //CSCI431_EQUIPMENT_H

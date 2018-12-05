@@ -30,8 +30,8 @@ class GearSet
 
 	public:
 		GearSet();
-		void equipItem(std::shared_ptr<Equipment>);
-		std::shared_ptr<Equipment> getItem(EquipSlot, int=1);
+		void equipItem(std::shared_ptr<Equipment>&);
+		std::shared_ptr<Equipment> &getItem(EquipSlot, int=1);
 		std::string EquipSlotToString(EquipSlot);
 		int getSetStat(std::string);
 };
