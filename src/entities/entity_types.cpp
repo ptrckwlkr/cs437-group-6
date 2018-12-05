@@ -16,6 +16,7 @@
 #include "entities/sreep_projectile.h"
 #include "entities/sword.h"
 #include "entities/boss.h"
+#include "entities/potion.h"
 
 const EntityType Blood::entityType            = (EntityType)(&Blood::entityType);
 const EntityType Exit::entityType             = (EntityType)(&Exit::entityType);
@@ -34,4 +35,5 @@ const EntityType Sreep::entityType            = (EntityType)(&Sreep::entityType)
 const EntityType SreepProjectile::entityType  = (EntityType)(&SreepProjectile::entityType);
 const EntityType Sword::entityType            = (EntityType)(&Sword::entityType);
 const EntityType Boss::entityType             = (EntityType)(&Boss::entityType);
+const EntityType Potion::entityType           = (EntityType)(&Potion::entityType);
 

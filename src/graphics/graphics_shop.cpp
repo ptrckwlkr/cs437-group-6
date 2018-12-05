@@ -42,7 +42,7 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     sprite.setPosition(WINDOW_WIDTH,WINDOW_HEIGHT - 250);
     sprite.setColor(sf::Color(255, 255, 255, 160));
 
-    shopkeeper.setPosition(rectangle.getPosition().x +120,rectangle.getPosition().y +20);
+    shopkeeper.setPosition(rectangle.getPosition().x +160,rectangle.getPosition().y +20);
     manaText.setPosition(rectangle2.getPosition().x + 120,rectangle2.getPosition().y + 20);
     healthText.setPosition(manaText.getPosition().x +10, manaText.getPosition().y + 40);
     aText.setPosition(healthText.getPosition().x, healthText.getPosition().y + 40);
