@@ -20,10 +20,13 @@ public:
     const EntityType& getEntityType() const override {return entityType;}
     void fire_all_dirs();
     void fire_at_player();
+    bool is_firing() {return firing;}
+    void set_firing(bool f) {firing = f;}
     void die();
 
 private:
     void handleCollision(const EventCollision &event);
+    bool firing = false;
 
 };
 

@@ -5,7 +5,6 @@ SreepView::SreepView(GameLogic *state, Sreep &s) : View(state)
 {
     sreep = &s;
     aggro = false;
-    firing = false;
     timer = 0;
     fire_option = 0;
     shots_fired = 0;
@@ -20,18 +19,18 @@ void SreepView::update(float delta)
     if (aggro)
     {
         timer += delta;
-        printf("%f\n", timer);
-        if (!firing && timer > 7)
+        if (!sreep->is_firing() && timer > 7)
         {
-            firing = true;
+            sreep->set_firing(true);
             fire_option = 1 + rand() % 2;
             timer = 0;
         }
-        if (firing)
+        if (sreep->is_firing())
         {
             if (fire_option == 1 && timer > 0.5)
             {
                 sreep->fire_all_dirs();
+                sreep->set_firing(true);
                 shots_fired++;
                 timer = 0;
             }
@@ -43,7 +42,7 @@ void SreepView::update(float delta)
             }
             if (shots_fired > 7 || stream_fired > 50)
             {
-                firing = false;
+                sreep->set_firing(false);
                 timer = 0;
                 shots_fired = 0;
                 stream_fired = 0;

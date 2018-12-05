@@ -15,7 +15,6 @@ public:
 private:
     Sreep *sreep;
     bool aggro;
-    bool firing;
     int fire_option;
     int shots_fired;
     int stream_fired;

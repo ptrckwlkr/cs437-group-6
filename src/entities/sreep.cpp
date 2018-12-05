@@ -1,3 +1,4 @@
+#include "entities/explosion.h"
 #include "EntityManager.h"
 #include "entities/sreep.h"
 #include "entities/sreep_projectile.h"
@@ -25,6 +26,7 @@ void Sreep::handleCollision(const EventCollision &event)
 void Sreep::die()
 {
   EntityManager::Instance().removeEntity(id);
+  EntityManager::Instance().createEntity<Explosion>(pos.x, pos.y);
 }
 
 void Sreep::fire_all_dirs()

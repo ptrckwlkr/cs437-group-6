@@ -1,6 +1,7 @@
 #include "entities/entity.h"
 #include "entities/blood.h"
 #include "entities/exit.h"
+#include "entities/explosion.h"
 #include "entities/gold.h"
 #include "entities/melee.h"
 #include "entities/money.h"
@@ -17,6 +18,7 @@
 
 const EntityType Blood::entityType            = (EntityType)(&Blood::entityType);
 const EntityType Exit::entityType             = (EntityType)(&Exit::entityType);
+const EntityType Explosion::entityType        = (EntityType)(&Explosion::entityType);
 const EntityType Gold::entityType             = (EntityType)(&Gold::entityType);
 const EntityType Melee::entityType            = (EntityType)(&Melee::entityType);
 const EntityType Money::entityType            = (EntityType)(&Money::entityType);
