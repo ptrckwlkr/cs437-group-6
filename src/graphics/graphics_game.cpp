@@ -73,8 +73,8 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
             circle.setFillColor(sf::Color(255, 0, 0, 196));
         }
         else
-            //circle.setFillColor(sf::Color(0, 0, 0, 0));
-            circle.setFillColor(sf::Color(255, 255, 255, 90));
+            circle.setFillColor(sf::Color(0, 0, 0, 0));
+            //circle.setFillColor(sf::Color(255, 255, 255, 90));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);
@@ -160,7 +160,7 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     goldText = prepareText("gold", font);
     goldText.setPosition(x- WINDOW_WIDTH / 2.f + 660, hpBar.getPosition().y +10);
     goldAmount = prepareText("amount", font);
-    goldAmount.setString(std::to_string(view->get_state().get_player_data().get_level()));
+    goldAmount.setString(std::to_string(view->get_state().get_player_data().get_gold()));
     goldAmount.setPosition(goldText.getPosition().x, goldText.getPosition().y + 25);
 
     sf::Sprite goldImage;
