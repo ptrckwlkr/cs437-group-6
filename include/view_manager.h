@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "events/event_entity_destroyed.h"
 #include "events/event_entity_created.h"
-#include "view.h"
+#include "views/view.h"
 #include "views/player_view.h"
 #include "view_factory.h"
 

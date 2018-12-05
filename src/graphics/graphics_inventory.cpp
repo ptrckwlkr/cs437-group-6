@@ -28,7 +28,7 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 	sf::Sprite sprite;
         sprite.setScale(.25,.25);
 	for (int i = 0; i < 6; i++) {
-		sprite.setTexture(resources.GetTexture(gear.getItem(slots[i])->getSprite()));
+		sprite.setTexture(resources.GetTexture(view->get_state().get_player_data().get_gear().getItem(slots[i])->getSprite()));
 		sprite.setPosition(WINDOW_WIDTH/4.f,64+(64*(i+1))+(4*i));
 		target.draw(sprite, states);
 	 };
@@ -48,7 +48,7 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 	statText.setCharacterSize(20);
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 5; j++) {
-			statText.setString(std::to_string(gear.getItem(slots[i])->getStat(stats[j])));
+			statText.setString(std::to_string(view->get_state().get_player_data().get_gear().getItem(slots[i])->getStat(stats[j])));
 			statText.setOrigin(statText.getLocalBounds().width/2.f, statText.getLocalBounds().height/2.f);
 			statText.setPosition(WINDOW_WIDTH/2.f + 64 * (j+1), 96+(64*(i+1))+(4*i));
 			target.draw(statText, states);

@@ -1,6 +1,6 @@
 #include "level_factory.h"
 #include "views/view_skeleton.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 #include "entities/gold.h"
 #include "entities/exit.h"
 #include "EntityManager.h"
@@ -52,7 +52,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
 
             std::shared_ptr<Player> player = EntityManager::Instance().createEntity<Player>(gen.player_x,
                                                                                              gen.player_y);
-            EntityManager::Instance().set_player(player);
+        EntityManager::Instance().setPlayer(player);
 
             placeEnemies();
 

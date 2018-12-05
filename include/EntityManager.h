@@ -7,7 +7,7 @@
 #include "events/event_entity_created.h"
 #include "entities/entity.h"
 #include "entities/Player.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 
 
 class EntityManager{
@@ -15,16 +15,16 @@ class EntityManager{
 private:
     EntityManager() = default;
     ~EntityManager() = default;
-    std::unordered_map<long long, std::shared_ptr<Entity>> entity_set;
+    std::unordered_map<long long, std::shared_ptr<Entity>> entities;
     std::shared_ptr<Player> player;
 
 public:
     static EntityManager &Instance();
-    void set_player(std::shared_ptr<Player> p) {player = p;}
+    void setPlayer(std::shared_ptr<Player> p) {player = p;}
     void removeEntity(long long entity_id);
     std::shared_ptr<Player> &getPlayer(){return player;}
     std::shared_ptr<Entity> &getEntity(long long entity_id);
-    std::unordered_map<long long, std::shared_ptr<Entity>> &getEntites() {return entity_set;}
+    std::unordered_map<long long, std::shared_ptr<Entity>> &getEntites() {return entities;}
     void reset();
 
     template <class T>
@@ -32,7 +32,7 @@ public:
     {
         std::shared_ptr<T> entity = std::make_shared<T>(x, y);
         std::shared_ptr<Entity> ent = entity;
-        entity_set.insert(std::pair<long long, std::shared_ptr<Entity>>(ent->id, entity));
+        entities.insert(std::pair<long long, std::shared_ptr<Entity>>(ent->id, entity));
         EventEntityCreated event(entity.get());
         EventManager::Instance().sendEvent(event);
         return entity;
@@ -43,7 +43,7 @@ public:
     {
       std::shared_ptr<T> ptr;
       std::vector<std::shared_ptr<T>> type_entities;
-      for (auto &i : entity_set)
+      for (auto &i : entities)
       {
         auto entity = i.second;
         if (ptr = std::dynamic_pointer_cast<T>(entity))

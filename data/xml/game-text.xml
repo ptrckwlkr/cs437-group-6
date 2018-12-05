@@ -267,13 +267,13 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
 
         <about-page>
             <text>
-                This game was made using SFML for CSCI-437
-                Game Design at the College of William and Mary.
+This game was made using SFML for CSCI-437
+Game Design at the College of William and Mary.
+                
+The members of our team are Olivia Leon Vitervo,
+Rane Squires, Patrick Walker, and Ian Wright.
 
-                The members of our team are Olivia Leon,
-                Rane Squire, Patrick Walker, and Ian Wright.
-
-                We hope that you enjoy playing Power Hour!
+We hope that you enjoy playing Power Hour!
             </text>
             <size>20</size>
             <r>255</r>

@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <unordered_map>
-#include "view.h"
+#include "views/view.h"
 #include "game_logic.h"
 
 namespace ViewFactory

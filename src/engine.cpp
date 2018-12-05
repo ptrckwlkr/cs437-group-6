@@ -9,7 +9,7 @@
 #include "views/player_view_level_select.h"
 #include "views/player_view_shop.h"
 #include "views/player_view_lost.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 #include "EntityManager.h"
 
 Engine &Engine::Instance()
@@ -76,8 +76,8 @@ void Engine::shutdown()
 void Engine::start_new_game(int level)
 {
   state.reset();
-  state.create_new_level(AGENT_BASED, level);
   state.get_player_data().reset();
+  state.create_new_level(AGENT_BASED, level);
 }
 
 void Engine::switch_mode(GameMode mode)

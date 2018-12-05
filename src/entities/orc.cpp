@@ -1,6 +1,6 @@
 #include "entities/orc.h"
 #include "entities/Player.h"
-#include "entities/Projectile.h"
+#include "entities/orc_projectile.h"
 #include "EntityManager.h"
 #include "entities/blood.h"
 
@@ -38,11 +38,9 @@ void Orc::attack(float delta, float delta_threshold, Vector2D dir) {
     {
         float x = pos.x;
         float y = pos.y;
-        auto projectile = EntityManager::Instance().createEntity<Projectile>(x, y);
+        auto projectile = EntityManager::Instance().createEntity<OrcProjectile>(x, y);
         projectile->set_direction(dir);
         projectile->set_damage(projectile_damage);
-        projectile->hostile = true;
-        projectile->trail_enabled = true;
         delta_sum = 0;
     }
 }
