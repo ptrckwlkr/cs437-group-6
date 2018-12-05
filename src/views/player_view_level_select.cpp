@@ -14,7 +14,8 @@ LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : Play
     nodes[3] = {526, 320, 20};
     nodes[4] = {358, 223, 20};
     nodes[5] = {317, 84, 20};
-    nodes[6] = {622, 103, 20};
+    nodes[6] = {89, 112, 20};
+    nodes[7] = {622, 103, 20};
 }
 
 void LevelSelectView::process_input(float delta) {
