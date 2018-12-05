@@ -18,11 +18,11 @@ GameView::~GameView() {
 }
 
 void GameView::process_input(float delta) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        state->reset();
-      Engine::Instance().switch_mode(MODE_MENU);
-        state->reset_level_factory();
-    }
+//    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+//        state->reset();
+//      //Engine::Instance().switch_mode(MODE_MENU);
+//        //state->reset_level_factory();
+//    }
     if (!state->is_paused())
     {
         // TODO check that game has started (not in menu)

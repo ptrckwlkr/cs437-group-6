@@ -30,7 +30,7 @@ void LostView::handle_event(sf::Event event)
         {
 
             printf( "play again pressed");
-            Engine::Instance().switch_mode(MODE_MENU);
+            Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
         }
     }
 }

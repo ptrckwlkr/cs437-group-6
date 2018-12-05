@@ -56,6 +56,22 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <b>255</b>
         </ReplayText>
     </Story>
+    <LevelSelect>
+        <LevelText>
+            <text>Click on any level number to begin playing.</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </LevelText>
+        <ShopInstrTextText>
+            <text>To access shop use F key</text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ShopInstrTextText>
+    </LevelSelect>
     <Lost>
         <LostText>
             <text>You lost!</text>
