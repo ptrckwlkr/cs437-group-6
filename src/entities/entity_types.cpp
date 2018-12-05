@@ -11,6 +11,7 @@
 #include "entities/skeleton.h"
 #include "entities/smoke.h"
 #include "entities/ghost.h"
+#include "entities/sreep.h"
 #include "entities/sword.h"
 
 const EntityType Blood::entityType          = (EntityType)(&Blood::entityType);
@@ -25,4 +26,5 @@ const EntityType Projectile::entityType     = (EntityType)(&Projectile::entityTy
 const EntityType Skeleton::entityType       = (EntityType)(&Skeleton::entityType);
 const EntityType Smoke::entityType          = (EntityType)(&Smoke::entityType);
 const EntityType Ghost::entityType          = (EntityType)(&Ghost::entityType);
+const EntityType Sreep::entityType          = (EntityType)(&Sreep::entityType);
 const EntityType Sword::entityType          = (EntityType)(&Sword::entityType);

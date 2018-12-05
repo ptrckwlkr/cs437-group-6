@@ -68,7 +68,8 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
             drawProjectileMotionBlur(target, states, circle, ent->trail, trail_col);
         }
         else
-            circle.setFillColor(sf::Color(0, 0, 0, 0));
+            //circle.setFillColor(sf::Color(0, 0, 0, 0));
+            circle.setFillColor(sf::Color(255, 255, 255, 90));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);

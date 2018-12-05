@@ -5,9 +5,9 @@
 #include "entities/exit.h"
 #include "EntityManager.h"
 #include "level.h"
-#include <unordered_map>
 #include "entities/ghost.h"
 #include "entities/orc.h"
+#include "entities/sreep.h"
 
 
 
@@ -33,29 +33,22 @@ void LevelFactory::set_algorithm(Generator algorithm, int level)
 std::shared_ptr<Level> LevelFactory::generate_level() {
     std::shared_ptr<Level> level;
     std::shared_ptr<Map> map;
-
+    std::shared_ptr<Player> player;
 
     // TODO Can specify the map generation algorithm (load from file, randomly generated, etc)
     switch (algorithm) {
         case LEVEL_FILE:
-
-            EntityManager::Instance().getPlayer()->set_position(150, 150);
-
-            map = load("../data/test2.txt");
+            map = load("../data/boss.txt");
+            player = EntityManager::Instance().createEntity<Player>((float)8.5 * CELL_SIZE, (float)36.5 * CELL_SIZE);
+            EntityManager::Instance().createEntity<Sreep>((float)8.5 * CELL_SIZE, (float)30.5 * CELL_SIZE);
             break;
-        case AGENT_BASED:
 
+        case AGENT_BASED:
             gen.createLevelGrid();
             map = std::make_shared<Map>(gen.level_grid);
             map->givePathNodes(gen.getPathNodes());
-            //gen.printLevelGrid();
-
-            std::shared_ptr<Player> player = EntityManager::Instance().createEntity<Player>(gen.player_x,
-                                                                                             gen.player_y);
-        EntityManager::Instance().setPlayer(player);
-
+            player = EntityManager::Instance().createEntity<Player>(gen.player_x, gen.player_y);
             placeEnemies();
-
 
             for (int i = 0; i < gen.treasure_coords.size(); i++) {
                 auto ent = EntityManager::Instance().createEntity<Gold>((float) gen.treasure_coords[i][0],
@@ -65,7 +58,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
             break;
     }
 
-    // Create the actual level
+    EntityManager::Instance().setPlayer(player);
     level = std::make_shared<Level>(map);
     level->set_player(EntityManager::Instance().getPlayer().get());
 
