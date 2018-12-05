@@ -54,10 +54,7 @@ void Engine::update_state(float delta)
 
 void Engine::update_graphics(float delta)
 {
-  sf::FloatRect tmp1 = App->getView().getViewport();
   ViewManager::Instance().get_player_view()->draw(delta);
-  sf::FloatRect tmp2 = App->getView().getViewport();
-
 }
 
 /**

@@ -114,8 +114,10 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
 
     sf::View camera;
     sf::FloatRect viewport = target.getView().getViewport();
+    camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
     camera.setViewport(viewport);
     Vector2D playerPos = view->get_state().get_level().get_player().get_position();
+    camera.zoom(1 / ZOOM_SCALAR);
     float x = playerPos.x;
     float y = playerPos.y;
     camera.setCenter(x, y);
