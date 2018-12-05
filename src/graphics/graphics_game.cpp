@@ -84,6 +84,7 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
     drawSprites(target, states);
     drawUI(target, states);
+
 }
 
 void GameGraphics::drawSprites(sf::RenderTarget &target, sf::RenderStates states) const
@@ -155,7 +156,7 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     target.draw(manaBar, states);
 
     // update and draw text for health and mana, must be drawn after the corresponding bars
-    sf::Text hpText, manaText, goldText, goldAmount;
+    sf::Text hpText, manaText, goldText, goldAmount, pauseText, pauseInstructions;
     hpText = prepareText("health", font);
     //note that y position of text is relative to bar size but x position is fixed so that bar can change width without moving text
     hpText.setPosition(x - WINDOW_WIDTH / 2.f + 135, hpBar.getPosition().y + hpBar.getLocalBounds().height / 2.f);
@@ -178,6 +179,16 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     target.draw(goldText, states);
     target.draw(goldAmount,states);
     target.draw(goldImage, states);
+
+    if (view->get_state().is_paused())
+    {
+        pauseText = prepareText("pause-text", font);
+        pauseInstructions = prepareText("pause-instructions", font);
+        pauseText.setPosition(x, y - 75);
+        pauseInstructions.setPosition(x, y);
+        target.draw(pauseText);
+        target.draw(pauseInstructions);
+    }
 
     if (view->getMapMode()) drawMap(target, states);
 }
