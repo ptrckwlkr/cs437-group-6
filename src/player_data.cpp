@@ -1,7 +1,8 @@
+#include "EventManager.h"
 #include "macros.h"
 #include "player_data.h"
 
-PlayerData::PlayerData()
+PlayerData::PlayerData() : Listener()
 {
   gear            = GearSet();
   base_damage     = 5;
@@ -11,11 +12,16 @@ PlayerData::PlayerData()
   base_max_mana   = 100;
   base_mana_regen = 1;
   gold            = STARTING_GOLD;
+  level_gold      = 0;
+
+  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &handleGoldCollection);
+  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handlePlayerDeath);
+  //EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handleLevelComplete);
 }
 
-void PlayerData::handleCollision(const EventGoldCollection &event)
+PlayerData::~PlayerData()
 {
-    gold += 10;
+  EventManager::Instance().unregisterAll(this);
 }
 
 void PlayerData::reset()
@@ -79,7 +85,18 @@ float PlayerData::get_l_mana_cost()
   return 5; //TODO
 }
 
-void PlayerData::update_gold(bool defeat) {
-  if (defeat) gold = STARTING_GOLD;
-  else gold += 10;
+void PlayerData::handleGoldCollection(const EventGoldCollection &event)
+{
+  level_gold += 10;
+}
+
+void PlayerData::handlePlayerDeath(const EventPlayerDied &event)
+{
+  level_gold = 0;
+}
+
+void PlayerData::handleLevelComplete(const EventPlayerDied &event)
+{
+  gold += level_gold;
+  level_gold = 0;
 }

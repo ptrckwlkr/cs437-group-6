@@ -5,16 +5,18 @@
 #include "Weapon.h"
 #include "inventory.h"
 #include "events/event_gold_collection.h"
+#include "events/event_player_died.h"
 #include "GearSet.h"
 
 /**
  * Class to store persistent player data, such as currency, weapons, etc.
  */
-class PlayerData
+class PlayerData : public Listener
 {
 
 public:
     PlayerData();
+    ~PlayerData();
     void reset();
 
     float get_health();
@@ -31,15 +33,20 @@ public:
 
     void set_health(float h) {health = h;}
     void set_mana(float m) {mana = m;}
+    void add_gold(int g) {gold += g;}
     GearSet &get_gear() {return gear;}
 
     int get_gold() {return gold;}
-    void update_gold(bool defeat);
-    void handleCollision(const EventGoldCollection &event);
+    void handleGoldCollection(const EventGoldCollection &event);
+    void handlePlayerDeath(const EventPlayerDied &event);
+    void handleLevelComplete(const EventPlayerDied &event);
 
 private:
     int gold;
+    int level_gold;
+
     GearSet gear;
+
     float health;
     float mana;
     float base_damage;

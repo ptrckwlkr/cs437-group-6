@@ -13,7 +13,6 @@ GameLogic::GameLogic() : Listener() {
 
     EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
     EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
-    EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &GameLogic::handleGoldUpdate);
 }
 
 GameLogic::~GameLogic() {
@@ -43,8 +42,7 @@ void GameLogic::create_new_level(Generator g, int level_num) {
     level_factory.set_algorithm(g, level_num);
     level = level_factory.generate_level();
     current_level = level_num;
-    //player_data.set_player(EntityManager::Instance().getPlayer().get());
-    EntityManager::Instance().getPlayer()->set_player_data(&player_data);
+    level->get_player().set_player_data(&player_data);
 }
 
 void GameLogic::reset() {
@@ -85,12 +83,5 @@ void GameLogic::handleExitReached(const EventExitReached &event) {
 
 void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
 {
-  f_defeat = true;
-  player_data.update_gold(f_defeat);
-}
-
-void GameLogic::handleGoldUpdate(const EventGoldCollection &event){
-    f_defeat = false;
-  player_data.update_gold(f_defeat);
-
+    f_defeat = true;
 }
