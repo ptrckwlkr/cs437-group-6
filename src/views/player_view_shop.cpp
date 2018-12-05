@@ -24,7 +24,7 @@ void ShopView::handle_event(sf::Event event)
 
     if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::F) Engine::Instance().switch_mode(MODE_PLAY);
+    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::S) Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
 }
 
 void ShopView::update(float delta)

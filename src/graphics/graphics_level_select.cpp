@@ -21,8 +21,11 @@ void LevelSelectGraphics::draw(sf::RenderTarget &target, sf::RenderStates states
     target.draw(sprite, states);
 
     sf::Text instructions = prepareText("LevelText", font);
-    instructions.setPosition(WINDOW_WIDTH/ 2.0, sprite.getGlobalBounds().height + 30 );
+    sf::Text shopInstr = prepareText("ShopInstrText", font);
+    instructions.setPosition(WINDOW_WIDTH/ 2.0, sprite.getGlobalBounds().height + 16);
+    shopInstr.setPosition(WINDOW_WIDTH/ 2.0, instructions.getPosition().y + 32);
     target.draw(instructions, states);
+    target.draw(shopInstr, states);
 
 
     for (int i = 0; i < NUMBER_OF_LEVELS; ++i) {

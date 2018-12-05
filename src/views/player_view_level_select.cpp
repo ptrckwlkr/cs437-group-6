@@ -33,6 +33,7 @@ void LevelSelectView::handle_event(sf::Event event)
     else if (event.type == sf::Event::Closed) {
         Engine::Instance().shutdown();
     }
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::S) Engine::Instance().switch_mode(MODE_SHOP);
     else if (event.type == sf::Event::EventType::MouseButtonReleased)
   {
     if (selected_level && selected_level == clicked_node(event.mouseButton.x, event.mouseButton.y))
