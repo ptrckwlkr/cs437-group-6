@@ -40,7 +40,7 @@ std::shared_ptr<Level> LevelFactory::generate_level() {
         case LEVEL_FILE:
             map = load("../data/boss.txt");
             player = EntityManager::Instance().createEntity<Player>((float)8.5 * CELL_SIZE, (float)36.5 * CELL_SIZE);
-            EntityManager::Instance().createEntity<Sreep>((float)8.5 * CELL_SIZE, (float)30.5 * CELL_SIZE);
+            EntityManager::Instance().createEntity<Sreep>((float)8.5 * CELL_SIZE, (float)4.5 * CELL_SIZE);
             break;
 
         case AGENT_BASED:

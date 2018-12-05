@@ -4,6 +4,8 @@
 #include "views/view_orc_projectile.h"
 #include "views/view_projectile.h"
 #include "views/view_skeleton.h"
+#include "views/view_sreep.h"
+#include "views/view_sreep_projectile.h"
 
 using namespace ViewFactory;
 
@@ -41,11 +43,13 @@ std::shared_ptr<View> ViewFactory::createView(GameLogic *state, Entity *entity)
    * ADD AN ENTRY WITH AN ENTITY'S CORRESPONDING VIEW TO AUTOMATE VIEW CREATION
    */
   static const std::unordered_map<EntityType, Factory> map {
-          {Skeleton::entityType,      (Factory)createInstance<Skeleton, SkeletonView>},
-          {Projectile::entityType,    (Factory)createInstance<Projectile, ProjectileView>},
-          {Ghost::entityType,         (Factory)createInstance<Ghost, GhostView>},
-          {Orc::entityType,           (Factory)createInstance<Orc, OrcView>},
-          {OrcProjectile::entityType, (Factory)createInstance<OrcProjectile, OrcProjectileView>}
+          {Skeleton::entityType,        (Factory)createInstance<Skeleton, SkeletonView>},
+          {Projectile::entityType,      (Factory)createInstance<Projectile, ProjectileView>},
+          {Ghost::entityType,           (Factory)createInstance<Ghost, GhostView>},
+          {Orc::entityType,             (Factory)createInstance<Orc, OrcView>},
+          {OrcProjectile::entityType,   (Factory)createInstance<OrcProjectile, OrcProjectileView>},
+          {Sreep::entityType,           (Factory)createInstance<Sreep, SreepView>},
+          {SreepProjectile::entityType, (Factory)createInstance<SreepProjectile, SreepProjectileView>},
   };
 
   std::shared_ptr<View> view = nullptr;

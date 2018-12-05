@@ -18,6 +18,8 @@ public:
     Sreep(float x, float y);
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
+    void fire_all_dirs();
+    void fire_at_player();
     void die();
 
 private:
