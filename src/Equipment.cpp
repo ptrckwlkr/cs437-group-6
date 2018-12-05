@@ -10,6 +10,7 @@ Equipment::Equipment(EquipSlot slot, int atk, int mag, int def, int health, int 
     this->statData.insert(std::pair<std::string, int>("Health", health));
     this->statData.insert(std::pair<std::string, int>("Mana", mana));
     this->item = equip;
+    this->statTotal = atk + mag + def + health + mana;
 }
 
 Equipment::~Equipment() {
@@ -18,6 +19,10 @@ Equipment::~Equipment() {
 
 int Equipment::getStat(std::string stat) {
     return statData.at(stat);
+}
+
+int Equipment::getStatTotal() {
+    return statTotal;
 }
 
 void Equipment::setEquipped(bool equip) {
