@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Root>
 
-	<crimson-rogue>
+	<crimson_rogue>
 		<attack>1.5</attack>
 		<magic>1</magic>
 		<defense>.7</defense>
 		<health>.8</health>
 		<mana>1</mana>
-	</crimson-rogue>
+	</crimson_rogue>
 
-	<forest-priest>
+	<forest_priest>
 		<attack>.5</attack>
 		<magic>1.3</magic>
 		<defense>.8</defense>
 		<health>1.2</health>
 		<mana>1.2</mana>
-	</forest-priest>
+	</forest_priest>
 
 	<guard>
 		<attack>.75</attack>
