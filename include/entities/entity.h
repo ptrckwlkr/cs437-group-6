@@ -86,7 +86,7 @@ protected:
     Vector2D old_pos;
     float size;
     float health = 1;
-    float speed = 0;
+    float speed = 1;
     float damage = 0;
     float defence = 1;
     float attack_speed = 1;

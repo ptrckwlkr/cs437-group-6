@@ -36,8 +36,7 @@ public:
     void add_gold(int g) {gold += g;}
     GearSet &get_gear() {return gear;}
 
-    int get_gold() {return gold;}
-    int get_level(){return level_gold;}
+    int get_gold() {return gold + level_gold;}
     void handleGoldCollection(const EventGoldCollection &event);
     void handlePlayerDeath(const EventPlayerDied &event);
     void handleLevelComplete(const EventPlayerDied &event);

@@ -77,7 +77,8 @@ void Engine::start_new_game(int level)
 {
   state.reset();
   state.get_player_data().reset();
-  state.create_new_level(AGENT_BASED, level);
+  if (level < 7) state.create_new_level(AGENT_BASED, level);
+  else state.create_new_level(LEVEL_FILE, level);
 }
 
 void Engine::switch_mode(GameMode mode)

@@ -1,15 +1,16 @@
-#ifndef CSCI437_ORC_PROJECTILE_H
-#define CSCI437_ORC_PROJECTILE_H
+#ifndef CSCI437_SREEP_PROJECTILE_H
+#define CSCI437_SREEP_PROJECTILE_H
+
 
 #include <cmath>
 #include "events/event_wall_collision.h"
 #include "events/event_collision.h"
 #include "entities/entity.h"
 
-#define ORC_PROJECTILE_SPEED_DEFAULT        150
-#define ORC_PROJECTILE_SIZE_DEFAULT         5
+#define SREEP_PROJECTILE_SPEED_DEFAULT        150
+#define SREEP_PROJECTILE_SIZE_DEFAULT         7
 
-class OrcProjectile: public Entity
+class SreepProjectile: public Entity
 {
 
 private:
@@ -26,7 +27,7 @@ protected:
 
 
 public:
-    OrcProjectile(float x, float y);
+    SreepProjectile(float x, float y);
     static const EntityType entityType;
     const EntityType& getEntityType() const override {return entityType;}
     void set_maxRange(int mD) {maxRange = mD;}
@@ -35,10 +36,7 @@ public:
     Vector2D  get_direction(){ return direction;}
     void move(Vector2D &dir, float delta) override;
 
-    //The trail logic should probably be moved to ProjectileView but it can't be accessed from game graphics
-    void updateTrail();
-
 };
 
 
-#endif //CSCI437_ORC_PROJECTILE_H
+#endif //CSCI437_SREEP_PROJECTILE_H

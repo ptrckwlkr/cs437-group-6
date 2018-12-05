@@ -13,6 +13,7 @@ GameLogic::GameLogic() : Listener() {
 
     EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
     EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
+    EventManager::Instance().registerListener(EventVictory::eventType, this, &GameLogic::handleVictory);
 }
 
 GameLogic::~GameLogic() {
@@ -84,4 +85,9 @@ void GameLogic::handleExitReached(const EventExitReached &event) {
 void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
 {
     f_defeat = true;
+}
+
+void GameLogic::handleVictory(const EventVictory &event)
+{
+    f_victory = true;
 }

@@ -1,8 +1,6 @@
-#include "views/view_skeleton.h"
-#include "macros.h"
-#include "EntityManager.h"
-#include "engine.h"
 #include <climits>
+#include "views/view_skeleton.h"
+#include "engine.h"
 
 SkeletonView::SkeletonView(GameLogic *state, Skeleton &s) : View(state) {
     skeleton = &s;

@@ -208,9 +208,26 @@ void CollisionEngine::hash_entities(Map &level_map, std::unordered_map<long long
     cell = &level_map.get_cell((int)bot / CELL_SIZE, (int)right / CELL_SIZE);
     cell->insert_entity(ent);
     occupied_cells.insert(cell);
-    cell = &level_map.get_cell((int)pos.y / CELL_SIZE, (int)pos.x / CELL_SIZE);
-    cell->insert_entity(ent);
-    occupied_cells.insert(cell);
+
+    // For really big entities, hash based on more positions
+      if (ent->get_size() * 2 + COLLISION_BUFFER > CELL_SIZE)
+    {
+      cell = &level_map.get_cell((int)pos.y / CELL_SIZE, (int)pos.x / CELL_SIZE);
+      cell->insert_entity(ent);
+      occupied_cells.insert(cell);
+      cell = &level_map.get_cell((int)top / CELL_SIZE, (int)pos.x / CELL_SIZE);
+      cell->insert_entity(ent);
+      occupied_cells.insert(cell);
+      cell = &level_map.get_cell((int)bot / CELL_SIZE, (int)pos.x / CELL_SIZE);
+      cell->insert_entity(ent);
+      occupied_cells.insert(cell);
+      cell = &level_map.get_cell((int)pos.y / CELL_SIZE, (int)left / CELL_SIZE);
+      cell->insert_entity(ent);
+      occupied_cells.insert(cell);
+      cell = &level_map.get_cell((int)pos.y / CELL_SIZE, (int)right / CELL_SIZE);
+      cell->insert_entity(ent);
+      occupied_cells.insert(cell);
+    }
   }
 }
 

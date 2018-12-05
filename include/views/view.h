@@ -11,26 +11,13 @@ class View
 {
 
 public:
-    explicit View(GameLogic *state) : state(state)
-    {
-      static long long view_id = 0;
-      id = view_id++;
-    };
+    explicit View(GameLogic *state) : state(state) {};
     ~View() = default;
     virtual void update(float delta) = 0;
     GameLogic &get_state() {return *state;}
-    long long get_id() {return id;}
-    //Animation getPlayerAnimation(){ return  animation_player;}
-    //Animation getSkeletonAnimation(){ return  animation_skeleton;}
 
 protected:
     GameLogic *state;
-    long long id;
-    //to be used to update sprite movement
-//    Animation animation_player;
-//    Animation animation_skeleton;
-//    sf::Texture skeleton_text;
-//    sf::Texture player_text;
 
 };
 
