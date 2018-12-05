@@ -1,96 +1,102 @@
+#include "EventManager.h"
 #include "macros.h"
 #include "player_data.h"
-#include "EntityManager.h"
-#include "entities/Player.h"
-#include "GearSet.h"
 
-PlayerData::PlayerData()
+PlayerData::PlayerData() : Listener()
 {
-  base_speed = PLAYER_SPEED;
-  base_health = 100;
+  gear            = GearSet();
+  base_damage     = 5;
+  base_defence    = 5;
+  base_speed      = PLAYER_SPEED;
   base_max_health = 100;
-  base_mana = 100;
-  base_defence = 10;
-  base_damage = 5;
-  gold = STARTING_GOLD;
-  health = base_health;
-  mana = base_mana;
+  base_max_mana   = 100;
+  base_mana_regen = 1;
+  gold            = STARTING_GOLD;
+  level_gold      = 0;
+
+  EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleGoldCollection);
+  EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &PlayerData::handlePlayerDeath);
+  //EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handleLevelComplete);
 }
 
-void PlayerData::handleCollision(const EventGoldCollection &event)
+PlayerData::~PlayerData()
 {
-    gold +=10;
-}
-
-void PlayerData::set_player(Player *p)
-{
-  player = p;
-  set_health();
-  set_mana();
-  set_speed();
-  set_damage();
-  set_defence();
-  set_max_health();
-  set_max_mana();
-  set_mana_regen();
+  EventManager::Instance().unregisterAll(this);
 }
 
 void PlayerData::reset()
 {
-  health = player->get_max_health();
-  mana = player->get_max_mana();
-  gold = gold;
-  set_health();
-  set_mana();
+  health = get_max_health();
+  mana = get_max_mana();
 }
 
-void PlayerData::update()
+float PlayerData::get_health()
 {
-  health = player->get_health();
-  mana = player->get_mana();
+   return health;
 }
 
-void PlayerData::set_health()
+float PlayerData::get_mana()
 {
-  player->set_health(health);
+  return mana;
 }
 
-void PlayerData::set_mana()
+float PlayerData::get_speed()
 {
-  player->set_mana(mana);
+  return base_speed;
 }
 
-void PlayerData::set_speed()
+float PlayerData::get_damage()
 {
-  player->set_speed(base_speed);
+  return base_damage + gear.getSetStat("Attack");
 }
 
-void PlayerData::set_damage()
+float PlayerData::get_defence()
 {
-  player->set_damage(base_damage + gear.getSetStat("Attack"));
+  return base_defence + gear.getSetStat("Defense");
 }
 
-void PlayerData::set_defence()
+float PlayerData::get_max_health()
 {
-  player->set_defence(base_defence + gear.getSetStat("Defense"));
+  return base_max_health + gear.getSetStat("Health");
 }
 
-void PlayerData::set_max_health()
+float PlayerData::get_max_mana()
 {
-  player->set_max_health(base_max_health + gear.getSetStat("Health"));
+  return base_max_mana + gear.getSetStat("Mana");
 }
 
-void PlayerData::set_max_mana()
+float PlayerData::get_mana_regen()
 {
-  player->set_max_mana(base_max_mana + gear.getSetStat("Mana"));
+  return base_mana_regen + gear.getSetStat("Magic");
 }
 
-void PlayerData::set_mana_regen()
+float PlayerData::get_l_cooldown()
 {
-  player->set_mana_regen(base_mana_regen);
+  return (float)(45 / 60.0); //TODO
 }
 
-void PlayerData::update_gold( bool defeat) {
-  if (defeat) gold = STARTING_GOLD;
-  else gold +=10;
+float PlayerData::get_r_cooldown()
+{
+  return (float)(52 / 60.0); //TODO
+}
+
+float PlayerData::get_l_mana_cost()
+{
+  return 5; //TODO
+}
+
+void PlayerData::handleGoldCollection(const EventGoldCollection &event)
+{
+  level_gold += 10;
+}
+
+void PlayerData::handlePlayerDeath(const EventPlayerDied &event)
+{
+  level_gold = 0;
+}
+
+void PlayerData::handleLevelComplete(const EventPlayerDied &event)
+{
+  gold += level_gold;
+  level_gold = 0;
 }

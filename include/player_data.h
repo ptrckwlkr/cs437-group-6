@@ -4,54 +4,57 @@
 #include <memory>
 #include "Weapon.h"
 #include "inventory.h"
-#include "entities/Player.h"
 #include "events/event_gold_collection.h"
+#include "events/event_player_died.h"
+#include "GearSet.h"
 
 /**
  * Class to store persistent player data, such as currency, weapons, etc.
  */
-class PlayerData
+class PlayerData : public Listener
 {
 
 public:
     PlayerData();
-    void set_player(Player *p);
+    ~PlayerData();
     void reset();
-    void update();
 
-    Weapon &get_curr_weapon() {return *curr_weapon;}
-    Inventory &get_inventory() {return inventory;}
+    float get_health();
+    float get_mana();
+    float get_speed();
+    float get_damage();
+    float get_defence();
+    float get_max_health();
+    float get_max_mana();
+    float get_mana_regen();
+    float get_l_cooldown();
+    float get_r_cooldown();
+    float get_l_mana_cost();
 
-    int get_gold() {return gold;}
-    void update_gold(bool defeat);
-    void handleCollision(const EventGoldCollection &event);
+    void set_health(float h) {health = h;}
+    void set_mana(float m) {mana = m;}
+    void add_gold(int g) {gold += g;}
+    GearSet &get_gear() {return gear;}
+
+    int get_gold() {return gold + level_gold;}
+    void handleGoldCollection(const EventGoldCollection &event);
+    void handlePlayerDeath(const EventPlayerDied &event);
+    void handleLevelComplete(const EventPlayerDied &event);
 
 private:
-    Player *player;
     int gold;
-    std::shared_ptr<Weapon> curr_weapon;
-    Inventory inventory;
+    int level_gold;
+
+    GearSet gear;
 
     float health;
     float mana;
-
-    float base_health;
-    float base_mana;
     float base_damage;
     float base_defence;
     float base_speed;
     float base_max_health;
     float base_max_mana;
     float base_mana_regen;
-
-    void set_health();
-    void set_mana();
-    void set_speed();
-    void set_damage();
-    void set_defence();
-    void set_max_health();
-    void set_max_mana();
-    void set_mana_regen();
 
 };
 

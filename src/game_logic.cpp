@@ -1,6 +1,6 @@
 #include "game_logic.h"
 #include "engine.h"
-#include "views/view_manager.h"
+#include "view_manager.h"
 #include "sprite_manager.h"
 #include "EntityManager.h"
 #include "events/event_cycle_complete.h"
@@ -13,7 +13,7 @@ GameLogic::GameLogic() : Listener() {
 
     EventManager::Instance().registerListener(EventExitReached::eventType, this, &GameLogic::handleExitReached);
     EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &GameLogic::handlePlayerDeath);
-    EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &GameLogic::handleGoldUpdate);
+    EventManager::Instance().registerListener(EventVictory::eventType, this, &GameLogic::handleVictory);
 }
 
 GameLogic::~GameLogic() {
@@ -28,12 +28,12 @@ void GameLogic::update_state(float delta) {
     EventCycleComplete e(delta);
     EventManager::Instance().sendEvent(e);
     if (!check_flags()) {
+        EntityManager::Instance().getPlayer()->update(delta);
         collision_engine.hash_entities(level->get_map(), EntityManager::Instance().getEntites());
         level->update();
         collision_engine.check_collisions(level->get_map());
     }
     EventManager::Instance().processEvents(); // Post-collision event processing
-    player_data.update();
 }
 
 /**
@@ -43,7 +43,7 @@ void GameLogic::create_new_level(Generator g, int level_num) {
     level_factory.set_algorithm(g, level_num);
     level = level_factory.generate_level();
     current_level = level_num;
-    player_data.set_player(EntityManager::Instance().getPlayer().get());
+    level->get_player().set_player_data(&player_data);
 }
 
 void GameLogic::reset() {
@@ -86,12 +86,10 @@ void GameLogic::handleExitReached(const EventExitReached &event) {
 
 void GameLogic::handlePlayerDeath(const EventPlayerDied &event)
 {
-  f_defeat = true;
-  player_data.update_gold(f_defeat);
+    f_defeat = true;
 }
 
-void GameLogic::handleGoldUpdate(const EventGoldCollection &event){
-    f_defeat = false;
-  player_data.update_gold(f_defeat);
-
+void GameLogic::handleVictory(const EventVictory &event)
+{
+    f_victory = true;
 }

@@ -3,7 +3,10 @@
 
 LevelSelectGraphics::LevelSelectGraphics(LevelSelectView *view) : Graphics(), view(view)
 {
-
+    font = resources.GetFont("old_school");
+    std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
+    buffer = resources.GetXMLBuffer("text");
+    root_node = (*doc).first_node("Root")->first_node("LevelSelect");
 }
 
 void LevelSelectGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -16,6 +19,14 @@ void LevelSelectGraphics::draw(sf::RenderTarget &target, sf::RenderStates states
     sf::Sprite sprite;
     sprite.setTexture(resources.GetTexture("map"));
     target.draw(sprite, states);
+
+    sf::Text instructions = prepareText("LevelText", font);
+    sf::Text shopInstr = prepareText("ShopInstrText", font);
+    instructions.setPosition(WINDOW_WIDTH/ 2.0, sprite.getGlobalBounds().height + 16);
+    shopInstr.setPosition(WINDOW_WIDTH/ 2.0, instructions.getPosition().y + 32);
+    target.draw(instructions, states);
+    target.draw(shopInstr, states);
+
 
     for (int i = 0; i < NUMBER_OF_LEVELS; ++i) {
         sf::Sprite marker;

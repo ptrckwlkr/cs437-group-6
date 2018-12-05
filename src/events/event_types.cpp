@@ -7,6 +7,7 @@
 #include "events/event_player_died.h"
 #include "events/event_projectile_fired.h"
 #include "events/event_wall_collision.h"
+#include "events/event_victory.h"
 #include "events/event_melee_attack.h"
 
 const EventType EventCollision::eventType         = (EventType)(&EventCollision::eventType);
@@ -19,4 +20,5 @@ const EventType EventGoldCollection::eventType    = (EventType)(&EventGoldCollec
 const EventType EventPlayerDied::eventType        = (EventType)(&EventPlayerDied::eventType);
 const EventType EventProjectileFired::eventType   = (EventType)(&EventProjectileFired::eventType);
 const EventType EventWallCollision::eventType     = (EventType)(&EventWallCollision::eventType);
-const EventType EventMeleeAttack::eventType	  = (EventType)(&EventMeleeAttack::eventType);
+const EventType EventMeleeAttack::eventType	      = (EventType)(&EventMeleeAttack::eventType);
+const EventType EventVictory::eventType	          = (EventType)(&EventVictory::eventType);

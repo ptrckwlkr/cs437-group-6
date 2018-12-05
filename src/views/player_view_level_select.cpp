@@ -33,7 +33,7 @@ void LevelSelectView::handle_event(sf::Event event) {
             Engine::Instance().start_new_game(selected_level);
             Engine::Instance().switch_mode(MODE_PLAY);
         }
-    }
+    }else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::S) Engine::Instance().switch_mode(MODE_SHOP);
 }
 
 void LevelSelectView::update(float delta) {

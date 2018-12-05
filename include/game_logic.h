@@ -8,6 +8,7 @@
 #include "collision_engine.h"
 #include "events/event_exit_reached.h"
 #include "events/event_player_died.h"
+#include "events/event_victory.h"
 
 /**
  * Organize and coordinate the game state.
@@ -50,7 +51,7 @@ private:
     bool check_flags();
 		void handleExitReached(const EventExitReached &event);
 		void handlePlayerDeath(const EventPlayerDied &event);
-		void handleGoldUpdate(const EventGoldCollection &event);
+		void handleVictory(const EventVictory &event);
 
 };
 

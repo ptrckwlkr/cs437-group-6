@@ -5,36 +5,22 @@
 #include <unordered_map>
 #include <utility>
 #include <string>
+#include <memory>
 
 class GearSet
 {
 	private:
-		std::unordered_map<std::string, Equipment*> equippedItems =
-		{	{"Head",0},
-			{"Chest",0},
-			{"Shoulders",0},
-			{"Legs",0},
-			{"Feet",0},
-			{"Hands",0},
-			{"Ring1",0},
-			{"Ring2",0} };
-		std::unordered_map<std::string, int> setStats = 
-		{	{"Attack",0},
-			{"Magic",0},
-			{"Defense",0},
-			{"Health",0},
-			{"Mana",0} };
+		std::unordered_map<std::string, std::shared_ptr<Equipment>> equippedItems;
+	 	std::unordered_map<std::string, int> setStats;
 
 	protected:
 
 	public:
 		GearSet();
-		void equipItem(Equipment*);
-		Equipment* getItem(EquipSlot, int=1);
+		void equipItem(std::shared_ptr<Equipment>&);
+		std::shared_ptr<Equipment> &getItem(EquipSlot, int=1);
 		std::string EquipSlotToString(EquipSlot);
 		int getSetStat(std::string);
 };
-
-extern GearSet gear;
 
 #endif //CSCI431_GEARSET_H

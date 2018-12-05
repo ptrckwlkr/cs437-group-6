@@ -22,7 +22,6 @@ void ShopView::handle_event(sf::Event event)
 {
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
 
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::F) Engine::Instance().switch_mode(MODE_PLAY);
 }

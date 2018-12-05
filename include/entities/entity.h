@@ -37,15 +37,12 @@ public:
     ~Entity() {
       EventManager::Instance().unregisterAll(this);
     };
-
     void set_position(float x, float y) {pos.x = x; pos.y = y;}
     void set_position(Vector2D new_pos) {pos = new_pos;}
-    void takedamage(int damage) {health -= damage;}
     void set_health(float h) {health = h;}
     void set_speed(float s) {speed = s;}
     void set_damage(float d) {damage = d;}
     void set_defence(float d) {defence = d;}
-    void set_attack_speed(float s) {attack_speed = s;}
     void take_damage(float damage) {
       health -= damage / defence;
       if (health < 0) die();
@@ -68,7 +65,6 @@ public:
     const float get_speed() const {return speed;}
     const float get_damage() const {return damage;}
     const float get_defence() const {return defence;}
-    const float get_attack_speed() const {return attack_speed;}
     long long id;
 
     virtual const EntityType& getEntityType() const = 0;
@@ -90,7 +86,7 @@ protected:
     Vector2D old_pos;
     float size;
     float health = 1;
-    float speed = 0;
+    float speed = 1;
     float damage = 0;
     float defence = 1;
     float attack_speed = 1;

@@ -74,4 +74,12 @@
         <aggro-dist>1000</aggro-dist>
     </orc-gold>
 
+    <boss>
+        <health>150</health>
+        <speed>80</speed>
+        <contact-damage>50</contact-damage>
+        <projectile-damage>70</projectile-damage>
+        <aggro-dist>1200</aggro-dist>
+    </boss>
+
 </Root>

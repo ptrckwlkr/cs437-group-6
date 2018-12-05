@@ -56,6 +56,22 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <b>255</b>
         </ReplayText>
     </Story>
+    <LevelSelect>
+        <LevelText>
+            <text>Click on any level number to begin playing!</text>
+            <size>20</size>
+            <r>245</r>
+            <g>0</g>
+            <b>0</b>
+        </LevelText>
+        <ShopInstrText>
+            <text>Press S key to visit the shop </text>
+            <size>20</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ShopInstrText>
+    </LevelSelect>
     <Lost>
         <LostText>
             <text>You lost!</text>
@@ -253,8 +269,8 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <text>
 This game was made using SFML for CSCI-437
 Game Design at the College of William and Mary.
-
-The members of our team are Olivia Leon,
+                
+The members of our team are Olivia Leon Vitervo,
 Rane Squires, Patrick Walker, and Ian Wright.
 
 We hope that you enjoy playing Power Hour!
