@@ -1,6 +1,7 @@
 #include <unordered_map>
 #include <entities/Player.h>
 #include "Animations/BloodAnimation.h"
+#include "Animations/ExplosionAnimation.h"
 #include "Animations/GoldAnimation.h"
 #include "Animations/MoneyAnimation.h"
 #include "Animations/PlayerAnimation.h"
@@ -10,6 +11,7 @@
 #include "Animations/SwordAnimation.h"
 #include "animation_factory.h"
 #include "Animations/OrcAnimation.h"
+#include "Animations/SreepAnimation.h"
 
 using namespace AnimationFactory;
 
@@ -43,15 +45,17 @@ std::shared_ptr<Animation> AnimationFactory::createAnimation(Entity *entity) {
      * ADD AN ENTRY WITH AN ENTITY'S CORRESPONDING VIEW TO AUTOMATE VIEW CREATION
      */
     static const std::unordered_map<EntityType, Factory> map{
-            {Blood::entityType,    (Factory) createInstance<Blood, BloodAnimation>},
-            {Ghost::entityType,    (Factory) createInstance<Ghost, GhostAnimation>},
-            {Gold::entityType,     (Factory)createInstance<Gold, GoldAnimation>},
-            {Money::entityType,    (Factory)createInstance<Money, MoneyAnimation>},
-            {Smoke::entityType,    (Factory)createInstance<Smoke, SmokeAnimation>},
-            {Sword::entityType,    (Factory)createInstance<Sword, SwordAnimation>},
-            {Player::entityType,   (Factory) createInstance<Player, PlayerAnimation>},
-            {Skeleton::entityType, (Factory) createInstance<Skeleton, SkeletonAnimation>},
-            {Orc::entityType,      (Factory) createInstance<Orc, OrcAnimation>},
+            {Blood::entityType,     (Factory) createInstance<Blood, BloodAnimation>},
+            {Explosion::entityType, (Factory) createInstance<Explosion, ExplosionAnimation>},
+            {Ghost::entityType,     (Factory) createInstance<Ghost, GhostAnimation>},
+            {Gold::entityType,      (Factory) createInstance<Gold, GoldAnimation>},
+            {Money::entityType,     (Factory) createInstance<Money, MoneyAnimation>},
+            {Smoke::entityType,     (Factory) createInstance<Smoke, SmokeAnimation>},
+            {Sword::entityType,     (Factory) createInstance<Sword, SwordAnimation>},
+            {Player::entityType,    (Factory) createInstance<Player, PlayerAnimation>},
+            {Skeleton::entityType,  (Factory) createInstance<Skeleton, SkeletonAnimation>},
+            {Sreep::entityType,     (Factory) createInstance<Sreep, SreepAnimation>},
+            {Orc::entityType,       (Factory) createInstance<Orc, OrcAnimation>},
     };
 
     std::shared_ptr<Animation> animation = nullptr;

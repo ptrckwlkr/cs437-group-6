@@ -15,12 +15,14 @@ LevelSelectView::LevelSelectView(GameLogic *state, sf::RenderWindow *App) : Play
 	nodes[3] = {526, 320, 20};
 	nodes[4] = {358, 223, 20};
 	nodes[5] = {317, 84, 20};
-	nodes[6] = {622, 103, 20};
+  nodes[6] = {89, 112, 20};
+  nodes[7] = {622, 103, 20};
 }
 
 void LevelSelectView::process_input(float delta)
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
+
 }
 
 void LevelSelectView::handle_event(sf::Event event)
@@ -29,7 +31,11 @@ void LevelSelectView::handle_event(sf::Event event)
   {
 		selected_level = clicked_node(event.mouseButton.x, event.mouseButton.y);
 	}
-  else if (event.type == sf::Event::EventType::MouseButtonReleased)
+    else if (event.type == sf::Event::Closed) {
+        Engine::Instance().shutdown();
+    }
+    else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::S) Engine::Instance().switch_mode(MODE_SHOP);
+    else if (event.type == sf::Event::EventType::MouseButtonReleased)
   {
     if (selected_level && selected_level == clicked_node(event.mouseButton.x, event.mouseButton.y))
     {

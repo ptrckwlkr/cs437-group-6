@@ -3,9 +3,9 @@
 #include "events/event_projectile_fired.h"
 #include "events/event_entity_damaged.h"
 
-OrcProjectile::OrcProjectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DEFAULT) {
-  speed = PROJECTILE_SPEED_DEFAULT;
-  hostile = true;
+OrcProjectile::OrcProjectile(float x, float y) : Entity(x, y, ORC_PROJECTILE_SIZE_DEFAULT) {
+  speed = ORC_PROJECTILE_SPEED_DEFAULT;
+  hostile = false;
   maxRange = 500;
   traveled = 0;
   hit = false;
@@ -16,7 +16,6 @@ OrcProjectile::OrcProjectile(float x, float y) : Entity(x, y, PROJECTILE_SIZE_DE
 
   EventProjectileFired postFired = EventProjectileFired(id);
   EventManager::Instance().sendEvent(postFired);
-
   EventManager::Instance().registerListener(EventWallCollision::eventType, this, &OrcProjectile::handleWallCollision);
   EventManager::Instance().registerListener(EventCollision::eventType, this, &OrcProjectile::handleCollision);
 }

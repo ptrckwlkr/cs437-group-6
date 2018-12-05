@@ -21,7 +21,6 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     sf::Text exitText = prepareText("ExitText", font);
     sf::Text goldText = prepareText("GoldText", font);
     sf::Text shopkeeper = prepareText("ShopKeeperText", font);
-
     sf::Texture shop = resources.GetTexture("shop");
     sf::Sprite sprite;
     sf::RectangleShape rectangle, rectangle2;

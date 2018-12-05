@@ -1,6 +1,7 @@
 #include <entities/skeleton.h>
 #include <entities/gold.h>
 #include <entities/orc_projectile.h>
+#include <entities/sreep_projectile.h>
 #include "graphics/graphics_game.h"
 #include "views/player_view_game.h"
 #include "macros.h"
@@ -63,12 +64,17 @@ void GameGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
         }
         else if (type == OrcProjectile::entityType)
         {
-            sf::Color trail_col = sf::Color(255, 0, 0);;
+            sf::Color trail_col = sf::Color(255, 0, 0);
             circle.setFillColor(sf::Color(255, 255, 0, 125));
             drawProjectileMotionBlur(target, states, circle, ent->trail, trail_col);
         }
+        else if (type == SreepProjectile::entityType)
+        {
+            circle.setFillColor(sf::Color(255, 0, 0, 196));
+        }
         else
             circle.setFillColor(sf::Color(0, 0, 0, 0));
+            //circle.setFillColor(sf::Color(255, 255, 255, 90));
         circle.setOrigin(sf::Vector2f(size, size));
         circle.setPosition(x, y);
         target.draw(circle, states);
@@ -150,15 +156,23 @@ void GameGraphics::drawUI(sf::RenderTarget &target, sf::RenderStates states) con
     hpText.setPosition(x - WINDOW_WIDTH / 2.f + 135, hpBar.getPosition().y + hpBar.getLocalBounds().height / 2.f);
     manaText = prepareText("mana", font);
     manaText.setPosition(x - WINDOW_WIDTH / 2.f + 135, manaBar.getPosition().y + manaBar.getLocalBounds().height / 2.f);
+
     goldText = prepareText("gold", font);
-    goldText.setPosition(x - WINDOW_WIDTH / 2.f + 115, manaBar.getPosition().y + 60);
+    goldText.setPosition(x- WINDOW_WIDTH / 2.f + 660, hpBar.getPosition().y +10);
     goldAmount = prepareText("amount", font);
     goldAmount.setString(std::to_string(view->get_state().get_player_data().get_gold()));
-    goldAmount.setPosition(goldText.getPosition().x +100, goldText.getPosition().y);
+    goldAmount.setPosition(goldText.getPosition().x, goldText.getPosition().y + 25);
+
+    sf::Sprite goldImage;
+    sf::Texture gold = resources.GetTexture("goldTexture");
+    goldImage.setTexture(gold);
+    goldImage.setTextureRect(sf::IntRect((gold.getSize().x /5), gold.getSize().y/4 *3,(gold.getSize().x /5), (gold.getSize().y / 4) ));
+    goldImage.setPosition(goldAmount.getPosition().x -60, goldAmount.getPosition().y - 20);
     target.draw(hpText, states);
     target.draw(manaText, states);
     target.draw(goldText, states);
     target.draw(goldAmount,states);
+    target.draw(goldImage, states);
 
     if (view->getMapMode()) drawMap(target, states);
 }
