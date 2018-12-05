@@ -27,4 +27,9 @@ class InventoryGraphics : public Graphics
 };
 
 
+namespace EquipSprite
+{
+		sf::Sprite getEquipSprite(EquipSet set, EquipSlot slot);
+}
+
 #endif //CSCI437_GRAPHICS_INVENTORY_H

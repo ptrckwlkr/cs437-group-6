@@ -10,7 +10,7 @@
 class GearSet
 {
 	private:
-		std::unordered_map<std::string, std::shared_ptr<Equipment>> equippedItems;
+		std::unordered_map<EquipSlot, std::shared_ptr<Equipment>> equippedItems;
 	 	std::unordered_map<std::string, int> setStats;
 
 	protected:
@@ -19,7 +19,6 @@ class GearSet
 		GearSet();
 		void equipItem(std::shared_ptr<Equipment>&);
 		std::shared_ptr<Equipment> &getItem(EquipSlot, int=1);
-		std::string EquipSlotToString(EquipSlot);
 		int getSetStat(std::string);
 };
 

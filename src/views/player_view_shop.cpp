@@ -57,7 +57,7 @@ void ShopView::update(float delta)
     while (app->pollEvent(event))
     {
         handle_event(event);
-        common_handle_event_tasks(event);
+        //common_handle_event_tasks(event);
     }
     process_input(delta);
 }
@@ -69,6 +69,7 @@ void ShopView::draw(float delta)
     app->display();
 }
 
+/*
 std::shared_ptr<Equipment> generateShopItems() {
 	std::random_device r;
 	std::mt19937 generator(r());
@@ -109,3 +110,4 @@ i			stats[j] = (int) stats[j] * modifier;
 		}
 	}
 }
+*/

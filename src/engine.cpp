@@ -1,13 +1,12 @@
 #include <SFML/Window/Event.hpp>
+#include "engine.h"
 #include <views/player_view_story.h>
 #include <views/player_next_level.h>
 #include "views/player_view_victory.h"
 #include "views/player_view_level_select.h"
 #include "views/player_view_inventory.h"
-#include "engine.h"
 #include "views/player_view_menu.h"
 #include "views/player_view_game.h"
-#include "views/player_view_level_select.h"
 #include "views/player_view_shop.h"
 #include "views/player_view_lost.h"
 #include "view_manager.h"

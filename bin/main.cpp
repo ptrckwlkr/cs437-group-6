@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include "engine.h"
-#include "macros.h"
 
 int main(int argc, char** argv)
 {
@@ -9,7 +8,6 @@ int main(int argc, char** argv)
   App.setVerticalSyncEnabled(true);
 
   // Initialize the game engine
-//  Engine engine(&App);
   Engine::Instance().init(&App);
 
   // start main loop
