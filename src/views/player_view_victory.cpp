@@ -16,15 +16,13 @@ void VictoryView::process_input(float delta)
 void VictoryView::handle_event(sf::Event event)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
-
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q) Engine::Instance().switch_mode(MODE_MENU);
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::V) Engine::Instance().switch_mode(MODE_PLAY);
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
 
     if (event.type == sf::Event::EventType::MouseButtonPressed && sf::Event::EventType::MouseButtonReleased)
     {
         printf( "play again pressed");
-      Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
+      Engine::Instance().switch_mode(MODE_MENU);
     }
 }
 

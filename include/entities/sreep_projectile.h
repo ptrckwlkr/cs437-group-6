@@ -7,7 +7,7 @@
 #include "events/event_collision.h"
 #include "entities/entity.h"
 
-#define SREEP_PROJECTILE_SPEED_DEFAULT        150
+#define SREEP_PROJECTILE_SPEED_DEFAULT        200
 #define SREEP_PROJECTILE_SIZE_DEFAULT         7
 
 class SreepProjectile: public Entity

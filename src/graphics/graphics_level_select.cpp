@@ -30,7 +30,10 @@ void LevelSelectGraphics::draw(sf::RenderTarget &target, sf::RenderStates states
 
     for (int i = 0; i < NUMBER_OF_LEVELS; ++i) {
         sf::Sprite marker;
-        marker.setTexture(resources.GetTexture("marker"));
+        if (view->get_state().get_player_data().get_completed_levels()[i])
+            marker.setTexture(resources.GetTexture("markerGreen"));
+        else
+            marker.setTexture(resources.GetTexture("markerRed"));
         marker.setScale(0.75, 0.75);
         marker.setOrigin(marker.getTexture()->getSize().x / 2, marker.getTexture()->getSize().y / 2);
         marker.setPosition(view->get_node(i).x, view->get_node(i).y);
