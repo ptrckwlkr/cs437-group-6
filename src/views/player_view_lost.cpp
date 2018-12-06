@@ -18,8 +18,10 @@ void LostView::handle_event(sf::Event event) {
 
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q)
         Engine::Instance().switch_mode(MODE_MENU);
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::V)
-        Engine::Instance().switch_mode(MODE_PLAY);
+/*    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::V)
+        Engine::Instance().switch_mode(MODE_PLAY); */
+    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::E)
+	Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
     sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
     if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased) {
         printf( "play again pressed");

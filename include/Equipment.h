@@ -5,16 +5,19 @@
 #include <string>
 #include <utility>
 
-enum class EquipSlot { Head, Chest, Shoulders, Legs, Feet, Hands, Ring };
-enum Equip
+enum EquipSlot {None, Head, Chest, Shoulders, Legs, Feet, Hands, Ring };
+enum EquipSet
 {
-		empty,
-		renegade_head,
-		renegade_armor,
-		renegade_shoulders,
-		renegade_pants,
-		renegade_boots,
-		renegade_gloves,
+	Crimson_Rogue,
+	Forest_Priest,
+	Guard,
+	Iron_Hunter,
+	Renegade,
+	Cultist,
+	Gatekeeper,
+	Illusionist,
+	Marauder,
+	Sharpshooter
 };
 
 class Equipment
@@ -22,18 +25,23 @@ class Equipment
 	private:
 		bool equipped;
 		std::unordered_map<std::string, int> statData;
-		Equip item;
+		int statTotal;
+
+		EquipSlot slot;
+		EquipSet set;
 
 	protected:
 
 	public:
-		Equipment(EquipSlot, int, int, int, int, int, Equip);
+		Equipment(EquipSet, EquipSlot, int, int, int, int, int);
 		~Equipment();
-		EquipSlot type;
 		int getStat(std::string);
+		int getStatTotal();
 		bool isEquipped(){return this->equipped;};
 		void setEquipped(bool);
-		Equip &getEquipItem();
+
+		EquipSlot getSlot() {return  slot;}
+		EquipSet getSet() {return set;}
 };
 
 #endif //CSCI431_EQUIPMENT_H
