@@ -6,20 +6,21 @@
 #include <utility>
 #include <string>
 #include <memory>
+#include "Equipment.h"
 
 class GearSet
 {
 	private:
-		std::unordered_map<EquipSlot, std::shared_ptr<Equipment>> equippedItems;
-	 	std::unordered_map<std::string, int> setStats;
+		std::array<std::shared_ptr<Equipment>, 6> equipped;
+	 	std::array<int, 5> total_stats;
 
 	protected:
 
 	public:
 		GearSet();
-		void equipItem(std::shared_ptr<Equipment>&);
-		std::shared_ptr<Equipment> &getItem(EquipSlot, int=1);
-		int getSetStat(std::string);
+		void equipItem(std::shared_ptr<Equipment>);
+		std::shared_ptr<Equipment> &getItem(EquipSlot);
+		int getSetStat(Stat stat);
 };
 
 #endif //CSCI431_GEARSET_H
