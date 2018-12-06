@@ -172,7 +172,8 @@ void ResourceManager::LoadAllResources()
     resources.LoadTexture("sharpshooter_boots", "../data/Sprites/sets/sharpshooter/transparent/sharpshooter_bt_t.png");
     resources.LoadTexture("sharpshooter_gloves", "../data/Sprites/sets/sharpshooter/transparent/sharpshooter_gl_t.png");
     resources.LoadTexture("mountains","../data/Images/mountain_world.png" );
-    resources.LoadTexture("marker","../data/Images/marker.png" );
+    resources.LoadTexture("markerRed","../data/Images/marker_red.png" );
+    resources.LoadTexture("markerGreen","../data/Images/marker_green.png" );
     resources.LoadMusic("vanquisher", "../data/Music/BRPG_Vanquisher_FULL_Loop.wav");
     resources.LoadMusic("takecourage_noper", "../data/Music/BRPG_Take_Courage_noPer_Loop.wav");
     resources.LoadXML("enemies", "../data/xml/enemies.xml");

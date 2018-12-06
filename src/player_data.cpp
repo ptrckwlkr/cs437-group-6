@@ -14,11 +14,12 @@ PlayerData::PlayerData() : Listener()
   gold            = STARTING_GOLD;
   level_gold      = 0;
   level_total_enemies = 0;
+  for (int i = 0; i < NUMBER_OF_LEVELS; ++i) completed_levels[i] = false;
 
   EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleGoldCollection);
   EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &PlayerData::handlePlayerDeath);
   //EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, &PlayerData::handleEnemiesCount);
-  //EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handleLevelComplete);
+  EventManager::Instance().registerListener(EventLevelComplete::eventType, this, &PlayerData::handleLevelComplete);
 }
 
 PlayerData::~PlayerData()
@@ -100,10 +101,11 @@ void PlayerData::handlePlayerDeath(const EventPlayerDied &event)
   level_total_enemies = 0;
 }
 
-void PlayerData::handleLevelComplete(const EventPlayerDied &event)
+void PlayerData::handleLevelComplete(const EventLevelComplete &event)
 {
   gold += level_gold;
   level_gold = 0;
+  completed_levels[event.getLevel() - 1] = true;
 }
 //void PlayerData::handleEnemiesCount(const EventEntityDestroyed &event)
 //{

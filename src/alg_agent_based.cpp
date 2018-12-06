@@ -442,7 +442,7 @@ void AgentBasedGenerator::placeTreasure() {
 
         } //ensure that enemy position is not in a wall, far enough away from the player, and is unique
         while (level_grid[treasure_pos[1]][treasure_pos[0]] == '-' || level_grid[treasure_pos[1]][treasure_pos[0]] == 'o' ||
-               euclideanDistance(player_x, player_y, treasure_pos[0], treasure_pos[1]) <= 2 * CELL_SIZE
+               euclideanDistance(player_x, player_y, treasure_pos[0], treasure_pos[1]) <= 2
                || (std::find(treasure_coords.begin(), treasure_coords.end(), treasure_pos_pixels) !=
                    treasure_coords.end()) || (treasure_pos[1] == exit_y && treasure_pos[0] == exit_x));
 

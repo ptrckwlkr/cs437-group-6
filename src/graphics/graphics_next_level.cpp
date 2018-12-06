@@ -7,8 +7,6 @@ NextLevelGraphics::NextLevelGraphics(NextLevelView *view) : Graphics(), view(vie
     std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("text");
     buffer = resources.GetXMLBuffer("text");
     root_node = (*doc).first_node("Root")->first_node("NextLevel");
-    this->view = view;
-
 }
 
 void NextLevelGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -27,5 +25,4 @@ void NextLevelGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 
     target.draw(title, states);
     target.draw(playAgain, states);
-
 }

@@ -1,13 +1,16 @@
 #ifndef CSCI437_PLAYER_DATA_H
 #define CSCI437_PLAYER_DATA_H
 
+#include <array>
 #include <memory>
 #include <events/event_entity_destroyed.h>
+#include <events/event_level_complete.h>
 #include "Weapon.h"
 #include "inventory.h"
 #include "events/event_gold_collection.h"
 #include "events/event_player_died.h"
 #include "GearSet.h"
+#include "macros.h"
 
 /**
  * Class to store persistent player data, such as currency, weapons, etc.
@@ -49,8 +52,10 @@ public:
     int get_total_enemies(){return total_enemies_lost;};
     void handleGoldCollection(const EventGoldCollection &event);
     void handlePlayerDeath(const EventPlayerDied &event);
-    void handleLevelComplete(const EventPlayerDied &event);
+    void handleLevelComplete(const EventLevelComplete &event);
     void handleEnemiesCount(const EventEntityDestroyed &event);
+
+    std::array<bool, NUMBER_OF_LEVELS> &get_completed_levels() {return completed_levels;}
 
 private:
     int gold;
@@ -71,6 +76,8 @@ private:
     float l_cooldown;
     float r_cooldown;
     float l_mana_cost;
+
+    std::array<bool, NUMBER_OF_LEVELS> completed_levels;
 
 };
 

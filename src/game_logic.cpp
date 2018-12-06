@@ -1,3 +1,4 @@
+#include <events/event_level_complete.h>
 #include "game_logic.h"
 #include "engine.h"
 #include "view_manager.h"
@@ -58,8 +59,11 @@ bool GameLogic::check_flags() {
     if (f_floor_complete) {
         f_floor_complete = false;
 
-        if (current_floor > floors_per_level[current_level])
-            f_victory = true;
+        if (current_floor > floors_per_level[current_level]) {
+            Engine::Instance().switch_mode(MODE_NEXT_LEVEL);
+            EventLevelComplete e(current_level);
+            EventManager::Instance().sendEvent(e);
+        }
         else
         {
             reset();

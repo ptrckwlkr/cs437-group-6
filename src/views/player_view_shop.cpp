@@ -74,6 +74,7 @@ void ShopView::draw(float delta)
     app->display();
 }
 
+/*
 void ShopView::generateShopItems() {
 	std::random_device r;
 	std::mt19937 generator(r());
@@ -116,3 +117,4 @@ void ShopView::generateShopItems() {
 	}
 
 }
+ */
