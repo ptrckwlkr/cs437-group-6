@@ -105,7 +105,7 @@ void PlayerData::handleLevelComplete(const EventLevelComplete &event)
 {
   gold += level_gold;
   level_gold = 0;
-  completed_levels[event.getLevel() - 1];
+  completed_levels[event.getLevel() - 1] = true;
 }
 //void PlayerData::handleEnemiesCount(const EventEntityDestroyed &event)
 //{
