@@ -38,8 +38,8 @@ public:
     void set_health(float h) {health = h;}
     void set_mana(float m) {mana = m;}
     //void add_gold() {gold += 20;}
-    void add_mana() { mana += 20;}
-    void add_health() {health += 20;}
+    void add_mana() { mana += 20, curr_max_mana += 20;}
+    void add_health() {health += 20, curr_max_health += 20;}
     void subtract_gold(){ gold -= 300;}
     void add_gold(int g) {gold += g;}
     void add_enemy_count() {level_total_enemies +=1;}
@@ -71,7 +71,9 @@ private:
     float base_defence;
     float base_speed;
     float base_max_health;
+    float curr_max_health;
     float base_max_mana;
+    float curr_max_mana;
     float base_mana_regen;
     float l_cooldown;
     float r_cooldown;

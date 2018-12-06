@@ -9,7 +9,9 @@ PlayerData::PlayerData() : Listener()
   base_defence    = 5;
   base_speed      = PLAYER_SPEED;
   base_max_health = 100;
+  curr_max_health   = 100;
   base_max_mana   = 100;
+  curr_max_mana   = 100;
   base_mana_regen = 1;
   gold            = STARTING_GOLD;
   level_gold      = 0;
@@ -60,12 +62,12 @@ float PlayerData::get_defence()
 
 float PlayerData::get_max_health()
 {
-  return base_max_health + gear.getSetStat(Health);
+  return curr_max_health + gear.getSetStat(Health);
 }
 
 float PlayerData::get_max_mana()
 {
-  return base_max_mana + gear.getSetStat(Mana);
+  return curr_max_mana + gear.getSetStat(Mana);
 }
 
 float PlayerData::get_mana_regen()

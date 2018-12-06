@@ -61,8 +61,8 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
     mText.setPosition(goldText.getPosition().x, goldText.getPosition().y + 20);
     hText.setPosition(mText.getPosition().x, mText.getPosition().y + 20);
-    mana.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_mana()));
-    health.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_health()));
+    mana.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_max_mana()));
+    health.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_max_health()));
     mana.setPosition(mText.getPosition().x + 10, mText.getPosition().y - 5);
     health.setPosition(hText.getPosition().x + 10, hText.getPosition().y -5);
 
