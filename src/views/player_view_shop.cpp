@@ -8,6 +8,7 @@ ShopView::ShopView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
     selectionIndex = 0;
     graphics = std::make_shared<ShopGraphics>(this);
     App->setView(App->getDefaultView());
+    //generateShopItems();
 }
 
 void ShopView::process_input(float delta)
@@ -41,32 +42,31 @@ void ShopView::draw(float delta)
     app->display();
 }
 
-/*
-std::shared_ptr<Equipment> generateShopItems() {
+void ShopView::generateShopItems() {
 	std::random_device r;
 	std::mt19937 generator(r());
+	std::uniform_int_distribution<int> inFive(1,5);
 	std::uniform_int_distribution<int> inSix(1,6);
 	std::uniform_int_distribution<int> inTen(1,10);
 
 	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("equipment");
-	std::shared_ptr<std::vector<char>> buffer = resources.getXMLBuffer("equipment");
-	std::rapidxml<> *root_node = (*doc).first_node("Root");
+	std::shared_ptr<std::vector<char>> buffer = resources.GetXMLBuffer("equipment");
+	rapidxml::xml_node<> *root_node = (*doc).first_node("Root");
 
 	EquipSlot slots[6] = {EquipSlot::Head, EquipSlot::Chest, EquipSlot::Shoulders, EquipSlot::Legs, EquipSlot::Feet, EquipSlot::Hands};
-	std::string[10] sets = {"crimson_rogue","forest_priest","guard","iron_hunter","renegade","cultist","gatekeeper","illusionist","marauder","sharpshooter"};
-	std::string stats = {"attack","magic","defense","health","mana"}
-	int stats[5];
+	char* sets[10] = {"renegade","crimson_rogue","forest_priest","guard","iron_hunter","cultist","gatekeeper","illusionist","marauder","sharpshooter"};
+	char* statnames[5] = {"attack","magic","defense","health","mana"};
 
 	for (int i = 0; i < 5; i++) {
 		int slot = inFive(generator);
 		float statIncrease = inTen(generator) / 100;
-		int statTotal = (int) view->get_state()get_player_data().get_gear().getItem(slots[slot])->getStatTotal() * statIncrease;
+		int statTotal = (int) get_state().get_player_data().get_gear().getItem(slots[slot])->getStatTotal() * statIncrease;
 		int eachStat = (int) floor(statTotal/5);
 		int leftover = statTotal % 5;
-		stats = {eachStat, eachStat, eachStat, eachStat, eachStat};
+		int stats[5] = {eachStat, eachStat, eachStat, eachStat, eachStat};
 		bool increase[5] = {false, false, false, false, false};
 		int statToIncrease;
-		while leftover > 0 {
+		while (leftover > 0) {
 			statToIncrease = inFive(generator);
 			if (!increase[statToIncrease]) {
 				stats[statToIncrease] += 1;
@@ -77,9 +77,10 @@ std::shared_ptr<Equipment> generateShopItems() {
 		rapidxml::xml_node<> *set_node = root_node->first_node(sets[set]);
 		float modifier;
 		for (int j = 0; j < 5; j++) {
-			modifier = std::stof(set_node->first_node(stats[j]));
-i			stats[j] = (int) stats[j] * modifier;
+			modifier = std::stof(set_node->first_node(statnames[j])->value());
+			stats[j] = (int) stats[j] * modifier;
 		}
+		shopItems[i] = (std::shared_ptr<Equipment>) new Equipment(EquipSet(set), EquipSlot(slot), stats[0], stats[1], stats[2], stats[3], stats[4]);
 	}
+
 }
-*/

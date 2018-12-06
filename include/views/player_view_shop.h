@@ -16,7 +16,7 @@ private:
     void process_input(float delta) override;
     void handle_event(sf::Event event) override;
     int selectionIndex;	//represents current highlighted option on screen
-    std::shared_ptr<Equipment> generateShopItems();
+    void generateShopItems();
     std::shared_ptr<Equipment> shopItems[5];
 
 public:
