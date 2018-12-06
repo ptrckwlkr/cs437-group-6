@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Root>
-
 	<crimson_rogue>
 		<attack>1.5</attack>
 		<magic>1</magic>
@@ -8,7 +7,6 @@
 		<health>.8</health>
 		<mana>1</mana>
 	</crimson_rogue>
-
 	<forest_priest>
 		<attack>.5</attack>
 		<magic>1.3</magic>
@@ -16,7 +14,6 @@
 		<health>1.2</health>
 		<mana>1.2</mana>
 	</forest_priest>
-
 	<guard>
 		<attack>.75</attack>
 		<magic>.75</magic>
@@ -24,7 +21,6 @@
 		<health>.75</health>
 		<mana>.75</mana>
 	</guard>
-
 	<iron_hunter>
 		<attack>1.2</attack>
 		<magic>.8</magic>
@@ -32,7 +28,6 @@
 		<health>1</health>
 		<mana>.8</mana>
 	</iron_hunter>
-
 	<renegade>	
 		<attack>1</attack>
 		<magic>1</magic>
@@ -40,7 +35,6 @@
 		<health>1</health>
 		<mana>1</mana>
 	</renegade>
-
 	<cultist>	
 		<attack>0</attack>
 		<magic>2</magic>
@@ -48,7 +42,6 @@
 		<health>.75</health>
 		<mana>2</mana>
 	</cultist>
-
 	<gatekeeper>
 		<attack>1.3</attack>
 		<magic>.5</magic>
@@ -56,7 +49,6 @@
 		<health>1.9</health>
 		<mana>.6</mana>
 	</gatekeeper>
-
 	<illusionist>
 		<attack>75</attack>
 		<magic>.75</magic>
@@ -64,7 +56,6 @@
 		<health>0</health>
 		<mana>3</mana>
 	</illusionist>
-
 	<marauder>	
 		<attack>3</attack>
 		<magic>2</magic>
@@ -72,7 +63,6 @@
 		<health>0</health>
 		<mana>0</mana>
 	</marauder>
-
 	<sharpshooter>
 		<attack>1.5</attack>
 		<magic>1.5</magic>

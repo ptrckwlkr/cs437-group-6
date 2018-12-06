@@ -8,7 +8,7 @@ ShopView::ShopView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
     selectionIndex = 0;
     graphics = std::make_shared<ShopGraphics>(this);
     App->setView(App->getDefaultView());
-    //generateShopItems();
+    generateShopItems();
 }
 
 void ShopView::process_input(float delta)
@@ -77,7 +77,7 @@ void ShopView::draw(float delta)
     app->display();
 }
 
-/*
+
 void ShopView::generateShopItems() {
 	std::random_device r;
 	std::mt19937 generator(r());
@@ -86,13 +86,13 @@ void ShopView::generateShopItems() {
 	std::uniform_int_distribution<int> inTen(1,10);
 
 	std::shared_ptr<rapidxml::xml_document<>> doc = resources.GetXMLDoc("equipment");
-	std::shared_ptr<std::vector<char>> buffer = resources.GetXMLBuffer("equipment");
-	rapidxml::xml_node<> *root_node = (*doc).first_node("Root");
+	buffer = resources.GetXMLBuffer("equipment");
+	root_node = (*doc).first_node("Root");
+	if (root_node == 0) printf("root node succ");
 
 	EquipSlot slots[6] = {EquipSlot::Head, EquipSlot::Chest, EquipSlot::Shoulders, EquipSlot::Legs, EquipSlot::Feet, EquipSlot::Hands};
 	char* sets[10] = {"renegade","crimson_rogue","forest_priest","guard","iron_hunter","cultist","gatekeeper","illusionist","marauder","sharpshooter"};
 	char* statnames[5] = {"attack","magic","defense","health","mana"};
-
 	for (int i = 0; i < 5; i++) {
 		int slot = inFive(generator);
 		float statIncrease = inTen(generator) / 100;
@@ -110,6 +110,7 @@ void ShopView::generateShopItems() {
 			}
 		}
 		int set = inTen(generator);
+	}}/*
 		rapidxml::xml_node<> *set_node = root_node->first_node(sets[set]);
 		float modifier;
 		for (int j = 0; j < 5; j++) {
