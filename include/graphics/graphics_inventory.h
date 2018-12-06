@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <string>
 #include <views/player_view_level_select.h>
 #include <views/player_view_inventory.h>
 #include "graphics.h"
@@ -29,7 +30,7 @@ class InventoryGraphics : public Graphics
 
 namespace EquipSprite
 {
-		sf::Sprite getEquipSprite(EquipSet set, EquipSlot slot);
+		std::string getEquipSprite(EquipSet set, EquipSlot slot);
 }
 
 #endif //CSCI437_GRAPHICS_INVENTORY_H
