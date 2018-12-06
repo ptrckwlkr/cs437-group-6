@@ -32,7 +32,7 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 		auto item = view->get_state().get_player_data().get_gear().getItem(slots[i]);
     //sprite = EquipSprite::getEquipSprite(item->get, Headitem->);
 		//EquipSprite::getEquipSprite(Renegade, Head, sprite);
-    sf::Texture texture = resources.GetTexture(EquipSprite::getEquipSprite(Renegade, Head, sprite));
+    sf::Texture texture = resources.GetTexture(EquipSprite::getEquipSprite(Renegade, Head));
     sprite.setTexture(texture);
 		sprite.setPosition(WINDOW_WIDTH/4.f,64+(64*(i+1))+(4*i));
 		target.draw(sprite, states);
