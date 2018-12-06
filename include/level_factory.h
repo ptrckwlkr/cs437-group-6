@@ -22,6 +22,7 @@ public:
     void reset() {reset_occurred = true;}
     void set_algorithm(Generator algorithm, int level);
     std::shared_ptr<Level> generate_level();
+    int get_floor_num() {return gen.floor;}
 
 private:
     std::shared_ptr<Map> load(std::string filename);
@@ -30,9 +31,6 @@ private:
     AgentBasedGenerator gen;
     int level_num = -1;
     bool reset_occurred = false;
-
-    //TODO move elsewhere
-    int floors_per_level[9] = {-1, 4, 4, 4, 4, 4, 4, 4, 4};
 
 };
 

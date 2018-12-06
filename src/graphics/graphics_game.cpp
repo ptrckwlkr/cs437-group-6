@@ -231,7 +231,9 @@ void GameGraphics::drawMap(sf::RenderTarget &target, sf::RenderStates states) co
     //TODO unless we want to have a "visited" or "seen" kind of cell attribute?
     //TODO also, there's got to be a better way to do the camera for everything
     sf::View camera;
+    sf::FloatRect viewport = target.getView().getViewport();
     camera.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    camera.setViewport(viewport);
     Vector2D playerPos = view->get_state().get_level().get_player().get_position();
     camera.zoom(3);
     camera.setCenter(playerPos.x, playerPos.y);

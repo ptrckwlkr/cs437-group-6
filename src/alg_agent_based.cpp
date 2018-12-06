@@ -418,8 +418,7 @@ void AgentBasedGenerator::printLevelGrid() {
 
 void AgentBasedGenerator::placeTreasure() {
     // multiply coordinates by cell size before leaving function so that everything works properly in the graphics
-    player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
-    exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
+
     int iterations = 0;
 
     //iterate through all rooms (except player's spawning room) and place an even number of enemies in the room
@@ -449,6 +448,10 @@ void AgentBasedGenerator::placeTreasure() {
 
         treasure_coords.emplace_back(treasure_pos_pixels);
     }
+
+
+    player_x = player_x * CELL_SIZE + CELL_SIZE / 2, player_y = player_y * CELL_SIZE + CELL_SIZE / 2;
+    exit_x *= CELL_SIZE, exit_y *= CELL_SIZE;
 
 }
 

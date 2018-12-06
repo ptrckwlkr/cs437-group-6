@@ -47,32 +47,32 @@ float PlayerData::get_speed()
 
 float PlayerData::get_damage()
 {
-  return base_damage + gear.getSetStat("Attack");
+  return base_damage + gear.getSetStat(Attack);
 }
 
 float PlayerData::get_defence()
 {
-  return base_defence + gear.getSetStat("Defense");
+  return base_defence + gear.getSetStat(Defence);
 }
 
 float PlayerData::get_max_health()
 {
-  return base_max_health + gear.getSetStat("Health");
+  return base_max_health + gear.getSetStat(Health);
 }
 
 float PlayerData::get_max_mana()
 {
-  return base_max_mana + gear.getSetStat("Mana");
+  return base_max_mana + gear.getSetStat(Mana);
 }
 
 float PlayerData::get_mana_regen()
 {
-  return base_mana_regen + gear.getSetStat("Magic");
+  return base_mana_regen + gear.getSetStat(Magic);
 }
 
 float PlayerData::get_l_cooldown()
 {
-  return (float)(45 / 60.0); //TODO
+  return l_cooldown; //TODO
 }
 
 float PlayerData::get_r_cooldown()
@@ -82,7 +82,7 @@ float PlayerData::get_r_cooldown()
 
 float PlayerData::get_l_mana_cost()
 {
-  return 5; //TODO
+  return l_mana_cost; //TODO
 }
 
 void PlayerData::handleGoldCollection(const EventGoldCollection &event)

@@ -33,6 +33,7 @@ public:
     const float get_mana() const {return mana;}
     const float get_max_mana() const {return max_mana;}
     const float get_mana_regen() const {return mana_regen;}
+    const void set_mana(float new_mana) {mana = new_mana;}
 
     void l_attack(Vector2D &dir, float delta);
     void r_attack(Vector2D &dir, float delta);

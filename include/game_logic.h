@@ -42,6 +42,8 @@ private:
     CollisionEngine collision_engine;
     std::shared_ptr<Level> level;
 
+	int floors_per_level[8] = {-1, 4, 4, 5, 5, 5, 5, 6};
+	int current_floor;
     int current_level = -1;
 
     bool f_paused = false;
