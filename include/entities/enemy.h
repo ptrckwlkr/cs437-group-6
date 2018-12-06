@@ -1,12 +1,9 @@
-//
-// Created by Ian on 12/2/2018.
-//
-
 #ifndef CSCI437_ENEMY_H
 #define CSCI437_ENEMY_H
 
 #include "events/event.h"
 #include "entities/entity.h"
+#include "entities/potion.h"
 
 class Enemy: public Entity
 {

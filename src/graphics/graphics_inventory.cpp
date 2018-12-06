@@ -15,6 +15,7 @@ InventoryGraphics::InventoryGraphics(InventoryView *view) : Graphics(), view(vie
 void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 
+
 	// This must always be the first line of every draw method
 	states.transform *= getTransform();
 	camera_reset(target);
@@ -27,13 +28,16 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 	EquipSlot slots[6] = {EquipSlot::Head, EquipSlot::Chest, EquipSlot::Shoulders, EquipSlot::Legs, EquipSlot::Feet, EquipSlot::Hands};
 
 	sf::Sprite sprite;
-	sprite.setScale(.25,.25);
 	for (int i = 0; i < 6; i++) {
 		auto item = view->get_state().get_player_data().get_gear().getItem(slots[i]);
-		sprite = EquipSprite::getEquipSprite(item->getSet(), item->getSlot());
+    //sprite = EquipSprite::getEquipSprite(item->get, Headitem->);
+		//EquipSprite::getEquipSprite(Renegade, Head, sprite);
+    sf::Texture texture = resources.GetTexture(EquipSprite::getEquipSprite(Renegade, Head));
+    sprite.setTexture(texture);
 		sprite.setPosition(WINDOW_WIDTH/4.f,64+(64*(i+1))+(4*i));
 		target.draw(sprite, states);
-	 };
+  };
+  /*
 
 	std::string stats[5] = {"Attack", "Magic", "Defense", "Health", "Mana"};
 	sf::Text statHeader;
@@ -55,30 +59,28 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 			statText.setPosition(WINDOW_WIDTH/2.f + 64 * (j+1), 96+(64*(i+1))+(4*i));
 			target.draw(statText, states);
 		}
-	}	
+	}
+   */
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using namespace EquipSprite;
 
-sf::Sprite EquipSprite::getEquipSprite(EquipSet set, EquipSlot slot)
+std::string EquipSprite::getEquipSprite(EquipSet set, EquipSlot slot)
 {
 	static const std::map<std::pair<EquipSet, EquipSlot>, std::string> equipMap {
-					{std::pair<EquipSet, EquipSlot>(Renegade, Head), 		  "renegade_head"},
-					{std::pair<EquipSet, EquipSlot>(Renegade, Chest), 		"renegade_armor"},
-					{std::pair<EquipSet, EquipSlot>(Renegade, Shoulders),	"renegade_shoulders"},
-					{std::pair<EquipSet, EquipSlot>(Renegade, Legs), 		  "renegade_pants"},
-					{std::pair<EquipSet, EquipSlot>(Renegade, Feet), 		  "renegade_boots"},
-					{std::pair<EquipSet, EquipSlot>(Renegade, Hands), 		"renegade_gloves"},
+					{std::pair<EquipSet, EquipSlot>(Renegade, Head), 		  std::string("renegade_head")},
+					{std::pair<EquipSet, EquipSlot>(Renegade, Chest), 		std::string("renegade_armor")},
+					{std::pair<EquipSet, EquipSlot>(Renegade, Shoulders),	std::string("renegade_shoulders")},
+					{std::pair<EquipSet, EquipSlot>(Renegade, Legs), 		  std::string("renegade_pants")},
+					{std::pair<EquipSet, EquipSlot>(Renegade, Feet), 		  std::string("renegade_boots")},
+					{std::pair<EquipSet, EquipSlot>(Renegade, Hands), 		std::string("renegade_gloves")},
 	};
 
-	sf::Sprite sprite;
 	auto i = equipMap.find(std::pair<EquipSet, EquipSlot>(set, slot));
 	if (i != equipMap.end()) {
-		std::string s = i->second;
-		sprite.setTexture(resources.GetTexture(s));
+    return i->second;
 	}
-  sprite.setScale(0.3, 0.3);
-  return sprite;
+  return std::string("renegade_head");
 }

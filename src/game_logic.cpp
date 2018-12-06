@@ -57,10 +57,17 @@ void GameLogic::reset() {
 bool GameLogic::check_flags() {
     if (f_floor_complete) {
         f_floor_complete = false;
-        reset();
-        create_new_level(AGENT_BASED, current_level);
-        Engine::Instance().switch_mode(MODE_PLAY);
-        return true;
+
+        if (current_floor > floors_per_level[current_level])
+            f_victory = true;
+        else
+        {
+            reset();
+            create_new_level(AGENT_BASED, current_level);
+            Engine::Instance().switch_mode(MODE_PLAY);
+            return true;
+        }
+
     } else if (f_defeat) {
         f_defeat = false;
         reset();
@@ -68,7 +75,8 @@ bool GameLogic::check_flags() {
         level_factory.reset();
         current_level = -1;
         return true;
-    } else if (f_victory) {
+    }
+    if (f_victory) {
         f_victory = false;
         reset();
         Engine::Instance().switch_mode(MODE_VICTORY);
@@ -81,6 +89,7 @@ bool GameLogic::check_flags() {
 
 void GameLogic::handleExitReached(const EventExitReached &event) {
     f_floor_complete = true;
+    current_floor = level_factory.get_floor_num() + 1;
 }
 
 

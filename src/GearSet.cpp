@@ -47,9 +47,9 @@ void GearSet::equipItem(std::shared_ptr<Equipment> &item) {
 }
 
 std::shared_ptr<Equipment> &GearSet::getItem(EquipSlot equipslot, int ringNum) {
-	return equippedItems.at(equipslot);
+	return equippedItems[equipslot];
 }
 
 int GearSet::getSetStat(std::string stat) {
-	return setStats.at(stat);
+	return setStats[stat];
 }

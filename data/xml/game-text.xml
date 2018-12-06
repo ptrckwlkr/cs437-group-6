@@ -88,14 +88,14 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
     </NextLevel>
     <LevelSelect>
         <LevelText>
-            <text>Click on any level number to begin playing!</text>
+            <text>Click  on  any  level  number  to  begin  playing!</text>
             <size>20</size>
             <r>245</r>
             <g>0</g>
             <b>0</b>
         </LevelText>
         <ShopInstrText>
-            <text>Press S key to visit the shop </text>
+            <text>Press  S  key  to  visit  the  shop </text>
             <size>20</size>
             <r>255</r>
             <g>255</g>
@@ -104,14 +104,14 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
     </LevelSelect>
     <Lost>
         <LostText>
-            <text>You lost!</text>
+            <text>You  lost!</text>
             <size>50</size>
             <r>100</r>
             <g>255</g>
             <b>200</b>
         </LostText>
         <ReplayText>
-            <text>Try again</text>
+            <text>Try  again</text>
             <size>28</size>
             <r>255</r>
             <g>255</g>
@@ -149,29 +149,29 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
     <Shop>
         <ShopKeeperText>
             <text>
-                Hello, Stu!
-                How can I can help you?</text>
+                Hello,  Stu!
+                How  can  I  can  help  you?</text>
             <size>18</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
         </ShopKeeperText>
         <ManaText>
-            <text>Buy Mana</text>
+            <text>Buy  Mana</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
         </ManaText>
         <HealthText>
-            <text>Buy Health</text>
+            <text>Buy  Health</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
         </HealthText>
         <AbilitiesText>
-            <text>Buy Equipment</text>
+            <text>Buy  Equipment</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
@@ -194,14 +194,14 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
     </Shop>
     <Victory>
         <winText>
-            <text>Congratulations!You won!</text>
+            <text>Congratulations!  You won!</text>
             <size>40</size>
             <r>180</r>
             <g>150</g>
             <b>200</b>
         </winText>
         <playAgainButton>
-            <text>Play Again</text>
+            <text>Play  Again</text>
             <size>28</size>
             <r>255</r>
             <g>255</g>

@@ -30,4 +30,10 @@ void Ghost::die()
 {
     EntityManager::Instance().removeEntity(id);
     EntityManager::Instance().createEntity<Smoke>(pos.x, pos.y);
+
+    //spawn a potion 1 out of every 8 enemy deaths on average
+    if (rand() % 8 == 7)
+    {
+        EntityManager::Instance().createEntity<Potion>(pos.x, pos.y);
+    }
 }

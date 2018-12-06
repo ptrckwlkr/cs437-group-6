@@ -37,6 +37,9 @@ public:
     //void add_gold() {gold += 20;}
     void add_mana() { mana += 20;}
     void add_health() {health += 20;}
+    void add_gold(int g) {gold += g;}
+    void set_l_cooldown(float cooldown) { l_cooldown = cooldown;}
+    void set_l_mana_cost(float cost) { l_mana_cost = cost;}
     GearSet &get_gear() {return gear;}
 
     int get_gold() {return gold + level_gold;}
@@ -62,6 +65,9 @@ private:
     float base_max_health;
     float base_max_mana;
     float base_mana_regen;
+    float l_cooldown;
+    float r_cooldown;
+    float l_mana_cost;
 
 };
 
