@@ -11,6 +11,10 @@ GameView::GameView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
         music.setVolume(35.0);
         music.playMusic();
     }
+
+    state->get_player_data().set_l_cooldown(45/60.f);
+    state->get_player_data().set_l_mana_cost(5);
+    state->get_level().get_player().set_player_data(&(state->get_player_data()));
 }
 
 GameView::~GameView() {
