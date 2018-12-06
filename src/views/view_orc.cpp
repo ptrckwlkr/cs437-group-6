@@ -131,63 +131,64 @@ void OrcView::updateGold(float delta, Vector2D dir) {
 
     //note threshold for going from aggro to passive is larger than going from passive to aggro
     if (dir.length < 1.5 * orc->aggro_dist) {
-        if (dir.length > 7 * CELL_SIZE/2){
-            Vector2D target;
 
-            if (cur_state == AGGRO)
+        Vector2D target;
+
+        if (cur_state == AGGRO)
+        {
+            Vector2D tmp = dir.normal();
+            tmp.x = round(tmp.x);
+            tmp.y = round(tmp.y);
+            Vector2D future_pos = orc->get_position() + tmp * CELL_SIZE;
+
+            //if chasing the player does not result in collision with a wall then do that
+            if (state->get_level().get_map().get_cell((int) future_pos.y / CELL_SIZE,
+                                                      (int) future_pos.x / CELL_SIZE).get_cell_type() != WALL)
+                target = dir;
+            else
             {
-                Vector2D tmp = dir.normal();
-                tmp.x = round(tmp.x);
-                tmp.y = round(tmp.y);
-                Vector2D future_pos = orc->get_position() + tmp * CELL_SIZE;
-
-                //if chasing the player does not result in collision with a wall then do that
-                if (state->get_level().get_map().get_cell((int) future_pos.y / CELL_SIZE,
-                                                          (int) future_pos.x / CELL_SIZE).get_cell_type() != WALL)
-                    target = dir;
-                else
-                {
-                    cur_state = SEARCH;
-                }
+                cur_state = SEARCH;
             }
+        }
 
-            if (cur_state == SEARCH)
+        if (cur_state == SEARCH)
+        {
+            std::vector<std::vector<int>> cell_cost = state->get_level().get_map().getCellCost();
+            //player has not left starting cell
+            if (cell_cost.size() == 0) return;
+
+            int min_cost = INT_MAX;
+            int orc_i = (int) orc->get_position().x / CELL_SIZE;
+            int orc_j = (int) orc->get_position().y / CELL_SIZE;
+
+            int target_i, target_j;
+
+            //iterate through 8 adjacent cells and target one with minimum cost
+            for (int a = -1; a < 2; a++)
             {
-                std::vector<std::vector<int>> cell_cost = state->get_level().get_map().getCellCost();
-                //player has not left starting cell
-                if (cell_cost.size() == 0) return;
-
-                int min_cost = INT_MAX;
-                int orc_i = (int) orc->get_position().x / CELL_SIZE;
-                int orc_j = (int) orc->get_position().y / CELL_SIZE;
-
-                int target_i, target_j;
-
-                //iterate through 8 adjacent cells and target one with minimum cost
-                for (int a = -1; a < 2; a++)
+                for (int b = -1; b < 2; b++)
                 {
-                    for (int b = -1; b < 2; b++)
+                    if (a == 0 && b == 0) continue;
+                    if (cell_cost[orc_j + a][orc_i + b] > -1 && cell_cost[orc_j + a][orc_i + b] < min_cost)
                     {
-                        if (a == 0 && b == 0) continue;
-                        if (cell_cost[orc_j + a][orc_i + b] > -1 && cell_cost[orc_j + a][orc_i + b] < min_cost)
-                        {
-                            min_cost = cell_cost[orc_j + a][orc_i + b];
-                            target_i = orc_i + b, target_j = orc_j + a;
-                        }
+                        min_cost = cell_cost[orc_j + a][orc_i + b];
+                        target_i = orc_i + b, target_j = orc_j + a;
                     }
                 }
-
-
-                if (min_cost > 1)
-                    target = Vector2D(target_i*CELL_SIZE + CELL_SIZE/2, target_j*CELL_SIZE + CELL_SIZE/2)
-                             - orc->get_position();
-                else
-                {
-                    cur_state = AGGRO;
-                    target = dir;
-                }
             }
 
+
+            if (min_cost > 1)
+                target = Vector2D(target_i*CELL_SIZE + CELL_SIZE/2, target_j*CELL_SIZE + CELL_SIZE/2)
+                         - orc->get_position();
+            else
+            {
+                cur_state = AGGRO;
+                target = dir;
+            }
+        }
+
+        if (dir.length > 7 * CELL_SIZE/2){
             orc->move(target, delta);
         }
         else
