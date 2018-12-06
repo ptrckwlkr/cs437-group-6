@@ -4,7 +4,7 @@
 PlayerAnimation::PlayerAnimation(Player &entity) : Animation(), player(&entity) {
     texture = resources.GetTexture("playerTexture");
     imageCount = sf::Vector2u(13, 21);
-    switchTime = 4/60.f;
+    switchTime = 6/60.f;
     totalTime = 0.0f;
     currentImage.x = 0;
     currentImage.y = 10;
@@ -25,6 +25,8 @@ void PlayerAnimation::update(float delta){
     //for a certain movement base on the sprite sheet
     unsigned int imageCount = 9;
     Vector2D dir = player->get_position() - player->get_old_position();
+    if (player->get_speed() > 100 ) switchTime = 4/60.f;
+    else switchTime = 7/60.f;
 
     if (dir.y < 0)
         currentImage.y = 8;

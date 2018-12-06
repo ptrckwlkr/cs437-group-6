@@ -63,7 +63,7 @@ void GameView::process_input(float delta) {
 
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
-            state->get_level().get_player().set_speed(118);
+            state->get_level().get_player().set_speed(122);
         } else
             state->get_level().get_player().set_speed(85);
 
