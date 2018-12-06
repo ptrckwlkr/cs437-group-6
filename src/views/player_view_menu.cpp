@@ -15,7 +15,10 @@ MenuView::MenuView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
         music.playMusic();
     }
 }
+void MenuView::process_input(float delta)
+{
 
+}
 
 
 void MenuView::handle_event(sf::Event event)

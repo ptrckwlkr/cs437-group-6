@@ -74,7 +74,6 @@ void GameView::handle_event(sf::Event event) {
 
     if (event.type == sf::Event::Closed) Engine::Instance().shutdown();
     else if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
-    if (event.key.code == sf::Keyboard::M && event.type == sf::Event::KeyReleased) map_mode = !map_mode;
     else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab) Engine::Instance().switch_mode(MODE_INVENTORY);
         //TODO DELETE BELOW, ONLY INTENDED FOR DEMO (AND FUN)
     else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::L)
@@ -88,6 +87,8 @@ void GameView::handle_event(sf::Event event) {
         state->get_level().get_player().set_player_data(&(state->get_player_data()));
     }
     else if (event.key.code == sf::Keyboard::P && event.type == sf::Event::KeyReleased) state->toggle_pause();
+    else if (event.key.code == sf::Keyboard::L && event.type == sf::Event::KeyReleased) Engine::Instance().switch_mode(MODE_LOST);
+    else if (event.key.code == sf::Keyboard::L && event.type == sf::Event::KeyReleased) Engine::Instance().switch_mode(MODE_VICTORY);
 
 }
 

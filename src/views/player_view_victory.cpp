@@ -11,7 +11,6 @@ VictoryView::VictoryView(GameLogic *state, sf::RenderWindow *App) : PlayerView(s
 void VictoryView::process_input(float delta)
 {
 
-
 }
 
 void VictoryView::handle_event(sf::Event event)

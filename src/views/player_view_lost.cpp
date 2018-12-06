@@ -21,8 +21,6 @@ void LostView::handle_event(sf::Event event) {
             printf( "play again pressed");
             Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
         }
-/*    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::V)
-        Engine::Instance().switch_mode(MODE_PLAY); */
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::E)
 	Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
 

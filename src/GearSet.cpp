@@ -1,55 +1,45 @@
 #include "GearSet.h"
-#include <memory>
 
 GearSet::GearSet() {
-
-  setStats = {
-    {"Attack",  0},
-    {"Magic",   0},
-    {"Defense", 0},
-    {"Health",  0},
-    {"Mana",    0}
-  };
-
-	auto head 			= std::make_shared<Equipment>(EquipSet::Renegade, EquipSlot::Head, 0, 0, 0, 0, 0);
-	auto armor 			= std::make_shared<Equipment>(EquipSet::Renegade, EquipSlot::Chest, 0, 0, 0, 0, 0);
-	auto shoulders 	= std::make_shared<Equipment>(EquipSet::Renegade, EquipSlot::Shoulders, 0, 0, 0, 0, 0);
-	auto pants 			= std::make_shared<Equipment>(EquipSet::Renegade, EquipSlot::Legs, 0, 0, 0, 0, 0);
-	auto boots 			= std::make_shared<Equipment>(EquipSet::Renegade, EquipSlot::Feet, 0, 0, 0, 0, 0);
-	auto gloves 		= std::make_shared<Equipment>(EquipSet::Renegade, EquipSlot::Hands, 0, 0, 0, 0, 0);
-	equipItem(head);
-	equipItem(armor);
-	equipItem(shoulders);
-	equipItem(pants);
-	equipItem(boots);
-	equipItem(gloves);
+  equipItem(std::make_shared<Equipment>(Renegade, Head, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Chest, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Shoulders, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Legs, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Feet, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Hands, 0, 0, 0, 0, 0));
 }
 
-void GearSet::equipItem(std::shared_ptr<Equipment> &item) {
+void GearSet::equipItem(std::shared_ptr<Equipment> item) {
 	if (!item->isEquipped()) {
-		std::string stats[5] = {"Attack","Magic","Defense","Health","Mana"};
 		item->setEquipped(true);
 		EquipSlot type = item->getSlot();
-		if (equippedItems[type]) {
-			std::shared_ptr<Equipment> oldItem = equippedItems.at(type);
+		if (equipped[type]) {
+			std::shared_ptr<Equipment> oldItem = equipped[type];
 			oldItem->setEquipped(false);
-			equippedItems[type] = item;
-			for (int i = 0; i < 5; i++) {
-				setStats.at(stats[i]) += item->getStat(stats[i]) - oldItem->getStat(stats[i]);
-			}
-		} else {
-			equippedItems[type] = item;
-			for (int i = 0; i < 5; i++) {
-				setStats.at(stats[i]) += item->getStat(stats[i]);
-			}
+
+			equipped[type] 				=  item;
+			total_stats[Attack] 	+= item->getStat(Attack) - oldItem->getStat(Attack);
+			total_stats[Magic] 		+= item->getStat(Magic) - oldItem->getStat(Magic);
+			total_stats[Defence] 	+= item->getStat(Defence) - oldItem->getStat(Defence);
+			total_stats[Health] 	+= item->getStat(Health) - oldItem->getStat(Health);
+			total_stats[Mana] 		+= item->getStat(Mana) - oldItem->getStat(Mana);
+		}
+		else
+		{
+			equipped[type] 				=  item;
+			total_stats[Attack] 	+= item->getStat(Attack);
+			total_stats[Magic] 		+= item->getStat(Magic);
+			total_stats[Defence] 	+= item->getStat(Defence);
+			total_stats[Health] 	+= item->getStat(Health);
+			total_stats[Mana] 		+= item->getStat(Mana);
 		}
 	}
 }
 
-std::shared_ptr<Equipment> &GearSet::getItem(EquipSlot equipslot, int ringNum) {
-	return equippedItems[equipslot];
+std::shared_ptr<Equipment> &GearSet::getItem(EquipSlot slot) {
+	return equipped[slot];
 }
 
-int GearSet::getSetStat(std::string stat) {
-	return setStats[stat];
+int GearSet::getSetStat(Stat stat) {
+	return total_stats[stat];
 }
