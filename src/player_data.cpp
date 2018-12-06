@@ -72,7 +72,7 @@ float PlayerData::get_mana_regen()
 
 float PlayerData::get_l_cooldown()
 {
-  return (float)(45 / 60.0); //TODO
+  return l_cooldown; //TODO
 }
 
 float PlayerData::get_r_cooldown()
@@ -82,7 +82,7 @@ float PlayerData::get_r_cooldown()
 
 float PlayerData::get_l_mana_cost()
 {
-  return 5; //TODO
+  return l_mana_cost; //TODO
 }
 
 void PlayerData::handleGoldCollection(const EventGoldCollection &event)
