@@ -7,6 +7,11 @@ GearSet::GearSet() {
   equipItem(std::make_shared<Equipment>(Renegade, Legs, 0, 0, 0, 0, 0));
   equipItem(std::make_shared<Equipment>(Renegade, Feet, 0, 0, 0, 0, 0));
   equipItem(std::make_shared<Equipment>(Renegade, Hands, 0, 0, 0, 0, 0));
+	total_stats[Attack] 	= 0;
+	total_stats[Magic] 		= 0;
+	total_stats[Defence] 	= 0;
+	total_stats[Health] 	= 0;
+	total_stats[Mana] 		= 0;
 }
 
 void GearSet::equipItem(std::shared_ptr<Equipment> item) {

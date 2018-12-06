@@ -53,7 +53,7 @@ private:
     sf::RenderWindow *App;
     sf::Clock time;
     GameMode curr_game_mode;
-    //SoundManager soundmanager = SoundManager();
+    SoundManager soundmanager;
 };
 
 //global access to resource manager
