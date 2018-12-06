@@ -24,6 +24,7 @@ void Engine::init(sf::RenderWindow *app)
   resources.LoadAllResources();
   curr_game_mode = MODE_MENU;
   state = GameLogic();
+  soundmanager = SoundManager();
   ViewManager::Instance().init(&state);
   ViewManager::Instance().set_player_view<MenuView>(&state, App);
   
