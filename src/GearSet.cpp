@@ -1,12 +1,12 @@
 #include "GearSet.h"
 
 GearSet::GearSet() {
-  equipItem(std::make_shared<Equipment>(Renegade, Head, 1, 0, 0, 0, 2));
-  equipItem(std::make_shared<Equipment>(Renegade, Chest, 0, 2, 0, 2, 0));
-  equipItem(std::make_shared<Equipment>(Renegade, Shoulders, 0, 3, 0, 0, 2));
-  equipItem(std::make_shared<Equipment>(Renegade, Legs, 2, 0, 0, 4, 0));
-  equipItem(std::make_shared<Equipment>(Renegade, Feet, 0, 0, 3, 0, 1));
-  equipItem(std::make_shared<Equipment>(Renegade, Hands, 1, 0, 0, 2, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Head, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Chest, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Shoulders, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Legs, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Feet, 0, 0, 0, 0, 0));
+  equipItem(std::make_shared<Equipment>(Renegade, Hands, 0, 0, 0, 0, 0));
 }
 
 void GearSet::equipItem(std::shared_ptr<Equipment> item) {

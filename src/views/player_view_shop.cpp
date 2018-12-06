@@ -12,19 +12,14 @@ ShopView::ShopView(GameLogic *state, sf::RenderWindow *App) : PlayerView(state, 
 
 void ShopView::process_input(float delta)
 {
-    //sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        Engine::Instance().switch_mode(MODE_MENU);
-    }
-
 }
 
 void ShopView::handle_event(sf::Event event)
 {
-    sf::Vector2f mouse_pos = (*app).mapPixelToCoords(sf::Mouse::getPosition(*app));
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
-    else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::F) Engine::Instance().switch_mode(MODE_PLAY);
+    if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::Q)
+    {
+        Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
+    }
 }
 
 void ShopView::update(float delta)
