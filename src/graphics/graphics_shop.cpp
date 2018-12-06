@@ -1,3 +1,4 @@
+#include <engine.h>
 #include "graphics/graphics_shop.h"
 
 
@@ -19,8 +20,14 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     sf::Text healthText = prepareText("HealthText", font);
     //sf::Text aText = prepareText("AbilitiesText", font);
     sf::Text exitText = prepareText("ExitText", font);
+    sf::Text totalText = prepareText("TotalText", font);
     sf::Text goldText = prepareText("GoldText", font);
+    sf::Text gold = prepareText("Gold", font);
     sf::Text shopkeeper = prepareText("ShopKeeperText", font);
+    sf::Text mText = prepareText("MText", font);
+    sf::Text hText = prepareText("HText", font);
+    sf::Text mana = prepareText("M", font);
+    sf::Text health = prepareText("H", font);
     sf::Texture shop = resources.GetTexture("shop");
     sf::Sprite sprite;
     sf::RectangleShape rectangle, rectangle2;
@@ -47,13 +54,28 @@ void ShopGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     healthText.setPosition(manaText.getPosition().x +10, manaText.getPosition().y + 40);
     //aText.setPosition(healthText.getPosition().x, healthText.getPosition().y + 40);
     exitText.setPosition(healthText.getPosition().x, healthText.getPosition().y + 40);
-    goldText.setPosition(exitText.getPosition().x, exitText.getPosition().y + 40);
+    totalText.setPosition(exitText.getPosition().x - 60, exitText.getPosition().y + 30);
+    goldText.setPosition(totalText.getPosition().x, totalText.getPosition().y + 20);
+    gold.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_gold()));
+    gold.setPosition(goldText.getPosition().x +10, goldText.getPosition().y -5);
 
-    //target.draw(aText, states);
+    mText.setPosition(goldText.getPosition().x, goldText.getPosition().y + 20);
+    hText.setPosition(mText.getPosition().x, mText.getPosition().y + 20);
+    mana.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_mana()));
+    health.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_health()));
+    mana.setPosition(mText.getPosition().x + 10, mText.getPosition().y - 5);
+    health.setPosition(hText.getPosition().x + 10, hText.getPosition().y -5);
+
+    target.draw(mana, states);
+    target.draw(hText, states);
+    target.draw(mText, states);
+    target.draw(health, states);
     target.draw(manaText, states);
     target.draw(exitText, states);
     target.draw(healthText, states);
     target.draw(goldText, states);
+    target.draw(gold, states);
+    target.draw(totalText, states);
     target.draw(rectangle, states);
     target.draw(rectangle2, states);
     target.draw(shopkeeper,states);

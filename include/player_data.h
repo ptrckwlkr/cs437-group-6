@@ -37,6 +37,7 @@ public:
     //void add_gold() {gold += 20;}
     void add_mana() { mana += 20;}
     void add_health() {health += 20;}
+    void subtract_gold(){ gold -= 300;}
     void add_gold(int g) {gold += g;}
     void add_enemy_count() {level_total_enemies +=1;}
     void set_l_cooldown(float cooldown) { l_cooldown = cooldown;}

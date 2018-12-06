@@ -59,7 +59,7 @@ bool GameLogic::check_flags() {
         f_floor_complete = false;
 
         if (current_floor > floors_per_level[current_level])
-            Engine::Instance().switch_mode(MODE_NEXT_LEVEL);
+            f_victory = true;
         else
         {
             reset();
@@ -79,7 +79,7 @@ bool GameLogic::check_flags() {
     if (f_victory) {
         f_victory = false;
         reset();
-        Engine::Instance().switch_mode(MODE_VICTORY);
+        Engine::Instance().switch_mode(MODE_NEXT_LEVEL);
         level_factory.reset();
         current_level = -1;
         return true;

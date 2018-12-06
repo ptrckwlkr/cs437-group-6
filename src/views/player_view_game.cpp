@@ -87,7 +87,7 @@ void GameView::handle_event(sf::Event event) {
         state->get_level().get_player().set_player_data(&(state->get_player_data()));
     }
     else if (event.key.code == sf::Keyboard::P && event.type == sf::Event::KeyReleased) state->toggle_pause();
-    else if (event.key.code == sf::Keyboard::V && event.type == sf::Event::KeyReleased) Engine::Instance().switch_mode(MODE_VICTORY);
+    else if (event.key.code == sf::Keyboard::V && event.type == sf::Event::KeyReleased) Engine::Instance().switch_mode(MODE_SHOP);
 
 }
 

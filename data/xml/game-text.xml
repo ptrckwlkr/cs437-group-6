@@ -184,13 +184,56 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </ExitText>
-        <GoldText>
-            <text>Total: </text>
+        <TotalText>
+            <text>Totals: </text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
+        </TotalText>
+        <GoldText>
+            <text>G: </text>
+            <size>12</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
         </GoldText>
+        <Gold>
+            <text> </text>
+            <size>12</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </Gold>
+        <MText>
+            <text>M:</text>
+            <size>12</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </MText>
+        <M>
+            <text> </text>
+            <size>12</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </M>
+        <HText>
+            <text>H: </text>
+            <size>12</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </HText>
+        <H>
+            <text> </text>
+            <size>12</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </H>
+
     </Shop>
     <Victory>
         <winText>
