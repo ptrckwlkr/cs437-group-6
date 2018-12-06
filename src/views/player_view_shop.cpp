@@ -28,18 +28,21 @@ void ShopView::handle_event(sf::Event event)
         {
             if ( 380 < mouse_pos.y && mouse_pos.y < 400) {
                 printf("mana pressed");
-                get_state().get_player_data().add_mana();
-                get_state().get_player_data().subtract_gold();
-                std::cout << get_state().get_player_data().get_mana();
+                if (get_state().get_player_data().get_gold() > 0){
+                    get_state().get_player_data().add_mana();
+                    get_state().get_player_data().subtract_gold();
+                    std::cout << get_state().get_player_data().get_mana();
+                }
             }
 
             if ( 418 < mouse_pos.y && mouse_pos.y < 450) {
-                printf("health pressed");
-                get_state().get_player_data().add_health();
-                get_state().get_player_data().subtract_gold();
-                std::cout << get_state().get_player_data().get_health();
-                //std::cout << get_state().get_player_data().get_gold();
-
+                if (get_state().get_player_data().get_gold() > 0){
+                    printf("health pressed");
+                    get_state().get_player_data().add_health();
+                    get_state().get_player_data().subtract_gold();
+                    std::cout << get_state().get_player_data().get_health();
+                    //std::cout << get_state().get_player_data().get_gold();
+                }
             }
 
             if ( 460 < mouse_pos.y && mouse_pos.y < 500) {
