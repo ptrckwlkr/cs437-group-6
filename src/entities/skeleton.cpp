@@ -25,6 +25,7 @@ void Skeleton::handleCollision(const EventCollision &event)
 
 void Skeleton::die()
 {
+    Engine::Instance().get_state().get_player_data().add_enemy_count();
     EntityManager::Instance().removeEntity(id);
     EntityManager::Instance().createEntity<Blood>(pos.x, pos.y);
 

@@ -38,13 +38,14 @@ public:
     void add_mana() { mana += 20;}
     void add_health() {health += 20;}
     void add_gold(int g) {gold += g;}
+    void add_enemy_count() {level_total_enemies +=1;}
     void set_l_cooldown(float cooldown) { l_cooldown = cooldown;}
     void set_l_mana_cost(float cost) { l_mana_cost = cost;}
     GearSet &get_gear() {return gear;}
 
     int get_gold() {return gold + level_gold;}
     int get_gold_lost(){return gold_lost;}
-    int get_level_total_enemies(){return level_total_enemies;};
+    int get_total_enemies(){return total_enemies_lost;};
     void handleGoldCollection(const EventGoldCollection &event);
     void handlePlayerDeath(const EventPlayerDied &event);
     void handleLevelComplete(const EventPlayerDied &event);
@@ -53,6 +54,7 @@ public:
 private:
     int gold;
     int level_gold;
+    int total_enemies_lost;
     int level_total_enemies;
     int gold_lost;
     GearSet gear;

@@ -17,7 +17,7 @@ PlayerData::PlayerData() : Listener()
 
   EventManager::Instance().registerListener(EventGoldCollection::eventType, this, &PlayerData::handleGoldCollection);
   EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &PlayerData::handlePlayerDeath);
-  EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, &PlayerData::handleEnemiesCount);
+  //EventManager::Instance().registerListener(EventEntityDestroyed::eventType, this, &PlayerData::handleEnemiesCount);
   //EventManager::Instance().registerListener(EventPlayerDied::eventType, this, &handleLevelComplete);
 }
 
@@ -95,7 +95,9 @@ void PlayerData::handleGoldCollection(const EventGoldCollection &event)
 void PlayerData::handlePlayerDeath(const EventPlayerDied &event)
 {
   gold_lost =level_gold;
+  total_enemies_lost = level_total_enemies;
   level_gold = 0;
+  level_total_enemies = 0;
 }
 
 void PlayerData::handleLevelComplete(const EventPlayerDied &event)
@@ -103,10 +105,10 @@ void PlayerData::handleLevelComplete(const EventPlayerDied &event)
   gold += level_gold;
   level_gold = 0;
 }
-void PlayerData::handleEnemiesCount(const EventEntityDestroyed &event)
-{
-  level_total_enemies +=1;
-//  if (event.getOther().getEntityType() == ::entityType ){
-//    level_total_enemies +=1;
-//  }
-}
+//void PlayerData::handleEnemiesCount(const EventEntityDestroyed &event)
+//{
+//  level_total_enemies +=1;
+////  if (event.getOther().getEntityType() == ::entityType ){
+////    level_total_enemies +=1;
+////  }
+//}

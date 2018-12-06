@@ -25,7 +25,7 @@ void LostGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) const
     sf::Text number = prepareText("NumberText", font);
     sf::Text goldstats = prepareText("GoldStatsText", font);
     sf::Text goldNum = prepareText("GoldNumText", font);
-    number.setString(std::to_string( Engine::Instance().get_state().get_player_data().get_level_total_enemies()) );
+    number.setString(std::to_string( Engine::Instance().get_state().get_player_data().get_total_enemies()) );
     goldNum.setString(std::to_string(Engine::Instance().get_state().get_player_data().get_gold_lost() ));
     sf::Text playAgain = prepareText("ReplayText", font);
 

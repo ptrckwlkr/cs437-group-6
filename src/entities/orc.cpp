@@ -26,6 +26,7 @@ void Orc::handleCollision(const EventCollision &event)
 
 void Orc::die()
 {
+    Engine::Instance().get_state().get_player_data().add_enemy_count();
     EntityManager::Instance().removeEntity(id);
     EntityManager::Instance().createEntity<Blood>(pos.x, pos.y);
 

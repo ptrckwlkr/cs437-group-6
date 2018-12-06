@@ -28,6 +28,7 @@ void Ghost::handleCollision(const EventCollision &event)
 
 void Ghost::die()
 {
+    Engine::Instance().get_state().get_player_data().add_enemy_count();
     EntityManager::Instance().removeEntity(id);
     EntityManager::Instance().createEntity<Smoke>(pos.x, pos.y);
 
