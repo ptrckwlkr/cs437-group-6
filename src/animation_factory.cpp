@@ -1,5 +1,6 @@
 #include <unordered_map>
 #include <entities/Player.h>
+#include <entities/potion.h>
 #include "Animations/BloodAnimation.h"
 #include "Animations/ExplosionAnimation.h"
 #include "Animations/GoldAnimation.h"
@@ -12,6 +13,7 @@
 #include "animation_factory.h"
 #include "Animations/OrcAnimation.h"
 #include "Animations/SreepAnimation.h"
+#include "Animations/PotionAnimation.h"
 
 using namespace AnimationFactory;
 
@@ -56,6 +58,7 @@ std::shared_ptr<Animation> AnimationFactory::createAnimation(Entity *entity) {
             {Skeleton::entityType,  (Factory) createInstance<Skeleton, SkeletonAnimation>},
             {Sreep::entityType,     (Factory) createInstance<Sreep, SreepAnimation>},
             {Orc::entityType,       (Factory) createInstance<Orc, OrcAnimation>},
+            {Potion::entityType,    (Factory) createInstance<Potion, PotionAnimation>}
     };
 
     std::shared_ptr<Animation> animation = nullptr;
