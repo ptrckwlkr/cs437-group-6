@@ -21,7 +21,6 @@ void VictoryView::handle_event(sf::Event event)
 
     if (event.type == sf::Event::EventType::MouseButtonPressed && sf::Event::EventType::MouseButtonReleased)
     {
-        printf( "play again pressed");
       Engine::Instance().switch_mode(MODE_MENU);
     }
 }

@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <chrono>
+#include "GameShop.h"
 #include "game_logic.h"
 #include "ResourceManager.h"
 #include "MusicManager.h"
@@ -39,6 +40,7 @@ public:
     void shutdown();
     float clock();
     GameLogic& get_state(){return state;}
+		GameShop& get_shop() {return shop;}
 	
 
 private:
@@ -50,6 +52,7 @@ private:
     Engine& operator=(Engine&&) = delete;
 
     GameLogic state;
+		GameShop shop;
     sf::RenderWindow *App;
     sf::Clock time;
     GameMode curr_game_mode;

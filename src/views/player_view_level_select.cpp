@@ -30,7 +30,6 @@ void LevelSelectView::handle_event(sf::Event event) {
         sf::Vector2f game_coords = app->mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
         selected_level = clicked_node(game_coords.x, game_coords.y);
         if (selected_level && selected_level == clicked_node(game_coords.x, game_coords.y)) {
-            printf("Level %d selected\n", selected_level);
             Engine::Instance().start_new_game(selected_level);
             Engine::Instance().switch_mode(MODE_PLAY);
         }

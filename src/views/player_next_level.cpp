@@ -21,7 +21,6 @@ void NextLevelView::handle_event(sf::Event event)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
     if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
     {
-        printf( "continue");
         Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
     }
 }

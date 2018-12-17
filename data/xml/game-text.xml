@@ -156,27 +156,27 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </ShopKeeperText>
-        <ManaText>
+        <BuyManaText>
             <text>Buy  Mana</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </ManaText>
-        <HealthText>
+        </BuyManaText>
+        <BuyHealthText>
             <text>Buy  Health</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </HealthText>
-        <AbilitiesText>
+        </BuyHealthText>
+        <BuyEquipmentText>
             <text>Buy  Equipment</text>
             <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </AbilitiesText>
+        </BuyEquipmentText>
         <ExitText>
             <text>Exit</text>
             <size>16</size>
@@ -184,20 +184,6 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </ExitText>
-        <TotalText>
-            <text>Totals: </text>
-            <size>16</size>
-            <r>255</r>
-            <g>255</g>
-            <b>255</b>
-        </TotalText>
-        <GoldText>
-            <text>G: </text>
-            <size>12</size>
-            <r>255</r>
-            <g>255</g>
-            <b>255</b>
-        </GoldText>
         <Gold>
             <text> </text>
             <size>12</size>
@@ -205,35 +191,55 @@ It  is  up  to  you  to  save  the  world!  Good  Luck!
             <g>255</g>
             <b>255</b>
         </Gold>
-        <MText>
-            <text>M:</text>
-            <size>12</size>
+        <PurchaseText>
+            <text>Purchase</text>
+            <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </MText>
-        <M>
-            <text> </text>
-            <size>12</size>
+        </PurchaseText>
+        <EquipText>
+            <text>Equip</text>
+            <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </M>
-        <HText>
-            <text>H: </text>
-            <size>12</size>
+        </EquipText>
+        <AttackText>
+            <text>ATK</text>
+            <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </HText>
-        <H>
-            <text> </text>
-            <size>12</size>
+        </AttackText>
+        <DefenceText>
+            <text>DEF</text>
+            <size>16</size>
             <r>255</r>
             <g>255</g>
             <b>255</b>
-        </H>
-
+        </DefenceText>
+        <HealthText>
+            <text>HP</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </HealthText>
+        <ManaText>
+            <text>MP</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </ManaText>
+        <RegenText>
+            <text>MAG</text>
+            <size>16</size>
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+        </RegenText>
     </Shop>
     <Victory>
         <winText>

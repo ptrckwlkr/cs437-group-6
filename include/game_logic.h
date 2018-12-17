@@ -49,6 +49,7 @@ private:
     bool f_paused = false;
     bool f_floor_complete = false;
     bool f_victory = false;
+		bool f_level_complete = false;
     bool f_defeat = false;
     bool check_flags();
 		void handleExitReached(const EventExitReached &event);

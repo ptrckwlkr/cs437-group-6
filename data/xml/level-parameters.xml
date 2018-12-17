@@ -152,7 +152,7 @@
             <num-skeleton-gold>0</num-skeleton-gold>
             <num-ghost-white>4</num-ghost-white>
             <num-ghost-red>2</num-ghost-red>
-            <num-ghost-gold></num-ghost-gold>
+            <num-ghost-gold>0</num-ghost-gold>
             <num-orc-green>0</num-orc-green>
             <num-orc-red>0</num-orc-red>
             <num-orc-gold>0</num-orc-gold>

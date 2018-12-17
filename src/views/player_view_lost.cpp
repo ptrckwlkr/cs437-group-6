@@ -18,7 +18,6 @@ void LostView::handle_event(sf::Event event) {
 
     else if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
         {
-            printf( "play again pressed");
             Engine::Instance().switch_mode(MODE_LEVEL_SELECT);
         }
     else if (event.type == sf::Event::EventType::KeyReleased && event.key.code == sf::Keyboard::E)

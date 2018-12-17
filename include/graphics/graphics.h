@@ -27,7 +27,7 @@ public:
 		  <text>String for sf::Text</text>
 		  <size>character size for text (as int)</size>
 		  <r or g or b>int for red/green/blue color value</r or g or b>*/
-	sf::Text prepareText(std::string elementName, const sf::Font &font) const
+	sf::Text prepareText(std::string elementName, const sf::Font &font, bool centered = true) const
 	{
 		sf::Text text;
 		rapidxml::xml_node<> *node = root_node->first_node(elementName.c_str());
@@ -38,8 +38,7 @@ public:
 		int b = std::stoi(node->first_node("b")->value());
 		text.setFillColor(sf::Color(r, g, b));
 		text.setFont(font);
-		text.setOrigin(text.getLocalBounds().width / 2.0, text.getLocalBounds().height / 2.0);
-
+		if (centered) text.setOrigin(text.getLocalBounds().width / 2.0, text.getLocalBounds().height / 2.0);
 		return text;
 	};
 

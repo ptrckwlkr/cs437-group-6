@@ -8,10 +8,6 @@ InventoryView::InventoryView(GameLogic *state, sf::RenderWindow *App) : PlayerVi
 }
 
 void InventoryView::process_input(float delta) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        Engine::Instance().switch_mode(MODE_MENU);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) Engine::Instance().switch_mode(MODE_MENU);
 }
 
 void InventoryView::handle_event(sf::Event event) {

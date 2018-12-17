@@ -80,16 +80,6 @@ void Map::updateCellCosts(const Vector2D &pos)
 
   cell_cost[player_y][player_x] = 0;
   costRecursion(closedList, player_x, player_y, 0);
-
-//  for (auto i : cell_cost)
-//  {
-//      for (auto j : i)
-//          printf("%4d", j);
-//      printf("\n");
-//  }
-
-
-
 }
 
 

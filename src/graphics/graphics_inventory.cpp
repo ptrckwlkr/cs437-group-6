@@ -1,7 +1,5 @@
 #include "graphics/graphics_inventory.h"
-#include "views/player_view_inventory.h"
-#include "macros.h"
-#include "Equipment.h"
+#include "graphics/sprites_equipment.h"
 
 InventoryGraphics::InventoryGraphics(InventoryView *view) : Graphics(), view(view)
 {
@@ -56,22 +54,4 @@ void InventoryGraphics::draw(sf::RenderTarget &target, sf::RenderStates states) 
 			target.draw(statText, states);
 		}
 	}
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-using namespace EquipSprite;
-
-std::string EquipSprite::getEquipSprite(EquipSet set, EquipSlot slot)
-{
-	static const std::map<std::pair<int, int>, std::string> equipMap {
-					{std::make_pair<int, int>(Renegade, Head), 		    std::string("renegade_head")},
-					{std::make_pair<int, int>(Renegade, Chest), 		  std::string("renegade_armor")},
-					{std::make_pair<int, int>(Renegade, Shoulders),	  std::string("renegade_shoulders")},
-					{std::make_pair<int, int>(Renegade, Legs), 		    std::string("renegade_pants")},
-					{std::make_pair<int, int>(Renegade, Feet), 		    std::string("renegade_boots")},
-					{std::make_pair<int, int>(Renegade, Hands), 		  std::string("renegade_gloves")},
-	};
-	auto i = equipMap.find(std::pair<int, int>(set, slot));
-  return i->second;
 }

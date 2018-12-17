@@ -9,7 +9,7 @@ PlayerData::PlayerData() : Listener()
   base_defence    = 5;
   base_speed      = PLAYER_SPEED;
   base_max_health = 100;
-  curr_max_health   = 100;
+  curr_max_health = 100;
   base_max_mana   = 100;
   curr_max_mana   = 100;
   base_mana_regen = 1;
@@ -87,7 +87,7 @@ float PlayerData::get_r_cooldown()
 
 float PlayerData::get_l_mana_cost()
 {
-  return l_mana_cost; //TODO
+  return l_mana_cost + gear.getSetStat(Attack); //TODO
 }
 
 void PlayerData::handleGoldCollection(const EventGoldCollection &event)

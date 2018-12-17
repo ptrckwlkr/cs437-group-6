@@ -12,7 +12,7 @@
 #define PLAYER_SPEED		            100
 #define CELL_SIZE                   64      //HAS TO BE A MULTIPLE OF TILE MAP TEXTURE SIZE!
 #define COLLISION_BUFFER            10
-#define STARTING_GOLD               0
+#define STARTING_GOLD               250
 #define ENEMY_ACTIVE_DISTANCE       300
 #define NUM_MENU_BUTTONS			      3
 

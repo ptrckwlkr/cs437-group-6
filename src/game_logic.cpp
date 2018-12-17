@@ -60,7 +60,7 @@ bool GameLogic::check_flags() {
         f_floor_complete = false;
 
         if (current_floor > floors_per_level[current_level]) {
-            f_victory = true;
+            f_level_complete = true;
         }
         else
         {
@@ -81,6 +81,18 @@ bool GameLogic::check_flags() {
     }
     if (f_victory) {
         f_victory = false;
+        reset();
+        Engine::Instance().switch_mode(MODE_VICTORY);
+        EventLevelComplete e(current_level);
+        EventManager::Instance().sendEvent(e);
+        level_factory.reset();
+        current_level = -1;
+        current_floor = 1;
+        return true;
+    }
+    if (f_level_complete)
+    {
+        f_level_complete = false;
         reset();
         Engine::Instance().switch_mode(MODE_NEXT_LEVEL);
         EventLevelComplete e(current_level);
